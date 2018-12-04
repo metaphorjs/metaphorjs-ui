@@ -1,13 +1,21 @@
 
-var ns = require("metaphorjs-namespace/src/var/ns.js"),
-    inArray = require("metaphorjs-shared/src/func/inArray.js");
+require("metaphorjs/src/lib/Config.js");
 
-module.exports = ns.register("MetaphorJs.mixin.Selectable", {
+var inArray = require("metaphorjs-shared/src/func/inArray.js"),
+    MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
+
+module.exports = MetaphorJs.mixin.Selectable = {
 
     $beforeInit: function() {
         this.$$selection = [];
         this.$$_selectable_itemCache = {};
-        this.$$selectionMode = this.$$selectionMode || "single";
+    },
+
+    $afterInit: function() {
+        this.config.setProperty("selectionMode", {
+            defaultMode: MetaphorJs.lib.Config.MODE_STATIC,
+            defaultValue: "single"
+        });
     },
 
     $beforeDestroy: function() {
@@ -57,7 +65,7 @@ module.exports = ns.register("MetaphorJs.mixin.Selectable", {
 
         if (!inArray(id, self.$$selection)) {
 
-            if (self.$$selectionMode === "single") {
+            if (self.config.get("selectionMode") === "single") {
                 self.$$selection = [];
                 self.$$_selectable_itemCache = {};
             }
@@ -102,7 +110,7 @@ module.exports = ns.register("MetaphorJs.mixin.Selectable", {
         var self = this,
             changed = !self.isAllSelected();
 
-        if (self.$$selectionMode !== "single") {
+        if (self.config.get("selectionMode") !== "single") {
             self.$$selection = [];
             self.$$_selectable_itemCache = {};
             self.store.each(function(item){
@@ -149,4 +157,4 @@ module.exports = ns.register("MetaphorJs.mixin.Selectable", {
 
     }
 
-});
+};

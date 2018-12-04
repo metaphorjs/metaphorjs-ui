@@ -2,27 +2,26 @@
 require("../../__init.js");
 require("../../mixin/Selectable.js");
 require("../Field.js");
-require("metaphorjs-model/src/class/Store.js");
+require("metaphorjs-model/src/model/Store.js");
 require("metaphorjs/src/lib/Queue.js");
 require("metaphorjs/src/func/dom/addClass.js");
 require("metaphorjs/src/func/dom/removeClass.js");
 require("metaphorjs/src/func/dom/getWidth.js");
 require("metaphorjs/src/lib/EventBuffer.js");
-require("metaphorjs-dialog/src/class/Dialog.js");
+require("metaphorjs-dialog/src/dialog/Dialog.js");
+require("metaphorjs/src/lib/Config.js");
+require("metaphorjs/src/lib/MutationObserver.js");
+require("metaphorjs/src/dom/getStyle.js");
 
-var cls = require("metaphorjs-class/src/cls.js"),
-    async = require("metaphorjs/src/func/async.js"),
+var async = require("metaphorjs/src/func/async.js"),
     bind = require("metaphorjs/src/func/bind.js"),
     isArray = require("metaphorjs/src/func/isArray.js"),
-    createGetter = require("metaphorjs-watchable/src/func/createGetter.js"),
     MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
-    
+
+module.exports = MetaphorJs.ui.field.Select = (function(){
 
 
-module.exports = (function(){
-
-
-    var Select = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
+    var Select = MetaphorJs.ui.Field.$extend({
         
         $mixins: [MetaphorJs.mixin.Selectable],
         $alias: "MetaphorJs.directive.component.ui-select",
@@ -30,31 +29,7 @@ module.exports = (function(){
         template: "ui/field/select.html",
         dialog: null,
 
-        multiple: false,
-        searchable: false,
-
-        valueField: "id",
-        displayField: "name",
-
-        hiddenInputName: "",
-        emptyText: "",
-        emptyItemText: "&nbsp;",
-        notFoundText: "Nothing found",
-        showEmptyItem: true,
-        showNotFound: true,
-        keepSelectedOptions: true,
-        useHiddenSelect: false,
-
-        queryParam: "q",
-        queryMode: "local",
         query: null,
-        queryMinLength: 3,
-
-        options: null,
-        store: null,
-        storeAutoLoad: true,
-        storePageSize: null,
-        storeModel: null,
         model: null,
 
         currentValue: null,
@@ -63,25 +38,29 @@ module.exports = (function(){
         _firstLoadSet: false,
 
         _initConfig: function(config) {
-            config.setType("multiple", "bool");
-            config.setType("searchable", "bool");
-            config.setType("storeAutoLoad", "bool");
-            config.setType("showEmptyItem", "bool");
-            config.setType("showNotFound", "bool");
-            config.setType("keepSelectedOptions", "bool");
-            config.setType("queryMinLength", "int");
-            config.setType("disabled", "bool");
-            config.setType("useHiddenSelect", "bool");
-            config.setType("storePageSize", "int");
+
+            config.setType("searchable", "bool", null, false);
+            config.setType("storeAutoLoad", "bool", null, true);
+            config.setType("storePageSize", "int", null, 20);
+            config.setType("valueField", null, null, "id");
+            config.setType("displayField", null, null, "name");
+
+            config.setType("showEmptyItem", "bool", null, true);
+            config.setType("showNotFound", "bool", null, true);
+            config.setType("keepSelectedOptions", "bool", null, true);
+            config.setType("useHiddenSelect", "bool", null, false);
             config.setType("hiddenSelectBreakpoint", "int");
-            
-            /*this.$addProperties({
-                options: {
-                    type: "array",
-                    watchable: true,
-                    nullable: true
-                }
-            });*/
+
+            config.setType("hiddenInputName", "string", null, "");
+            config.setType("emptyText", "string", null, "");
+            config.setType("emptyItemText", "string", null, "&nbsp;");
+            config.setType("notFoundText", "string", null, "Nothing found");
+
+            config.setType("queryParam", "string", null, "q");
+            config.setType("queryMinLength", "int", null, 3);
+            config.setType("queryMode", "string", null, "local");
+
+            config.setMode("onChange", MetaphorJs.lib.Config.MODE_FUNC);
 
             this.$super(config);
         },
@@ -89,25 +68,24 @@ module.exports = (function(){
         initComponent: function() {
 
             var self = this,
-                scope = self.scope;
+                scope = self.scope,
+                config = self.config;
 
-            if (self.onchange) {
+            if (config.hasExpression("onChange")) {
                 self.on(
                     "change",
-                    createGetter(self.onchange)(self.scope),
-                    createGetter(self.onchangeContext)(self.scope)
+                    config.get("onChange"),
+                    config.get("onChangeContext")
                 );
             }
 
-            self.$$selectionMode = self.multiple ? "multi" : "single";
-
-            if (self.storePageSize !== null) {
-                self.storePageSize = parseInt(self.storePageSize);
-            }
+            //self.$$selectionMode = self.multiple ? "multi" : "single";
+            //if (self.storePageSize !== null) {
+            //    self.storePageSize = parseInt(self.storePageSize);
+            //}
 
             self._prevQuery = "";
-
-            self.searchQueue = new Queue({
+            self.searchQueue = new MetaphorJs.lib.Queue({
                 auto: true,
                 async: 300,
                 mode: Queue.REPLACE
@@ -118,18 +96,22 @@ module.exports = (function(){
             scope.searchQuery = "";
             scope.focused = false;
 
-            if (self.store && typeof(self.store) === "string") {
-                self.store = createGetter(self.store)(self.scope);
+            if (config.hasExpression("store")) {
+                self.store = config.get("store");
             }
+            //if (self.store && typeof(self.store) === "string") {
+            //    self.store = createGetter(self.store)(self.scope);
+            //}
 
             if (!self.store) {
-                self.store = new Store({
-                    model: self.storeModel || {
-                        id: self.valueField
+                self.store = new MetaphorJs.model.Store({
+                    model: config.get("storeModel") || {
+                        id: config.get("valueField")
                     },
-                    local: !self.storeModel,
-                    autoLoad: self.storeModel && self.storeAutoLoad,
-                    pageSize: self.storePageSize
+                    local: !config.hasExpression("storeModel"),
+                    autoLoad: config.hasExpression("storeModel") && 
+                                config.get("storeAutoLoad"),
+                    pageSize: config.get("storePageSize")
                 });
             }
 
@@ -137,7 +119,7 @@ module.exports = (function(){
             self.store.on("load", self.onStoreLoad, self);
             self.store.filter(bind(self.storeFilter, self));
 
-            if (self.searchable) {
+            if (config.get("searchable")) {
                 self.queryWatcher = self.scope.$watch(
                     "this.searchQuery",
                     self.onSearchQueryChange,
@@ -145,21 +127,26 @@ module.exports = (function(){
                 );
             }
 
-            if (self.options) {
-                self.setOptions(self.options);
+            if (config.hasExpression("options")) {
+                self.setOptions(config.get("options"));
             }
 
-            if (self.value) {
-                self.setValue(self.value);
+            //TODO?
+            if (config.hasExpression("value")) {
+                self.setValue(config.get("value"));
             }
 
-            if (self.useHiddenSelect) {
-                if (self.hiddenSelectBreakpoint) {
-                    self.useHiddenSelect = false;
-                    self.resizeBuffer = EventBuffer.get(window, "resize");
+            if (config.get("useHiddenSelect")) {
+                if (config.get("hiddenSelectBreakpoint")) {
+                    config.set("useHiddenSelect", false);
+                    self.resizeBuffer = MetaphorJs.dom.EventBuffer.get(window, "resize");
                     self.resizeBuffer.watchWidth();
-                    self.resizeBuffer.onBreak("width", self.hiddenSelectBreakpoint, 
-                                                self.onWindowBreak, self);
+                    self.resizeBuffer.onBreak(
+                        "width", 
+                        config.get("hiddenSelectBreakpoint"), 
+                        self.onWindowBreak, 
+                        self
+                    );
                 }
             }
 
@@ -169,7 +156,8 @@ module.exports = (function(){
         afterRender: function() {
             var self = this;
             async(self.initDialog, self, [], 300);
-            if (self.multiple && self.searchable) {
+            if (self.config.get("selectionMode") === "multi" && 
+                self.config.get("searchable")) {
                 async(self.initSizer, self);
             }
             if (self.resizeBuffer) {
@@ -178,7 +166,9 @@ module.exports = (function(){
         },
 
         onWindowBreak: function() {
-            this.useHiddenSelect = getWidth(window) < this.hiddenSelectBreakpoint;
+            this.config.set("useHiddenSelect", 
+                getWidth(window) < this.config.get("hiddenSelectBreakpoint")
+            );
             this.scope.$check();
         },
 
@@ -207,8 +197,8 @@ module.exports = (function(){
 
         onBeforeDialogShow: function() {
             var self = this,
-                pl = getStyle(self.node, "padding-left"),
-                pr = getStyle(self.node, "padding-right");
+                pl = MetaphorJs.dom.getStyle(self.node, "padding-left"),
+                pr = MetaphorJs.dom.getStyle(self.node, "padding-right");
 
             if (self.disabled) {
                 return false;
@@ -217,8 +207,8 @@ module.exports = (function(){
             pl = pl ? parseInt(pl) : 0;
             pr = pr ? parseInt(pr) : 0;
 
-            self.dialog.getElem().style.minWidth = pl + pr + getWidth(self.node) + "px";
-            addClass(self.node, "active");
+            self.dialog.getElem().style.minWidth = pl + pr + MetaphorJs.dom.getWidth(self.node) + "px";
+            MetaphorJs.dom.addClass(self.node, "active");
         },
 
         onDialogShow: function() {
@@ -227,14 +217,14 @@ module.exports = (function(){
 
         onDialogHide: function() {
             this.scope.$set('opened', false);
-            removeClass(this.node, "active");
+            MetaphorJs.dom.removeClass(this.node, "active");
         },
 
         initDialog: function() {
 
             var self = this;
 
-            self.dialog = new Dialog({
+            self.dialog = new MetaphorJs.dialog.Dialog({
                 target: self.node,
                 position: {
                     type: "bl",
@@ -280,19 +270,19 @@ module.exports = (function(){
 
         setInputWidth: function() {
             this.scope.search.style.width =
-                (getWidth(this.scope.sizer) + 10) + "px";
+                (MetaphorJs.dom.getWidth(this.scope.sizer) + 10) + "px";
         },
 
         storeFilter: function(item) {
-            return this.keepSelectedOptions || !this.isSelected(item);
+            return this.config.get("keepSelectedOptions") || !this.isSelected(item);
         },
 
         getItemValue: function(item) {
-            return item[this.valueField];
+            return item[this.config.get("valueField")];
         },
 
         getItemName: function(item) {
-            return item[this.displayField];
+            return item[this.config.get("displayField")];
         },
 
         getSelectedValues: function() {
@@ -302,7 +292,7 @@ module.exports = (function(){
         getSelectedName: function() {
 
             var self = this;
-            if (self.multiple) {
+            if (self.config.get("selectionMode") === "multi") {
                 return null;
             }
             var sel = self.getSelection();
@@ -316,7 +306,8 @@ module.exports = (function(){
         },
 
         getMultiSelection: function() {
-            return this.multiple ? this.getSelection() : [];
+            return this.config.get("selectionMode") === "multi" ? 
+                        this.getSelection() : [];
         },
 
         setSearchFocus: function() {
@@ -342,9 +333,9 @@ module.exports = (function(){
             var opts = [],
                 self = this;
 
-            if (self.showEmptyItem && !self.store.isEmpty()) {
+            if (self.config.get("showEmptyItem") && !self.store.isEmpty()) {
                 opts.push({
-                    name: self.emptyItemText,
+                    name: self.config.get("emptyItemText"),
                     value: null
                 });
             }
@@ -373,7 +364,7 @@ module.exports = (function(){
                 val = self.scope.hiddenselect.value;
             
             if (val) {
-                var item = self.store.find(self.valueField, val);
+                var item = self.store.find(self.config.get("valueField"), val);
                 if (item) {
                     self.selectItem(item);
                 }
@@ -405,7 +396,7 @@ module.exports = (function(){
                 );
             }
             else if (query === "") {
-                if (self.storeAutoLoad) {
+                if (self.config.get("storeAutoLoad")) {
                     self.searchQueue.append(
                         self.search,
                         self,
@@ -420,7 +411,7 @@ module.exports = (function(){
                 self.store.clear();
             }
 
-            if (self.multiple) {
+            if (self.config.get("selectionMode") === "multi") {
                 async(self.setInputWidth, self);
             }
         },
@@ -459,7 +450,7 @@ module.exports = (function(){
         onSelfClick: function(e) {
             var self = this;
 
-            if (self.useHiddenSelect) {
+            if (self.config.get("useHiddenSelect")) {
                 e.stopPropagation();
                 return;
             }
@@ -470,12 +461,12 @@ module.exports = (function(){
                 return;
             }
 
-            if (self.searchable && !self.scope.focused) {
+            if (self.config.get("searchable") && !self.scope.focused) {
                 async(this.setSearchFocus, this);
                 e.stopPropagation();
             }
 
-            if (!self.searchable &&
+            if (!self.config.get("searchable") &&
                 !self.dialog.isVisible()) {
                 self.dialog.show();
                 e.stopPropagation();
@@ -490,13 +481,16 @@ module.exports = (function(){
         onItemClick: function(item, e) {
             if (item) {
                 //this.selectItem(item);
-                this.setValue(item[this.valueField], item[this.displayField]);
+                this.setValue(
+                    item[this.config.get("valueField")], 
+                    item[this.config.get("displayField")]
+                );
             }
             else {
                 this.unselectAll();
             }
 
-            if (!this.keepSelectedOptions) {
+            if (!this.config.get("keepSelectedOptions")) {
                 this.store.update();
             }
 
@@ -504,7 +498,7 @@ module.exports = (function(){
 
             this.scope.$set("searchQuery", "");
 
-            if (!this.multiple) {
+            if (this.config.get("selectionMode") !== "multi") {
                 this.dialog.hide();
             }
             else {
@@ -534,16 +528,11 @@ module.exports = (function(){
             this.trigger("change", this.currentValue, this);
         },
 
-        $onPropertyChange: function(val, prev, name) {
-            if (name === "options") {
-                this.setOptions(val);
-            }
-        },
 
         getValue: function() {
             var self = this, 
                 sels = self.getSelectedValues();
-            if (self.multiple) {
+            if (self.config.get("selectionMode") === "multi") {
                 return sels;
             }
             else {
@@ -566,7 +555,7 @@ module.exports = (function(){
                 return;
             }
 
-            if (self.multiple) {
+            if (self.config.get("selectionMode") === "multi") {
                 if (!isArray(val)) {
                     val = [val];
                 }
