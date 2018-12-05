@@ -61,7 +61,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         config.setType("queryMinLength", "int", null, 3);
         config.setType("queryMode", "string", null, "local");
 
-        config.setMode("onChange", MetaphorJs.lib.Config.MODE_FUNC);
+        console.log(config.properties)
     },
 
     initComponent: function() {
@@ -69,19 +69,6 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         var self = this,
             scope = self.scope,
             config = self.config;
-
-        if (config.hasExpression("onChange")) {
-            self.on(
-                "change",
-                config.get("onChange"),
-                config.get("onChangeContext")
-            );
-        }
-
-        //self.$$selectionMode = self.multiple ? "multi" : "single";
-        //if (self.storePageSize !== null) {
-        //    self.storePageSize = parseInt(self.storePageSize);
-        //}
 
         self._prevQuery = "";
         self.searchQueue = new MetaphorJs.lib.Queue({
@@ -98,9 +85,6 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         if (config.hasExpression("store")) {
             self.store = config.get("store");
         }
-        //if (self.store && typeof(self.store) === "string") {
-        //    self.store = createGetter(self.store)(self.scope);
-        //}
 
         if (!self.store) {
             self.store = new MetaphorJs.model.Store({
@@ -129,12 +113,6 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         if (config.hasExpression("options")) {
             self.setOptions(config.get("options"));
         }
-
-        //TODO?
-        // 'value' would have cmp="field.Select"
-        //if (config.hasExpression("value")) {
-        //    self.setValue(config.get("value"));
-        //}
 
         if (config.get("useHiddenSelect")) {
             if (config.get("hiddenSelectBreakpoint")) {
