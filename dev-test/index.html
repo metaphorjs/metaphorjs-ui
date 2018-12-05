@@ -2,13 +2,24 @@
     <head>
         <title>MetaphorJs UI Feature Test</title>
         <script src="metaphorjs.ui.js"></script>
+        <link rel="stylesheet" href="semantic.css">
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <div class="cases" mjs-app>
-            <div class="case">
+            <div class="case" 
+                {init}="
+                    this.options = [
+                        {id: 1, name: 'AAA'},
+                        {id: 2, name: 'BBB'},
+                        {id: 3, name: 'CCC'}
+                    ]
+                ">
                 <p>Select</p>
-                <ui-select />
+                <ui-select 
+                    $empty-text="Nothing selected" 
+                    $options="this.options"
+                    $on--prop-event="this.options"/>
             </div>
         </div>
     </body>

@@ -33,7 +33,12 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
 
     _initConfig: function() {
 
+        this.$super();
+
         var config = this.config;
+
+        config.setDefaultMode("options", MetaphorJs.lib.Config.MODE_SINGLE);
+        config.setDefaultMode("store", MetaphorJs.lib.Config.MODE_SINGLE);
 
         config.setType("searchable", "bool", null, false);
         config.setType("storeAutoLoad", "bool", null, true);
@@ -57,8 +62,6 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         config.setType("queryMode", "string", null, "local");
 
         config.setMode("onChange", MetaphorJs.lib.Config.MODE_FUNC);
-
-        this.$super();
     },
 
     initComponent: function() {
@@ -128,9 +131,10 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         }
 
         //TODO?
-        if (config.hasExpression("value")) {
-            self.setValue(config.get("value"));
-        }
+        // 'value' would have cmp="field.Select"
+        //if (config.hasExpression("value")) {
+        //    self.setValue(config.get("value"));
+        //}
 
         if (config.get("useHiddenSelect")) {
             if (config.get("hiddenSelectBreakpoint")) {
@@ -145,6 +149,8 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
                 );
             }
         }
+
+        window.selObj = self;
 
         self.$super();
     },
@@ -230,7 +236,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
             modal: false,
             group: "ui-select",
             render: {
-                el: self.scope.menu,
+                el: self.scope.el_menu,
                 zIndex: 100,
                 appendTo: document.body,
                 style: {
@@ -255,8 +261,8 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
     },
 
     initSizer: function() {
-        if (this.scope.sizer) {
-            var style = this.scope.sizer.style;
+        if (this.scope.el_sizer) {
+            var style = this.scope.el_sizer.style;
             style.left = '-10000px';
             style.maxWidth = '1000px';
             style.display = 'inline-block';
@@ -265,8 +271,8 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
     },
 
     setInputWidth: function() {
-        this.scope.search.style.width =
-            (MetaphorJs.dom.getWidth(this.scope.sizer) + 10) + "px";
+        this.scope.el_search.style.width =
+            (MetaphorJs.dom.getWidth(this.scope.el_sizer) + 10) + "px";
     },
 
     storeFilter: function(item) {
@@ -307,7 +313,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
     },
 
     setSearchFocus: function() {
-        this.scope.search.focus();
+        this.scope.el_search.focus();
     },
 
     search: function(query) {
@@ -357,7 +363,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
 
     onHiddenSelectChange: function(e) {
         var self = this,
-            val = self.scope.hiddenselect.value;
+            val = self.scope.el_hiddenselect.value;
         
         if (val) {
             var item = self.store.find(self.config.get("valueField"), val);

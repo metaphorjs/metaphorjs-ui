@@ -1,10 +1,6 @@
 <!--{includes: true}-->
-<div class="ui dropdown selection"
+<div class="form__select"
      (click)="this.field.onSelfClick(this.$event)"
-     {init}="
-          this.emptyShown = false;
-          this.selectedShown = false;
-     "
      {class.loading}="this.loading"
      {class.disabled}="this.field.$cfg.disabled"
      {class.search}="this.field.$cfg.searchable"
@@ -67,15 +63,16 @@
          {show}="!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable"
          {show.$display}="inline-block">&nbsp;</div>
 
-    <select #el_hidden_select
+    <select class="form-select_hidden-select"
+            #el_hidden_select
             (click)="this.field.onHiddenSelectClick(this.$event)"
             (change)="this.field.onHiddenSelectChange(this.$event)"
             {show}="this.field.$cfg.useHiddenSelect"
             {show.$display}="block" 
             {options}="this.field._getSelectOptions()"></select>
 
-    <div #el_menu>
-        <div class="ui dropdown menu" #el_menu_items>
+    <div class="form-select-menu" #el_menu>
+        <div class="menu" #el_menu_items>
             <div class="disabled item"
                  #el_menu_disabled
                  {if}="this.field.$cfg.showNotFound && this.field.store.isEmpty()"

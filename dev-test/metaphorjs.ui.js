@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/field/select.html":"<!--{includes: true}--><div class=\"form_select\" (click)=\"this.field.onSelfClick(this.$event)\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.$cfg.selectionMode === 'multi'\"><input type=\"hidden\" #el_hidden_field [name]=\"this.field.$cfg.hiddenInputName\" [value]=\"this.field.$$selection | join:','\"><i #el_icon_down (click)=\"this.field.onDropdownIconClick(this.$event)\"><!-- include icons/down.html --></i><a class=\"form_select__label\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" #el_search class=\"search\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" #el_sizer {if}=\"this.field.$cfg.selectionMode === 'multi' && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" #el_default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" #el_text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && this.field.$cfg.selectionMode !== 'multi' && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind}=\"this.field.getSelectedName()\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select class=\"form-select_hidden-select\" #el_hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {show}=\"this.field.$cfg.useHiddenSelect\" {show.$display}=\"block\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"form-select-menu\" #el_menu><div class=\"items\" #el_menu_items><div class=\"disabled item\" #el_menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click)=\"this.field.onNotFoundClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.notFoundText\"></div><div class=\"empty item\" #el_menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></div><div class=\"item\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></div></div><!--<div class=\"pagination_container\"\n             {cmp}=\"Pagination\"\n             {cmp.$autoscroll}=\"false\"\n             {show}=\"this.pagination.hasPages()\"\n             (click)=\"this.$parent.field.onPaginationClick(this.$event)\">\n        </div>--></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"\n          this.emptyShown = false;\n          this.selectedShown = false;\n     \" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.$cfg.selectionMode === 'multi'\"><input type=\"hidden\" #el_hidden_field [name]=\"this.field.$cfg.hiddenInputName\" [value]=\"this.field.$$selection | join:','\"><i #el_icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"form_select__label\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" #el_search class=\"search\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" #el_sizer {if}=\"this.field.$cfg.selectionMode === 'multi' && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" #el_default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" #el_text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && this.field.$cfg.selectionMode !== 'multi' && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind}=\"this.field.getSelectedName()\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select #el_hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {show}=\"this.field.$cfg.useHiddenSelect\" {show.$display}=\"block\" {options}=\"this.field._getSelectOptions()\"></select><div #el_menu><div class=\"ui dropdown menu\" #el_menu_items><div class=\"disabled item\" #el_menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click)=\"this.field.onNotFoundClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.notFoundText\"></div><div class=\"empty item\" #el_menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></div><div class=\"item\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></div></div><!--<div class=\"pagination_container\"\n             {cmp}=\"Pagination\"\n             {cmp.$autoscroll}=\"false\"\n             {show}=\"this.pagination.hasPages()\"\n             (click)=\"this.$parent.field.onPaginationClick(this.$event)\">\n        </div>--></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -10346,8 +10346,9 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
                     }
                 }
 
-                if (!someHandler && attrs.reference) {
+                if (attrs.reference) {
                     scope[attrs.reference] = node;
+                    dom_removeAttr(node, '#' + attrs.reference);
                 }
 
                 if (defers.length && !attrs.config.ignoreInside) {
@@ -12758,15 +12759,14 @@ var app_resolve = MetaphorJs.app.resolve = function app_resolve(cmp, cfg, scope,
 
         var cmpName = config.get("value"),
             constr  = typeof cmpName === "string" ?
-                        ns.get(cmpName, true) : cmpName,
-            nodecfg = config.getAll();
+                        ns.get(cmpName, true) : cmpName;
 
         if (!constr) {
             throw new Error("Component " + cmpName + " not found");
         }
 
-        var sameScope       = nodecfg.sameScope || constr.$sameScope,
-            isolateScope    = nodecfg.isolateScope || constr.$isolateScope;
+        var sameScope       = config.get("sameScope") || constr.$sameScope,
+            isolateScope    = config.get("isolateScope") || constr.$isolateScope;
 
         var newScope = isolateScope ? scope.$newIsolated() : 
                                         (sameScope ? scope : scope.$new());
@@ -24885,7 +24885,7 @@ var dom_getOffsetParent = MetaphorJs.dom.getOffsetParent = function dom_getOffse
  *  @type {int} left
  * }
  */
-MetaphorJs.dom.getOffet = function dom_getOffset(node) {
+var dom_getOffset = MetaphorJs.dom.getOffset = function dom_getOffset(node) {
 
     var box = {top: 0, left: 0},
         html = window.document.documentElement;
@@ -24941,8 +24941,8 @@ var dom_getPosition = MetaphorJs.dom.getPosition = function dom_getPosition(node
         offset = node.getBoundingClientRect();
     }
     else if (to) {
-        var thisOffset = MetaphorJs.dom.getOffset(node),
-            toOffset = MetaphorJs.dom.getOffset(to),
+        var thisOffset = dom_getOffset(node),
+            toOffset = dom_getOffset(to),
             position = {
                 left: thisOffset.left - toOffset.left,
                 top: thisOffset.top - toOffset.top
@@ -24961,10 +24961,10 @@ var dom_getPosition = MetaphorJs.dom.getPosition = function dom_getPosition(node
         offsetParent = dom_getOffsetParent(node);
 
         // Get correct offsets
-        offset = MetaphorJs.dom.getOffset(node);
+        offset = dom_getOffset(node);
 
         if (offsetParent !== html) {
-            parentOffset = MetaphorJs.dom.getOffset(offsetParent);
+            parentOffset = dom_getOffset(offsetParent);
         }
 
         // Add offsetParent borders
@@ -26794,6 +26794,15 @@ var app_Component = MetaphorJs.app.Component = cls({
 
     _initConfig: function(){
         this.config.setDefaultMode("as", lib_Config.MODE_STATIC);
+        this._initConfigListeners("on");
+    },
+
+    _initConfigListeners: function(mode) {
+
+        var self = this;
+        self.config.eachProperty(function(name, prop){
+            console.log(name, prop)
+        });
     },
 
     _createNode: function() {
@@ -29147,7 +29156,7 @@ var dialog_position_Target = MetaphorJs.dialog.position.Target =
             size    = dlg.getDialogSize(),
             offset  = pBase && !absolute ?
                         dom_getPosition(target, pBase) :
-                        MetaphorJs.dom.getOffset(target),
+                        dom_getOffset(target),
             tsize   = dlg.getTargetSize(),
             pos     = {},
             pri     = type.substr(0, 1),
@@ -29288,7 +29297,7 @@ var dialog_position_Mouse = MetaphorJs.dialog.position.Mouse = dialog_position_T
             absOfs  = {x: 0, y: 0};
 
         if (!absolute && base) {
-            var baseOfs = MetaphorJs.dom.getOffset(base);
+            var baseOfs = dom_getOffset(base);
             absOfs.x = baseOfs.left;
             absOfs.y = baseOfs.top;
         }
@@ -33126,7 +33135,12 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
 
     _initConfig: function() {
 
+        this.$super();
+
         var config = this.config;
+
+        config.setDefaultMode("options", lib_Config.MODE_SINGLE);
+        config.setDefaultMode("store", lib_Config.MODE_SINGLE);
 
         config.setType("searchable", "bool", null, false);
         config.setType("storeAutoLoad", "bool", null, true);
@@ -33150,8 +33164,6 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
         config.setType("queryMode", "string", null, "local");
 
         config.setMode("onChange", lib_Config.MODE_FUNC);
-
-        this.$super();
     },
 
     initComponent: function() {
@@ -33221,9 +33233,10 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
         }
 
         //TODO?
-        if (config.hasExpression("value")) {
-            self.setValue(config.get("value"));
-        }
+        // 'value' would have cmp="field.Select"
+        //if (config.hasExpression("value")) {
+        //    self.setValue(config.get("value"));
+        //}
 
         if (config.get("useHiddenSelect")) {
             if (config.get("hiddenSelectBreakpoint")) {
@@ -33238,6 +33251,8 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
                 );
             }
         }
+
+        window.selObj = self;
 
         self.$super();
     },
@@ -33323,7 +33338,7 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
             modal: false,
             group: "ui-select",
             render: {
-                el: self.scope.menu,
+                el: self.scope.el_menu,
                 zIndex: 100,
                 appendTo: document.body,
                 style: {
@@ -33348,8 +33363,8 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
     },
 
     initSizer: function() {
-        if (this.scope.sizer) {
-            var style = this.scope.sizer.style;
+        if (this.scope.el_sizer) {
+            var style = this.scope.el_sizer.style;
             style.left = '-10000px';
             style.maxWidth = '1000px';
             style.display = 'inline-block';
@@ -33358,8 +33373,8 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
     },
 
     setInputWidth: function() {
-        this.scope.search.style.width =
-            (dom_getWidth(this.scope.sizer) + 10) + "px";
+        this.scope.el_search.style.width =
+            (dom_getWidth(this.scope.el_sizer) + 10) + "px";
     },
 
     storeFilter: function(item) {
@@ -33400,7 +33415,7 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
     },
 
     setSearchFocus: function() {
-        this.scope.search.focus();
+        this.scope.el_search.focus();
     },
 
     search: function(query) {
@@ -33450,7 +33465,7 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
 
     onHiddenSelectChange: function(e) {
         var self = this,
-            val = self.scope.hiddenselect.value;
+            val = self.scope.el_hiddenselect.value;
         
         if (val) {
             var item = self.store.find(self.config.get("valueField"), val);
