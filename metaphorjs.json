@@ -1,0 +1,19 @@
+{
+    "build": {
+        "test": {
+            "target": "dev-test/metaphorjs.ui.js",
+            "files": [
+                ["metaphorjs/metaphorjs.json", "all"],
+                "metaphorjs/src/extra-directives/**",
+                "metaphorjs/src/app/**",
+                "src/mixin/**",
+                "src/ui/**"
+            ],
+            "templates": [
+                ["src-theme/semantic-ui/template/**", {
+                    "base": "src-theme/semantic-ui/template"
+                }]
+            ]
+        }
+    }
+}

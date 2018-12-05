@@ -1,8 +1,7 @@
 
 require("metaphorjs/src/lib/Config.js");
 
-var inArray = require("metaphorjs-shared/src/func/inArray.js"),
-    MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
+var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 
 module.exports = MetaphorJs.mixin.Selectable = {
 
@@ -12,10 +11,8 @@ module.exports = MetaphorJs.mixin.Selectable = {
     },
 
     $afterInit: function() {
-        this.config.setProperty("selectionMode", {
-            defaultMode: MetaphorJs.lib.Config.MODE_STATIC,
-            defaultValue: "single"
-        });
+        this.config.setType("selectionMode", 
+            null, MetaphorJs.lib.Config.MODE_STATIC, "single");
     },
 
     $beforeDestroy: function() {
@@ -63,7 +60,7 @@ module.exports = MetaphorJs.mixin.Selectable = {
 
         var self = this;
 
-        if (!inArray(id, self.$$selection)) {
+        if (self.$$selection.indexOf(id) === -1) {
 
             if (self.config.get("selectionMode") === "single") {
                 self.$$selection = [];
@@ -137,7 +134,7 @@ module.exports = MetaphorJs.mixin.Selectable = {
     },
 
     isIdSelected: function(id) {
-        return inArray(id, this.$$selection);
+        return this.$$selection.indexOf(id) !== -1;
     },
 
     isSelected: function(item) {
