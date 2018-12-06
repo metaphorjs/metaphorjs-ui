@@ -151,7 +151,13 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
     /* PUBLIC API */
 
     hasSelection: function() {
-        return !!(this.currentValue || this.$$selection.length);
+        if (this.$$selection.length > 0) {
+            return true;
+        }
+        if (this.currentValue) {
+            return !isArray(this.currentValue) || this.currentValue.length > 0;
+        }
+        return false;
     },
 
     getInputInterface: function() {
@@ -193,7 +199,8 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
             return;
         }
 
-        if (self.hasSelection()) {
+        if (self.hasSelection() && 
+            !self.isMultiSelection()) {
             self.unselectAll();
         }
 
@@ -490,20 +497,21 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
     },
 
     onItemClick: function(item, e) {
-        var self = this;
+        var self = this,
+            cfg = self.config;
 
         if (item) {
             //this.selectItem(item);
             self.setValue(
-                item[self.config.get("valueField")], 
-                item[self.config.get("displayField")]
+                item[cfg.get("valueField")], 
+                item[cfg.get("displayField")]
             );
         }
         else {
             self.unselectAll();
         }
 
-        if (!self.config.get("keepSelectedOptions")) {
+        if (!cfg.get("keepSelectedOptions")) {
             self.store.update();
         }
 
@@ -524,7 +532,11 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
     },
 
     onItemDeleteClick: function(item, e) {
-        this.unselectItem(item);
+        var self = this;
+        self.unselectItem(item);
+        if (!self.config.get("keepSelectedOptions")) {
+            self.store.update();
+        }
         e.stopPropagation();
     },
 

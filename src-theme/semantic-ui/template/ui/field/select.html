@@ -36,7 +36,7 @@
 
     <span class="sizer"
           #el_sizer
-          {if}="this.field.$cfg.selectionMode === 'multi' && this.field.$cfg.searchable"
+          {if}="this.field.isMultiSelection() && this.field.$cfg.searchable"
           {bind}="this.searchQuery"></span>
 
     <div class="default text"
@@ -72,21 +72,23 @@
             {options}="this.field._getSelectOptions()"></select>
 
     <div #el_menu>
-        <div class="ui dropdown menu" #el_menu_items>
+        <div class="ui dropdown menu transition" #el_menu_items>
             <div class="disabled item"
                  #el_menu_disabled
                  {if}="this.field.$cfg.showNotFound && this.field.store.isEmpty()"
                  (click.$stopPropagation)
                  {bind-html}="this.field.$cfg.notFoundText"></div>
-            <div class="empty item"
+            <a   class="empty item"
+                 href="#"
                  #el_menu_empty
                  {if}="this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()"
                  (click)="this.field.onItemClick(null, this.$event)"
-                 {bind-html}="this.field.$cfg.emptyItemText"></div>
-            <div class="item"
+                 {bind-html}="this.field.$cfg.emptyItemText"></a>
+            <a   class="item"
+                 href="#"
                  {each}="item in this.field.store"
                  (click)="this.$parent.field.onItemClick(this.item, this.$event)"
-                 {bind}="this.$parent.field.getItemName(this.item)"></div>
+                 {bind}="this.$parent.field.getItemName(this.item)"></a>
         </div>
         <!--<div class="pagination_container"
              {cmp}="Pagination"

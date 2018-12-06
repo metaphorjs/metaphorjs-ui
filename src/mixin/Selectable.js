@@ -62,7 +62,7 @@ module.exports = MetaphorJs.mixin.Selectable = {
 
         if (self.$$selection.indexOf(id) === -1) {
 
-            if (self.config.get("selectionMode") === "single") {
+            if (!self.isMultiSelection()) {
                 self.$$selection = [];
                 self.$$_selectable_itemCache = {};
             }

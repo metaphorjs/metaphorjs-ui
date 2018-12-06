@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"\n          this.emptyShown = false;\n          this.selectedShown = false;\n     \" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.$cfg.selectionMode === 'multi'\"><input type=\"hidden\" #el_hidden_field [name]=\"this.field.$cfg.hiddenInputName\" [value]=\"this.field.$$selection | join:','\"><i #el_icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"form_select__label\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" #el_search class=\"search\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" #el_sizer {if}=\"this.field.$cfg.selectionMode === 'multi' && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" #el_default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" #el_text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && this.field.$cfg.selectionMode !== 'multi' && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind}=\"this.field.getSelectedName()\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select #el_hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {show}=\"this.field.$cfg.useHiddenSelect\" {show.$display}=\"block\" {options}=\"this.field._getSelectOptions()\"></select><div #el_menu><div class=\"ui dropdown menu\" #el_menu_items><div class=\"disabled item\" #el_menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click)=\"this.field.onNotFoundClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.notFoundText\"></div><div class=\"empty item\" #el_menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></div><div class=\"item\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></div></div><!--<div class=\"pagination_container\"\n             {cmp}=\"Pagination\"\n             {cmp.$autoscroll}=\"false\"\n             {show}=\"this.pagination.hasPages()\"\n             (click)=\"this.$parent.field.onPaginationClick(this.$event)\">\n        </div>--></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><input type=\"hidden\" #el_hidden_field [name]=\"this.field.$cfg.hiddenInputName\" [value]=\"this.field.$$selection | join:','\"><i #el_icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"form_select__label\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" #el_search class=\"search\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" #el_sizer {if}=\"this.field.isMultiSelection() && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" #el_default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" #el_text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && this.field.$cfg.selectionMode !== 'multi' && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind}=\"this.field.getSelectedName()\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select #el_hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {show}=\"this.field.$cfg.useHiddenSelect\" {show.$display}=\"block\" {options}=\"this.field._getSelectOptions()\"></select><div #el_menu><div class=\"ui dropdown menu transition\" #el_menu_items><div class=\"disabled item\" #el_menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stoppropagation) {bind-html}=\"this.field.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" #el_menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--<div class=\"pagination_container\"\n             {cmp}=\"Pagination\"\n             {cmp.$autoscroll}=\"false\"\n             {show}=\"this.pagination.hasPages()\"\n             (click.$stopPropagation)>\n        </div>--></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -3514,6 +3514,11 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
          * @param {string} propName 
          */
         checkScope: function(propName) {
+
+            if (!this.cfg) {
+                return;
+            }
+
             var scope = this.cfg.scope,
                 descr = lib_Expression.describeExpression(
                     this.getExpression(propName)
@@ -28540,7 +28545,7 @@ var mixin_Selectable = MetaphorJs.mixin.Selectable = {
 
         if (self.$$selection.indexOf(id) === -1) {
 
-            if (self.config.get("selectionMode") === "single") {
+            if (!self.isMultiSelection()) {
                 self.$$selection = [];
                 self.$$_selectable_itemCache = {};
             }
@@ -33277,6 +33282,8 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
             }
         }
 
+        window.selObj = self;
+
         self.$super();
     },
 
@@ -33302,7 +33309,13 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
     /* PUBLIC API */
 
     hasSelection: function() {
-        return !!(this.currentValue || this.$$selection.length);
+        if (this.$$selection.length > 0) {
+            return true;
+        }
+        if (this.currentValue) {
+            return !isArray(this.currentValue) || this.currentValue.length > 0;
+        }
+        return false;
     },
 
     getInputInterface: function() {
@@ -33344,7 +33357,8 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
             return;
         }
 
-        if (self.hasSelection()) {
+        if (self.hasSelection() && 
+            !self.isMultiSelection()) {
             self.unselectAll();
         }
 
@@ -33641,20 +33655,21 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
     },
 
     onItemClick: function(item, e) {
-        var self = this;
+        var self = this,
+            cfg = self.config;
 
         if (item) {
             //this.selectItem(item);
             self.setValue(
-                item[self.config.get("valueField")], 
-                item[self.config.get("displayField")]
+                item[cfg.get("valueField")], 
+                item[cfg.get("displayField")]
             );
         }
         else {
             self.unselectAll();
         }
 
-        if (!self.config.get("keepSelectedOptions")) {
+        if (!cfg.get("keepSelectedOptions")) {
             self.store.update();
         }
 
@@ -33675,17 +33690,21 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
     },
 
     onItemDeleteClick: function(item, e) {
-        this.unselectItem(item);
+        var self = this;
+        self.unselectItem(item);
+        if (!self.config.get("keepSelectedOptions")) {
+            self.store.update();
+        }
         e.stopPropagation();
     },
 
-    onNotFoundClick: function(item, e){
+    /*onNotFoundClick: function(item, e) {
         e.stopPropagation();
     },
 
     onPaginationClick: function(e) {
         e.stopPropagation();
-    },
+    },*/
 
     onSearchFocus: function(e) {
         this.scope.$set("focused", true);
