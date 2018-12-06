@@ -10,7 +10,7 @@ module.exports = MetaphorJs.mixin.Selectable = {
         this.$$_selectable_itemCache = {};
     },
 
-    $afterInit: function() {
+    $initConfig: function() {
         this.config.setType("selectionMode", 
             null, MetaphorJs.lib.Config.MODE_STATIC, "single");
     },
@@ -139,6 +139,10 @@ module.exports = MetaphorJs.mixin.Selectable = {
 
     isSelected: function(item) {
         return this.isIdSelected(this.$$_selectable_getItemId(item));
+    },
+
+    isMultiSelection: function() {
+        return this.config.get("selectionMode") === "multi";
     },
 
     isAllSelected: function() {

@@ -60,8 +60,6 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         config.setType("queryParam", "string", null, "q");
         config.setType("queryMinLength", "int", null, 3);
         config.setType("queryMode", "string", null, "local");
-
-        console.log(config.properties)
     },
 
     initComponent: function() {
@@ -128,15 +126,13 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
             }
         }
 
-        window.selObj = self;
-
         self.$super();
     },
 
     afterRender: function() {
         var self = this;
         async(self.initDialog, self, [], 300);
-        if (self.config.get("selectionMode") === "multi" && 
+        if (self.isMultiSelection() && 
             self.config.get("searchable")) {
             async(self.initSizer, self);
         }
@@ -145,11 +141,170 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         }
     },
 
-    onWindowBreak: function() {
-        this.config.set("useHiddenSelect", 
-            getWidth(window) < this.config.get("hiddenSelectBreakpoint")
-        );
-        this.scope.$check();
+    destroy: function() {
+        this.$super();
+    },
+
+    
+
+
+    /* PUBLIC API */
+
+    hasSelection: function() {
+        return !!(this.currentValue || this.$$selection.length);
+    },
+
+    getInputInterface: function() {
+
+        var self = this;
+
+        return {
+            getValue: function() {
+                return self.getValue();
+            },
+            setValue: function(val) {
+                self.setValue(val);
+            },
+            onChange: function(fn, context) {
+                self.on("change", fn, context);
+            },
+            unChange: function(fn, context) {
+                self.un("change", fn, context);
+            },
+            destroy: function() {}
+        };
+    },
+
+    getValue: function() {
+        var self = this, 
+            sels = self.getSelectedValues();
+        if (self.isMultiSelection()) {
+            return sels;
+        }
+        else {
+            return sels.length ? sels[0] : null;
+        }
+    },
+
+    setValue: function(val, name) {
+        var self = this;
+
+        if (self.currentValue == val) {
+            return;
+        }
+
+        if (self.hasSelection()) {
+            self.unselectAll();
+        }
+
+        if (!val) {
+            return;
+        }
+
+        if (self.isMultiSelection()) {
+            if (!isArray(val)) {
+                val = [val];
+            }
+            self.currentValue = val;
+            var i, l;
+            for (i = 0, l = val.length; i < l; i++) {
+                self.selectItemById(val[i]);
+            }
+        }
+        else {
+            self.currentValue = val;
+            self.currentName = name;
+            self.selectItemById(val);
+        }
+    },
+
+    getSelectedValues: function() {
+        return this.$$selection.slice();
+    },
+
+    getSelectedName: function() {
+
+        var self = this;
+        if (self.isMultiSelection()) {
+            return null;
+        }
+        var sel = self.getSelection();
+        if (sel.length) {
+            return self.getItemName(sel[0]);
+        }
+        else if (self.currentName) {
+            return self.currentName;
+        }
+        return null;
+    },
+
+    getMultiSelection: function() {
+        return this.isMultiSelection() ? 
+                    this.getSelection() : [];
+    },
+
+    search: function(query) {
+        this.store.start = 0;
+        this.store.setParam(this.queryParam, query);
+        this.store.load();
+    },
+
+    setOptions: function(options) {
+        if (this.store && typeof this.store !== "string") {
+            this.store.clear();
+            if (options) {
+                this.store.addMany(options);
+            }
+        }
+    },
+
+
+    /* PRIVATE */
+
+    onSearchQueryChange: function(query, prev) {
+        var self = this;
+
+        self._prevQuery = prev;
+
+        if (query.length >= self.queryMinLength) {
+            self.searchQueue.append(
+                self.search,
+                self,
+                [query]
+            );
+        }
+        else if (query === "") {
+            if (self.config.get("storeAutoLoad")) {
+                self.searchQueue.append(
+                    self.search,
+                    self,
+                    [query]
+                );
+            }
+            else {
+                self.store.clear();
+            }
+        }
+        else {
+            self.store.clear();
+        }
+
+        if (self.isMultiSelection()) {
+            async(self.setInputWidth, self);
+        }
+    },
+
+    onSelectionChange: function() {
+        this.currentValue = this.getValue();
+        this.trigger("change", this.currentValue, this);
+    },
+
+    getItemValue: function(item) {
+        return item[this.config.get("valueField")];
+    },
+
+    getItemName: function(item) {
+        return item[this.config.get("displayField")];
     },
 
     onStoreStartLoading: function() {
@@ -174,6 +329,37 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         }
         self.scope.$set('loading', false);
     },
+
+    storeFilter: function(item) {
+        return this.config.get("keepSelectedOptions") || !this.isSelected(item);
+    },
+
+    _getSelectOptions: function() {
+        var opts = [],
+            self = this;
+
+        if (self.config.get("showEmptyItem") && !self.store.isEmpty()) {
+            opts.push({
+                name: self.config.get("emptyItemText"),
+                value: null
+            });
+        }
+
+        self.store.each(function(item){
+            opts.push({
+                name: self.getItemName(item),
+                value: self.getItemValue(item)
+            });
+        });
+
+        return opts;
+    },
+
+
+
+
+
+    /* DIALOG */
 
     onBeforeDialogShow: function() {
         var self = this,
@@ -238,6 +424,21 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         self.dialog.on("before-show", self.onBeforeDialogShow, self);
     },
 
+
+
+
+
+
+    /* VIEW */
+
+
+    onWindowBreak: function() {
+        this.config.set("useHiddenSelect", 
+            getWidth(window) < this.config.get("hiddenSelectBreakpoint")
+        );
+        this.scope.$check();
+    },
+
     initSizer: function() {
         if (this.scope.el_sizer) {
             var style = this.scope.el_sizer.style;
@@ -253,178 +454,8 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
             (MetaphorJs.dom.getWidth(this.scope.el_sizer) + 10) + "px";
     },
 
-    storeFilter: function(item) {
-        return this.config.get("keepSelectedOptions") || !this.isSelected(item);
-    },
-
-    getItemValue: function(item) {
-        return item[this.config.get("valueField")];
-    },
-
-    getItemName: function(item) {
-        return item[this.config.get("displayField")];
-    },
-
-    getSelectedValues: function() {
-        return this.$$selection;
-    },
-
-    getSelectedName: function() {
-
-        var self = this;
-        if (self.config.get("selectionMode") === "multi") {
-            return null;
-        }
-        var sel = self.getSelection();
-        if (sel.length) {
-            return self.getItemName(sel[0]);
-        }
-        else if (self.currentName) {
-            return self.currentName;
-        }
-        return null;
-    },
-
-    getMultiSelection: function() {
-        return this.config.get("selectionMode") === "multi" ? 
-                    this.getSelection() : [];
-    },
-
     setSearchFocus: function() {
         this.scope.el_search.focus();
-    },
-
-    search: function(query) {
-        this.store.start = 0;
-        this.store.setParam(this.queryParam, query);
-        this.store.load();
-    },
-
-    setOptions: function(options) {
-        if (this.store && typeof this.store !== "string") {
-            this.store.clear();
-            if (options) {
-                this.store.addMany(options);
-            }
-        }
-    },
-
-    _getSelectOptions: function() {
-        var opts = [],
-            self = this;
-
-        if (self.config.get("showEmptyItem") && !self.store.isEmpty()) {
-            opts.push({
-                name: self.config.get("emptyItemText"),
-                value: null
-            });
-        }
-
-        self.store.each(function(item){
-            opts.push({
-                name: self.getItemName(item),
-                value: self.getItemValue(item)
-            });
-        });
-
-        return opts;
-    },
-
-    hasSelection: function() {
-        return !!(this.currentValue || this.$$selection.length);
-    },
-
-
-    onHiddenSelectClick: function(e) {
-        e.stopPropagation();
-    },
-
-    onHiddenSelectChange: function(e) {
-        var self = this,
-            val = self.scope.el_hiddenselect.value;
-        
-        if (val) {
-            var item = self.store.find(self.config.get("valueField"), val);
-            if (item) {
-                self.selectItem(item);
-            }
-        }
-        else {
-            self.unselectAll();
-        }
-    },
-
-    /*onOptionsChange: function(options) {
-        this.store.clear();
-        this.store.addMany(options);
-    },
-
-    forceOptionsChange: function() {
-        //this.optionsWatcher.check();
-    },*/
-
-    onSearchQueryChange: function(query, prev) {
-        var self = this;
-
-        self._prevQuery = prev;
-
-        if (query.length >= self.queryMinLength) {
-            self.searchQueue.append(
-                self.search,
-                self,
-                [query]
-            );
-        }
-        else if (query === "") {
-            if (self.config.get("storeAutoLoad")) {
-                self.searchQueue.append(
-                    self.search,
-                    self,
-                    [query]
-                );
-            }
-            else {
-                self.store.clear();
-            }
-        }
-        else {
-            self.store.clear();
-        }
-
-        if (self.config.get("selectionMode") === "multi") {
-            async(self.setInputWidth, self);
-        }
-    },
-
-    onSearchFocus: function(e) {
-        this.scope.$set("focused", true);
-        if (!this.dialog.isVisible()) {
-            this.dialog.show();
-            e.stopPropagation();
-        }
-    },
-
-    onSearchBlur: function(e) {
-        this.scope.$set("focused", false);
-        if (!this.dialog.isVisible()) {
-            this.dialog.show();
-            e.stopPropagation();
-        }
-    },
-
-    onSearchBackspace: function() {
-        if (!this.scope.searchQuery) {
-            if (!this._prevQuery) {
-                if (this.hasSelection()) {
-                    this.unselectItemById(
-                        this.$$selection[this.$$selection.length - 1]
-                    );
-                }
-            }
-            else {
-                this._prevQuery = "";
-            }
-        }
     },
 
     onSelfClick: function(e) {
@@ -459,30 +490,32 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
     },
 
     onItemClick: function(item, e) {
+        var self = this;
+
         if (item) {
             //this.selectItem(item);
-            this.setValue(
-                item[this.config.get("valueField")], 
-                item[this.config.get("displayField")]
+            self.setValue(
+                item[self.config.get("valueField")], 
+                item[self.config.get("displayField")]
             );
         }
         else {
-            this.unselectAll();
+            self.unselectAll();
         }
 
-        if (!this.config.get("keepSelectedOptions")) {
-            this.store.update();
+        if (!self.config.get("keepSelectedOptions")) {
+            self.store.update();
         }
 
         e.stopPropagation();
 
-        this.scope.$set("searchQuery", "");
+        self.scope.$set("searchQuery", "");
 
-        if (this.config.get("selectionMode") !== "multi") {
-            this.dialog.hide();
+        if (!self.isMultiSelection()) {
+            self.dialog.hide();
         }
         else {
-            async(this.setSearchFocus, this);
+            async(self.setSearchFocus, self);
         }
     },
 
@@ -495,85 +528,61 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         e.stopPropagation();
     },
 
-    onNotFoundClick: function(item, e){
+    /*onNotFoundClick: function(item, e) {
         e.stopPropagation();
     },
 
     onPaginationClick: function(e) {
         e.stopPropagation();
+    },*/
+
+    onSearchFocus: function(e) {
+        this.scope.$set("focused", true);
+        if (!this.dialog.isVisible()) {
+            this.dialog.show();
+            e.stopPropagation();
+        }
     },
 
-    onSelectionChange: function() {
-        this.currentValue = this.getValue();
-        this.trigger("change", this.currentValue, this);
+    onSearchBlur: function(e) {
+        this.scope.$set("focused", false);
+        if (!this.dialog.isVisible()) {
+            this.dialog.show();
+            e.stopPropagation();
+        }
     },
 
+    onSearchBackspace: function() {
+        if (!this.scope.searchQuery) {
+            if (!this._prevQuery) {
+                if (this.hasSelection()) {
+                    this.unselectItemById(
+                        this.$$selection[this.$$selection.length - 1]
+                    );
+                }
+            }
+            else {
+                this._prevQuery = "";
+            }
+        }
+    },
 
-    getValue: function() {
-        var self = this, 
-            sels = self.getSelectedValues();
-        if (self.config.get("selectionMode") === "multi") {
-            return sels;
+    onHiddenSelectClick: function(e) {
+        e.stopPropagation();
+    },
+
+    onHiddenSelectChange: function(e) {
+        var self = this,
+            val = self.scope.el_hiddenselect.value;
+        
+        if (val) {
+            var item = self.store.find(self.config.get("valueField"), val);
+            if (item) {
+                self.selectItem(item);
+            }
         }
         else {
-            return sels.length ? sels[0] : null;
-        }
-    },
-
-    setValue: function(val, name) {
-        var self = this;
-
-        if (self.currentValue == val) {
-            return;
-        }
-
-        if (self.hasSelection()) {
             self.unselectAll();
         }
-
-        if (!val) {
-            return;
-        }
-
-        if (self.config.get("selectionMode") === "multi") {
-            if (!isArray(val)) {
-                val = [val];
-            }
-            self.currentValue = val;
-            var i, l;
-            for (i = 0, l = val.length; i < l; i++) {
-                self.selectItemById(val[i]);
-            }
-        }
-        else {
-            self.currentValue = val;
-            self.currentName = name;
-            self.selectItemById(val);
-        }
-    },
-
-    destroy: function() {
-        this.$super();
-    },
-
-    getInputInterface: function() {
-
-        var self = this;
-
-        return {
-            getValue: function() {
-                return self.getValue();
-            },
-            setValue: function(val) {
-                self.setValue(val);
-            },
-            onChange: function(fn, context) {
-                self.on("change", fn, context);
-            },
-            unChange: function(fn, context) {
-                self.un("change", fn, context);
-            },
-            destroy: function() {}
-        };
     }
 });

@@ -2967,7 +2967,7 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
             if (prop.expression) {
 
                 if (!prop.mode) {
-                    prop.mode = MODE_DYNAMIC;
+                    prop.mode = self.cfg.defaultMode || MODE_DYNAMIC;
                 }
 
                 if (prop.mode === MODE_STATIC) {
@@ -4085,6 +4085,18 @@ var classManagerFactory = function(){
             }
         },
 
+        collectMixinEvents = function(events, pConstr) {
+            var pp;
+            while (pConstr) {
+                pp = pConstr[proto];
+                if (pp.$mixinEvents) {
+                    events = events.concat(pp.$mixinEvents);
+                }
+                pConstr = pConstr.$parent;
+            }
+            return events;
+        },
+
         wrapPrototypeMethod = function wrapPrototypeMethod(parent, k, fn) {
 
             var $super = parent[proto][k] ||
@@ -4109,8 +4121,9 @@ var classManagerFactory = function(){
             };
         },
 
-        preparePrototype = function preparePrototype(prototype, cls, parent, onlyWrap) {
-            var k, ck, pk, pp = parent[proto];
+        preparePrototype = function preparePrototype(prototype, cls, parent, onlyWrap, mixEvents) {
+            var k, ck, pk, pp = parent[proto],
+                i, l, name;
 
             for (k in cls) {
                 if (cls.hasOwnProperty(k)) {
@@ -4131,36 +4144,32 @@ var classManagerFactory = function(){
             prototype.$plugins      = null;
             prototype.$pluginMap    = null;
 
-            if (pp.$beforeInit) {
-                prototype.$beforeInit = pp.$beforeInit.slice();
-                prototype.$afterInit = pp.$afterInit.slice();
-                prototype.$beforeDestroy = pp.$beforeDestroy.slice();
-                prototype.$afterDestroy = pp.$afterDestroy.slice();
-            }
-            else {
-                prototype.$beforeInit = [];
-                prototype.$afterInit = [];
-                prototype.$beforeDestroy = [];
-                prototype.$afterDestroy = [];
+            if (mixEvents) {
+                for (i = 0, l = mixEvents.length; i < l; i++) {
+                    name = mixEvents[i];
+                    if (pp[name]) {
+                        if (typeof pp[name] === 'function') {
+                            throw new Error("Cannot override method " + 
+                                            name + 
+                                            " with mixin event");
+                        }
+                        prototype[name] = pp[name].slice();
+                    }
+                    else {
+                        prototype[name] = [];
+                    }
+                }
             }
         },
         
-        mixinToPrototype = function(prototype, mixin) {
+        mixinToPrototype = function(prototype, mixin, events) {
             
             var k;
+
             for (k in mixin) {
                 if (mixin.hasOwnProperty(k)) {
-                    if (k === "$beforeInit") {
-                        prototype.$beforeInit.push(mixin[k]);
-                    }
-                    else if (k === "$afterInit") {
-                        prototype.$afterInit.push(mixin[k]);
-                    }
-                    else if (k === "$beforeDestroy") {
-                        prototype.$beforeDestroy.push(mixin[k]);
-                    }
-                    else if (k === "$afterDestroy") {
-                        prototype.$afterDestroy.push(mixin[k]);
+                    if (events.indexOf(k) !== -1) {
+                        prototype[k].push(mixin[k]);
                     }
                     else if (!prototype[k]) {
                         prototype[k] = mixin[k];
@@ -4216,11 +4225,13 @@ var classManagerFactory = function(){
                 plugins = self.$plugins;
                 pmap    = self.$pluginMap = {};
 
-                for (i = -1, l = self.$beforeInit.length; ++i < l;
-                     before.push([self.$beforeInit[i], self])) {}
+                if (self.$beforeInit) 
+                    for (i = -1, l = self.$beforeInit.length; ++i < l;
+                         before.push([self.$beforeInit[i], self])) {}
 
-                for (i = -1, l = self.$afterInit.length; ++i < l;
-                     after.push([self.$afterInit[i], self])) {}
+                if (self.$afterInit)
+                    for (i = -1, l = self.$afterInit.length; ++i < l;
+                         after.push([self.$afterInit[i], self])) {}
 
                 if (plugins && plugins.length) {
 
@@ -4292,6 +4303,8 @@ var classManagerFactory = function(){
             $plugins: null,
             $pluginMap: null,
             $mixins: null,
+            $mixinEvents: ["$beforeInit", "$afterInit",
+                            "$beforeDestroy", "$afterDestroy"],
 
             $destroyed: false,
             $destroying: false,
@@ -4302,6 +4315,23 @@ var classManagerFactory = function(){
             $afterInit: [],
             $beforeDestroy: [],
             $afterDestroy: [],
+
+            /**
+             * Call mixins for a specified mixin event
+             * @param {string} eventName 
+             */
+            $callMixins: function(eventName) {
+                var self = this,
+                    fns = self[eventName],
+                    i, l,
+                    args = toArray(arguments);
+
+                args.shift();
+
+                for (i = 0, l = fns.length; i < l; i++) {
+                    fns[i].apply(self, args);
+                }
+            },
 
             /**
              * Get this instance's class name
@@ -4571,8 +4601,10 @@ var classManagerFactory = function(){
             var name            = definition.$class,
                 parentClass     = $extends || definition.$extends,
                 mixins          = definition.$mixins,
+                mixEvents       = definition.$mixinEvents || [],
                 alias           = definition.$alias,
                 pConstructor,
+                allMixEvents,
                 i, l, k, prototype, c, mixin;
 
             if (parentClass) {
@@ -4595,12 +4627,14 @@ var classManagerFactory = function(){
 
             definition.$class   = name;
             definition.$extends = parentClass;
-            definition.$mixins  = null;
+            delete definition.$mixins;
+            delete definition.$mixinEvents;
 
+            allMixEvents        = collectMixinEvents(mixEvents, pConstructor);
             prototype           = Object.create(pConstructor[proto]);
             definition[constr]  = definition[constr] || $constr;
 
-            preparePrototype(prototype, definition, pConstructor);
+            preparePrototype(prototype, definition, pConstructor, false, allMixEvents);
 
             if (mixins) {
                 for (i = 0, l = mixins.length; i < l; i++) {
@@ -4611,13 +4645,14 @@ var classManagerFactory = function(){
                         }
                         mixin = ns.get(mixin, true);
                     }
-                    mixinToPrototype(prototype, mixin);
+                    mixinToPrototype(prototype, mixin, allMixEvents);
                 }
             }
 
             c = createConstructor(name);
             prototype.constructor = c;
             prototype.$self = c;
+            prototype.$mixinEvents = mixEvents;
             c[proto] = prototype;
 
             for (k in BaseClass) {
@@ -26615,6 +26650,7 @@ var htmlTags = MetaphorJs.dom.htmlTags = [
 var app_Component = MetaphorJs.app.Component = cls({
 
     $mixins: [mixin_Observable],
+    $mixinEvents: ["$initConfig"],
 
     /**
      * @access protected
@@ -26726,6 +26762,7 @@ var app_Component = MetaphorJs.app.Component = cls({
         self.$cfg = {};
         self.config.setTo(self.$cfg);
         self._initConfig();
+        self.$callMixins("$initConfig");
 
         if (self.config.has("as")) {
             self.scope[self.config.get("as")] = self;
@@ -28451,7 +28488,7 @@ var mixin_Selectable = MetaphorJs.mixin.Selectable = {
         this.$$_selectable_itemCache = {};
     },
 
-    $afterInit: function() {
+    $initConfig: function() {
         this.config.setType("selectionMode", 
             null, lib_Config.MODE_STATIC, "single");
     },
@@ -28580,6 +28617,10 @@ var mixin_Selectable = MetaphorJs.mixin.Selectable = {
 
     isSelected: function(item) {
         return this.isIdSelected(this.$$_selectable_getItemId(item));
+    },
+
+    isMultiSelection: function() {
+        return this.config.get("selectionMode") === "multi";
     },
 
     isAllSelected: function() {
@@ -33170,8 +33211,6 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
         config.setType("queryParam", "string", null, "q");
         config.setType("queryMinLength", "int", null, 3);
         config.setType("queryMode", "string", null, "local");
-
-        console.log(config.properties)
     },
 
     initComponent: function() {
@@ -33238,15 +33277,13 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
             }
         }
 
-        window.selObj = self;
-
         self.$super();
     },
 
     afterRender: function() {
         var self = this;
         async(self.initDialog, self, [], 300);
-        if (self.config.get("selectionMode") === "multi" && 
+        if (self.isMultiSelection() && 
             self.config.get("searchable")) {
             async(self.initSizer, self);
         }
@@ -33255,11 +33292,170 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
         }
     },
 
-    onWindowBreak: function() {
-        this.config.set("useHiddenSelect", 
-            getWidth(window) < this.config.get("hiddenSelectBreakpoint")
-        );
-        this.scope.$check();
+    destroy: function() {
+        this.$super();
+    },
+
+    
+
+
+    /* PUBLIC API */
+
+    hasSelection: function() {
+        return !!(this.currentValue || this.$$selection.length);
+    },
+
+    getInputInterface: function() {
+
+        var self = this;
+
+        return {
+            getValue: function() {
+                return self.getValue();
+            },
+            setValue: function(val) {
+                self.setValue(val);
+            },
+            onChange: function(fn, context) {
+                self.on("change", fn, context);
+            },
+            unChange: function(fn, context) {
+                self.un("change", fn, context);
+            },
+            destroy: function() {}
+        };
+    },
+
+    getValue: function() {
+        var self = this, 
+            sels = self.getSelectedValues();
+        if (self.isMultiSelection()) {
+            return sels;
+        }
+        else {
+            return sels.length ? sels[0] : null;
+        }
+    },
+
+    setValue: function(val, name) {
+        var self = this;
+
+        if (self.currentValue == val) {
+            return;
+        }
+
+        if (self.hasSelection()) {
+            self.unselectAll();
+        }
+
+        if (!val) {
+            return;
+        }
+
+        if (self.isMultiSelection()) {
+            if (!isArray(val)) {
+                val = [val];
+            }
+            self.currentValue = val;
+            var i, l;
+            for (i = 0, l = val.length; i < l; i++) {
+                self.selectItemById(val[i]);
+            }
+        }
+        else {
+            self.currentValue = val;
+            self.currentName = name;
+            self.selectItemById(val);
+        }
+    },
+
+    getSelectedValues: function() {
+        return this.$$selection.slice();
+    },
+
+    getSelectedName: function() {
+
+        var self = this;
+        if (self.isMultiSelection()) {
+            return null;
+        }
+        var sel = self.getSelection();
+        if (sel.length) {
+            return self.getItemName(sel[0]);
+        }
+        else if (self.currentName) {
+            return self.currentName;
+        }
+        return null;
+    },
+
+    getMultiSelection: function() {
+        return this.isMultiSelection() ? 
+                    this.getSelection() : [];
+    },
+
+    search: function(query) {
+        this.store.start = 0;
+        this.store.setParam(this.queryParam, query);
+        this.store.load();
+    },
+
+    setOptions: function(options) {
+        if (this.store && typeof this.store !== "string") {
+            this.store.clear();
+            if (options) {
+                this.store.addMany(options);
+            }
+        }
+    },
+
+
+    /* PRIVATE */
+
+    onSearchQueryChange: function(query, prev) {
+        var self = this;
+
+        self._prevQuery = prev;
+
+        if (query.length >= self.queryMinLength) {
+            self.searchQueue.append(
+                self.search,
+                self,
+                [query]
+            );
+        }
+        else if (query === "") {
+            if (self.config.get("storeAutoLoad")) {
+                self.searchQueue.append(
+                    self.search,
+                    self,
+                    [query]
+                );
+            }
+            else {
+                self.store.clear();
+            }
+        }
+        else {
+            self.store.clear();
+        }
+
+        if (self.isMultiSelection()) {
+            async(self.setInputWidth, self);
+        }
+    },
+
+    onSelectionChange: function() {
+        this.currentValue = this.getValue();
+        this.trigger("change", this.currentValue, this);
+    },
+
+    getItemValue: function(item) {
+        return item[this.config.get("valueField")];
+    },
+
+    getItemName: function(item) {
+        return item[this.config.get("displayField")];
     },
 
     onStoreStartLoading: function() {
@@ -33284,6 +33480,37 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
         }
         self.scope.$set('loading', false);
     },
+
+    storeFilter: function(item) {
+        return this.config.get("keepSelectedOptions") || !this.isSelected(item);
+    },
+
+    _getSelectOptions: function() {
+        var opts = [],
+            self = this;
+
+        if (self.config.get("showEmptyItem") && !self.store.isEmpty()) {
+            opts.push({
+                name: self.config.get("emptyItemText"),
+                value: null
+            });
+        }
+
+        self.store.each(function(item){
+            opts.push({
+                name: self.getItemName(item),
+                value: self.getItemValue(item)
+            });
+        });
+
+        return opts;
+    },
+
+
+
+
+
+    /* DIALOG */
 
     onBeforeDialogShow: function() {
         var self = this,
@@ -33348,6 +33575,21 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
         self.dialog.on("before-show", self.onBeforeDialogShow, self);
     },
 
+
+
+
+
+
+    /* VIEW */
+
+
+    onWindowBreak: function() {
+        this.config.set("useHiddenSelect", 
+            getWidth(window) < this.config.get("hiddenSelectBreakpoint")
+        );
+        this.scope.$check();
+    },
+
     initSizer: function() {
         if (this.scope.el_sizer) {
             var style = this.scope.el_sizer.style;
@@ -33363,178 +33605,8 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
             (dom_getWidth(this.scope.el_sizer) + 10) + "px";
     },
 
-    storeFilter: function(item) {
-        return this.config.get("keepSelectedOptions") || !this.isSelected(item);
-    },
-
-    getItemValue: function(item) {
-        return item[this.config.get("valueField")];
-    },
-
-    getItemName: function(item) {
-        return item[this.config.get("displayField")];
-    },
-
-    getSelectedValues: function() {
-        return this.$$selection;
-    },
-
-    getSelectedName: function() {
-
-        var self = this;
-        if (self.config.get("selectionMode") === "multi") {
-            return null;
-        }
-        var sel = self.getSelection();
-        if (sel.length) {
-            return self.getItemName(sel[0]);
-        }
-        else if (self.currentName) {
-            return self.currentName;
-        }
-        return null;
-    },
-
-    getMultiSelection: function() {
-        return this.config.get("selectionMode") === "multi" ? 
-                    this.getSelection() : [];
-    },
-
     setSearchFocus: function() {
         this.scope.el_search.focus();
-    },
-
-    search: function(query) {
-        this.store.start = 0;
-        this.store.setParam(this.queryParam, query);
-        this.store.load();
-    },
-
-    setOptions: function(options) {
-        if (this.store && typeof this.store !== "string") {
-            this.store.clear();
-            if (options) {
-                this.store.addMany(options);
-            }
-        }
-    },
-
-    _getSelectOptions: function() {
-        var opts = [],
-            self = this;
-
-        if (self.config.get("showEmptyItem") && !self.store.isEmpty()) {
-            opts.push({
-                name: self.config.get("emptyItemText"),
-                value: null
-            });
-        }
-
-        self.store.each(function(item){
-            opts.push({
-                name: self.getItemName(item),
-                value: self.getItemValue(item)
-            });
-        });
-
-        return opts;
-    },
-
-    hasSelection: function() {
-        return !!(this.currentValue || this.$$selection.length);
-    },
-
-
-    onHiddenSelectClick: function(e) {
-        e.stopPropagation();
-    },
-
-    onHiddenSelectChange: function(e) {
-        var self = this,
-            val = self.scope.el_hiddenselect.value;
-        
-        if (val) {
-            var item = self.store.find(self.config.get("valueField"), val);
-            if (item) {
-                self.selectItem(item);
-            }
-        }
-        else {
-            self.unselectAll();
-        }
-    },
-
-    /*onOptionsChange: function(options) {
-        this.store.clear();
-        this.store.addMany(options);
-    },
-
-    forceOptionsChange: function() {
-        //this.optionsWatcher.check();
-    },*/
-
-    onSearchQueryChange: function(query, prev) {
-        var self = this;
-
-        self._prevQuery = prev;
-
-        if (query.length >= self.queryMinLength) {
-            self.searchQueue.append(
-                self.search,
-                self,
-                [query]
-            );
-        }
-        else if (query === "") {
-            if (self.config.get("storeAutoLoad")) {
-                self.searchQueue.append(
-                    self.search,
-                    self,
-                    [query]
-                );
-            }
-            else {
-                self.store.clear();
-            }
-        }
-        else {
-            self.store.clear();
-        }
-
-        if (self.config.get("selectionMode") === "multi") {
-            async(self.setInputWidth, self);
-        }
-    },
-
-    onSearchFocus: function(e) {
-        this.scope.$set("focused", true);
-        if (!this.dialog.isVisible()) {
-            this.dialog.show();
-            e.stopPropagation();
-        }
-    },
-
-    onSearchBlur: function(e) {
-        this.scope.$set("focused", false);
-        if (!this.dialog.isVisible()) {
-            this.dialog.show();
-            e.stopPropagation();
-        }
-    },
-
-    onSearchBackspace: function() {
-        if (!this.scope.searchQuery) {
-            if (!this._prevQuery) {
-                if (this.hasSelection()) {
-                    this.unselectItemById(
-                        this.$$selection[this.$$selection.length - 1]
-                    );
-                }
-            }
-            else {
-                this._prevQuery = "";
-            }
-        }
     },
 
     onSelfClick: function(e) {
@@ -33569,30 +33641,32 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
     },
 
     onItemClick: function(item, e) {
+        var self = this;
+
         if (item) {
             //this.selectItem(item);
-            this.setValue(
-                item[this.config.get("valueField")], 
-                item[this.config.get("displayField")]
+            self.setValue(
+                item[self.config.get("valueField")], 
+                item[self.config.get("displayField")]
             );
         }
         else {
-            this.unselectAll();
+            self.unselectAll();
         }
 
-        if (!this.config.get("keepSelectedOptions")) {
-            this.store.update();
+        if (!self.config.get("keepSelectedOptions")) {
+            self.store.update();
         }
 
         e.stopPropagation();
 
-        this.scope.$set("searchQuery", "");
+        self.scope.$set("searchQuery", "");
 
-        if (this.config.get("selectionMode") !== "multi") {
-            this.dialog.hide();
+        if (!self.isMultiSelection()) {
+            self.dialog.hide();
         }
         else {
-            async(this.setSearchFocus, this);
+            async(self.setSearchFocus, self);
         }
     },
 
@@ -33613,78 +33687,54 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
         e.stopPropagation();
     },
 
-    onSelectionChange: function() {
-        this.currentValue = this.getValue();
-        this.trigger("change", this.currentValue, this);
+    onSearchFocus: function(e) {
+        this.scope.$set("focused", true);
+        if (!this.dialog.isVisible()) {
+            this.dialog.show();
+            e.stopPropagation();
+        }
     },
 
+    onSearchBlur: function(e) {
+        this.scope.$set("focused", false);
+        if (!this.dialog.isVisible()) {
+            this.dialog.show();
+            e.stopPropagation();
+        }
+    },
 
-    getValue: function() {
-        var self = this, 
-            sels = self.getSelectedValues();
-        if (self.config.get("selectionMode") === "multi") {
-            return sels;
+    onSearchBackspace: function() {
+        if (!this.scope.searchQuery) {
+            if (!this._prevQuery) {
+                if (this.hasSelection()) {
+                    this.unselectItemById(
+                        this.$$selection[this.$$selection.length - 1]
+                    );
+                }
+            }
+            else {
+                this._prevQuery = "";
+            }
+        }
+    },
+
+    onHiddenSelectClick: function(e) {
+        e.stopPropagation();
+    },
+
+    onHiddenSelectChange: function(e) {
+        var self = this,
+            val = self.scope.el_hiddenselect.value;
+        
+        if (val) {
+            var item = self.store.find(self.config.get("valueField"), val);
+            if (item) {
+                self.selectItem(item);
+            }
         }
         else {
-            return sels.length ? sels[0] : null;
-        }
-    },
-
-    setValue: function(val, name) {
-        var self = this;
-
-        if (self.currentValue == val) {
-            return;
-        }
-
-        if (self.hasSelection()) {
             self.unselectAll();
         }
-
-        if (!val) {
-            return;
-        }
-
-        if (self.config.get("selectionMode") === "multi") {
-            if (!isArray(val)) {
-                val = [val];
-            }
-            self.currentValue = val;
-            var i, l;
-            for (i = 0, l = val.length; i < l; i++) {
-                self.selectItemById(val[i]);
-            }
-        }
-        else {
-            self.currentValue = val;
-            self.currentName = name;
-            self.selectItemById(val);
-        }
-    },
-
-    destroy: function() {
-        this.$super();
-    },
-
-    getInputInterface: function() {
-
-        var self = this;
-
-        return {
-            getValue: function() {
-                return self.getValue();
-            },
-            setValue: function(val) {
-                self.setValue(val);
-            },
-            onChange: function(fn, context) {
-                self.on("change", fn, context);
-            },
-            unChange: function(fn, context) {
-                self.un("change", fn, context);
-            },
-            destroy: function() {}
-        };
     }
 });
 /* BUNDLE END 004 */
