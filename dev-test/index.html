@@ -3,6 +3,7 @@
         <title>MetaphorJs UI Feature Test</title>
         <script src="metaphorjs.ui.js"></script>
         <link rel="stylesheet" href="semantic.css">
+        <link rel="stylesheet" href="overrides.css">
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -19,7 +20,7 @@
                 <ui-select 
                     $empty-text="Nothing selected" 
                     $options="this.options"
-                    $on--prop-event="this.options"/>
+                    $selection-mode="multi"/>
             </div>
         </div>
     </body>

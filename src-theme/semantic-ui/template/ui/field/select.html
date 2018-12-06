@@ -1,14 +1,11 @@
 <!--{includes: true}-->
 <div class="ui dropdown selection"
      (click)="this.field.onSelfClick(this.$event)"
-     {init}="
-          this.emptyShown = false;
-          this.selectedShown = false;
-     "
+     {init}="this.emptyShown = false; this.selectedShown = false;"
      {class.loading}="this.loading"
      {class.disabled}="this.field.$cfg.disabled"
      {class.search}="this.field.$cfg.searchable"
-     {class.multiple}="this.field.$cfg.selectionMode === 'multi'">
+     {class.multiple}="this.field.isMultiSelection()">
 
     <input type="hidden"
             #el_hidden_field
@@ -79,7 +76,7 @@
             <div class="disabled item"
                  #el_menu_disabled
                  {if}="this.field.$cfg.showNotFound && this.field.store.isEmpty()"
-                 (click)="this.field.onNotFoundClick(null, this.$event)"
+                 (click.$stopPropagation)
                  {bind-html}="this.field.$cfg.notFoundText"></div>
             <div class="empty item"
                  #el_menu_empty
@@ -95,7 +92,7 @@
              {cmp}="Pagination"
              {cmp.$autoscroll}="false"
              {show}="this.pagination.hasPages()"
-             (click)="this.$parent.field.onPaginationClick(this.$event)">
+             (click.$stopPropagation)>
         </div>-->
     </div>
 
