@@ -16,7 +16,7 @@
        class="dropdown icon"
        (click)="this.field.onDropdownIconClick(this.$event)"></i>
 
-    <a class="form_select__label"
+    <a class="ui label transition"
        {each}="item in this.field.getMultiSelection()">
         {{ this.$parent.field.getItemName(this.item) }}
         <i class="delete icon"
@@ -52,7 +52,7 @@
          #el_text
          (click)="this.field.onValueTextClick(this.$event)"
          {class.default}="this.focused && this.searchQuery == ''"
-         {show}="!this.searchQuery && this.field.$cfg.selectionMode !== 'multi' && 
+         {show}="!this.searchQuery && this.field.isMultiSelection() && 
                     this.field.hasSelection()"
          {show.$save-state}="this.selectedShown"
          {show.$display}="inline-block"
@@ -71,31 +71,31 @@
             {show.$display}="block" 
             {options}="this.field._getSelectOptions()"></select>
 
-    <div #el_menu>
-        <div class="ui dropdown menu transition" #el_menu_items>
-            <div class="disabled item"
-                 #el_menu_disabled
-                 {if}="this.field.$cfg.showNotFound && this.field.store.isEmpty()"
-                 (click.$stopPropagation)
-                 {bind-html}="this.field.$cfg.notFoundText"></div>
-            <a   class="empty item"
-                 href="#"
-                 #el_menu_empty
-                 {if}="this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()"
-                 (click)="this.field.onItemClick(null, this.$event)"
-                 {bind-html}="this.field.$cfg.emptyItemText"></a>
-            <a   class="item"
-                 href="#"
-                 {each}="item in this.field.store"
-                 (click)="this.$parent.field.onItemClick(this.item, this.$event)"
-                 {bind}="this.$parent.field.getItemName(this.item)"></a>
-        </div>
+    
+     <div class="menu transition" #el_menu_items>
+          <div class="disabled item"
+               #el_menu_disabled
+               {if}="this.field.$cfg.showNotFound && this.field.store.isEmpty()"
+               (click.$stopPropagation)
+               {bind-html}="this.field.$cfg.notFoundText"></div>
+          <a   class="empty item"
+               href="#"
+               #el_menu_empty
+               {if}="this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()"
+               (click)="this.field.onItemClick(null, this.$event)"
+               {bind-html}="this.field.$cfg.emptyItemText"></a>
+          <a   class="item"
+               href="#"
+               {each}="item in this.field.store"
+               (click)="this.$parent.field.onItemClick(this.item, this.$event)"
+               {bind}="this.$parent.field.getItemName(this.item)"></a>
+     </div>
         <!--<div class="pagination_container"
              {cmp}="Pagination"
              {cmp.$autoscroll}="false"
              {show}="this.pagination.hasPages()"
              (click.$stopPropagation)>
         </div>-->
-    </div>
+    
 
 </div>

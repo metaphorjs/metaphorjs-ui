@@ -51,6 +51,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         config.setType("keepSelectedOptions", "bool", null, true);
         config.setType("useHiddenSelect", "bool", null, false);
         config.setType("hiddenSelectBreakpoint", "int");
+        config.setType("cssDialog", "bool", null, false);
 
         config.setType("hiddenInputName", "string", null, "");
         config.setType("emptyText", "string", null, "");
@@ -273,27 +274,32 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
 
         self._prevQuery = prev;
 
-        if (query.length >= self.queryMinLength) {
-            self.searchQueue.append(
-                self.search,
-                self,
-                [query]
-            );
-        }
-        else if (query === "") {
-            if (self.config.get("storeAutoLoad")) {
+        if (!self.store.local) {
+            if (query.length >= self.queryMinLength) {
                 self.searchQueue.append(
                     self.search,
                     self,
                     [query]
                 );
             }
+            else if (query === "") {
+                if (self.config.get("storeAutoLoad")) {
+                    self.searchQueue.append(
+                        self.search,
+                        self,
+                        [query]
+                    );
+                }
+                else {                    
+                    self.store.clear();
+                }
+            }
             else {
                 self.store.clear();
             }
         }
         else {
-            self.store.clear();
+            self.store.update();
         }
 
         if (self.isMultiSelection()) {
@@ -338,7 +344,21 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
     },
 
     storeFilter: function(item) {
-        return this.config.get("keepSelectedOptions") || !this.isSelected(item);
+        var self = this;
+
+        if (self.isSelected(item) && !self.config.get("keepSelectedOptions")) {
+            return false;
+        }
+
+        if (self.store.local && self.scope.searchQuery) {
+            var text = item[self.config.get("displayField")];
+            if (text) {
+                return (""+text).toLowerCase().indexOf(
+                    self.scope.searchQuery.toLowerCase()
+                ) !== -1;
+            }
+        }
+        return true;
     },
 
     _getSelectOptions: function() {
@@ -395,25 +415,41 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
 
     initDialog: function() {
 
-        var self = this;
+        var self = this,
+            cssD = self.config.get("cssDialog"),
+            render,
+            position;
 
-        self.dialog = new MetaphorJs.dialog.Dialog({
-            target: self.node,
-            position: {
+        if (cssD) {
+            position = false;
+            render = {
+                el: self.scope.el_menu_items,
+                appendTo: false,
+                keepInDOM: true
+            };
+        }
+        else {
+            position = {
                 type: "bl",
                 offsetY: 1
-            },
-            content: false,
-            modal: false,
-            group: "ui-select",
-            render: {
+            };
+            render = {
                 el: self.scope.el_menu,
                 zIndex: 100,
                 appendTo: document.body,
                 style: {
                     position: "absolute"
                 }
-            },
+            };
+        }
+
+        self.dialog = new MetaphorJs.dialog.Dialog({
+            target: self.node,
+            position: position,
+            content: false,
+            modal: false,
+            group: "ui-select",
+            render: render,
             show: {
                 events: false,
                 single: true
@@ -571,6 +607,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
                     this.unselectItemById(
                         this.$$selection[this.$$selection.length - 1]
                     );
+                    this.store.update();
                 }
             }
             else {
