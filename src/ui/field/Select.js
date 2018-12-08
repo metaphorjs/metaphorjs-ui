@@ -43,6 +43,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         config.setType("searchable", "bool", null, false);
         config.setType("storeAutoLoad", "bool", null, true);
         config.setType("storePageSize", "int", null, 20);
+        config.setType("storeFilter", null, MetaphorJs.lib.Config.MODE_FUNC);
         config.setType("valueField", null, null, "id");
         config.setType("displayField", null, null, "name");
 
@@ -108,6 +109,11 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
                 self
             );
         }
+
+        if (config.hasExpression("storeFilter")) {
+            self.storeFilterFn = config.get("storeFilter");
+        }
+        else self.storeFilterFn = null;
 
         if (config.hasExpression("options")) {
             self.setOptions(config.get("options"));
@@ -353,9 +359,14 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         if (self.store.local && self.scope.searchQuery) {
             var text = item[self.config.get("displayField")];
             if (text) {
-                return (""+text).toLowerCase().indexOf(
-                    self.scope.searchQuery.toLowerCase()
-                ) !== -1;
+                if (self.storeFilterFn) {
+                    return self.storeFilterFn(item, text, self.scope.searchQuery);
+                }
+                else {
+                    return (""+text).toLowerCase().indexOf(
+                        self.scope.searchQuery.toLowerCase()
+                    ) !== -1;
+                }
             }
         }
         return true;
