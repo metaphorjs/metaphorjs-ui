@@ -69,7 +69,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         var self = this,
             scope = self.scope,
             config = self.config;
-
+        
         self._prevQuery = "";
         self.searchQueue = new MetaphorJs.lib.Queue({
             auto: true,
@@ -178,29 +178,8 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
     },
 
     isSelectionEnabled: function() {
-        return !this.config.get("readonly") && 
-               !this.config.get("disabled");
-    },
-
-    getInputInterface: function() {
-
-        var self = this;
-
-        return {
-            getValue: function() {
-                return self.getValue();
-            },
-            setValue: function(val) {
-                self.setValue(val);
-            },
-            onChange: function(fn, context) {
-                self.on("change", fn, context);
-            },
-            unChange: function(fn, context) {
-                self.un("change", fn, context);
-            },
-            destroy: function() {}
-        };
+        return true;
+        //return !this.config.get("disabled");
     },
 
     getValue: function() {
@@ -223,7 +202,9 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
 
         if (self.hasSelection() && 
             !self.isMultiSelection()) {
+            self.$$observable.suspendEvent("change");
             self.unselectAll();
+            self.$$observable.resumeEvent("change");
         }
 
         if (!val) {
@@ -264,7 +245,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         else if (self.currentName) {
             return self.currentName;
         }
-        return null;
+        return self.currentValue;
     },
 
     getMultiSelection: function() {
@@ -329,6 +310,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
     },
 
     onSelectionChange: function() {
+        this.store.update();
         this.currentValue = this.getValue();
         this.trigger("change", this.currentValue, this);
     },
@@ -562,7 +544,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         var self = this,
             cfg = self.config;
 
-        if (!self.isSelectionEnabled()) {
+        if (self.config.get("readonly")) {
             e.stopPropagation();
             self.dialog.hide();
             return;
@@ -579,9 +561,9 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
             self.unselectAll();
         }
 
-        if (!cfg.get("keepSelectedOptions")) {
-            self.store.update();
-        }
+        //if (!cfg.get("keepSelectedOptions")) {
+        //    self.store.update();
+        //}
 
         e.stopPropagation();
 

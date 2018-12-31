@@ -10,6 +10,7 @@
         <div class="cases" mjs-app>
             <div class="case double" 
                 {init}="
+                    this.sval = 2;
                     this.options = [
                         {id: 1, name: 'AAA'},
                         {id: 2, name: 'BBB'},
@@ -24,7 +25,10 @@
                     $empty-item-text:="Nope"
                     $searchable
                     $css-dialog
-                    $selection-mode="single"/>
+                    $model="this.sval"
+                    $selection-mode="single"></ui-select>
+
+                <input type="number" {model}="this.sval">
             </div>
         </div>
     </body>

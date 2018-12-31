@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><input type=\"hidden\" ##hidden_field [name]=\"this.field.$cfg.hiddenInputName\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.field.$cfg.readonly\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind}=\"this.field.getSelectedName()\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {show}=\"this.field.$cfg.useHiddenSelect\" {show.$display}=\"block\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stoppropagation) {bind-html}=\"this.field.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--<div class=\"pagination_container\"\n             {cmp}=\"Pagination\"\n             {cmp.$autoscroll}=\"false\"\n             {show}=\"this.pagination.hasPages()\"\n             (click.$stopPropagation)>\n        </div>--></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/field/input.html":"<div class=\"ui input\"><input type=\"text\" [placeholder]=\"this.placeholder\"></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><input type=\"hidden\" ##hidden_field [name]=\"this.field.$cfg.hiddenInputName\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.field.$cfg.readonly\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {show}=\"this.field.$cfg.useHiddenSelect\" {show.$display}=\"block\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stoppropagation) {bind-html}=\"this.field.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--<div class=\"pagination_container\"\n             {cmp}=\"Pagination\"\n             {cmp.$autoscroll}=\"false\"\n             {show}=\"this.pagination.hasPages()\"\n             (click.$stopPropagation)>\n        </div>--></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -4825,6 +4825,15 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
         },
 
         /**
+         * Get config's option
+         * @param {string} name 
+         * @returns {*}
+         */
+        getOption: function(name) {
+            return this.cfg[name];
+        },
+
+        /**
          * Set or update property
          * @method
          * @param {string} name 
@@ -6781,6 +6790,10 @@ var Directive = MetaphorJs.app.Directive = (function() {
                 self.watcher.$destroy(true);
             }
 
+            if (self.config) {
+                self.config.$destroy();
+            }
+
             if (self.wrapperOpen) {
                 self.wrapperOpen.parentNode.removeChild(self.wrapperOpen);
             }
@@ -7023,9 +7036,6 @@ var dom_getAttrSet = MetaphorJs.dom.getAttrSet = (function() {
                 }
             }
 
-            parts = name.split(".");
-            name = parts.shift();
-
 
             if (mode === '$') {
                 if (value === "") {
@@ -7047,6 +7057,9 @@ var dom_getAttrSet = MetaphorJs.dom.getAttrSet = (function() {
                 set['names'][tagName].push(attrs[i].name);
             }
             else if (mode === '(' || mode === '{') { 
+
+                parts = name.split(".");
+                name = parts.shift();
 
                 coll = set['directive'];
                 subname = parts.length ? parts.join(".") : null;
@@ -7304,7 +7317,7 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
                 args    = [scope, node, nodeConfig, self, attrs],
                 inst;
 
-            if (attrs.reference) {
+            if (attrs.reference && attrs.reference[0] !== '#') {
                 scope[attrs.reference] = node;
             }
 
@@ -15819,7 +15832,7 @@ Directive.registerAttribute("app", 100, appDirective);
  * @returns {boolean}
  */
 var dom_isField = MetaphorJs.dom.isField = function dom_isField(el) {
-    var tag	= el.nodeName.toLowerCase(),
+    var tag	= el && el.nodeName ? el.nodeName.toLowerCase() : null,
         type = el.type;
     if (tag == 'input' || tag == 'textarea' || tag == 'select') {
         if (type != "submit" && type != "reset" && type != "button") {
@@ -16561,10 +16574,10 @@ Input.get = function(node, scope) {
     if (node.$$input) {
         return node.$$input;
     }
-    if (scope && !node.type) {
+    if (scope && scope.$app && !node.type) {
         var cmp = scope.$app.getParentCmp(node, true);
-        if (cmp && cmp.getInputInterface) {
-            return cmp.getInputInterface();
+        if (cmp && cmp.getInputApi) {
+            return cmp.getInputApi();
         }
     }
     return new Input(node);
@@ -16604,10 +16617,15 @@ Directive.registerAttribute("bind", 1000,
             self.scope      = scope;
             self.node       = node;
             self.config     = config;
-            self.isInput    = dom_isField(node);
 
-            if (self.isInput) {
+            if (dom_isField(node)) {
                 self.input = lib_Input.get(node);
+            }
+            else if (node.getInputApi) {
+                self.input = node.getInputApi();
+            }
+
+            if (self.input) {
                 self.input.onChange(self.onInputChange, self);
             }
 
@@ -16657,7 +16675,7 @@ Directive.registerAttribute("bind", 1000,
 
             var self = this;
 
-            if (self.isInput) {
+            if (self.input) {
                 self.input.setValue(val);
             }
             else {
@@ -16675,6 +16693,7 @@ Directive.registerAttribute("bind", 1000,
             }
 
             if (self.input) {
+                self.inputApi.unChange(self.onInputChange, self);
                 self.input.$destroy();
                 self.input = null;
             }
@@ -18240,6 +18259,7 @@ Directive.registerAttribute("key", 1000, function(scope, node, config, renderer,
 
 
 
+
 Directive.registerAttribute("model", 1000, Directive.$extend({
 
     $class: "MetaphorJs.app.Directive.attr.Model",
@@ -18253,7 +18273,7 @@ Directive.registerAttribute("model", 1000, Directive.$extend({
     autoOnChange: false,
 
     $init: function(scope, node, config, renderer, attrSet) {
-        
+
         var self    = this,
             expr    = config.getExpression("value"),
             descr   = lib_Expression.describeExpression(expr);
@@ -18277,7 +18297,9 @@ Directive.registerAttribute("model", 1000, Directive.$extend({
         }
 
         self.node           = node;
-        self.input          = lib_Input.get(node, scope);
+        self.input          = dom_isField(node) ?
+                                 lib_Input.get(node, scope) :
+                                 node.getInputApi();
         self.binding        = config.get("binding");
         self.mo             = lib_MutationObserver.get(
                                 scope, expr, null, null, {
@@ -18350,7 +18372,10 @@ Directive.registerAttribute("model", 1000, Directive.$extend({
 
     onDestroy: function() {
         var self        = this;
+
+        self.input.unChange(self.onInputChange, self);
         self.input.$destroy();
+        self.input = null;
 
         if (self.mo) {
             self.mo.unsubscribe(self.onChange, self);
@@ -28917,7 +28942,7 @@ var mixin_Selectable = MetaphorJs.mixin.Selectable = {
 
             if (item) {
                 self.$$selection.push(id);
-                self.$$_selectable_itemCache[id] = self.store.getById(id);
+                self.$$_selectable_itemCache[id] = item;
                 self.trigger("selection-change");
                 self.onSelectionChange();
             }
@@ -29103,11 +29128,14 @@ MetaphorJs.ui = MetaphorJs.ui || {
 
 
 
+
+
 var ui_Field = MetaphorJs.ui.Field = app_Component.$extend({
 
     _initConfig: function() {
         
-        var config = this.config;
+        var self = this,
+            config = self.config;
 
         config.setOption("defaultMode", lib_Config.MODE_STATIC);
         config.setType("inputAutoCapitalize", "bool", null, true);
@@ -29117,8 +29145,87 @@ var ui_Field = MetaphorJs.ui.Field = app_Component.$extend({
         config.setType("as", null, null, "field");
         config.setType("disabled", "bool", null, false);
         config.setType("readonly", "bool", null, false);
+        config.setDefaultMode("bind", lib_Config.MODE_DYNAMIC);
+        config.setDefaultMode("model", lib_Config.MODE_DYNAMIC);
 
-        this.$super();
+        self.$super();  
+    },
+
+    initComponent: function() {
+        var self = this;
+
+        self.$super();
+
+        self.config.hasExpression("bind") && self._initBind();
+        self.config.hasExpression("model") && self._initModel();
+    },
+
+    _createDirectiveConfig: function(dir) {
+        var self = this,
+            pfx = dir + ".",
+            cfg = {
+                value: self.config.copyProperty(dir)
+            };
+        self.config.eachProperty(function(name) {
+            if (name.indexOf(pfx) === 0) {
+                var nn = name.replace(pfx, "");
+                cfg[nn] = self.config.copyProperty(name);
+            }
+        });
+        var c = new lib_Config(cfg, {
+            scope: self.config.getOption("scope")
+        });
+        self.config.disableProperty(dir);
+        return c;
+    },
+
+    _initBind: function() {
+        var self = this;
+
+        self.bindDirective = new MetaphorJs.app.Directive.attr.Bind(
+            self.config.getOption("scope"),
+            self,
+            self._createDirectiveConfig("bind")
+        );
+    },
+
+    _initModel: function() {
+        var self = this;
+
+        self.modelDirective = new MetaphorJs.app.Directive.attr.Model(
+            self.config.getOption("scope"),
+            self,
+            self._createDirectiveConfig("model")
+        );
+    },
+
+    onDestroy: function() {
+        var self = this;
+
+        if (self.bindDirective) {
+            self.bindDirective.$destroy();
+            self.bindDirective = null;
+        }
+        if (self.modelDirective) {
+            self.modelDirective.$destroy();
+            self.modelDirective = null;
+        }
+
+        self.$super();
+    },
+
+    getValue: emptyFn,
+    setValue: emptyFn,
+    onChange: function(fn, ctx, opt) {
+        return this.on("change", fn, ctx, opt);
+    },
+    unChange: function(fn, ctx) {
+        return this.un("change", fn, ctx);
+    },
+
+    getInputApi: function() {
+        var self = this;
+        return self;
     }
 });
 
@@ -33674,7 +33781,7 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
         var self = this,
             scope = self.scope,
             config = self.config;
-
+        
         self._prevQuery = "";
         self.searchQueue = new lib_Queue({
             auto: true,
@@ -33783,29 +33890,8 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
     },
 
     isSelectionEnabled: function() {
-        return !this.config.get("readonly") && 
-               !this.config.get("disabled");
-    },
-
-    getInputInterface: function() {
-
-        var self = this;
-
-        return {
-            getValue: function() {
-                return self.getValue();
-            },
-            setValue: function(val) {
-                self.setValue(val);
-            },
-            onChange: function(fn, context) {
-                self.on("change", fn, context);
-            },
-            unChange: function(fn, context) {
-                self.un("change", fn, context);
-            },
-            destroy: function() {}
-        };
+        return true;
+        //return !this.config.get("disabled");
     },
 
     getValue: function() {
@@ -33828,7 +33914,9 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
 
         if (self.hasSelection() && 
             !self.isMultiSelection()) {
+            self.$$observable.suspendEvent("change");
             self.unselectAll();
+            self.$$observable.resumeEvent("change");
         }
 
         if (!val) {
@@ -33869,7 +33957,7 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
         else if (self.currentName) {
             return self.currentName;
         }
-        return null;
+        return self.currentValue;
     },
 
     getMultiSelection: function() {
@@ -33934,6 +34022,7 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
     },
 
     onSelectionChange: function() {
+        this.store.update();
         this.currentValue = this.getValue();
         this.trigger("change", this.currentValue, this);
     },
@@ -34167,7 +34256,7 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
         var self = this,
             cfg = self.config;
 
-        if (!self.isSelectionEnabled()) {
+        if (self.config.get("readonly")) {
             e.stopPropagation();
             self.dialog.hide();
             return;
@@ -34184,9 +34273,9 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
             self.unselectAll();
         }
 
-        if (!cfg.get("keepSelectedOptions")) {
-            self.store.update();
-        }
+        //if (!cfg.get("keepSelectedOptions")) {
+        //    self.store.update();
+        //}
 
         e.stopPropagation();
 

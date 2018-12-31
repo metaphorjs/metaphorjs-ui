@@ -74,7 +74,7 @@ module.exports = MetaphorJs.mixin.Selectable = {
 
             if (item) {
                 self.$$selection.push(id);
-                self.$$_selectable_itemCache[id] = self.store.getById(id);
+                self.$$_selectable_itemCache[id] = item;
                 self.trigger("selection-change");
                 self.onSelectionChange();
             }
