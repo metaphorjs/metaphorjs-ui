@@ -59,6 +59,9 @@ module.exports = MetaphorJs.mixin.Selectable = {
     selectItemById: function(id) {
 
         var self = this;
+        if (!self.isSelectionEnabled()) {
+            return;
+        }
 
         if (self.$$selection.indexOf(id) === -1) {
 
@@ -85,6 +88,9 @@ module.exports = MetaphorJs.mixin.Selectable = {
     unselectItemById: function(id) {
         var self = this,
             inx = self.$$selection.indexOf(id);
+        if (!self.isSelectionEnabled()) {
+            return;
+        }
         if (inx !== -1) {
             self.$$selection.splice(inx, 1);
             delete self.$$_selectable_itemCache[id];
@@ -107,6 +113,10 @@ module.exports = MetaphorJs.mixin.Selectable = {
         var self = this,
             changed = !self.isAllSelected();
 
+        if (!self.isSelectionEnabled()) {
+            return;
+        }
+
         if (self.config.get("selectionMode") !== "single") {
             self.$$selection = [];
             self.$$_selectable_itemCache = {};
@@ -125,6 +135,9 @@ module.exports = MetaphorJs.mixin.Selectable = {
 
     unselectAll: function() {
         var self = this;
+        if (!self.isSelectionEnabled()) {
+            return;
+        }
         if (self.$$selection.length > 0) {
             self.$$selection = [];
             self.$$_selectable_itemCache = {};
@@ -139,6 +152,10 @@ module.exports = MetaphorJs.mixin.Selectable = {
 
     isSelected: function(item) {
         return this.isIdSelected(this.$$_selectable_getItemId(item));
+    },
+
+    isSelectionEnabled: function() {
+        return true;
     },
 
     isMultiSelection: function() {

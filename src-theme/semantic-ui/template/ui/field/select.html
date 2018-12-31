@@ -8,11 +8,11 @@
      {class.multiple}="this.field.isMultiSelection()">
 
     <input type="hidden"
-            #el_hidden_field
+            ##hidden_field
             [name]="this.field.$cfg.hiddenInputName"
             [value]="this.field.$$selection | join:','">
 
-    <i #el_icon_down 
+    <i ##icon_down 
        class="dropdown icon"
        (click)="this.field.onDropdownIconClick(this.$event)"></i>
 
@@ -24,8 +24,9 @@
     </a>
 
     <input type="text"
-           #el_search
+           ##search
            class="search"
+           {readonly}="this.field.$cfg.readonly"
            {disabled}="this.field.$cfg.disabled"
            {show}="this.field.$cfg.searchable"
            {show.$display}="inline-block"
@@ -35,12 +36,12 @@
            {model}="this.searchQuery">
 
     <span class="sizer"
-          #el_sizer
+          ##sizer
           {if}="this.field.isMultiSelection() && this.field.$cfg.searchable"
           {bind}="this.searchQuery"></span>
 
     <div class="default text"
-         #el_default_text
+         ##default_text
          (click)="this.field.onValueTextClick(this.$event)"
          {show}="!this.searchQuery && !this.field.hasSelection() &&
                     !!this.field.$cfg.emptyText"
@@ -49,7 +50,7 @@
          {bind}="this.field.$cfg.emptyText"></div>
 
     <div class="text"
-         #el_text
+         ##text
          (click)="this.field.onValueTextClick(this.$event)"
          {class.default}="this.focused && this.searchQuery == ''"
          {show}="!this.searchQuery && !this.field.isMultiSelection() && 
@@ -64,7 +65,7 @@
          {show}="!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable"
          {show.$display}="inline-block">&nbsp;</div>
 
-    <select #el_hidden_select
+    <select ##hidden_select
             (click)="this.field.onHiddenSelectClick(this.$event)"
             (change)="this.field.onHiddenSelectChange(this.$event)"
             {show}="this.field.$cfg.useHiddenSelect"
@@ -72,15 +73,15 @@
             {options}="this.field._getSelectOptions()"></select>
 
     
-     <div class="menu transition" #el_menu_items>
+     <div class="menu transition" ##menu_items>
           <div class="disabled item"
-               #el_menu_disabled
+               ##menu_disabled
                {if}="this.field.$cfg.showNotFound && this.field.store.isEmpty()"
                (click.$stopPropagation)
                {bind-html}="this.field.$cfg.notFoundText"></div>
           <a   class="empty item"
                href="#"
-               #el_menu_empty
+               ##menu_empty
                {if}="this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()"
                (click)="this.field.onItemClick(null, this.$event)"
                {bind-html}="this.field.$cfg.emptyItemText"></a>

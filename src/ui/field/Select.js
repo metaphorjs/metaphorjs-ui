@@ -103,7 +103,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         self.store.filter(bind(self.storeFilter, self));
 
         if (config.get("searchable")) {
-            self.queryWatcher = self.scope.$watch(
+            self.scope.$watch(
                 "this.searchQuery",
                 self.onSearchQueryChange,
                 self
@@ -148,8 +148,18 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         }
     },
 
-    destroy: function() {
-        this.$super();
+    onDestroy: function() {
+        var self = this;
+
+        if (self.config.get("searchable")) {
+            self.scope.$unwatch(
+                "this.searchQuery",
+                self.onSearchQueryChange,
+                self
+            );
+        }
+
+        self.$super();
     },
 
     
@@ -165,6 +175,11 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
             return !isArray(this.currentValue) || this.currentValue.length > 0;
         }
         return false;
+    },
+
+    isSelectionEnabled: function() {
+        return !this.config.get("readonly") && 
+               !this.config.get("disabled");
     },
 
     getInputInterface: function() {
@@ -434,7 +449,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         if (cssD) {
             position = false;
             render = {
-                el: self.scope.el_menu_items,
+                el: self.getRefEl("menu_items"),
                 appendTo: false,
                 keepInDOM: true
             };
@@ -445,7 +460,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
                 offsetY: 1
             };
             render = {
-                el: self.scope.el_menu,
+                el: self.getRefEl("menu"),
                 zIndex: 100,
                 appendTo: document.body,
                 style: {
@@ -494,8 +509,8 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
     },
 
     initSizer: function() {
-        if (this.scope.el_sizer) {
-            var style = this.scope.el_sizer.style;
+        if (this.getRefEl("sizer")) {
+            var style = this.getRefEl("sizer").style;
             style.left = '-10000px';
             style.maxWidth = '1000px';
             style.display = 'inline-block';
@@ -504,12 +519,12 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
     },
 
     setInputWidth: function() {
-        this.scope.el_search.style.width =
-            (MetaphorJs.dom.getWidth(this.scope.el_sizer) + 10) + "px";
+        this.getRefEl("search").style.width =
+            (MetaphorJs.dom.getWidth(this.getRefEl("sizer")) + 10) + "px";
     },
 
     setSearchFocus: function() {
-        this.scope.el_search.focus();
+        this.getRefEl("search").focus();
     },
 
     onSelfClick: function(e) {
@@ -547,6 +562,12 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         var self = this,
             cfg = self.config;
 
+        if (!self.isSelectionEnabled()) {
+            e.stopPropagation();
+            self.dialog.hide();
+            return;
+        }
+
         if (item) {
             //this.selectItem(item);
             self.setValue(
@@ -580,6 +601,9 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
 
     onItemDeleteClick: function(item, e) {
         var self = this;
+        if (!self.isSelectionEnabled()) {
+            return;
+        }
         self.unselectItem(item);
         if (!self.config.get("keepSelectedOptions")) {
             self.store.update();
@@ -633,8 +657,8 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
 
     onHiddenSelectChange: function(e) {
         var self = this,
-            val = self.scope.el_hiddenselect.value;
-        
+            val = self.getRefEl("hiddenselect").value;
+
         if (val) {
             var item = self.store.find(self.config.get("valueField"), val);
             if (item) {

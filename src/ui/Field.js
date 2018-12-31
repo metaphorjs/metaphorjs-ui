@@ -17,6 +17,7 @@ module.exports = MetaphorJs.ui.Field = MetaphorJs.app.Component.$extend({
         config.setType("clearable", "bool", null, true);
         config.setType("as", null, null, "field");
         config.setType("disabled", "bool", null, false);
+        config.setType("readonly", "bool", null, false);
 
         this.$super();
     }
