@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/field/input.html":"<div class=\"ui input\"><input type=\"text\" [placeholder]=\"this.placeholder\"></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><input type=\"hidden\" ##hidden_field [name]=\"this.field.$cfg.hiddenInputName\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.field.$cfg.readonly\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {show}=\"this.field.$cfg.useHiddenSelect\" {show.$display}=\"block\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stoppropagation) {bind-html}=\"this.field.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/field/input.html":"<div class=\"ui input\"><input type=\"text\" [placeholder]=\"this.placeholder\"></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><input type=\"hidden\" ##hidden_field [name]=\"this.field.$cfg.hiddenInputName\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.field.$cfg.readonly\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {show}=\"this.field.$cfg.useHiddenSelect\" {show.$display}=\"block\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stoppropagation) {bind-html}=\"this.field.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\" ##body>This is the body<div class=\"items\" ##items>Items go here</div></div><div class=\"fbar\" ##footer>Footer here</div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -12755,6 +12755,11 @@ var app_Component = MetaphorJs.app.Component = cls({
      */
     template:       null,
 
+    /**
+     * @var {object|bool}
+     */
+    supportsDirectives: false,
+
 
     /**
      * @constructor
@@ -12911,7 +12916,8 @@ var app_Component = MetaphorJs.app.Component = cls({
     _initDirectives: function() {
         var self = this,
             dirs = self.directives,
-            attrProps,
+            support = self.supportsDirectives,
+            dirCfg,
             config,
             handlers = Directive.getAttributes(),
             i, len, name,
@@ -12919,15 +12925,26 @@ var app_Component = MetaphorJs.app.Component = cls({
                             self.config.getOption("scope") ||
                             self.scope;
 
+        if (!support) {
+            return;
+        }
+
         for (i = 0, len = handlers.length; i < len; i++) {
             name    = handlers[i].name;
 
-            if ((attrProps = dirs[name]) !== undf) {
-                config = new lib_Config(
-                    attrProps.config, 
-                    {
-                        scope: parentScope
+            if (!(support === true || support[name])) {
+                continue;
+            }
+
+            if ((dirCfg = dirs[name]) !== undf) {
+                if (typeof dirCfg === "string") {
+                    dirCfg = {
+                        value: dirCfg
                     }
+                }
+                config = new lib_Config(
+                    dirCfg, 
+                    {scope: parentScope}
                 );
                 self.on("destroy", config.$destroy, config);
                 app_Renderer.applyDirective(
@@ -13144,7 +13161,14 @@ var app_Component = MetaphorJs.app.Component = cls({
      * @param {string} directive 
      */
     getDomApi: function(directive) {
-        return this.node;
+        var sup = this.supportsDirectives;
+        if (!sup) {
+            return null;
+        }
+        if (sup[directive] === true) {
+            return this.node;
+        }
+        return this.$refs.node[sup[directive]];
     },
 
     /**
@@ -16616,23 +16640,13 @@ Directive.registerAttribute("bind", 1000,
 
             config.setType("recursive", "bool");
             config.setType("once", "bool", lib_Config.MODE_STATIC);
+            config.setType("locked", "bool");
 
             self.scope      = scope;
             self.node       = node;
             self.config     = config;
 
-            if (dom_isField(node)) {
-                self.input = lib_Input.get(node);
-            }
-            else if (node.getInputApi) {
-                self.input = node.getInputApi();
-            }
-
-            if (self.input) {
-                self.input.onChange(self.onInputChange, self);
-            }
-
-            config.setType("locked", "bool");
+            self._initNode(node);            
 
             if (config.get("recursive")) {
                 config.disableProperty("value");
@@ -16654,7 +16668,23 @@ Directive.registerAttribute("bind", 1000,
                 }
             }
             else {
-                self.$super(scope, node, config);
+                self.$super(scope, self.node, config);
+            }
+        },
+
+        _initNode: function(node) {
+            var self = this;
+            if (node.getDomApi) {
+                self.node = node.getDomApi("bind");
+            }
+            if (dom_isField(node)) {
+                self.input = lib_Input.get(node);
+            }
+            else if (node.getInputApi) {
+                self.input = node.getInputApi("bind");
+            }
+            if (self.input) {
+                self.input.onChange(self.onInputChange, self);
             }
         },
 
@@ -16711,6 +16741,11 @@ Directive.registerAttribute("bind", 1000,
 Directive.registerAttribute("bind-html", 1000, 
     Directive.attr.Bind.$extend({
         $class: "MetaphorJs.app.Directive.attr.BindHtml",
+        _initNode: function(node) {
+            if (node.getDomApi) {
+                this.node = node.getDomApi("bind-html");
+            }
+        },
         updateElement: function(val) {
             this.node.innerHTML = val;
         }
@@ -16918,7 +16953,13 @@ DO NOT put class="{}" when using class.name="{}"
         };
 
         if (MetaphorJs.directive.component[tag]) {
-            cfg.directives = attrSet.directive;
+            var ds = {}, k;
+            for(k in attrSet.directive) {
+                if (attrSet.directive.hasOwnProperty(k)) {
+                    ds[k] = attrSet.directive[k].config;
+                }
+            }
+            cfg.directives = ds;
         }
 
         app_resolve(cmpName, cfg, newScope, node, [cfg])
@@ -18298,7 +18339,7 @@ Directive.registerAttribute("model", 1000, Directive.$extend({
         self.node           = node;
         self.input          = dom_isField(node) ?
                                  lib_Input.get(node, scope) :
-                                 node.getInputApi();
+                                 node.getInputApi("model");
         self.binding        = config.get("binding");
         self.mo             = lib_MutationObserver.get(
                                 scope, expr, null, null, {
@@ -29059,7 +29100,7 @@ var mixin_Selectable = MetaphorJs.mixin.Selectable = {
 
 
 
-MetaphorJs.app.Container = app_Component.$extend({
+var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
     initComponent: function() {
         var self = this, i, l;
@@ -29142,6 +29183,11 @@ MetaphorJs.ui = MetaphorJs.ui || {
 
 var ui_Field = MetaphorJs.ui.Field = app_Component.$extend({
 
+    supportsDirectives: {
+        "bind": true,
+        "model": true
+    },
+
     _initConfig: function() {
         
         var self = this,
@@ -29155,59 +29201,9 @@ var ui_Field = MetaphorJs.ui.Field = app_Component.$extend({
         config.setType("as", null, null, "field");
         config.setType("disabled", "bool", null, false);
         config.setType("readonly", "bool", null, false);
-        //config.setDefaultMode("bind", lib_Config.MODE_DYNAMIC);
-        //config.setDefaultMode("model", lib_Config.MODE_DYNAMIC);
 
         self.$super();  
     },
-
-    /*initComponent: function() {
-        var self = this;
-
-        self.$super();
-
-        self.config.hasExpression("bind") && self._initBind();
-        self.config.hasExpression("model") && self._initModel();
-    },
-
-    _createDirectiveConfig: function(dir) {
-        var self = this,
-            pfx = dir + ".",
-            cfg = {
-                value: self.config.copyProperty(dir)
-            };
-        self.config.eachProperty(function(name) {
-            if (name.indexOf(pfx) === 0) {
-                var nn = name.replace(pfx, "");
-                cfg[nn] = self.config.copyProperty(name);
-            }
-        });
-        var c = new lib_Config(cfg, {
-            scope: self.config.getOption("scope")
-        });
-        self.config.disableProperty(dir);
-        return c;
-    },
-
-    _initBind: function() {
-        var self = this;
-
-        self.bindDirective = new MetaphorJs.app.Directive.attr.Bind(
-            self.config.getOption("scope"),
-            self,
-            self._createDirectiveConfig("bind")
-        );
-    },
-
-    _initModel: function() {
-        var self = this;
-
-        self.modelDirective = new MetaphorJs.app.Directive.attr.Model(
-            self.config.getOption("scope"),
-            self,
-            self._createDirectiveConfig("model")
-        );
-    },*/
 
     onDestroy: function() {
         var self = this;
@@ -34375,4 +34371,102 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
         }
     }
 });
+
+
+
+
+
+var Test = {};
+
+ns.register("Test", Test);
+
+
+cls({
+    $class: "Test.container.Cmp1",
+    $extends: "MetaphorJs.app.Component",
+    as: "child1",
+    move: function() {
+        var parent1 = this.scope.$app.getCmp("parent1"),
+            parent2 = this.scope.$app.getCmp("parent2");
+
+        if (this.$$parent === parent1) {
+            parent2.addItem(this);
+        }
+        else {
+            parent1.addItem(this);
+        }
+    },
+    template: {
+        html: "<p>This is container child #1; " +
+                "<a href=\"#\" (click)=\"this.child1.move()\">move</a></p>"
+    }
+});
+
+cls({
+    $class: "Test.container.Cmp2",
+    $extends: "Test.container.Cmp1",
+    as: "child2",
+    template: {
+        html: "<p>This is container child #2; "+
+                "<a href=\"#\" (click)=\"this.child2.move()\">move</a></p>"
+    }
+});
+
+cls({
+    $class: "Test.container.Cmp3",
+    $extends: "MetaphorJs.app.Component",
+    as: "child3",
+    supportsDirectives: {
+        "bind-html": "bindhere"
+    },
+    template: {
+        html: "<div>Before bind // <span ##bindhere></span> // After bind</div>"
+    }
+});
+
+cls({
+    $class: "Test.ContainerApp",
+    $extends: "MetaphorJs.app.App",
+
+    initApp: function(node, scope) {
+
+        window.mainApp = this;
+
+        scope.bindText = "AAA";
+
+        var parent1 = new app_Container({
+            id: "parent1",
+            renderTo: document.getElementById("container-app"),
+            scope: scope,
+            template: 'container1.html',
+            items: [
+                new Test.container.Cmp1({
+                    scope: scope,
+                    id: "child1"
+                }),
+                new Test.container.Cmp2({
+                    scope: scope,
+                    id: "child2"
+                }),
+                new Test.container.Cmp3({
+                    scope: scope,
+                    id: "child3",
+                    directives: {
+                        "bind-html": "this.bindText"
+                    }
+                })
+            ]
+        });
+
+        parent1.render();
+
+        var parent2 = new app_Container({
+            id: "parent2",
+            scope: scope
+        });
+
+        parent2.render(document.getElementById("container-app"));
+    }
+});
+
 /* BUNDLE END 004 */

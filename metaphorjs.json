@@ -7,11 +7,15 @@
                 "metaphorjs/src/extra-directives/**",
                 "metaphorjs/src/app/**",
                 "src/mixin/**",
-                "src/ui/**"
+                "src/ui/**",
+                "dev-test/container.js"
             ],
             "templates": [
                 ["src-theme/semantic-ui/template/**", {
                     "base": "src-theme/semantic-ui/template"
+                }],
+                ["dev-test/templates/**", {
+                    "base": "dev-test/templates"
                 }]
             ]
         }

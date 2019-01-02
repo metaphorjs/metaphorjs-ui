@@ -9,6 +9,11 @@ var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
 
 module.exports = MetaphorJs.ui.Field = MetaphorJs.app.Component.$extend({
 
+    supportsDirectives: {
+        "bind": true,
+        "model": true
+    },
+
     _initConfig: function() {
         
         var self = this,
