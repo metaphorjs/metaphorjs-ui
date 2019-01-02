@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/field/input.html":"<div class=\"ui input\"><input type=\"text\" [placeholder]=\"this.placeholder\"></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><input type=\"hidden\" ##hidden_field [name]=\"this.field.$cfg.hiddenInputName\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.field.$cfg.readonly\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {show}=\"this.field.$cfg.useHiddenSelect\" {show.$display}=\"block\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stoppropagation) {bind-html}=\"this.field.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\" ##body>This is the body<div class=\"items\" ##items>Items go here</div></div><div class=\"fbar\" ##footer>Footer here</div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/field/input.html":"<div class=\"ui input\"><input ##input [type]=\"this.field.$cfg.type\" [placeholder]=\"this.field.$cfg.placeholder\"></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><input type=\"hidden\" ##hidden_field [name]=\"this.field.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.field.$cfg.readonly\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {if}=\"this.field.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.field.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\" ##body>This is the body<div class=\"items\" ##items>Items go here</div></div><div class=\"fbar\" ##footer>Footer here</div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -16176,6 +16176,9 @@ var browser_hasEvent = MetaphorJs.browser.hasEvent = function(){
 
 var lib_Input = MetaphorJs.lib.Input = function(){
 
+var observable = new lib_Observable,
+    id = 0;
+
 var Input = function(el, changeFn, changeFnContext, cfg) {
 
     if (el.$$input) {
@@ -16189,14 +16192,15 @@ var Input = function(el, changeFn, changeFnContext, cfg) {
 
     cfg = cfg || {};
 
-    self.observable     = new lib_Observable;
+    //self.observable     = new lib_Observable;
     self.el             = el;
+    self.id             = ++id;
     self.inputType      = el.type.toLowerCase();
     self.dataType       = cfg.type || dom_getAttr(el, "data-type") || self.inputType;
     self.listeners      = [];
 
     if (changeFn) {
-        self.onChange(changeFn, changeFnContext);
+        self.on("change", changeFn, changeFnContext);
     }
 };
 
@@ -16215,7 +16219,9 @@ extend(Input.prototype, {
         var self        = this,
             i;
 
-        self.observable.$destroy();
+        //self.observable.$destroy();
+        observable.destroyEvent("change-" + self.id);
+        observable.destroyEvent("key-" + self.id);
         self._addOrRemoveListeners(dom_removeListener, true);
 
         self.el.$$input = null;
@@ -16423,7 +16429,7 @@ extend(Input.prototype, {
         var self    = this,
             val     = self.getValue();
 
-        self.observable.trigger("change", self.processValue(val));
+        observable.trigger("change-"+self.id, self.processValue(val));
     },
 
 
@@ -16431,7 +16437,7 @@ extend(Input.prototype, {
         var self    = this,
             node    = self.el;
 
-        self.observable.trigger("change", self.processValue(
+        observable.trigger("change-"+self.id, self.processValue(
             node.checked ? (dom_getAttr(node, "value") || true) : false)
         );
     },
@@ -16455,7 +16461,7 @@ extend(Input.prototype, {
         var self    = this,
             trg     = e.target || e.srcElement;
 
-        self.observable.trigger("change", self.processValue(trg.value));
+        observable.trigger("change-"+self.id, self.processValue(trg.value));
     },
 
     setValue: function(val) {
@@ -16516,43 +16522,44 @@ extend(Input.prototype, {
     },
 
 
-    onChange: function(fn, context) {
+    on: function(event, fn, ctx, opt) {
         var self = this;
-        if (!self.changeInitialized) {
+        if (event === "change" && !self.changeInitialized) {
             self.initInputChange();
         }
-        this.observable.on("change", fn, context);
-    },
-
-    unChange: function(fn, context) {
-        this.observable.un("change", fn, context);
-    },
-
-
-    onKey: function(key, fn, context, args) {
-
-        var self = this;
-
-        if (!self.keydownDelegate) {
+        else if (event === "key" && !self.keydownDelegate) {
             self.keydownDelegate = bind(self.keyHandler, self);
             self.listeners.push(["keydown", self.keydownDelegate, false]);
             dom_addListener(self.el, "keydown", self.keydownDelegate);
-            self.observable.createEvent("key", {
+            observable.createEvent("key-"+self.id, {
                 returnResult: false,
                 triggerFilter: self.keyEventFilter
             });
         }
+        return observable.on(event+"-"+self.id, fn, ctx, opt);
+    },
 
-        self.observable.on("key", fn, context, {
+    un: function(event, fn, ctx) {
+        return observable.un(event+"-"+this.id, fn, ctx);
+    },
+
+    onChange: function(fn, context) {
+        return this.on("change", fn, context);
+    },
+
+    unChange: function(fn, context) {
+        return this.un("change", fn, context);
+    },
+
+    onKey: function(key, fn, context, args) {
+        return this.on("key", fn, context, {
             key: key,
             prepend: args
         });
     },
 
     unKey: function(key, fn, context) {
-
-        var self    = this;
-        self.observable.un("key", fn, context);
+        this.un("key", fn, context);
     },
 
     keyEventFilter: function(l, args) {
@@ -16575,11 +16582,10 @@ extend(Input.prototype, {
     },
 
     keyHandler: function(event) {
-
-        var e       = dom_normalizeEvent(event || window.event),
-            self    = this;
-
-        self.observable.trigger("key", e);
+        observable.trigger(
+            "key-"+this.id, 
+            dom_normalizeEvent(event || window.event)
+        );
     },
 
     triggerChange: function() {
@@ -18124,6 +18130,13 @@ Directive.registerAttribute("if", 500, Directive.$extend({
 Directive.registerAttribute("in-focus", 500, Directive.$extend({
 
     $class: "MetaphorJs.app.Directive.attr.InFocus",
+
+    $init: function(scope, node) {
+        if (node.getDomApi) {
+            arguments[1] = node.getDomApi();
+        }
+        this.$super.apply(this, arguments);
+    },
 
     initialSet: function() {
         this.config.setType("value", "bool");
@@ -29181,7 +29194,7 @@ MetaphorJs.ui = MetaphorJs.ui || {
 
 
 
-var ui_Field = MetaphorJs.ui.Field = app_Component.$extend({
+var ui_Field = MetaphorJs.ui.Field = MetaphorJs.app.Container.$extend({
 
     supportsDirectives: {
         "bind": true,
@@ -29201,6 +29214,7 @@ var ui_Field = MetaphorJs.ui.Field = app_Component.$extend({
         config.setType("as", null, null, "field");
         config.setType("disabled", "bool", null, false);
         config.setType("readonly", "bool", null, false);
+        config.setDefaultMode("name", lib_Config.MODE_STATIC);
 
         self.$super();  
     },
@@ -29220,8 +29234,14 @@ var ui_Field = MetaphorJs.ui.Field = app_Component.$extend({
         self.$super();
     },
 
-    getValue: emptyFn,
+    
+    
+
+    /* Input API */
     setValue: emptyFn,
+    getValue: emptyFn,
+    onKey: emptyFn,
+    unKey: emptyFn,
     onChange: function(fn, ctx, opt) {
         return this.on("change", fn, ctx, opt);
     },
@@ -29234,6 +29254,59 @@ var ui_Field = MetaphorJs.ui.Field = app_Component.$extend({
     }
 });
 
+
+
+
+
+
+
+
+
+MetaphorJs.ui.field.Input = ui_Field.$extend({
+    $alias: "MetaphorJs.directive.component.ui-input",
+    template: "ui/field/input.html",
+
+    supportsDirectives: {
+        bind: "input",
+        model: "input",
+        show: true,
+        hide: true,
+        class: true,
+        style: true,
+        "in-focus": "input",
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true,
+        draggable: true,
+        droppable: true,
+        field: true
+    },
+
+    _initConfig: function() {
+        this.$super();
+
+        var config = this.config;
+        config.setType("type", null, lib_Config.MODE_STATIC, "text");
+        config.setType("placeholder", null, lib_Config.MODE_STATIC, "");
+    },
+
+    afterRender: function() {
+        var self = this,
+            input;
+
+        self.input = input = lib_Input.get(self.$refs.node.input);
+        self.setValue = bind(input.setValue, input);
+        self.getValue = bind(input.getValue, input);
+        self.onKey = bind(input.onKey, input);
+        self.unKey = bind(input.unKey, input);
+
+        self.$$observable.relayEvent(input, "change");
+
+        self.$super();
+    }
+});
 
 /**
  * Change first character to upper case
@@ -34204,7 +34277,7 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
 
     onWindowBreak: function() {
         this.config.set("useHiddenSelect", 
-            getWidth(window) < this.config.get("hiddenSelectBreakpoint")
+            dom_getWidth(window) < this.config.get("hiddenSelectBreakpoint")
         );
         this.scope.$check();
     },

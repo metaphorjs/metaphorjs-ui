@@ -9,7 +9,7 @@
 
     <input type="hidden"
             ##hidden_field
-            [name]="this.field.$cfg.hiddenInputName"
+            [name]="this.field.$cfg.name"
             [value]="this.field.$$selection | join:','">
 
     <i ##icon_down 
@@ -68,15 +68,14 @@
     <select ##hidden_select
             (click)="this.field.onHiddenSelectClick(this.$event)"
             (change)="this.field.onHiddenSelectChange(this.$event)"
-            {show}="this.field.$cfg.useHiddenSelect"
-            {show.$display}="block" 
+            {if}="this.field.$cfg.useHiddenSelect"
             {options}="this.field._getSelectOptions()"></select>
 
      <div class="menu transition" ##menu_items>
           <div class="disabled item"
                ##menu_disabled
                {if}="this.field.$cfg.showNotFound && this.field.store.isEmpty()"
-               (click.$stopPropagation)
+               (click.$stop-propagation)
                {bind-html}="this.field.$cfg.notFoundText"></div>
           <a   class="empty item"
                href="#"

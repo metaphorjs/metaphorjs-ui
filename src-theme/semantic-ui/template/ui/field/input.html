@@ -1,3 +1,5 @@
 <div class="ui input">
-    <input type="text" [placeholder]="this.placeholder">
+    <input  ##input
+            [type]="this.field.$cfg.type" 
+            [placeholder]="this.field.$cfg.placeholder">
 </div>

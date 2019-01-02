@@ -487,7 +487,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
 
     onWindowBreak: function() {
         this.config.set("useHiddenSelect", 
-            getWidth(window) < this.config.get("hiddenSelectBreakpoint")
+            MetaphorJs.dom.getWidth(window) < this.config.get("hiddenSelectBreakpoint")
         );
         this.scope.$check();
     },

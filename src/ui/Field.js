@@ -7,7 +7,7 @@ require("metaphorjs/src/directive/attr/model.js");
 var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),    
     emptyFn = require("metaphorjs-shared/src/func/emptyFn.js");
 
-module.exports = MetaphorJs.ui.Field = MetaphorJs.app.Component.$extend({
+module.exports = MetaphorJs.ui.Field = MetaphorJs.app.Container.$extend({
 
     supportsDirectives: {
         "bind": true,
@@ -27,6 +27,7 @@ module.exports = MetaphorJs.ui.Field = MetaphorJs.app.Component.$extend({
         config.setType("as", null, null, "field");
         config.setType("disabled", "bool", null, false);
         config.setType("readonly", "bool", null, false);
+        config.setDefaultMode("name", MetaphorJs.lib.Config.MODE_STATIC);
 
         self.$super();  
     },
@@ -46,8 +47,14 @@ module.exports = MetaphorJs.ui.Field = MetaphorJs.app.Component.$extend({
         self.$super();
     },
 
-    getValue: emptyFn,
+    
+    
+
+    /* Input API */
     setValue: emptyFn,
+    getValue: emptyFn,
+    onKey: emptyFn,
+    unKey: emptyFn,
     onChange: function(fn, ctx, opt) {
         return this.on("change", fn, ctx, opt);
     },
