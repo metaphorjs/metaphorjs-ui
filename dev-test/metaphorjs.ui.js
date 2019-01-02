@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/field/input.html":"<div class=\"ui input\"><input type=\"text\" [placeholder]=\"this.placeholder\"></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><input type=\"hidden\" ##hidden_field [name]=\"this.field.$cfg.hiddenInputName\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.field.$cfg.readonly\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {show}=\"this.field.$cfg.useHiddenSelect\" {show.$display}=\"block\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stoppropagation) {bind-html}=\"this.field.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--<div class=\"pagination_container\"\n             {cmp}=\"Pagination\"\n             {cmp.$autoscroll}=\"false\"\n             {show}=\"this.pagination.hasPages()\"\n             (click.$stopPropagation)>\n        </div>--></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/field/input.html":"<div class=\"ui input\"><input type=\"text\" [placeholder]=\"this.placeholder\"></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><input type=\"hidden\" ##hidden_field [name]=\"this.field.$cfg.hiddenInputName\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.field.$cfg.readonly\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {show}=\"this.field.$cfg.useHiddenSelect\" {show.$display}=\"block\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stoppropagation) {bind-html}=\"this.field.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -469,6 +469,9 @@ extend(ObservableEvent.prototype, {
 
         if (e.async === true) {
             e.async = 1;
+        }
+        if (options.once) {
+            e.limit = 1;
         }
 
         if (first) {
@@ -7188,8 +7191,6 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
             }
         },
 
-        //rSkipTag = /^(script|template|mjs-template|style)$/i,
-
         skipMap = {
             "script": true,
             "template": true,
@@ -7240,9 +7241,72 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
             --cnt.countdown === 0 && finish && finish.call(fnScope);
         },
 
+        applyDirective = function(dir, parentScope, node, config, attrs, renderer, passDirectives) {
+
+            var scope   = dir.$isolateScope ?
+                            parentScope.$newIsolated() :
+                          (dir.$breakScope  ?
+                           parentScope.$new() :
+                           parentScope),
+                app     = parentScope.$app,
+                inject  = {
+                    $scope: scope,
+                    $node: node,
+                    $nodeConfig: config,
+                    $attrSet: attrs,
+                    $renderer: renderer
+                },
+                args    = [scope, node, config, renderer, attrs],
+                inst;
+
+            //if (attrs.reference && attrs.reference[0] !== '#') {
+            //    scope[attrs.reference] = node;
+            //}
+
+            if (app) {
+                inst = app.inject(dir, null, inject, args);
+            }
+            else if (dir.$instantiate) {
+                inst = dir.$instantiate.apply(dir, args);
+            }
+            else {
+                inst = dir.apply(null, args);
+            }
+
+            if (app && dir.$registerBy && inst) {
+                if (isThenable(inst)) {
+                    inst.done(function(cmp){
+                        app.registerCmp(cmp, parentScope, dir.$registerBy);
+                    });
+                }
+                else {
+                    app.registerCmp(inst, parentScope, dir.$registerBy);
+                }
+            }
+
+            if (inst && inst.$destroy) {
+                renderer && renderer.on("destroy", inst.$destroy, inst);
+                !renderer && parentScope.$on("destroy", inst.$destroy, inst);
+            }
+            else if (typeof inst === "function") {
+                renderer && renderer.on("destroy", inst);
+                !renderer && parentScope.$on("destroy", inst);
+            }
+
+            if (dir.$stopRenderer) {
+                return false;
+            }
+
+            if (inst && inst.getChildren) {
+                return inst.getChildren();
+            }
+
+            return inst;
+        },
+
         observer = new lib_Observable;
 
-    var Renderer = function(el, scope, parent, passedAttrs) {
+    var Renderer = function(el, scope, parent) {
 
         var self            = this;
 
@@ -7251,7 +7315,6 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
         self.scope          = scope;
         self.texts          = [];
         self.parent         = parent;
-        self.passedAttrs    = passedAttrs;
 
         if (scope instanceof lib_Scope) {
             scope.$on("destroy", self.$destroy, self);
@@ -7277,10 +7340,6 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
             return observer.on(event + '-' + this.id, fn, context, opt);
         },
 
-        once: function(event, fn, context, opt) {
-            return observer.once(event + '-' + this.id, fn, context, opt);
-        },
-
         un: function(event, fn, context) {
             return observer.un(event + '-' + this.id, fn, context);
         },
@@ -7290,77 +7349,9 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
             return observer.trigger.apply(observer, arguments);
         },
 
-        createChild: function(node) {
-            return new Renderer(node, this.scope, this);
-        },
-
         getEl: function() {
             return this.el;
         },
-
-        runHandler: function(f, parentScope, node, nodeConfig, attrs) {
-
-            var self    = this,
-                scope   = f.$isolateScope ?
-                            parentScope.$newIsolated() :
-                          (f.$breakScope  ?
-                           parentScope.$new() :
-                           parentScope),
-                app     = parentScope.$app,
-                inject  = {
-                    $scope: scope,
-                    $node: node,
-                    $nodeConfig: nodeConfig,
-                    $attrSet: attrs,
-                    $renderer: self
-                },
-                args    = [scope, node, nodeConfig, self, attrs],
-                inst;
-
-            if (attrs.reference && attrs.reference[0] !== '#') {
-                scope[attrs.reference] = node;
-            }
-
-            if (app) {
-                inst = app.inject(f, null, inject, args);
-            }
-            else if (f.$instantiate) {
-                inst = f.$instantiate.apply(f, args);
-            }
-            else {
-                inst = f.apply(null, args);
-            }
-
-            if (app && f.$registerBy && inst) {
-                if (isThenable(inst)) {
-                    inst.done(function(cmp){
-                        app.registerCmp(cmp, parentScope, f.$registerBy);
-                    });
-                }
-                else {
-                    app.registerCmp(inst, parentScope, f.$registerBy);
-                }
-            }
-
-
-            if (inst && inst.$destroy) {
-                self.on("destroy", inst.$destroy, inst);
-            }
-            else if (typeof inst === "function") {
-                self.on("destroy", inst);
-            }
-
-            if (f.$stopRenderer) {
-                return false;
-            }
-
-            if (inst && inst.getChildren) {
-                return inst.getChildren();
-            }
-
-            return inst;
-        },
-
 
         processNode: function(node) {
 
@@ -7424,20 +7415,6 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
                     return false;
                 }
 
-                config = new lib_Config(attrs.config, {
-                    scope: self.scope
-                });                
-
-                if (self.passedAttrs) {
-                    attrs['directive'] = extend(
-                        {}, 
-                        attrs['directive'], 
-                        self.passedAttrs['directive'], 
-                        true, true
-                    );
-                    self.passedAttrs = null;
-                }
-
                 // this tag represents component
                 // we just pass it to attr.cmp directive
                 // by adding it to the attr map
@@ -7445,6 +7422,7 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
 
                     as = attrs.config.tag ? attrs.config.tag.expression : null;
 
+                    // TODO do not make this a separate branch
                     if (as) {
 
                         attrs["directive"]['cmp'] = {
@@ -7473,10 +7451,6 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
                         f = dirs.attr.cmp;
                         delete attrs['directive']['cmp'];
 
-                        /*var passAttrs = extend({}, attrs);
-                        delete passAttrs['directive']['cmp'];
-                        attrs.config.passAttrs = passAttrs;*/
-
                         config = new lib_Config(
                             extend({}, attrs.config, {
                                 value: {
@@ -7488,7 +7462,8 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
                         );
                         self.on("destroy", config.$destroy, config);
 
-                        res = self.runHandler(f, scope, node, config, attrs);
+                        res = applyDirective(f, scope, node, config, attrs, self, true);
+                        attrs['directive'] = {};
 
                         if (res === false) {
                             return false;
@@ -7507,10 +7482,10 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
 
                     config = new lib_Config(
                         attrs.config, 
-                        {scope: self.scope, deferInit: true}
+                        {scope: self.scope}
                     );
                     self.on("destroy", config.$destroy, config);
-                    res = self.runHandler(f, scope, node, config, attrs);
+                    res = applyDirective(f, scope, node, config, attrs, self);
 
                     attrs.removeDirective(node, tag);
 
@@ -7545,7 +7520,7 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
                             {scope: self.scope}
                         );
                         self.on("destroy", config.$destroy, config);
-                        res     = self.runHandler(handler, scope, node, config, attrs);
+                        res     = applyDirective(handler, scope, node, config, attrs, self);
 
                         attrProps.handled = true;
 
@@ -7696,6 +7671,8 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
     Renderer.skip = function(tag, value) {
         skipMap[tag] = value;
     };
+
+    Renderer.applyDirective = applyDirective;
 
     return Renderer;
 
@@ -12252,29 +12229,17 @@ var app_Template = MetaphorJs.app.Template = function() {
         replace:            false,
         animate:            false,
 
-        passAttrs:          null,
-
         _runRenderer: function() {
             var self = this;
             if (!self._renderer) {
                 self._renderer   = new app_Renderer(
-                        self.node, self.scope/*, null, self.passAttrs*/
+                        self.node, self.scope
                 );
-                observable.relayEvent(
-                    self._renderer, "reference", "reference-" + self.id
-                );
-                self._renderer.on("rendered", self._onRendered, self);
-                self._renderer.on("first-node", self._onFirstNodeReported, self);
+                observable.relayEvent(self._renderer, "reference", "reference-" + self.id);
+                observable.relayEvent(self._renderer, "first-node", "first-node-" + self.id);
+                observable.relayEvent(self._renderer, "rendered", "rendered-" + self.id);
                 self._renderer.process();
             }
-        },
-
-        _onFirstNodeReported: function(node) {
-            observable.trigger("first-node-" + this.id, node);
-        },
-
-        _onRendered: function() {
-            observable.trigger("rendered-" + this.id, this);
         },
 
         createEvent: function(event, opt) {
@@ -12719,6 +12684,7 @@ var htmlTags = MetaphorJs.dom.htmlTags = [
 
 
 
+
 /**
  * @class MetaphorJs.app.Component
  */
@@ -12904,7 +12870,6 @@ var app_Component = MetaphorJs.app.Component = cls({
                     rendered: self._onRenderingFinished,
                     "first-node": self._onFirstNodeReported
                 }
-                //passAttrs: self.passAttrs
             });
         }
 
@@ -12941,6 +12906,35 @@ var app_Component = MetaphorJs.app.Component = cls({
                 self.on(name.substring(4), config.get(name), ctx);
             }
         });
+    },
+
+    _initDirectives: function() {
+        var self = this,
+            dirs = self.directives,
+            attrProps,
+            config,
+            handlers = Directive.getAttributes(),
+            i, len, name,
+            parentScope = self.scope.$parent || 
+                            self.config.getOption("scope") ||
+                            self.scope;
+
+        for (i = 0, len = handlers.length; i < len; i++) {
+            name    = handlers[i].name;
+
+            if ((attrProps = dirs[name]) !== undf) {
+                config = new lib_Config(
+                    attrProps.config, 
+                    {
+                        scope: parentScope
+                    }
+                );
+                self.on("destroy", config.$destroy, config);
+                app_Renderer.applyDirective(
+                    handlers[i].handler, parentScope, self, config
+                );
+            }
+        }
     },
 
     _onFirstNodeReported: function(node) {
@@ -13078,20 +13072,20 @@ var app_Component = MetaphorJs.app.Component = cls({
             self._replaceNodeWithTemplate();
         }
 
-        if (self.renderTo) {
-            self.renderTo.appendChild(self.node);
-        }
-        //else if (!isAttached(self.node)) {
-        //    window.document.body.appendChild(self.node);
-        //}
-
         self._rendered   = true;
         self.afterRender();
         self.trigger('after-render', self);
 
+        if (self.directives) {
+            self._initDirectives();
+        }
+
         if (isAttached(self.node)) {
             self.afterAttached();
             self.trigger('after-attached', self);
+        }
+        else if (self.renderTo && self.node.parentNode !== self.renderTo) {
+            self.attach(self.renderTo);
         }
     },
 
@@ -13141,6 +13135,15 @@ var app_Component = MetaphorJs.app.Component = cls({
      * @return Element
      */
     getEl: function() {
+        return this.node;
+    },
+
+    /**
+     * Returns api (in a simplest case - dom element) 
+     * for directive to work with
+     * @param {string} directive 
+     */
+    getDomApi: function(directive) {
         return this.node;
     },
 
@@ -16717,15 +16720,6 @@ Directive.registerAttribute("bind-html", 1000,
 
 
 
-Directive.registerAttribute("cfg", 200, function(scope, node, config) { 
-    dom_data(node, "config", config);
-});
-
-
-
-
-
-
 
 
 
@@ -16899,7 +16893,8 @@ DO NOT put class="{}" when using class.name="{}"
 
         var cmpName = config.get("value"),
             constr  = typeof cmpName === "string" ?
-                        ns.get(cmpName, true) : cmpName;
+                        ns.get(cmpName, true) : cmpName,
+            tag     = node.tagName.toLowerCase();
 
         if (!constr) {
             throw new Error("Component " + cmpName + " not found");
@@ -16921,6 +16916,10 @@ DO NOT put class="{}" when using class.name="{}"
             destroyScope: !sameScope,
             autoRender: true
         };
+
+        if (MetaphorJs.directive.component[tag]) {
+            cfg.directives = attrSet.directive;
+        }
 
         app_resolve(cmpName, cfg, newScope, node, [cfg])
             .done(function(cmp) {
@@ -27355,7 +27354,9 @@ var validator_Component = MetaphorJs.validator.Component = cls({
 
         // wait for the renderer to finish
         // before making judgements :)
-        renderer.once("rendered", self.validator.check, self.validator);
+        renderer.on("rendered", self.validator.check, self.validator, {
+            once: true
+        });
         renderer.on("destroy", self.$destroy, self);
         scope.$on("destroy", self.$destroy, self);
     },
@@ -28667,6 +28668,15 @@ Directive.registerAttribute("break-if", 500, function(scope, node, config) {
 
 
 
+
+Directive.registerAttribute("cfg", 200, function(scope, node, config) { 
+    dom_data(node, "config", config);
+});
+
+
+
+
+
 Directive.registerAttribute("ignore", 0, returnFalse);
 
 
@@ -29145,13 +29155,13 @@ var ui_Field = MetaphorJs.ui.Field = app_Component.$extend({
         config.setType("as", null, null, "field");
         config.setType("disabled", "bool", null, false);
         config.setType("readonly", "bool", null, false);
-        config.setDefaultMode("bind", lib_Config.MODE_DYNAMIC);
-        config.setDefaultMode("model", lib_Config.MODE_DYNAMIC);
+        //config.setDefaultMode("bind", lib_Config.MODE_DYNAMIC);
+        //config.setDefaultMode("model", lib_Config.MODE_DYNAMIC);
 
         self.$super();  
     },
 
-    initComponent: function() {
+    /*initComponent: function() {
         var self = this;
 
         self.$super();
@@ -29197,7 +29207,7 @@ var ui_Field = MetaphorJs.ui.Field = app_Component.$extend({
             self,
             self._createDirectiveConfig("model")
         );
-    },
+    },*/
 
     onDestroy: function() {
         var self = this;
@@ -29224,8 +29234,7 @@ var ui_Field = MetaphorJs.ui.Field = app_Component.$extend({
     },
 
     getInputApi: function() {
-        var self = this;
-        return self;
+        return this;
     }
 });
 
@@ -33938,6 +33947,9 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
             self.currentName = name;
             self.selectItemById(val);
         }
+        if (!self.scope.$$checking) {
+            self.scope.$check();
+        }
     },
 
     getSelectedValues: function() {
@@ -33945,7 +33957,6 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
     },
 
     getSelectedName: function() {
-
         var self = this;
         if (self.isMultiSelection()) {
             return null;

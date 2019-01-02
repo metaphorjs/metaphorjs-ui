@@ -226,6 +226,9 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
             self.currentName = name;
             self.selectItemById(val);
         }
+        if (!self.scope.$$checking) {
+            self.scope.$check();
+        }
     },
 
     getSelectedValues: function() {
@@ -233,7 +236,6 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
     },
 
     getSelectedName: function() {
-
         var self = this;
         if (self.isMultiSelection()) {
             return null;
