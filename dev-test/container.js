@@ -17,10 +17,12 @@ cls({
         var parent1 = this.scope.$app.getCmp("parent1"),
             parent2 = this.scope.$app.getCmp("parent2");
 
-        if (this.$$parent === parent1) {
+        if (parent1.hasItem(this)) {
+            console.log("move to 2")
             parent2.addItem(this);
         }
         else {
+            console.log("move to 1")
             parent1.addItem(this);
         }
     },
@@ -62,6 +64,9 @@ cls({
 
         scope.bindText = "AAA";
 
+        var div = document.createElement("div");
+        div.innerHTML = 'Dynamicly created node';
+
         var parent1 = new MetaphorJs.app.Container({
             id: "parent1",
             renderTo: document.getElementById("container-app"),
@@ -82,7 +87,8 @@ cls({
                     directives: {
                         "bind-html": "this.bindText"
                     }
-                })
+                }),
+                div
             ]
         });
 

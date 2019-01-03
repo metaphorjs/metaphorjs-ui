@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/field/input.html":"<div class=\"ui input\"><input ##input [type]=\"this.field.$cfg.type\" [placeholder]=\"this.field.$cfg.placeholder\"></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><input type=\"hidden\" ##hidden_field [name]=\"this.field.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.field.$cfg.readonly\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {if}=\"this.field.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.field.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\" ##body>This is the body<div class=\"items\" ##items>Items go here</div></div><div class=\"fbar\" ##footer>Footer here</div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/field/input.html":"<div class=\"ui input\"><input ##input [type]=\"this.field.$cfg.type\" [placeholder]=\"this.field.$cfg.placeholder\"></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><input type=\"hidden\" ##hidden_field [name]=\"this.field.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.field.$cfg.readonly\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {if}=\"this.field.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.field.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -13021,16 +13021,19 @@ var app_Component = MetaphorJs.app.Component = cls({
 
 
 
-    render: function(parent) {
+    render: function(parent, before) {
 
         var self = this;
 
         if (self._rendered) {
-            parent && self.attach(parent);
+            parent && self.attach(parent, before);
             return;
         }
-        else parent && (self.renderTo = parent);
-        
+        else if (parent) {
+            self.renderTo = parent;
+            self.renderBefore = before;
+        }
+
         self.onBeforeRender();
         self.trigger('render', self);
 
@@ -13045,7 +13048,7 @@ var app_Component = MetaphorJs.app.Component = cls({
         return parent ? this.node.parentNode === parent : true;
     },
 
-    attach: function(parent) {
+    attach: function(parent, before) {
         var self = this;
 
         if (!parent) {
@@ -13057,8 +13060,9 @@ var app_Component = MetaphorJs.app.Component = cls({
 
         self.detach(true);
         self.renderTo = parent;
+        self.renderBefore = before;
 
-        if (self.template.moveTo(parent)) {
+        if (self.template.moveTo(parent, before)) {
             self.afterAttached();
             self.trigger('attached', self);
         }
@@ -13102,7 +13106,7 @@ var app_Component = MetaphorJs.app.Component = cls({
             self.trigger('after-attached', self);
         }
         else if (self.renderTo && self.node.parentNode !== self.renderTo) {
-            self.attach(self.renderTo);
+            self.attach(self.renderTo, self.renderBefore);
         }
     },
 
@@ -29113,21 +29117,150 @@ var mixin_Selectable = MetaphorJs.mixin.Selectable = {
 
 
 
+
+
 var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
     initComponent: function() {
-        var self = this, i, l;
+        var self = this;
 
         self.$super.apply(self, arguments);
-        self.items = self.items || [];
+        self._initItems();
+    },
+
+    _initItems: function() {
+
+        var self = this,
+            items = self.items || [],
+            defs,
+            list = [],
+            item,
+            i, l;
+
         self.itemsMap = {};
-
-        var items = self.items;
-
-        for (i = -1, l = items.length; ++i < l;){
-            self.itemsMap[items[i].id] = items[i];
-            items[i].$$parent = self;
+        
+        if (isArray(items)) {
+            items = {
+                body: items
+            }
         }
+
+        for (var ref in items) {
+            defs = items[ref];
+            if (!isArray(defs)) {
+                defs = [defs];
+            }
+            for (i = -1, l = defs.length; ++i < l;) {
+                item = self._processItemDef(defs[i]);
+                item.renderRef = ref;
+                list.push(item);
+                self.itemsMap[item.id] = item;
+            }
+        }
+
+        self.items = list;
+    },
+
+    _getIdKey: function() {
+        return "$$container_" + this.id;
+    },
+
+    _processItemDef: function(def) {
+
+        var self = this,
+            idkey = self._getIdKey(),
+            item = {
+                type: "component",
+                placeholder: window.document.createComment("***"),
+                id: nextUid(),
+                resolved: true
+            };
+
+        if (def instanceof app_Component) {
+            item.component = def;
+            def[idkey] = item.id;
+            self._initChildEvents("on", def);   
+        }
+        else if (def instanceof window.Node) {
+            item.type = "node";
+            item.node = def;
+            def[idkey] = item.id;
+        }
+        else if (def instanceof app_Template) {
+            item.component = new app_Component({
+                scope: self.scope,
+                template: def
+            });
+            item.component[idkey] = item.id;
+            self._initChildEvents("on", item.component);
+        }
+        else if (typeof def === "string") {
+            var cfg = {scope: self.scope};
+            cfg[idkey] = item.id;
+            item.resolved = false;
+            item.component = MetaphorJs.app
+                            .resolve(def, cfg)
+                            .done(self._onChildResolved, self);
+        }
+        else if (isThenable(def)) {
+            item.resolved = false;
+            item.component = def;
+            def.done(function(cmp){
+                cmp[idkey] = item.id;
+                self._onChildResolved(cmp);
+            });
+        }
+        else {
+            throw new Error("Failed to initialize item");
+        }
+
+        return item;
+    },
+
+    _initChildEvents: function(mode, cmp) {
+        var self = this;
+        cmp[mode]("remove-from-container", self._onChildRemove, self);
+    },
+
+    _onChildRemove: function(cmp) {
+        var self = this,
+            idkey = self._getIdKey(),
+            itemid = cmp[idkey],
+            item, inx;
+
+        if (itemid && (item = self.itemsMap[itemid])) {
+            delete cmp[idkey];
+            delete self.itemsMap[itemid];
+            inx = self.items.indexOf(item);
+            if (cmp instanceof app_Component) {
+                self._initChildEvents("un", cmp);
+            }
+            if (inx !== -1) {
+                self.items.splice(inx, 1);
+            }
+            self._detachChildItem(item);
+        }
+    },
+
+    _onChildResolved: function(cmp) {
+        var self = this,
+            idkey = self._getIdKey(),
+            itemid = cmp[idkey],
+            item;
+
+        if (itemid && (item = self.itemsMap[itemid])) {
+            item.resolved = true;
+            item.component = cmp;
+
+            self._initChildEvents("on", cmp);
+
+            if (self._rendered) {
+                self._attachChildItem(item);
+            }
+        }
+
+        // if container rendered:
+        // render child item and attach
     },
 
     render: function() {
@@ -29136,48 +29269,112 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
             items = self.items || [],
             i, l;
 
-        for (i = -1, l = items.length; ++i < l; 
-            items[i].render()){}
+        for (i = -1, l = items.length; ++i < l;){
+            if (items[i].type === "component" && items[i].resolved) {
+                items[i].component.render();
+            }
+        }
 
         self.$super.apply(self, arguments);
-
-        for (i = -1, l = items.length; ++i < l; 
-            items[i].attach(self.getRefEl("items") || self.node)){}
     },
 
-    addItem: function(item) {
-        var self = this;
-        if (item.$$parent === self) {
+    _onRenderingFinished: function() {
+        var self = this, i, l, items = self.items;
+        self.$super();
+
+        // empty container without template or content
+        if (!self.node.firstChild) {
+            self.$refs.node.body = self.node;
+        }
+
+        // insert all placeholders, but
+        // attach only resolved items
+        for (i = -1, l = items.length; ++i < l;){
+            self._preparePlaceholder(items[i]);
+            if (items[i].resolved) {
+                self._attachChildItem(items[i]);
+            }
+        }
+    },
+
+    _preparePlaceholder: function(item) {
+        var self = this,
+            refnode = self.getRefEl(item.renderRef);
+        if (!refnode) {
+            throw new Error("Can't find referenced node: " + item.renderRef);
+        }
+        refnode.appendChild(item.placeholder);
+    },
+
+    // only resolved components get here; so do attach
+    _attachChildItem: function(item) {
+        var self = this,
+            refnode = self.getRefEl(item.renderRef);
+
+        if (item.type === "node") {
+            refnode.insertBefore(item.node, item.placeholder);
+        }
+        else if (item.type === "component") {
+            item.component.render(refnode, item.placeholder);
+        }
+    },
+
+    _detachChildItem: function(item) {
+        if (item.type === "node") {
+            item.node.parentNode && item.node.parentNode.removeChild(item.node);
+        }
+        else if (item.type === "component") {
+            item.component.detach();
+            item.placeholder.parentNode && 
+                item.placeholder.parentNode.removeChild(item.placeholder);
+        }
+    },
+
+    hasItem: function(cmp) {
+        var self = this,
+        idkey = self._getIdKey();
+        return !!cmp[idkey];
+    },
+
+    addItem: function(cmp, to) {
+        var self = this,
+            item;
+
+        if (self.hasItem(cmp)) {
             return;
         }
-        item.$$parent && item.$$parent.removeItem(item);
-        item.$$parent = self;
+
+        if (cmp instanceof app_Component) {
+            cmp.trigger("remove-from-container", cmp);
+        }
+
+        item = self._processItemDef(cmp);
+        item.renderRef = to || "body";
         self.items.push(item);
         self.itemsMap[item.id] = item;
 
         if (self._rendered) {
-            item.attach(self.getRefEl("items") || self.node);
-        }
-        else {
-            item.renderTo = self.getRefEl("items") || self.node;
+            self._preparePlaceholder(item);
+            if (item.resolved) {
+                self._attachChildItem(item);
+            }
         }
     },
 
-    removeItem: function(item) {
+    removeItem: function(cmp) {
         var self = this;
-        if (item.$$parent !== self) {
+
+        if (!self.hasItem(cmp)) {
             return;
         }
-        item.$$parent = null;
-        delete self.itemsMap[item.id];
-        var inx = self.items.indexOf(item);
-        if (inx !== -1) {
-            self.items.splice(inx, 1);
-        }
-        item.detach();
-        item.renderTo = null;
-    }
 
+        if (cmp instanceof app_Component) {
+            cmp.trigger("remove-from-container", cmp);
+        }
+        else {
+            self._onChildRemove(cmp);
+        }
+    }
 });
 
 
@@ -34462,10 +34659,12 @@ cls({
         var parent1 = this.scope.$app.getCmp("parent1"),
             parent2 = this.scope.$app.getCmp("parent2");
 
-        if (this.$$parent === parent1) {
+        if (parent1.hasItem(this)) {
+            console.log("move to 2")
             parent2.addItem(this);
         }
         else {
+            console.log("move to 1")
             parent1.addItem(this);
         }
     },
@@ -34507,6 +34706,9 @@ cls({
 
         scope.bindText = "AAA";
 
+        var div = document.createElement("div");
+        div.innerHTML = 'Dynamicly created node';
+
         var parent1 = new app_Container({
             id: "parent1",
             renderTo: document.getElementById("container-app"),
@@ -34527,7 +34729,8 @@ cls({
                     directives: {
                         "bind-html": "this.bindText"
                     }
-                })
+                }),
+                div
             ]
         });
 
