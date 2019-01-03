@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/field/input.html":"<div class=\"ui input\"><input ##input [type]=\"this.field.$cfg.type\" [placeholder]=\"this.field.$cfg.placeholder\"></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><input type=\"hidden\" ##hidden_field [name]=\"this.field.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.field.$cfg.readonly\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {if}=\"this.field.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.field.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/field/input.html":"<div class=\"ui input\"><input ##input [type]=\"this.field.$cfg.type\" [placeholder]=\"this.field.$cfg.placeholder\"></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><input type=\"hidden\" ##hidden_field [name]=\"this.field.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.field.$cfg.readonly\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {if}=\"this.field.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.field.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -7259,10 +7259,6 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
                 args    = [scope, node, config, renderer, attrs],
                 inst;
 
-            //if (attrs.reference && attrs.reference[0] !== '#') {
-            //    scope[attrs.reference] = node;
-            //}
-
             if (app) {
                 inst = app.inject(dir, null, inject, args);
             }
@@ -8666,37 +8662,43 @@ var isAttached = MetaphorJs.dom.isAttached = function dom_isAttached(node) {
  * @returns {*}
  */
 var dom_data = MetaphorJs.dom.data = function(){
-
-    var dataCache   = {},
+//dataCache   = {},
+    var getNodeKey  = function(key) {
+            return '$$mjs-' + key;
+        }/*,
 
         getNodeId   = function(el) {
             return el._mjsid || (el._mjsid = nextUid());
-        };
+        }*/;
 
 
     return function dom_data(el, key, value, action) {
-        var id  = getNodeId(el),
-            obj = dataCache[id];
+        //var id  = getNodeId(el),
+        //    obj = dataCache[id];
+        var nodekey = getNodeKey(key);
 
         if (action === 'remove') {
             if (key) {
-                obj && (delete obj[key]);
+                //obj && (delete obj[key]);
+                delete el[nodekey];
             }
             else {
-                delete dataCache[id];
+                //delete dataCache[id];
             }
             return;
         }
 
         if (value !== undf) {
-            if (!obj) {
+            /*if (!obj) {
                 obj = dataCache[id] = {};
             }
-            obj[key] = value;
+            obj[key] = value;*/
+            el[nodekey] = value;
             return value;
         }
         else {
-            return obj ? obj[key] : undf;
+            //return obj ? obj[key] : undf;
+            return el[nodekey];
         }
     };
 
@@ -12419,7 +12421,7 @@ var app_Template = MetaphorJs.app.Template = function() {
 
                 if (el && el.nodeType) {
                     
-                    var transclude = el ? dom_data(el, "mjs-transclude") : null;
+                    /*var transclude = el ? dom_data(el, "mjs-transclude") : null;
 
                     if (transclude) {
                         var tr = select(
@@ -12427,7 +12429,7 @@ var app_Template = MetaphorJs.app.Template = function() {
                         if (tr.length) {
                             dom_data(tr[0], "mjs-transclude", transclude);
                         }
-                    }
+                    }*/
 
                     el.parentNode && el.parentNode.removeChild(el);
                 }
@@ -14433,11 +14435,11 @@ var app_resolve = MetaphorJs.app.resolve = function app_resolve(cmp, cfg, scope,
 
         defers.push(cfg.template.childrenPromise);
 
-        if (node && node.firstChild) {
+        /*if (node && node.firstChild) {
             dom_data(
                 node, "mjs-transclude", 
                 dom_toFragment(node.childNodes));
-        }
+        }*/
     }
 
     var p;
@@ -16935,6 +16937,7 @@ DO NOT put class="{}" when using class.name="{}"
         config.setType("isolateScope", "bool", lib_Config.MODE_STATIC);
         config.setDefaultMode("as", lib_Config.MODE_STATIC);
         config.setDefaultMode("ref", lib_Config.MODE_STATIC);
+        config.setMode("into", lib_Config.MODE_STATIC);
 
         var cmpName = config.get("value"),
             constr  = typeof cmpName === "string" ?
@@ -16972,12 +16975,13 @@ DO NOT put class="{}" when using class.name="{}"
             cfg.directives = ds;
         }
 
-        app_resolve(cmpName, cfg, newScope, node, [cfg])
+        var res = app_resolve(cmpName, cfg, newScope, node, [cfg])
             .done(function(cmp) {
                 parentRenderer.trigger(
-                    "reference", "cmp", config.get("ref") || cmp.id, cmp
+                    "reference", "cmp", config.get("ref") || cmp.id, cmp, node
                 );
             });
+        parentRenderer.trigger("reference-promise", res, cmpName, config, node);
 
         return constr.$resumeRenderer || !!constr.$shadow;
     };
@@ -29119,13 +29123,101 @@ var mixin_Selectable = MetaphorJs.mixin.Selectable = {
 
 
 
+
+
+
 var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
     initComponent: function() {
-        var self = this;
-
+        var self = this,
+            tag = self.node.tagName.toLowerCase(),
+            dir = MetaphorJs.directive.component[tag];
+        
         self.$super.apply(self, arguments);
+
+        if (self.template && dir && self instanceof dir) {
+            if (self.node.firstChild) {
+                self._prepareDeclaredItems(toArray(self.node.childNodes));
+            }
+        }
+
         self._initItems();
+    },
+
+    _prepareDeclaredItems: function(nodes) {
+
+        var self = this,
+            i, l, node, renderer,
+            found = false,
+            renderRef,
+            foundCmp, foundPromise, foundConfig,
+            scope = self.config.getOption("scope"),
+            items = self.items || [],
+            
+            refCallback = function(type, ref, cmp, cmpNode){
+                if (cmpNode === node)
+                    foundCmp = cmp;
+            },
+
+            promiseCallback = function(promise, cmpName, config, cmpNode){
+                if (cmpNode === node) {
+                    foundPromise = promise;
+                    foundConfig = config;
+                }
+            };
+
+        if (isArray(items)) {
+            items = {
+                body: items
+            }
+        }
+
+        for (i = 0, l = nodes.length; i < l; i++) {
+            node = nodes[i];
+            if (node.nodeType === 1) {
+
+                foundCmp = null;
+                foundPromise = null;
+                foundConfig = null;
+                renderRef = null;
+                renderer = new app_Renderer(node, scope);
+                renderer.on("reference", refCallback);
+                renderer.on("reference-promise", promiseCallback);
+                renderer.process();
+
+                if (foundCmp || foundPromise) {
+                    if (foundCmp) {
+                        renderRef = foundCmp.config.get("into") || "body";
+                    }
+                    else {
+                        renderRef = foundConfig.get("into") || "body";
+                    }
+
+                    if (!items[renderRef]) {
+                        items[renderRef] = [];
+                    }
+                    items[renderRef].push({
+                        type: "component",
+                        renderRef: renderRef,
+                        renderer: renderer,
+                        component: foundCmp || foundPromise
+                    })
+                }   
+                else {
+                    items.body.push(node);
+                }
+
+                found = true;
+
+                renderer.un("reference", refCallback);
+                renderer.un("reference-promise", promiseCallback);
+            }
+        }
+
+        if (found) {
+            self.items = items;
+        }
+
     },
 
     _initItems: function() {
@@ -29176,7 +29268,25 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
                 resolved: true
             };
 
-        if (def instanceof app_Component) {
+        if (isPlainObject(def)) {
+            extend(item, def, false, false);
+            if (item.type === "component") {
+                if (isThenable(item.component)) {
+                    item.component.done(function(cmp){
+                        cmp[idkey] = item.id;
+                        self._onChildResolved(cmp);
+                    });
+                }
+                else {
+                    item.component[idkey] = item.id;
+                    self._initChildEvents("on", item.component);
+                }
+            }
+            else {
+                item.node[idkey] = item.id;
+            }
+        }
+        else if (def instanceof app_Component) {
             item.component = def;
             def[idkey] = item.id;
             self._initChildEvents("on", def);   
@@ -29258,9 +29368,6 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
                 self._attachChildItem(item);
             }
         }
-
-        // if container rendered:
-        // render child item and attach
     },
 
     render: function() {
@@ -29374,6 +29481,13 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
         else {
             self._onChildRemove(cmp);
         }
+    },
+
+    onDestroy: function() {
+
+        var self = this;
+        //TODO destroy renderers
+        self.$super();
     }
 });
 
@@ -34660,11 +34774,9 @@ cls({
             parent2 = this.scope.$app.getCmp("parent2");
 
         if (parent1.hasItem(this)) {
-            console.log("move to 2")
             parent2.addItem(this);
         }
         else {
-            console.log("move to 1")
             parent1.addItem(this);
         }
     },
@@ -34695,6 +34807,26 @@ cls({
         html: "<div>Before bind // <span ##bindhere></span> // After bind</div>"
     }
 });
+
+cls({
+    $class: "Test.container.Parent3",
+    $extends: "MetaphorJs.app.Container",
+    $alias: "MetaphorJs.directive.component.parent3",
+    as: "parent3",
+    id: "parent3",
+    template: 'container2.html'
+});
+
+cls({
+    $class: "Test.container.Cmp4",
+    $extends: "MetaphorJs.app.Component",
+    $alias: "MetaphorJs.directive.component.cmp4",
+    as: "child4",
+    template: {
+        html: "<div>This is cmp4</div>"
+    }
+});
+
 
 cls({
     $class: "Test.ContainerApp",

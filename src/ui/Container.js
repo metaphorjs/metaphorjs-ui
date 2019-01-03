@@ -1,20 +1,111 @@
 
 require("metaphorjs/src/app/Component.js");
 require("metaphorjs/src/app/Template.js");
+require("metaphorjs/src/app/Renderer.js");
 require("metaphorjs/src/func/app/resolve.js");
+require("metaphorjs/src/app/Directive.js");
+require("metaphorjs/src/func/dom/toFragment.js");
 
 var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
     isArray = require("metaphorjs-shared/src/func/isArray.js"),
+    isPlainObject = require("metaphorjs-shared/src/func/isPlainObject.js"),
+    toArray = require("metaphorjs-shared/src/func/toArray.js"),
+    extend = require("metaphorjs-shared/src/func/extend.js"),
     isThenable = require("metaphorjs-shared/src/func/isThenable.js"),
     nextUid = require("metaphorjs-shared/src/func/nextUid.js");
 
 module.exports = MetaphorJs.app.Container = MetaphorJs.app.Component.$extend({
 
     initComponent: function() {
-        var self = this;
-
+        var self = this,
+            tag = self.node.tagName.toLowerCase(),
+            dir = MetaphorJs.directive.component[tag];
+        
         self.$super.apply(self, arguments);
+
+        if (self.template && dir && self instanceof dir) {
+            if (self.node.firstChild) {
+                self._prepareDeclaredItems(toArray(self.node.childNodes));
+            }
+        }
+
         self._initItems();
+    },
+
+    _prepareDeclaredItems: function(nodes) {
+
+        var self = this,
+            i, l, node, renderer,
+            found = false,
+            renderRef,
+            foundCmp, foundPromise, foundConfig,
+            scope = self.config.getOption("scope"),
+            items = self.items || [],
+            
+            refCallback = function(type, ref, cmp, cmpNode){
+                if (cmpNode === node)
+                    foundCmp = cmp;
+            },
+
+            promiseCallback = function(promise, cmpName, config, cmpNode){
+                if (cmpNode === node) {
+                    foundPromise = promise;
+                    foundConfig = config;
+                }
+            };
+
+        if (isArray(items)) {
+            items = {
+                body: items
+            }
+        }
+
+        for (i = 0, l = nodes.length; i < l; i++) {
+            node = nodes[i];
+            if (node.nodeType === 1) {
+
+                foundCmp = null;
+                foundPromise = null;
+                foundConfig = null;
+                renderRef = null;
+                renderer = new MetaphorJs.app.Renderer(node, scope);
+                renderer.on("reference", refCallback);
+                renderer.on("reference-promise", promiseCallback);
+                renderer.process();
+
+                if (foundCmp || foundPromise) {
+                    if (foundCmp) {
+                        renderRef = foundCmp.config.get("into") || "body";
+                    }
+                    else {
+                        renderRef = foundConfig.get("into") || "body";
+                    }
+
+                    if (!items[renderRef]) {
+                        items[renderRef] = [];
+                    }
+                    items[renderRef].push({
+                        type: "component",
+                        renderRef: renderRef,
+                        renderer: renderer,
+                        component: foundCmp || foundPromise
+                    })
+                }   
+                else {
+                    items.body.push(node);
+                }
+
+                found = true;
+
+                renderer.un("reference", refCallback);
+                renderer.un("reference-promise", promiseCallback);
+            }
+        }
+
+        if (found) {
+            self.items = items;
+        }
+
     },
 
     _initItems: function() {
@@ -65,7 +156,25 @@ module.exports = MetaphorJs.app.Container = MetaphorJs.app.Component.$extend({
                 resolved: true
             };
 
-        if (def instanceof MetaphorJs.app.Component) {
+        if (isPlainObject(def)) {
+            extend(item, def, false, false);
+            if (item.type === "component") {
+                if (isThenable(item.component)) {
+                    item.component.done(function(cmp){
+                        cmp[idkey] = item.id;
+                        self._onChildResolved(cmp);
+                    });
+                }
+                else {
+                    item.component[idkey] = item.id;
+                    self._initChildEvents("on", item.component);
+                }
+            }
+            else {
+                item.node[idkey] = item.id;
+            }
+        }
+        else if (def instanceof MetaphorJs.app.Component) {
             item.component = def;
             def[idkey] = item.id;
             self._initChildEvents("on", def);   
@@ -260,5 +369,12 @@ module.exports = MetaphorJs.app.Container = MetaphorJs.app.Component.$extend({
         else {
             self._onChildRemove(cmp);
         }
+    },
+
+    onDestroy: function() {
+
+        var self = this;
+        //TODO destroy renderers
+        self.$super();
     }
 });

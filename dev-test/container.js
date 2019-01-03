@@ -18,11 +18,9 @@ cls({
             parent2 = this.scope.$app.getCmp("parent2");
 
         if (parent1.hasItem(this)) {
-            console.log("move to 2")
             parent2.addItem(this);
         }
         else {
-            console.log("move to 1")
             parent1.addItem(this);
         }
     },
@@ -53,6 +51,26 @@ cls({
         html: "<div>Before bind // <span ##bindhere></span> // After bind</div>"
     }
 });
+
+cls({
+    $class: "Test.container.Parent3",
+    $extends: "MetaphorJs.app.Container",
+    $alias: "MetaphorJs.directive.component.parent3",
+    as: "parent3",
+    id: "parent3",
+    template: 'container2.html'
+});
+
+cls({
+    $class: "Test.container.Cmp4",
+    $extends: "MetaphorJs.app.Component",
+    $alias: "MetaphorJs.directive.component.cmp4",
+    as: "child4",
+    template: {
+        html: "<div>This is cmp4</div>"
+    }
+});
+
 
 cls({
     $class: "Test.ContainerApp",
