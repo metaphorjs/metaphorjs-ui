@@ -32,7 +32,11 @@
                 <input type="number" {model}="this.sval">
 
                 <ui-input {model}="this.sval" 
-                            $type="number"></ui-input>
+                          {class}:="right labeled left icon"
+                            $type="number">
+                    <i class="tags icon" @before></i>
+                    <a class="ui tag label" @after>Add Tag</a>
+                </ui-input>
             </div>
         </div>
     </body>

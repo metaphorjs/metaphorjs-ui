@@ -3,6 +3,7 @@ require("metaphorjs/src/app/Component.js");
 require("metaphorjs/src/app/Template.js");
 require("metaphorjs/src/app/Renderer.js");
 require("metaphorjs/src/func/app/resolve.js");
+require("metaphorjs/src/func/dom/getAttrSet.js");
 require("metaphorjs/src/app/Directive.js");
 require("metaphorjs/src/func/dom/toFragment.js");
 
@@ -37,20 +38,22 @@ module.exports = MetaphorJs.app.Container = MetaphorJs.app.Component.$extend({
         var self = this,
             i, l, node, renderer,
             found = false,
-            renderRef,
-            foundCmp, foundPromise, foundConfig,
+            renderRef, attrSet,
+            foundCmp, foundPromise,
             scope = self.config.getOption("scope"),
             items = self.items || [],
             
-            refCallback = function(type, ref, cmp, cmpNode){
-                if (cmpNode === node)
+            refCallback = function(type, ref, cmp, cfg, attrSet){
+                if (cfg.node === node) {
                     foundCmp = cmp;
+                    renderRef = attrSet.at;
+                }
             },
 
-            promiseCallback = function(promise, cmpName, config, cmpNode){
-                if (cmpNode === node) {
+            promiseCallback = function(promise, cmpName, cfg, attrSet){
+                if (cfg.node === node) {
                     foundPromise = promise;
-                    foundConfig = config;
+                    renderRef = attrSet.at;
                 }
             };
 
@@ -66,7 +69,6 @@ module.exports = MetaphorJs.app.Container = MetaphorJs.app.Component.$extend({
 
                 foundCmp = null;
                 foundPromise = null;
-                foundConfig = null;
                 renderRef = null;
                 renderer = new MetaphorJs.app.Renderer(node, scope);
                 renderer.on("reference", refCallback);
@@ -74,13 +76,9 @@ module.exports = MetaphorJs.app.Container = MetaphorJs.app.Component.$extend({
                 renderer.process();
 
                 if (foundCmp || foundPromise) {
-                    if (foundCmp) {
-                        renderRef = foundCmp.config.get("into") || "body";
+                    if (!renderRef) {
+                        renderRef = "body";
                     }
-                    else {
-                        renderRef = foundConfig.get("into") || "body";
-                    }
-
                     if (!items[renderRef]) {
                         items[renderRef] = [];
                     }
@@ -92,7 +90,16 @@ module.exports = MetaphorJs.app.Container = MetaphorJs.app.Component.$extend({
                     })
                 }   
                 else {
-                    items.body.push(node);
+                    attrSet = MetaphorJs.dom.getAttrSet(node);
+                    renderRef = attrSet.at || "body";
+                    if (!items[renderRef]) {
+                        items[renderRef] = [];
+                    }
+                    items[renderRef].push({
+                        type: "node",
+                        renderRef: renderRef,
+                        node: node
+                    });
                 }
 
                 found = true;
@@ -157,7 +164,7 @@ module.exports = MetaphorJs.app.Container = MetaphorJs.app.Component.$extend({
             };
 
         if (isPlainObject(def)) {
-            extend(item, def, false, false);
+            item = extend({}, def, item, false, false);
             if (item.type === "component") {
                 if (isThenable(item.component)) {
                     item.component.done(function(cmp){
@@ -298,7 +305,11 @@ module.exports = MetaphorJs.app.Container = MetaphorJs.app.Component.$extend({
         if (!refnode) {
             throw new Error("Can't find referenced node: " + item.renderRef);
         }
-        refnode.appendChild(item.placeholder);
+        // comment
+        if (refnode.nodeType === 8) {
+            refnode.parentNode.insertBefore(item.placeholder, refnode);
+        }
+        else refnode.appendChild(item.placeholder);
     },
 
     // only resolved components get here; so do attach
@@ -307,10 +318,14 @@ module.exports = MetaphorJs.app.Container = MetaphorJs.app.Component.$extend({
             refnode = self.getRefEl(item.renderRef);
 
         if (item.type === "node") {
-            refnode.insertBefore(item.node, item.placeholder);
+            if (refnode.nodeType === 8)
+                refnode.parentNode.insertBefore(item.node, item.placeholder);
+            else refnode.insertBefore(item.node, item.placeholder);
         }
         else if (item.type === "component") {
-            item.component.render(refnode, item.placeholder);
+            if (refnode.nodeType === 8)
+                item.component.render(refnode.parentNode, item.placeholder);    
+            else item.component.render(refnode, item.placeholder);
         }
     },
 
