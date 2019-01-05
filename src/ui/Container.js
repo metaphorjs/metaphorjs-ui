@@ -4,8 +4,6 @@ require("metaphorjs/src/app/Template.js");
 require("metaphorjs/src/app/Renderer.js");
 require("metaphorjs/src/func/app/resolve.js");
 require("metaphorjs/src/func/dom/getAttrSet.js");
-require("metaphorjs/src/app/Directive.js");
-require("metaphorjs/src/func/dom/toFragment.js");
 
 var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
     isArray = require("metaphorjs-shared/src/func/isArray.js"),
@@ -18,16 +16,12 @@ var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
 module.exports = MetaphorJs.app.Container = MetaphorJs.app.Component.$extend({
 
     initComponent: function() {
-        var self = this,
-            tag = self.node.tagName.toLowerCase(),
-            dir = MetaphorJs.directive.component[tag];
-        
+        var self = this;
+
         self.$super.apply(self, arguments);
 
-        if (self.template && dir && self instanceof dir) {
-            if (self.node.firstChild) {
-                self._prepareDeclaredItems(toArray(self.node.childNodes));
-            }
+        if (self.template && self.node.firstChild) {
+            self._prepareDeclaredItems(toArray(self.node.childNodes));
         }
 
         self._initItems();
@@ -388,8 +382,20 @@ module.exports = MetaphorJs.app.Container = MetaphorJs.app.Component.$extend({
 
     onDestroy: function() {
 
-        var self = this;
-        //TODO destroy renderers
+        var self = this,
+            i, l, item;
+
+        for (i = 0, l = self.items.length; i < l; i++) {
+            item = self.items[i];
+            if (item.renderer) {
+                item.renderer.$destroy();
+            }
+            if (item.type === "component") {
+                item.component.$destroy && item.component.$destroy();
+            }
+        }
+        self.items = null;
+
         self.$super();
     }
 });
