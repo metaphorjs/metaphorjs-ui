@@ -13,6 +13,8 @@ require("metaphorjs/src/lib/Config.js");
 require("metaphorjs/src/lib/MutationObserver.js");
 require("metaphorjs/src/func/dom/getStyle.js");
 
+require("./view/Select.js");
+
 var async = require("metaphorjs-shared/src/func/async.js"),
     bind = require("metaphorjs-shared/src/func/bind.js"),
     isArray = require("metaphorjs-shared/src/func/isArray.js"),
@@ -22,6 +24,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
 
     $mixins: [MetaphorJs.mixin.Selectable],
     $alias: "MetaphorJs.directive.component.ui-select",
+    $view: "MetaphorJs.ui.field.view.Select",
 
     template: "ui/field/select.html",
     dialog: null,
@@ -50,8 +53,6 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         config.setType("showEmptyItem", "bool", null, true);
         config.setType("showNotFound", "bool", null, true);
         config.setType("keepSelectedOptions", "bool", null, true);
-        config.setType("useHiddenSelect", "bool", null, false);
-        config.setType("hiddenSelectBreakpoint", "int");
         config.setType("cssDialog", "bool", null, false);
 
         config.setType("hiddenInputName", "string", null, "");
@@ -119,33 +120,12 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
             self.setOptions(config.get("options"));
         }
 
-        if (config.get("useHiddenSelect")) {
-            if (config.get("hiddenSelectBreakpoint")) {
-                config.set("useHiddenSelect", false);
-                self.resizeBuffer = MetaphorJs.dom.EventBuffer.get(window, "resize");
-                self.resizeBuffer.watchWidth();
-                self.resizeBuffer.onBreak(
-                    "width", 
-                    config.get("hiddenSelectBreakpoint"), 
-                    self.onWindowBreak, 
-                    self
-                );
-            }
-        }
-
         self.$super();
     },
 
     afterRender: function() {
         var self = this;
         async(self.initDialog, self, [], 300);
-        if (self.isMultiSelection() && 
-            self.config.get("searchable")) {
-            async(self.initSizer, self);
-        }
-        if (self.resizeBuffer) {
-            async(self.onWindowBreak, self);
-        }
     },
 
     onDestroy: function() {
@@ -306,9 +286,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
             self.store.update();
         }
 
-        if (self.isMultiSelection()) {
-            async(self.setInputWidth, self);
-        }
+        
     },
 
     onSelectionChange: function() {
@@ -475,182 +453,5 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
         self.dialog.on("show", self.onDialogShow, self);
         self.dialog.on("hide", self.onDialogHide, self);
         self.dialog.on("before-show", self.onBeforeDialogShow, self);
-    },
-
-
-
-
-
-
-    /* VIEW */
-
-
-    onWindowBreak: function() {
-        this.config.set("useHiddenSelect", 
-            MetaphorJs.dom.getWidth(window) < this.config.get("hiddenSelectBreakpoint")
-        );
-        this.scope.$check();
-    },
-
-    initSizer: function() {
-        if (this.getRefEl("sizer")) {
-            var style = this.getRefEl("sizer").style;
-            style.left = '-10000px';
-            style.maxWidth = '1000px';
-            style.display = 'inline-block';
-            style.position = 'absolute';
-        }
-    },
-
-    setInputWidth: function() {
-        this.getRefEl("search").style.width =
-            (MetaphorJs.dom.getWidth(this.getRefEl("sizer")) + 10) + "px";
-    },
-
-    setSearchFocus: function() {
-        this.getRefEl("search").focus();
-    },
-
-    onSelfClick: function(e) {
-        var self = this;
-
-        if (self.config.get("useHiddenSelect")) {
-            e.stopPropagation();
-            return;
-        }
-
-        if (self.scope.focused &&
-            self.dialog.isVisible()) {
-            e.stopPropagation();
-            return;
-        }
-
-        if (self.config.get("searchable") && !self.scope.focused) {
-            async(this.setSearchFocus, this);
-            e.stopPropagation();
-        }
-
-        if (!self.config.get("searchable") &&
-            !self.dialog.isVisible()) {
-            self.dialog.show();
-            e.stopPropagation();
-        }
-    },
-
-    onDropdownIconClick: function(e) {
-        e.stopPropagation();
-        this.dialog.toggle(e, true);
-    },
-
-    onItemClick: function(item, e) {
-        var self = this,
-            cfg = self.config;
-
-        if (self.config.get("readonly")) {
-            e.stopPropagation();
-            self.dialog.hide();
-            return;
-        }
-
-        if (item) {
-            //this.selectItem(item);
-            self.setValue(
-                item[cfg.get("valueField")], 
-                item[cfg.get("displayField")]
-            );
-        }
-        else {
-            self.unselectAll();
-        }
-
-        //if (!cfg.get("keepSelectedOptions")) {
-        //    self.store.update();
-        //}
-
-        e.stopPropagation();
-
-        self.scope.$set("searchQuery", "");
-
-        if (!self.isMultiSelection()) {
-            self.dialog.hide();
-        }
-        else {
-            async(self.setSearchFocus, self);
-        }
-    },
-
-    onValueTextClick: function(e) {
-
-    },
-
-    onItemDeleteClick: function(item, e) {
-        var self = this;
-        if (!self.isSelectionEnabled()) {
-            return;
-        }
-        self.unselectItem(item);
-        if (!self.config.get("keepSelectedOptions")) {
-            self.store.update();
-        }
-        e.stopPropagation();
-    },
-
-    /*onNotFoundClick: function(item, e) {
-        e.stopPropagation();
-    },
-
-    onPaginationClick: function(e) {
-        e.stopPropagation();
-    },*/
-
-    onSearchFocus: function(e) {
-        this.scope.$set("focused", true);
-        if (!this.dialog.isVisible()) {
-            this.dialog.show();
-            e.stopPropagation();
-        }
-    },
-
-    onSearchBlur: function(e) {
-        this.scope.$set("focused", false);
-        if (!this.dialog.isVisible()) {
-            this.dialog.show();
-            e.stopPropagation();
-        }
-    },
-
-    onSearchBackspace: function() {
-        if (!this.scope.searchQuery) {
-            if (!this._prevQuery) {
-                if (this.hasSelection()) {
-                    this.unselectItemById(
-                        this.$$selection[this.$$selection.length - 1]
-                    );
-                    this.store.update();
-                }
-            }
-            else {
-                this._prevQuery = "";
-            }
-        }
-    },
-
-    onHiddenSelectClick: function(e) {
-        e.stopPropagation();
-    },
-
-    onHiddenSelectChange: function(e) {
-        var self = this,
-            val = self.getRefEl("hiddenselect").value;
-
-        if (val) {
-            var item = self.store.find(self.config.get("valueField"), val);
-            if (item) {
-                self.selectItem(item);
-            }
-        }
-        else {
-            self.unselectAll();
-        }
     }
 });

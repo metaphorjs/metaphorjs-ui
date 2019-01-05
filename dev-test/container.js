@@ -12,7 +12,6 @@ ns.register("Test", Test);
 cls({
     $class: "Test.container.Cmp1",
     $extends: "MetaphorJs.app.Component",
-    as: "child1",
     move: function() {
         var parent1 = this.scope.$app.getCmp("parent1"),
             parent2 = this.scope.$app.getCmp("parent2");
@@ -26,24 +25,22 @@ cls({
     },
     template: {
         html: "<p>This is container child #1; " +
-                "<a href=\"#\" (click)=\"this.child1.move()\">move</a></p>"
+                "<a href=\"#\" (click)=\"this.ctrl.move()\">move</a></p>"
     }
 });
 
 cls({
     $class: "Test.container.Cmp2",
     $extends: "Test.container.Cmp1",
-    as: "child2",
     template: {
         html: "<p>This is container child #2; "+
-                "<a href=\"#\" (click)=\"this.child2.move()\">move</a></p>"
+                "<a href=\"#\" (click)=\"this.ctrl.move()\">move</a></p>"
     }
 });
 
 cls({
     $class: "Test.container.Cmp3",
     $extends: "MetaphorJs.app.Component",
-    as: "child3",
     supportsDirectives: {
         "bind-html": "bindhere"
     },
@@ -56,7 +53,6 @@ cls({
     $class: "Test.container.Parent3",
     $extends: "MetaphorJs.app.Container",
     $alias: "MetaphorJs.directive.component.parent3",
-    as: "parent3",
     id: "parent3",
     template: 'container2.html'
 });
@@ -65,7 +61,6 @@ cls({
     $class: "Test.container.Cmp4",
     $extends: "MetaphorJs.app.Component",
     $alias: "MetaphorJs.directive.component.cmp4",
-    as: "child4",
     template: {
         html: "<div>This is cmp4</div>"
     }
@@ -88,21 +83,18 @@ cls({
         var parent1 = new MetaphorJs.app.Container({
             id: "parent1",
             renderTo: document.getElementById("container-app"),
-            scope: scope,
             template: 'container1.html',
             items: [
                 new Test.container.Cmp1({
-                    scope: scope,
                     id: "child1"
                 }),
                 new Test.container.Cmp2({
-                    scope: scope,
                     id: "child2"
                 }),
                 new Test.container.Cmp3({
-                    scope: scope,
                     id: "child3",
                     directives: {
+                        scope: scope,
                         "bind-html": "this.bindText"
                     }
                 }),
@@ -113,8 +105,7 @@ cls({
         parent1.render();
 
         var parent2 = new MetaphorJs.app.Container({
-            id: "parent2",
-            scope: scope
+            id: "parent2"
         });
 
         parent2.render(document.getElementById("container-app"));

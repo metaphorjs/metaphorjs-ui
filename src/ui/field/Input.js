@@ -1,4 +1,5 @@
 
+require("../../__init.js");
 require("../Field.js");
 require("metaphorjs/src/lib/Input.js");
 require("metaphorjs/src/lib/Config.js");

@@ -1,57 +1,59 @@
 <!--{includes: true}-->
 <div class="ui dropdown selection"
-     (click)="this.field.onSelfClick(this.$event)"
+     (click)="this.$view.onSelfClick(this.$event)"
      {init}="this.emptyShown = false; this.selectedShown = false;"
      {class.loading}="this.loading"
-     {class.disabled}="this.field.$cfg.disabled"
-     {class.search}="this.field.$cfg.searchable"
+     {class.disabled}="this.$cfg.disabled"
+     {class.search}="this.$cfg.searchable"
      {class.multiple}="this.field.isMultiSelection()">
+
+     <!--##before-->
 
     <input type="hidden"
             ##hidden_field
-            [name]="this.field.$cfg.name"
+            [name]="this.$cfg.name"
             [value]="this.field.$$selection | join:','">
 
     <i ##icon_down 
        class="dropdown icon"
-       (click)="this.field.onDropdownIconClick(this.$event)"></i>
+       (click)="this.$view.onDropdownIconClick(this.$event)"></i>
 
     <a class="ui label transition"
        {each}="item in this.field.getMultiSelection()">
         {{ this.$parent.field.getItemName(this.item) }}
         <i class="delete icon"
-           (click)="this.$parent.field.onItemDeleteClick(this.item, this.$event)"></i>
+           (click)="this.$parent.$view.onItemDeleteClick(this.item, this.$event)"></i>
     </a>
 
     <input type="text"
            ##search
            class="search"
-           {readonly}="this.field.$cfg.readonly"
-           {disabled}="this.field.$cfg.disabled"
-           {show}="this.field.$cfg.searchable"
+           {readonly}="this.$cfg.readonly"
+           {disabled}="this.$cfg.disabled"
+           {show}="this.$cfg.searchable"
            {show.$display}="inline-block"
-           (focus)="this.field.onSearchFocus(this.$event)"
-           (blur)="this.field.onSearchBlur(this.$event)"
-           (key.backspace)="this.field.onSearchBackspace(this.$event)"
+           (focus)="this.$view.onSearchFocus(this.$event)"
+           (blur)="this.$view.onSearchBlur(this.$event)"
+           (key.backspace)="this.$view.onSearchBackspace(this.$event)"
            {model}="this.searchQuery">
 
     <span class="sizer"
           ##sizer
-          {if}="this.field.isMultiSelection() && this.field.$cfg.searchable"
+          {if}="this.field.isMultiSelection() && this.$cfg.searchable"
           {bind}="this.searchQuery"></span>
 
     <div class="default text"
          ##default_text
-         (click)="this.field.onValueTextClick(this.$event)"
+         (click)="this.$view.onValueTextClick(this.$event)"
          {show}="!this.searchQuery && !this.field.hasSelection() &&
-                    !!this.field.$cfg.emptyText"
+                    !!this.$cfg.emptyText"
          {show.$display}="inline-block"
          {show.$save-state}="this.emptyShown"
-         {bind}="this.field.$cfg.emptyText"></div>
+         {bind}="this.$cfg.emptyText"></div>
 
     <div class="text"
          ##text
-         (click)="this.field.onValueTextClick(this.$event)"
+         (click)="this.$view.onValueTextClick(this.$event)"
          {class.default}="this.focused && this.searchQuery == ''"
          {show}="!this.searchQuery && !this.field.isMultiSelection() && 
                     this.field.hasSelection()"
@@ -62,31 +64,33 @@
     <!-- replaces two previous text blocks with invisible placeholder -->
     <div style="display: none"
          class="default text"
-         {show}="!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable"
+         {show}="!this.emptyShown && !this.selectedShown && !this.$cfg.searchable"
          {show.$display}="inline-block">&nbsp;</div>
 
     <select ##hidden_select
-            (click)="this.field.onHiddenSelectClick(this.$event)"
-            (change)="this.field.onHiddenSelectChange(this.$event)"
-            {if}="this.field.$cfg.useHiddenSelect"
+            (click)="this.$view.onHiddenSelectClick(this.$event)"
+            (change)="this.$view.onHiddenSelectChange(this.$event)"
+            {if}="this.$cfg.useHiddenSelect"
             {options}="this.field._getSelectOptions()"></select>
 
      <div class="menu transition" ##menu_items>
           <div class="disabled item"
                ##menu_disabled
-               {if}="this.field.$cfg.showNotFound && this.field.store.isEmpty()"
+               {if}="this.$cfg.showNotFound && this.field.store.isEmpty()"
                (click.$stop-propagation)
-               {bind-html}="this.field.$cfg.notFoundText"></div>
+               {bind-html}="this.$cfg.notFoundText"></div>
           <a   class="empty item"
                href="#"
                ##menu_empty
-               {if}="this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()"
-               (click)="this.field.onItemClick(null, this.$event)"
-               {bind-html}="this.field.$cfg.emptyItemText"></a>
+               {if}="this.$cfg.showEmptyItem && !this.field.store.isEmpty()"
+               (click)="this.$view.onItemClick(null, this.$event)"
+               {bind-html}="this.$cfg.emptyItemText"></a>
           <a   class="item"
                href="#"
                {each}="item in this.field.store"
-               (click)="this.$parent.field.onItemClick(this.item, this.$event)"
+               (click)="this.$parent.$view.onItemClick(this.item, this.$event)"
                {bind}="this.$parent.field.getItemName(this.item)"></a>
      </div>
+
+     <!--##after-->
 </div>

@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/field/input.html":"<div class=\"ui input\" ##body><!--##before--> <input ##input [type]=\"this.field.$cfg.type\" [placeholder]=\"this.field.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.field.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.field.$cfg.disabled\" {class.search}=\"this.field.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><input type=\"hidden\" ##hidden_field [name]=\"this.field.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.field.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.field.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.field.$cfg.readonly\" {disabled}=\"this.field.$cfg.disabled\" {show}=\"this.field.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.field.onSearchFocus(this.$event)\" (blur)=\"this.field.onSearchBlur(this.$event)\" (key.backspace)=\"this.field.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.field.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.field.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.field.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.field.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.field.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.field.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.field.onHiddenSelectClick(this.$event)\" (change)=\"this.field.onHiddenSelectChange(this.$event)\" {if}=\"this.field.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.field.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.field.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.field.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.field.onItemClick(null, this.$event)\" {bind-html}=\"this.field.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.field.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/field/input.html":"<div class=\"ui input\" ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -18,9 +18,12 @@ var MetaphorJs = {
     prebuilt: typeof MetaphorJsPrebuilt !== "undefined" ? MetaphorJsPrebuilt : null
 };
 
+var __init = (function(){
 
 
 MetaphorJs.app.view = MetaphorJs.app.view || {};
+MetaphorJs.app.component = MetaphorJs.app.component || {};
+}());
 
 /**
  * Bind function to context (Function.bind wrapper)
@@ -6095,7 +6098,7 @@ var classManagerFactory = function(){
 
                         if (isString(plugin)) {
                             plCls = plugin;
-                            plugin = ns ? ns.get(plugin, true) : null;
+                            plugin = ns ? ns.get(plugin) : null;
                             if (!plugin) {
                                 throw plCls + " not found";
                             }
@@ -7250,11 +7253,9 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
 
         applyDirective = function(dir, parentScope, node, config, attrs, renderer, passDirectives) {
 
-            var scope   = dir.$isolateScope ?
-                            parentScope.$newIsolated() :
-                          (dir.$breakScope  ?
+            var scope   = dir.$breakScope  ?
                            parentScope.$new() :
-                           parentScope),
+                           parentScope,
                 app     = parentScope.$app,
                 inject  = {
                     $scope: scope,
@@ -12785,6 +12786,13 @@ var app_Component = MetaphorJs.app.Component = cls({
      */
     supportsDirectives: false,
 
+    $constructor: function(cfg) {
+        var self = this,
+            viewCls = self.$view || (cfg ? cfg.$view : null);
+
+        viewCls && self.$plugins.push(viewCls);
+        self.$super();
+    },
 
     /**
      * @constructor
@@ -12810,24 +12818,31 @@ var app_Component = MetaphorJs.app.Component = cls({
         }
         if (!self.config) {
             self.config = new lib_Config(null, {
-                scope: self.scope
+                scope: self.parentScope || self.scope
             });
         }
         else if (!(self.config instanceof lib_Config)) {
+            var cfgScope = self.config.scope;
+            if (cfgScope) {
+                delete self.config.scope;
+            }
             self.config = new lib_Config(
                 self.config, 
                 {
-                    scope: self.scope
+                    scope: cfgScope || self.parentScope || self.scope
                 }
             );
         }
 
         self.$refs = {node: {}, cmp: {}};
-        self.$cfg = {};
-        self.config.setTo(self.$cfg);
+        self.scope.$cfg = {};
+        self.config.setTo(self.scope.$cfg);
         self._initConfig();
         self.$callMixins("$initConfig");
 
+        if (self.$view) {
+            self.scope.$view = self.$view;
+        }
         if (self.config.has("as")) {
             self.scope[self.config.get("as")] = self;
         }
@@ -12928,10 +12943,13 @@ var app_Component = MetaphorJs.app.Component = cls({
             if (name.substring(0,4) === 'on--') {
                 config.setMode(name, lib_Config.MODE_LISTENER);
                 if (!ctx) {
-                    ctx = config.get("callbackContext") ||
-                            self.scope.$app.getParentCmp(self.node) ||
-                            self.scope.$app ||
-                            self.scope;
+                    if (self.scope.$app)
+                        ctx = config.get("callbackContext") ||
+                                self.scope.$app.getParentCmp(self.node) ||
+                                self.scope.$app ||
+                                self.scope;
+                    else 
+                        ctx = config.get("callbackContext") || self.scope;
                 }
                 self.on(name.substring(4), config.get(name), ctx);
             }
@@ -12946,7 +12964,9 @@ var app_Component = MetaphorJs.app.Component = cls({
             config,
             handlers = Directive.getAttributes(),
             i, len, name,
-            parentScope = self.scope.$parent || 
+            parentScope =   dirs.scope ||
+                            self.parentScope ||
+                            self.scope.$parent || 
                             self.config.getOption("scope") ||
                             self.scope;
 
@@ -12956,6 +12976,10 @@ var app_Component = MetaphorJs.app.Component = cls({
 
         for (i = 0, len = handlers.length; i < len; i++) {
             name    = handlers[i].name;
+
+            if (name === "scope") {
+                continue;
+            }
 
             if (!(support === true || support[name])) {
                 continue;
@@ -13284,6 +13308,19 @@ var app_Component = MetaphorJs.app.Component = cls({
     }
 });
 
+
+
+
+
+
+
+var app_component_View = MetaphorJs.app.component.View = cls({
+
+    $init: function(host) {
+        this.component = host;
+        this.component.$view = this;
+    }
+});
 
 
 
@@ -14381,10 +14418,6 @@ var app_resolve = MetaphorJs.app.resolve = function app_resolve(cmp, cfg, scope,
     var constr      = isString(cmp) ? ns.get(cmp) : cmp;
     if (!constr) {
         throw new Error("Component " + cmp + " not found");
-    }
-
-    if (scope && constr.$isolateScope) {
-        cfg.scope   = scope = scope.$newIsolated();
     }
 
     var i,
@@ -15694,9 +15727,7 @@ MetaphorJs.app.view.Router = app_view_Base.$extend({
                     autoRender: true,
                     node: node,
                     destroyScope: true,
-                    scope: route.$isolateScope ?
-                           self.scope.$newIsolated() :
-                           self.scope.$new()
+                    scope: self.scope.$new()
                 };
 
             if (route.config) {
@@ -16963,7 +16994,6 @@ DO NOT put class="{}" when using class.name="{}"
 
         config.setDefaultMode("value", lib_Config.MODE_STATIC);
         config.setType("sameScope", "bool", lib_Config.MODE_STATIC);
-        config.setType("isolateScope", "bool", lib_Config.MODE_STATIC);
         config.setDefaultMode("as", lib_Config.MODE_STATIC);
         config.setDefaultMode("ref", lib_Config.MODE_STATIC);
         config.setMode("into", lib_Config.MODE_STATIC);
@@ -16977,11 +17007,8 @@ DO NOT put class="{}" when using class.name="{}"
             throw new Error("Component " + cmpName + " not found");
         }
 
-        var sameScope       = config.get("sameScope") || constr.$sameScope,
-            isolateScope    = config.get("isolateScope") || constr.$isolateScope;
-
-        var newScope = isolateScope ? scope.$newIsolated() : 
-                                        (sameScope ? scope : scope.$new());
+        var sameScope   = config.get("sameScope") || constr.$sameScope;
+        var newScope    = sameScope ? scope : scope.$new();
 
         config.removeProperty("value");
 
@@ -29160,6 +29187,14 @@ var mixin_Selectable = MetaphorJs.mixin.Selectable = {
 
 
 
+MetaphorJs.ui = MetaphorJs.ui || {
+    field: {
+        view: {}
+    },
+    form: {}
+};
+
+
 
 
 
@@ -29171,16 +29206,12 @@ var mixin_Selectable = MetaphorJs.mixin.Selectable = {
 var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
     initComponent: function() {
-        var self = this,
-            tag = self.node.tagName.toLowerCase(),
-            dir = MetaphorJs.directive.component[tag];
-        
+        var self = this;
+
         self.$super.apply(self, arguments);
 
-        if (self.template && dir && self instanceof dir) {
-            if (self.node.firstChild) {
-                self._prepareDeclaredItems(toArray(self.node.childNodes));
-            }
+        if (self.template && self.node.firstChild) {
+            self._prepareDeclaredItems(toArray(self.node.childNodes));
         }
 
         self._initItems();
@@ -29541,18 +29572,23 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
     onDestroy: function() {
 
-        var self = this;
-        //TODO destroy renderers
+        var self = this,
+            i, l, item;
+
+        for (i = 0, l = self.items.length; i < l; i++) {
+            item = self.items[i];
+            if (item.renderer) {
+                item.renderer.$destroy();
+            }
+            if (item.type === "component") {
+                item.component.$destroy && item.component.$destroy();
+            }
+        }
+        self.items = null;
+
         self.$super();
     }
 });
-
-
-
-MetaphorJs.ui = MetaphorJs.ui || {
-    field: {},
-    form: {}
-};
 
 
 
@@ -29620,6 +29656,7 @@ var ui_Field = MetaphorJs.ui.Field = MetaphorJs.app.Container.$extend({
         return this;
     }
 });
+
 
 
 
@@ -34164,6 +34201,249 @@ var dialog_Dialog = MetaphorJs.dialog.Dialog = (function(){
 
 
 
+var ui_field_view_Select = MetaphorJs.ui.field.view.Select = app_component_View.$extend({
+
+    $beforeHostInit: function() {
+        var self = this;
+
+        self.component.$intercept("afterRender", self.afterRender, self, "after");
+        self.component.$intercept(
+            "onSearchQueryChange",
+            self.onSearchQueryChange, 
+            self, 
+            "after"
+        );
+    },
+
+    $afterHostInit: function() {
+        var self = this,
+            cmp = self.component,
+            config = cmp.config;
+
+        config.setType("useHiddenSelect", "bool", null, false);
+        config.setType("hiddenSelectBreakpoint", "int");
+
+        if (config.get("useHiddenSelect")) {
+            if (config.get("hiddenSelectBreakpoint")) {
+                config.set("useHiddenSelect", false);
+                self.resizeBuffer = MetaphorJs.dom.EventBuffer.get(window, "resize");
+                self.resizeBuffer.watchWidth();
+                self.resizeBuffer.onBreak(
+                    "width", 
+                    config.get("hiddenSelectBreakpoint"), 
+                    self.onWindowBreak, 
+                    self
+                );
+            }
+        }
+    },
+
+    afterRender: function() {
+        var self = this,
+            cmp = self.component;
+        if (cmp.isMultiSelection() && cmp.config.get("searchable")) {
+            async(self.initSizer, self);
+        }
+        if (self.resizeBuffer) {
+            async(self.onWindowBreak, self);
+        }
+    },
+
+    onSearchQueryChange: function() {
+        var self = this,
+            cmp = self.component;
+        if (cmp.isMultiSelection()) {
+            async(self.setInputWidth, self);
+        }
+    },
+
+    onWindowBreak: function() {
+        var cmp = this.component;
+        cmp.config.set("useHiddenSelect", 
+            MetaphorJs.dom.getWidth(window) < 
+                cmp.config.get("hiddenSelectBreakpoint")
+        );
+        cmp.scope.$check();
+    },
+
+    initSizer: function() {
+        if (this.component.getRefEl("sizer")) {
+            var style = this.component.getRefEl("sizer").style;
+            style.left = '-10000px';
+            style.maxWidth = '1000px';
+            style.display = 'inline-block';
+            style.position = 'absolute';
+        }
+    },
+
+    setInputWidth: function() {
+        var cmp = this.component;
+        cmp.getRefEl("search").style.width =
+            (MetaphorJs.dom.getWidth(cmp.getRefEl("sizer")) + 10) + "px";
+    },
+
+    setSearchFocus: function() {
+        this.component.getRefEl("search").focus();
+    },
+
+    onSelfClick: function(e) {
+        var self = this,
+            cmp = self.component;
+
+        if (cmp.config.get("useHiddenSelect")) {
+            e.stopPropagation();
+            return;
+        }
+
+        if (cmp.scope.focused &&
+            cmp.dialog.isVisible()) {
+            e.stopPropagation();
+            return;
+        }
+
+        if (cmp.config.get("searchable") && !cmp.scope.focused) {
+            async(self.setSearchFocus, self);
+            e.stopPropagation();
+        }
+
+        if (!cmp.config.get("searchable") &&
+            !cmp.dialog.isVisible()) {
+            cmp.dialog.show();
+            e.stopPropagation();
+        }
+    },
+
+    onDropdownIconClick: function(e) {
+        e.stopPropagation();
+        this.component.dialog.toggle(e, true);
+    },
+
+    onItemClick: function(item, e) {
+        var self = this,
+            cmp = self.component,
+            cfg = cmp.config;
+
+        if (cfg.get("readonly")) {
+            e.stopPropagation();
+            cmp.dialog.hide();
+            return;
+        }
+
+        if (item) {
+            //this.selectItem(item);
+            cmp.setValue(
+                item[cfg.get("valueField")], 
+                item[cfg.get("displayField")]
+            );
+        }
+        else {
+            cmp.unselectAll();
+        }
+
+        //if (!cfg.get("keepSelectedOptions")) {
+        //    self.store.update();
+        //}
+
+        e.stopPropagation();
+
+        cmp.scope.$set("searchQuery", "");
+
+        if (!cmp.isMultiSelection()) {
+            cmp.dialog.hide();
+        }
+        else {
+            async(self.setSearchFocus, self);
+        }
+    },
+
+    onValueTextClick: function(e) {
+
+    },
+
+    onItemDeleteClick: function(item, e) {
+        var self = this,
+            cmp = self.component;
+        if (!cmp.isSelectionEnabled()) {
+            return;
+        }
+        cmp.unselectItem(item);
+        if (!cmp.config.get("keepSelectedOptions")) {
+            cmp.store.update();
+        }
+        e.stopPropagation();
+    },
+
+    /*onNotFoundClick: function(item, e) {
+        e.stopPropagation();
+    },
+
+    onPaginationClick: function(e) {
+        e.stopPropagation();
+    },*/
+
+    onSearchFocus: function(e) {
+        var cmp = this.component;
+        cmp.scope.$set("focused", true);
+        if (!cmp.dialog.isVisible()) {
+            cmp.dialog.show();
+            e.stopPropagation();
+        }
+    },
+
+    onSearchBlur: function(e) {
+        var cmp = this.component;
+        cmp.scope.$set("focused", false);
+        if (!cmp.dialog.isVisible()) {
+            cmp.dialog.show();
+            e.stopPropagation();
+        }
+    },
+
+    onSearchBackspace: function() {
+        var cmp = this.component;
+        if (!cmp.scope.searchQuery) {
+            if (!cmp._prevQuery) {
+                if (cmp.hasSelection()) {
+                    cmp.unselectItemById(
+                        cmp.$$selection[cmp.$$selection.length - 1]
+                    );
+                    cmp.store.update();
+                }
+            }
+            else {
+                cmp._prevQuery = "";
+            }
+        }
+    },
+
+    onHiddenSelectClick: function(e) {
+        e.stopPropagation();
+    },
+
+    onHiddenSelectChange: function(e) {
+        var self = this,
+            cmp = self.component,
+            val = cmp.getRefEl("hiddenselect").value;
+
+        if (val) {
+            var item = cmp.store.find(cmp.config.get("valueField"), val);
+            if (item) {
+                cmp.selectItem(item);
+            }
+        }
+        else {
+            cmp.unselectAll();
+        }
+    }
+});
+
+
+
+
+
+
+
+
 
 
 
@@ -34179,6 +34459,7 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
 
     $mixins: [mixin_Selectable],
     $alias: "MetaphorJs.directive.component.ui-select",
+    $view: "MetaphorJs.ui.field.view.Select",
 
     template: "ui/field/select.html",
     dialog: null,
@@ -34207,8 +34488,6 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
         config.setType("showEmptyItem", "bool", null, true);
         config.setType("showNotFound", "bool", null, true);
         config.setType("keepSelectedOptions", "bool", null, true);
-        config.setType("useHiddenSelect", "bool", null, false);
-        config.setType("hiddenSelectBreakpoint", "int");
         config.setType("cssDialog", "bool", null, false);
 
         config.setType("hiddenInputName", "string", null, "");
@@ -34276,33 +34555,12 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
             self.setOptions(config.get("options"));
         }
 
-        if (config.get("useHiddenSelect")) {
-            if (config.get("hiddenSelectBreakpoint")) {
-                config.set("useHiddenSelect", false);
-                self.resizeBuffer = MetaphorJs.dom.EventBuffer.get(window, "resize");
-                self.resizeBuffer.watchWidth();
-                self.resizeBuffer.onBreak(
-                    "width", 
-                    config.get("hiddenSelectBreakpoint"), 
-                    self.onWindowBreak, 
-                    self
-                );
-            }
-        }
-
         self.$super();
     },
 
     afterRender: function() {
         var self = this;
         async(self.initDialog, self, [], 300);
-        if (self.isMultiSelection() && 
-            self.config.get("searchable")) {
-            async(self.initSizer, self);
-        }
-        if (self.resizeBuffer) {
-            async(self.onWindowBreak, self);
-        }
     },
 
     onDestroy: function() {
@@ -34463,9 +34721,7 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
             self.store.update();
         }
 
-        if (self.isMultiSelection()) {
-            async(self.setInputWidth, self);
-        }
+        
     },
 
     onSelectionChange: function() {
@@ -34632,183 +34888,6 @@ MetaphorJs.ui.field.Select = ui_Field.$extend({
         self.dialog.on("show", self.onDialogShow, self);
         self.dialog.on("hide", self.onDialogHide, self);
         self.dialog.on("before-show", self.onBeforeDialogShow, self);
-    },
-
-
-
-
-
-
-    /* VIEW */
-
-
-    onWindowBreak: function() {
-        this.config.set("useHiddenSelect", 
-            dom_getWidth(window) < this.config.get("hiddenSelectBreakpoint")
-        );
-        this.scope.$check();
-    },
-
-    initSizer: function() {
-        if (this.getRefEl("sizer")) {
-            var style = this.getRefEl("sizer").style;
-            style.left = '-10000px';
-            style.maxWidth = '1000px';
-            style.display = 'inline-block';
-            style.position = 'absolute';
-        }
-    },
-
-    setInputWidth: function() {
-        this.getRefEl("search").style.width =
-            (dom_getWidth(this.getRefEl("sizer")) + 10) + "px";
-    },
-
-    setSearchFocus: function() {
-        this.getRefEl("search").focus();
-    },
-
-    onSelfClick: function(e) {
-        var self = this;
-
-        if (self.config.get("useHiddenSelect")) {
-            e.stopPropagation();
-            return;
-        }
-
-        if (self.scope.focused &&
-            self.dialog.isVisible()) {
-            e.stopPropagation();
-            return;
-        }
-
-        if (self.config.get("searchable") && !self.scope.focused) {
-            async(this.setSearchFocus, this);
-            e.stopPropagation();
-        }
-
-        if (!self.config.get("searchable") &&
-            !self.dialog.isVisible()) {
-            self.dialog.show();
-            e.stopPropagation();
-        }
-    },
-
-    onDropdownIconClick: function(e) {
-        e.stopPropagation();
-        this.dialog.toggle(e, true);
-    },
-
-    onItemClick: function(item, e) {
-        var self = this,
-            cfg = self.config;
-
-        if (self.config.get("readonly")) {
-            e.stopPropagation();
-            self.dialog.hide();
-            return;
-        }
-
-        if (item) {
-            //this.selectItem(item);
-            self.setValue(
-                item[cfg.get("valueField")], 
-                item[cfg.get("displayField")]
-            );
-        }
-        else {
-            self.unselectAll();
-        }
-
-        //if (!cfg.get("keepSelectedOptions")) {
-        //    self.store.update();
-        //}
-
-        e.stopPropagation();
-
-        self.scope.$set("searchQuery", "");
-
-        if (!self.isMultiSelection()) {
-            self.dialog.hide();
-        }
-        else {
-            async(self.setSearchFocus, self);
-        }
-    },
-
-    onValueTextClick: function(e) {
-
-    },
-
-    onItemDeleteClick: function(item, e) {
-        var self = this;
-        if (!self.isSelectionEnabled()) {
-            return;
-        }
-        self.unselectItem(item);
-        if (!self.config.get("keepSelectedOptions")) {
-            self.store.update();
-        }
-        e.stopPropagation();
-    },
-
-    /*onNotFoundClick: function(item, e) {
-        e.stopPropagation();
-    },
-
-    onPaginationClick: function(e) {
-        e.stopPropagation();
-    },*/
-
-    onSearchFocus: function(e) {
-        this.scope.$set("focused", true);
-        if (!this.dialog.isVisible()) {
-            this.dialog.show();
-            e.stopPropagation();
-        }
-    },
-
-    onSearchBlur: function(e) {
-        this.scope.$set("focused", false);
-        if (!this.dialog.isVisible()) {
-            this.dialog.show();
-            e.stopPropagation();
-        }
-    },
-
-    onSearchBackspace: function() {
-        if (!this.scope.searchQuery) {
-            if (!this._prevQuery) {
-                if (this.hasSelection()) {
-                    this.unselectItemById(
-                        this.$$selection[this.$$selection.length - 1]
-                    );
-                    this.store.update();
-                }
-            }
-            else {
-                this._prevQuery = "";
-            }
-        }
-    },
-
-    onHiddenSelectClick: function(e) {
-        e.stopPropagation();
-    },
-
-    onHiddenSelectChange: function(e) {
-        var self = this,
-            val = self.getRefEl("hiddenselect").value;
-
-        if (val) {
-            var item = self.store.find(self.config.get("valueField"), val);
-            if (item) {
-                self.selectItem(item);
-            }
-        }
-        else {
-            self.unselectAll();
-        }
     }
 });
 
@@ -34824,7 +34903,6 @@ ns.register("Test", Test);
 cls({
     $class: "Test.container.Cmp1",
     $extends: "MetaphorJs.app.Component",
-    as: "child1",
     move: function() {
         var parent1 = this.scope.$app.getCmp("parent1"),
             parent2 = this.scope.$app.getCmp("parent2");
@@ -34838,24 +34916,22 @@ cls({
     },
     template: {
         html: "<p>This is container child #1; " +
-                "<a href=\"#\" (click)=\"this.child1.move()\">move</a></p>"
+                "<a href=\"#\" (click)=\"this.ctrl.move()\">move</a></p>"
     }
 });
 
 cls({
     $class: "Test.container.Cmp2",
     $extends: "Test.container.Cmp1",
-    as: "child2",
     template: {
         html: "<p>This is container child #2; "+
-                "<a href=\"#\" (click)=\"this.child2.move()\">move</a></p>"
+                "<a href=\"#\" (click)=\"this.ctrl.move()\">move</a></p>"
     }
 });
 
 cls({
     $class: "Test.container.Cmp3",
     $extends: "MetaphorJs.app.Component",
-    as: "child3",
     supportsDirectives: {
         "bind-html": "bindhere"
     },
@@ -34868,7 +34944,6 @@ cls({
     $class: "Test.container.Parent3",
     $extends: "MetaphorJs.app.Container",
     $alias: "MetaphorJs.directive.component.parent3",
-    as: "parent3",
     id: "parent3",
     template: 'container2.html'
 });
@@ -34877,7 +34952,6 @@ cls({
     $class: "Test.container.Cmp4",
     $extends: "MetaphorJs.app.Component",
     $alias: "MetaphorJs.directive.component.cmp4",
-    as: "child4",
     template: {
         html: "<div>This is cmp4</div>"
     }
@@ -34900,21 +34974,18 @@ cls({
         var parent1 = new app_Container({
             id: "parent1",
             renderTo: document.getElementById("container-app"),
-            scope: scope,
             template: 'container1.html',
             items: [
                 new Test.container.Cmp1({
-                    scope: scope,
                     id: "child1"
                 }),
                 new Test.container.Cmp2({
-                    scope: scope,
                     id: "child2"
                 }),
                 new Test.container.Cmp3({
-                    scope: scope,
                     id: "child3",
                     directives: {
+                        scope: scope,
                         "bind-html": "this.bindText"
                     }
                 }),
@@ -34925,8 +34996,7 @@ cls({
         parent1.render();
 
         var parent2 = new app_Container({
-            id: "parent2",
-            scope: scope
+            id: "parent2"
         });
 
         parent2.render(document.getElementById("container-app"));

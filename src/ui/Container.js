@@ -1,4 +1,5 @@
 
+require("../__init.js");
 require("metaphorjs/src/app/Component.js");
 require("metaphorjs/src/app/Template.js");
 require("metaphorjs/src/app/Renderer.js");
