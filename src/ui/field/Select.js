@@ -1,7 +1,7 @@
 
 require("../../__init.js");
 require("../../mixin/Selectable.js");
-require("../Field.js");
+require("./Field.js");
 require("metaphorjs-model/src/model/Store.js");
 require("metaphorjs-shared/src/lib/Queue.js");
 require("metaphorjs/src/func/dom/addClass.js");
@@ -20,13 +20,29 @@ var async = require("metaphorjs-shared/src/func/async.js"),
     isArray = require("metaphorjs-shared/src/func/isArray.js"),
     MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 
-module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.Field.$extend({
+module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend({
 
     $mixins: [MetaphorJs.mixin.Selectable],
     $alias: "MetaphorJs.directive.component.ui-select",
     $view: "MetaphorJs.ui.field.view.Select",
-
     template: "ui/field/select.html",
+
+    supportsDirectives: {
+        bind: true,
+        model: true,
+        show: true,
+        hide: true,
+        class: true,
+        style: true,
+        "in-focus": "search",
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true,
+        field: true
+    },
+
     dialog: null,
 
     currentValue: null,

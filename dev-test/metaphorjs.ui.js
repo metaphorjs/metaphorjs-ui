@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/field/input.html":"<div class=\"ui input\" ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/button/button.html":"<button ##button ##body class=\"ui button\" (click)=\"this.button.onClick(this.$event)\"><!--##before--> {{ this.$cfg.text }}<!--##after--></button>","ui/field/input.html":"<div class=\"ui input\" ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -13324,6 +13324,569 @@ var app_component_View = MetaphorJs.app.component.View = cls({
 
 
 
+MetaphorJs.app = MetaphorJs.app || {};
+
+
+
+
+
+
+
+
+
+
+
+
+var app_resolve = MetaphorJs.app.resolve = function app_resolve(cmp, cfg, scope, node, args) {
+
+    cfg         = cfg || {};
+    args        = args || [];
+
+    scope       = scope || cfg.scope; // || new Scope;
+    node        = node || cfg.node;
+    var config  = cfg.config || null;
+
+    cfg.config  = config;
+    cfg.scope   = cfg.scope || scope;
+    cfg.node    = cfg.node || node;
+
+    if (args.length === 0) {
+        args.push(cfg);
+    }
+
+    if (config) {
+
+        if (isPlainObject(config)) {
+            config = new lib_Config(config, {
+                scope: scope
+            });
+        }
+
+        config.setType("cloak", "bool", lib_Config.MODE_STATIC);
+        config.setType("animate", "bool", lib_Config.MODE_STATIC);
+    }
+
+    var constr      = isString(cmp) ? ns.get(cmp) : cmp;
+    if (!constr) {
+        throw new Error("Component " + cmp + " not found");
+    }
+
+    var i,
+        defers      = [],
+        tpl         = constr.template || cfg.template || null,
+        app         = scope ? scope.$app : null,
+        gProvider   = lib_Provider.global(),
+        injectFn    = app ? app.inject : gProvider.inject,
+        injectCt    = app ? app : gProvider,
+        cloak       = config ? config.get("cloak") : null,
+        inject      = {
+            $node: node || null,
+            $scope: scope || null,
+            $config: config || null,
+            $args: args || null
+        };
+
+    if (constr.resolve) {
+
+        for (i in constr.resolve) {
+            (function(name){
+                var d = new lib_Promise,
+                    fn;
+
+                defers.push(d.done(function(value){
+                    inject[name] = value;
+                    cfg[name] = value;
+                    args.push(value);
+                }));
+
+                fn = constr.resolve[i];
+
+                if (isFunction(fn)) {
+                    d.resolve(fn(scope, node, config));
+                }
+                else {
+                    d.resolve(
+                        injectFn.call(
+                            injectCt, fn, null, extend({}, inject, cfg, false, false)
+                        )
+                    );
+                }
+
+                d.fail(function(reason){
+                    if (reason instanceof Error) {
+                        error(reason);
+                    }
+                });
+
+            }(i));
+        }
+    }
+
+    if (tpl) {
+
+        var tplConfig = new lib_Config(null, {
+            scope: scope
+        });
+        if (config) {
+            tplConfig.setProperty("animate", config.copyProperty("animate"));
+        }
+        app_Template.prepareConfig(tpl, tplConfig);
+
+        cfg.template = new app_Template({
+            scope: scope,
+            node: node,
+            deferRendering: true,
+            ownRenderer: true,
+            config: tplConfig
+        });
+
+        defers.push(cfg.template.childrenPromise);
+
+        /*if (node && node.firstChild) {
+            dom_data(
+                node, "mjs-transclude", 
+                dom_toFragment(node.childNodes));
+        }*/
+    }
+
+    var p;
+
+    if (defers.length) {
+        p = new lib_Promise;
+        lib_Promise.all(defers)
+            .done(function(values){
+                p.resolve(
+                    injectFn.call(
+                        injectCt, constr, null, extend({}, inject, cfg, false, false), args
+                    )
+                );
+            })
+            .fail(p.reject, p);
+    }
+    else {
+        p = lib_Promise.resolve(
+            injectFn.call(
+                injectCt, constr, null, extend({}, inject, cfg, false, false), args
+            )
+        );
+    }
+
+    if (node && p.isPending() && cloak !== null) {
+        cloak !== true ? dom_addClass(node, cloak) : node.style.visibility = "hidden";
+        p.then(function() {
+            cloak !== true ? dom_removeClass(node, cloak) : node.style.visibility = "";
+        });
+    }
+
+    if (node) {
+        p.then(function(){
+            dom_removeClass(node, "mjs-cloak");
+        });
+    }
+
+    return p;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+var app_Container = MetaphorJs.app.Container = app_Component.$extend({
+
+    initComponent: function() {
+        var self = this;
+
+        self.$super.apply(self, arguments);
+
+        if (self.template && self.node.firstChild) {
+            self._prepareDeclaredItems(toArray(self.node.childNodes));
+        }
+
+        self._initItems();
+    },
+
+    _prepareDeclaredItems: function(nodes) {
+
+        var self = this,
+            i, l, node, renderer,
+            found = false,
+            renderRef, attrSet,
+            foundCmp, foundPromise,
+            scope = self.config.getOption("scope"),
+            items = self.items || [],
+            
+            refCallback = function(type, ref, cmp, cfg, attrSet){
+                if (cfg.node === node) {
+                    foundCmp = cmp;
+                    renderRef = attrSet.at;
+                }
+            },
+
+            promiseCallback = function(promise, cmpName, cfg, attrSet){
+                if (cfg.node === node) {
+                    foundPromise = promise;
+                    renderRef = attrSet.at;
+                }
+            };
+
+        if (isArray(items)) {
+            items = {
+                body: items
+            }
+        }
+
+        for (i = 0, l = nodes.length; i < l; i++) {
+            node = nodes[i];
+            if (node.nodeType === 1) {
+
+                foundCmp = null;
+                foundPromise = null;
+                renderRef = null;
+                renderer = new app_Renderer(node, scope);
+                renderer.on("reference", refCallback);
+                renderer.on("reference-promise", promiseCallback);
+                renderer.process();
+
+                if (foundCmp || foundPromise) {
+                    if (!renderRef) {
+                        renderRef = "body";
+                    }
+                    if (!items[renderRef]) {
+                        items[renderRef] = [];
+                    }
+                    items[renderRef].push({
+                        type: "component",
+                        renderRef: renderRef,
+                        renderer: renderer,
+                        component: foundCmp || foundPromise
+                    })
+                }   
+                else {
+                    attrSet = dom_getAttrSet(node);
+                    renderRef = attrSet.at || "body";
+                    if (!items[renderRef]) {
+                        items[renderRef] = [];
+                    }
+                    items[renderRef].push({
+                        type: "node",
+                        renderRef: renderRef,
+                        node: node
+                    });
+                }
+
+                found = true;
+
+                renderer.un("reference", refCallback);
+                renderer.un("reference-promise", promiseCallback);
+            }
+        }
+
+        if (found) {
+            self.items = items;
+        }
+
+    },
+
+    _initItems: function() {
+
+        var self = this,
+            items = self.items || [],
+            defs,
+            list = [],
+            item,
+            i, l;
+
+        self.itemsMap = {};
+        
+        if (isArray(items)) {
+            items = {
+                body: items
+            }
+        }
+
+        for (var ref in items) {
+            defs = items[ref];
+            if (!isArray(defs)) {
+                defs = [defs];
+            }
+            for (i = -1, l = defs.length; ++i < l;) {
+                item = self._processItemDef(defs[i]);
+                item.renderRef = ref;
+                list.push(item);
+                self.itemsMap[item.id] = item;
+            }
+        }
+
+        self.items = list;
+    },
+
+    _getIdKey: function() {
+        return "$$container_" + this.id;
+    },
+
+    _processItemDef: function(def) {
+
+        var self = this,
+            idkey = self._getIdKey(),
+            item = {
+                type: "component",
+                placeholder: window.document.createComment("***"),
+                id: nextUid(),
+                resolved: true
+            };
+
+        if (isPlainObject(def)) {
+            item = extend({}, def, item, false, false);
+            if (item.type === "component") {
+                if (isThenable(item.component)) {
+                    item.component.done(function(cmp){
+                        cmp[idkey] = item.id;
+                        self._onChildResolved(cmp);
+                    });
+                }
+                else {
+                    item.component[idkey] = item.id;
+                    self._initChildEvents("on", item.component);
+                }
+            }
+            else {
+                item.node[idkey] = item.id;
+            }
+        }
+        else if (def instanceof app_Component) {
+            item.component = def;
+            def[idkey] = item.id;
+            self._initChildEvents("on", def);   
+        }
+        else if (def instanceof window.Node) {
+            item.type = "node";
+            item.node = def;
+            def[idkey] = item.id;
+        }
+        else if (def instanceof app_Template) {
+            item.component = new app_Component({
+                scope: self.scope,
+                template: def
+            });
+            item.component[idkey] = item.id;
+            self._initChildEvents("on", item.component);
+        }
+        else if (typeof def === "string") {
+            var cfg = {scope: self.scope};
+            cfg[idkey] = item.id;
+            item.resolved = false;
+            item.component = MetaphorJs.app
+                            .resolve(def, cfg)
+                            .done(self._onChildResolved, self);
+        }
+        else if (isThenable(def)) {
+            item.resolved = false;
+            item.component = def;
+            def.done(function(cmp){
+                cmp[idkey] = item.id;
+                self._onChildResolved(cmp);
+            });
+        }
+        else {
+            throw new Error("Failed to initialize item");
+        }
+
+        return item;
+    },
+
+    _initChildEvents: function(mode, cmp) {
+        var self = this;
+        cmp[mode]("remove-from-container", self._onChildRemove, self);
+    },
+
+    _onChildRemove: function(cmp) {
+        var self = this,
+            idkey = self._getIdKey(),
+            itemid = cmp[idkey],
+            item, inx;
+
+        if (itemid && (item = self.itemsMap[itemid])) {
+            delete cmp[idkey];
+            delete self.itemsMap[itemid];
+            inx = self.items.indexOf(item);
+            if (cmp instanceof app_Component) {
+                self._initChildEvents("un", cmp);
+            }
+            if (inx !== -1) {
+                self.items.splice(inx, 1);
+            }
+            self._detachChildItem(item);
+        }
+    },
+
+    _onChildResolved: function(cmp) {
+        var self = this,
+            idkey = self._getIdKey(),
+            itemid = cmp[idkey],
+            item;
+
+        if (itemid && (item = self.itemsMap[itemid])) {
+            item.resolved = true;
+            item.component = cmp;
+
+            self._initChildEvents("on", cmp);
+
+            if (self._rendered) {
+                self._attachChildItem(item);
+            }
+        }
+    },
+
+    render: function() {
+
+        var self = this,
+            items = self.items || [],
+            i, l;
+
+        for (i = -1, l = items.length; ++i < l;){
+            if (items[i].type === "component" && items[i].resolved) {
+                items[i].component.render();
+            }
+        }
+
+        self.$super.apply(self, arguments);
+    },
+
+    _onRenderingFinished: function() {
+        var self = this, i, l, items = self.items;
+        self.$super();
+
+        // empty container without template or content
+        if (!self.node.firstChild) {
+            self.$refs.node.body = self.node;
+        }
+
+        // insert all placeholders, but
+        // attach only resolved items
+        for (i = -1, l = items.length; ++i < l;){
+            self._preparePlaceholder(items[i]);
+            if (items[i].resolved) {
+                self._attachChildItem(items[i]);
+            }
+        }
+    },
+
+    _preparePlaceholder: function(item) {
+        var self = this,
+            refnode = self.getRefEl(item.renderRef);
+        if (!refnode) {
+            throw new Error("Can't find referenced node: " + item.renderRef);
+        }
+        // comment
+        if (refnode.nodeType === 8) {
+            refnode.parentNode.insertBefore(item.placeholder, refnode);
+        }
+        else refnode.appendChild(item.placeholder);
+    },
+
+    // only resolved components get here; so do attach
+    _attachChildItem: function(item) {
+        var self = this,
+            refnode = self.getRefEl(item.renderRef);
+
+        if (item.type === "node") {
+            if (refnode.nodeType === 8)
+                refnode.parentNode.insertBefore(item.node, item.placeholder);
+            else refnode.insertBefore(item.node, item.placeholder);
+        }
+        else if (item.type === "component") {
+            if (refnode.nodeType === 8)
+                item.component.render(refnode.parentNode, item.placeholder);    
+            else item.component.render(refnode, item.placeholder);
+        }
+    },
+
+    _detachChildItem: function(item) {
+        if (item.type === "node") {
+            item.node.parentNode && item.node.parentNode.removeChild(item.node);
+        }
+        else if (item.type === "component") {
+            item.component.detach();
+            item.placeholder.parentNode && 
+                item.placeholder.parentNode.removeChild(item.placeholder);
+        }
+    },
+
+    hasItem: function(cmp) {
+        var self = this,
+        idkey = self._getIdKey();
+        return !!cmp[idkey];
+    },
+
+    addItem: function(cmp, to) {
+        var self = this,
+            item;
+
+        if (self.hasItem(cmp)) {
+            return;
+        }
+
+        if (cmp instanceof app_Component) {
+            cmp.trigger("remove-from-container", cmp);
+        }
+
+        item = self._processItemDef(cmp);
+        item.renderRef = to || "body";
+        self.items.push(item);
+        self.itemsMap[item.id] = item;
+
+        if (self._rendered) {
+            self._preparePlaceholder(item);
+            if (item.resolved) {
+                self._attachChildItem(item);
+            }
+        }
+    },
+
+    removeItem: function(cmp) {
+        var self = this;
+
+        if (!self.hasItem(cmp)) {
+            return;
+        }
+
+        if (cmp instanceof app_Component) {
+            cmp.trigger("remove-from-container", cmp);
+        }
+        else {
+            self._onChildRemove(cmp);
+        }
+    },
+
+    onDestroy: function() {
+
+        var self = this,
+            i, l, item;
+
+        for (i = 0, l = self.items.length; i < l; i++) {
+            item = self.items[i];
+            if (item.renderer) {
+                item.renderer.$destroy();
+            }
+            if (item.type === "component") {
+                item.component.$destroy && item.component.$destroy();
+            }
+        }
+        self.items = null;
+
+        self.$super();
+    }
+});
+
+
+
 /**
  * Check if given value is a number (not number-like)
  * @function isNumber
@@ -14368,173 +14931,6 @@ var app_StoreRenderer = MetaphorJs.app.StoreRenderer = app_ListRenderer.$extend(
 }
 );
 
-
-
-
-
-
-MetaphorJs.app = MetaphorJs.app || {};
-
-
-
-
-
-
-
-
-
-
-
-
-var app_resolve = MetaphorJs.app.resolve = function app_resolve(cmp, cfg, scope, node, args) {
-
-    cfg         = cfg || {};
-    args        = args || [];
-
-    scope       = scope || cfg.scope; // || new Scope;
-    node        = node || cfg.node;
-    var config  = cfg.config || null;
-
-    cfg.config  = config;
-    cfg.scope   = cfg.scope || scope;
-    cfg.node    = cfg.node || node;
-
-    if (args.length === 0) {
-        args.push(cfg);
-    }
-
-    if (config) {
-
-        if (isPlainObject(config)) {
-            config = new lib_Config(config, {
-                scope: scope
-            });
-        }
-
-        config.setType("cloak", "bool", lib_Config.MODE_STATIC);
-        config.setType("animate", "bool", lib_Config.MODE_STATIC);
-    }
-
-    var constr      = isString(cmp) ? ns.get(cmp) : cmp;
-    if (!constr) {
-        throw new Error("Component " + cmp + " not found");
-    }
-
-    var i,
-        defers      = [],
-        tpl         = constr.template || cfg.template || null,
-        app         = scope ? scope.$app : null,
-        gProvider   = lib_Provider.global(),
-        injectFn    = app ? app.inject : gProvider.inject,
-        injectCt    = app ? app : gProvider,
-        cloak       = config ? config.get("cloak") : null,
-        inject      = {
-            $node: node || null,
-            $scope: scope || null,
-            $config: config || null,
-            $args: args || null
-        };
-
-    if (constr.resolve) {
-
-        for (i in constr.resolve) {
-            (function(name){
-                var d = new lib_Promise,
-                    fn;
-
-                defers.push(d.done(function(value){
-                    inject[name] = value;
-                    cfg[name] = value;
-                    args.push(value);
-                }));
-
-                fn = constr.resolve[i];
-
-                if (isFunction(fn)) {
-                    d.resolve(fn(scope, node, config));
-                }
-                else {
-                    d.resolve(
-                        injectFn.call(
-                            injectCt, fn, null, extend({}, inject, cfg, false, false)
-                        )
-                    );
-                }
-
-                d.fail(function(reason){
-                    if (reason instanceof Error) {
-                        error(reason);
-                    }
-                });
-
-            }(i));
-        }
-    }
-
-    if (tpl) {
-
-        var tplConfig = new lib_Config(null, {
-            scope: scope
-        });
-        if (config) {
-            tplConfig.setProperty("animate", config.copyProperty("animate"));
-        }
-        app_Template.prepareConfig(tpl, tplConfig);
-
-        cfg.template = new app_Template({
-            scope: scope,
-            node: node,
-            deferRendering: true,
-            ownRenderer: true,
-            config: tplConfig
-        });
-
-        defers.push(cfg.template.childrenPromise);
-
-        /*if (node && node.firstChild) {
-            dom_data(
-                node, "mjs-transclude", 
-                dom_toFragment(node.childNodes));
-        }*/
-    }
-
-    var p;
-
-    if (defers.length) {
-        p = new lib_Promise;
-        lib_Promise.all(defers)
-            .done(function(values){
-                p.resolve(
-                    injectFn.call(
-                        injectCt, constr, null, extend({}, inject, cfg, false, false), args
-                    )
-                );
-            })
-            .fail(p.reject, p);
-    }
-    else {
-        p = lib_Promise.resolve(
-            injectFn.call(
-                injectCt, constr, null, extend({}, inject, cfg, false, false), args
-            )
-        );
-    }
-
-    if (node && p.isPending() && cloak !== null) {
-        cloak !== true ? dom_addClass(node, cloak) : node.style.visibility = "hidden";
-        p.then(function() {
-            cloak !== true ? dom_removeClass(node, cloak) : node.style.visibility = "";
-        });
-    }
-
-    if (node) {
-        p.then(function(){
-            dom_removeClass(node, "mjs-cloak");
-        });
-    }
-
-    return p;
-};
 
 
 
@@ -18008,6 +18404,13 @@ var lib_EventHandler = MetaphorJs.lib.EventHandler;
 
             Directive.registerAttribute(name, 1000,
                 function(scope, node, config, renderer, attrSet) {
+
+                if (node.getDomApi) {
+                    node = node.getDomApi(name);
+                    if (!node) {
+                        return null;
+                    }
+                }
 
                 var eh = new lib_EventHandler(
                     name, scope, node, prepareConfig(config)
@@ -29200,393 +29603,30 @@ MetaphorJs.ui = MetaphorJs.ui || {
 
 
 
+MetaphorJs.ui.Button = app_Container.$extend({
+    $alias: "MetaphorJs.directive.component.ui-button",
+    template: "ui/button/button.html",
+    as: "button",
 
-
-
-var app_Container = MetaphorJs.app.Container = app_Component.$extend({
-
-    initComponent: function() {
-        var self = this;
-
-        self.$super.apply(self, arguments);
-
-        if (self.template && self.node.firstChild) {
-            self._prepareDeclaredItems(toArray(self.node.childNodes));
-        }
-
-        self._initItems();
+    supportsDirectives: {
+        show: true,
+        hide: true,
+        class: true,
+        style: true,
+        click: "button", 
+        dblclick: "button", 
+        mousedown: "button", 
+        mouseup: "button",
+        mousemove: "button"
     },
 
-    _prepareDeclaredItems: function(nodes) {
-
-        var self = this,
-            i, l, node, renderer,
-            found = false,
-            renderRef, attrSet,
-            foundCmp, foundPromise,
-            scope = self.config.getOption("scope"),
-            items = self.items || [],
-            
-            refCallback = function(type, ref, cmp, cfg, attrSet){
-                if (cfg.node === node) {
-                    foundCmp = cmp;
-                    renderRef = attrSet.at;
-                }
-            },
-
-            promiseCallback = function(promise, cmpName, cfg, attrSet){
-                if (cfg.node === node) {
-                    foundPromise = promise;
-                    renderRef = attrSet.at;
-                }
-            };
-
-        if (isArray(items)) {
-            items = {
-                body: items
-            }
-        }
-
-        for (i = 0, l = nodes.length; i < l; i++) {
-            node = nodes[i];
-            if (node.nodeType === 1) {
-
-                foundCmp = null;
-                foundPromise = null;
-                renderRef = null;
-                renderer = new app_Renderer(node, scope);
-                renderer.on("reference", refCallback);
-                renderer.on("reference-promise", promiseCallback);
-                renderer.process();
-
-                if (foundCmp || foundPromise) {
-                    if (!renderRef) {
-                        renderRef = "body";
-                    }
-                    if (!items[renderRef]) {
-                        items[renderRef] = [];
-                    }
-                    items[renderRef].push({
-                        type: "component",
-                        renderRef: renderRef,
-                        renderer: renderer,
-                        component: foundCmp || foundPromise
-                    })
-                }   
-                else {
-                    attrSet = dom_getAttrSet(node);
-                    renderRef = attrSet.at || "body";
-                    if (!items[renderRef]) {
-                        items[renderRef] = [];
-                    }
-                    items[renderRef].push({
-                        type: "node",
-                        renderRef: renderRef,
-                        node: node
-                    });
-                }
-
-                found = true;
-
-                renderer.un("reference", refCallback);
-                renderer.un("reference-promise", promiseCallback);
-            }
-        }
-
-        if (found) {
-            self.items = items;
-        }
-
+    _initConfig: function() {
+        this.config.setDefaultMode("text", lib_Config.MODE_STATIC);
+        this.config.setType("as", null, null, "button");
     },
 
-    _initItems: function() {
+    onClick: function(e) {
 
-        var self = this,
-            items = self.items || [],
-            defs,
-            list = [],
-            item,
-            i, l;
-
-        self.itemsMap = {};
-        
-        if (isArray(items)) {
-            items = {
-                body: items
-            }
-        }
-
-        for (var ref in items) {
-            defs = items[ref];
-            if (!isArray(defs)) {
-                defs = [defs];
-            }
-            for (i = -1, l = defs.length; ++i < l;) {
-                item = self._processItemDef(defs[i]);
-                item.renderRef = ref;
-                list.push(item);
-                self.itemsMap[item.id] = item;
-            }
-        }
-
-        self.items = list;
-    },
-
-    _getIdKey: function() {
-        return "$$container_" + this.id;
-    },
-
-    _processItemDef: function(def) {
-
-        var self = this,
-            idkey = self._getIdKey(),
-            item = {
-                type: "component",
-                placeholder: window.document.createComment("***"),
-                id: nextUid(),
-                resolved: true
-            };
-
-        if (isPlainObject(def)) {
-            item = extend({}, def, item, false, false);
-            if (item.type === "component") {
-                if (isThenable(item.component)) {
-                    item.component.done(function(cmp){
-                        cmp[idkey] = item.id;
-                        self._onChildResolved(cmp);
-                    });
-                }
-                else {
-                    item.component[idkey] = item.id;
-                    self._initChildEvents("on", item.component);
-                }
-            }
-            else {
-                item.node[idkey] = item.id;
-            }
-        }
-        else if (def instanceof app_Component) {
-            item.component = def;
-            def[idkey] = item.id;
-            self._initChildEvents("on", def);   
-        }
-        else if (def instanceof window.Node) {
-            item.type = "node";
-            item.node = def;
-            def[idkey] = item.id;
-        }
-        else if (def instanceof app_Template) {
-            item.component = new app_Component({
-                scope: self.scope,
-                template: def
-            });
-            item.component[idkey] = item.id;
-            self._initChildEvents("on", item.component);
-        }
-        else if (typeof def === "string") {
-            var cfg = {scope: self.scope};
-            cfg[idkey] = item.id;
-            item.resolved = false;
-            item.component = MetaphorJs.app
-                            .resolve(def, cfg)
-                            .done(self._onChildResolved, self);
-        }
-        else if (isThenable(def)) {
-            item.resolved = false;
-            item.component = def;
-            def.done(function(cmp){
-                cmp[idkey] = item.id;
-                self._onChildResolved(cmp);
-            });
-        }
-        else {
-            throw new Error("Failed to initialize item");
-        }
-
-        return item;
-    },
-
-    _initChildEvents: function(mode, cmp) {
-        var self = this;
-        cmp[mode]("remove-from-container", self._onChildRemove, self);
-    },
-
-    _onChildRemove: function(cmp) {
-        var self = this,
-            idkey = self._getIdKey(),
-            itemid = cmp[idkey],
-            item, inx;
-
-        if (itemid && (item = self.itemsMap[itemid])) {
-            delete cmp[idkey];
-            delete self.itemsMap[itemid];
-            inx = self.items.indexOf(item);
-            if (cmp instanceof app_Component) {
-                self._initChildEvents("un", cmp);
-            }
-            if (inx !== -1) {
-                self.items.splice(inx, 1);
-            }
-            self._detachChildItem(item);
-        }
-    },
-
-    _onChildResolved: function(cmp) {
-        var self = this,
-            idkey = self._getIdKey(),
-            itemid = cmp[idkey],
-            item;
-
-        if (itemid && (item = self.itemsMap[itemid])) {
-            item.resolved = true;
-            item.component = cmp;
-
-            self._initChildEvents("on", cmp);
-
-            if (self._rendered) {
-                self._attachChildItem(item);
-            }
-        }
-    },
-
-    render: function() {
-
-        var self = this,
-            items = self.items || [],
-            i, l;
-
-        for (i = -1, l = items.length; ++i < l;){
-            if (items[i].type === "component" && items[i].resolved) {
-                items[i].component.render();
-            }
-        }
-
-        self.$super.apply(self, arguments);
-    },
-
-    _onRenderingFinished: function() {
-        var self = this, i, l, items = self.items;
-        self.$super();
-
-        // empty container without template or content
-        if (!self.node.firstChild) {
-            self.$refs.node.body = self.node;
-        }
-
-        // insert all placeholders, but
-        // attach only resolved items
-        for (i = -1, l = items.length; ++i < l;){
-            self._preparePlaceholder(items[i]);
-            if (items[i].resolved) {
-                self._attachChildItem(items[i]);
-            }
-        }
-    },
-
-    _preparePlaceholder: function(item) {
-        var self = this,
-            refnode = self.getRefEl(item.renderRef);
-        if (!refnode) {
-            throw new Error("Can't find referenced node: " + item.renderRef);
-        }
-        // comment
-        if (refnode.nodeType === 8) {
-            refnode.parentNode.insertBefore(item.placeholder, refnode);
-        }
-        else refnode.appendChild(item.placeholder);
-    },
-
-    // only resolved components get here; so do attach
-    _attachChildItem: function(item) {
-        var self = this,
-            refnode = self.getRefEl(item.renderRef);
-
-        if (item.type === "node") {
-            if (refnode.nodeType === 8)
-                refnode.parentNode.insertBefore(item.node, item.placeholder);
-            else refnode.insertBefore(item.node, item.placeholder);
-        }
-        else if (item.type === "component") {
-            if (refnode.nodeType === 8)
-                item.component.render(refnode.parentNode, item.placeholder);    
-            else item.component.render(refnode, item.placeholder);
-        }
-    },
-
-    _detachChildItem: function(item) {
-        if (item.type === "node") {
-            item.node.parentNode && item.node.parentNode.removeChild(item.node);
-        }
-        else if (item.type === "component") {
-            item.component.detach();
-            item.placeholder.parentNode && 
-                item.placeholder.parentNode.removeChild(item.placeholder);
-        }
-    },
-
-    hasItem: function(cmp) {
-        var self = this,
-        idkey = self._getIdKey();
-        return !!cmp[idkey];
-    },
-
-    addItem: function(cmp, to) {
-        var self = this,
-            item;
-
-        if (self.hasItem(cmp)) {
-            return;
-        }
-
-        if (cmp instanceof app_Component) {
-            cmp.trigger("remove-from-container", cmp);
-        }
-
-        item = self._processItemDef(cmp);
-        item.renderRef = to || "body";
-        self.items.push(item);
-        self.itemsMap[item.id] = item;
-
-        if (self._rendered) {
-            self._preparePlaceholder(item);
-            if (item.resolved) {
-                self._attachChildItem(item);
-            }
-        }
-    },
-
-    removeItem: function(cmp) {
-        var self = this;
-
-        if (!self.hasItem(cmp)) {
-            return;
-        }
-
-        if (cmp instanceof app_Component) {
-            cmp.trigger("remove-from-container", cmp);
-        }
-        else {
-            self._onChildRemove(cmp);
-        }
-    },
-
-    onDestroy: function() {
-
-        var self = this,
-            i, l, item;
-
-        for (i = 0, l = self.items.length; i < l; i++) {
-            item = self.items[i];
-            if (item.renderer) {
-                item.renderer.$destroy();
-            }
-            if (item.type === "component") {
-                item.component.$destroy && item.component.$destroy();
-            }
-        }
-        self.items = null;
-
-        self.$super();
     }
 });
 
@@ -29597,7 +29637,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
 
 
-var ui_Field = MetaphorJs.ui.Field = MetaphorJs.app.Container.$extend({
+var ui_field_Field = MetaphorJs.ui.field.Field = MetaphorJs.app.Container.$extend({
 
     supportsDirectives: {
         "bind": true,
@@ -29666,7 +29706,7 @@ var ui_Field = MetaphorJs.ui.Field = MetaphorJs.app.Container.$extend({
 
 
 
-MetaphorJs.ui.field.Input = ui_Field.$extend({
+MetaphorJs.ui.field.Input = ui_field_Field.$extend({
     $alias: "MetaphorJs.directive.component.ui-input",
     template: "ui/field/input.html",
 
@@ -29683,8 +29723,6 @@ MetaphorJs.ui.field.Input = ui_Field.$extend({
         mousedown: true, 
         mouseup: true,
         mousemove: true,
-        draggable: true,
-        droppable: true,
         field: true
     },
 
@@ -34455,13 +34493,29 @@ var ui_field_view_Select = MetaphorJs.ui.field.view.Select = app_component_View.
 
 
 
-MetaphorJs.ui.field.Select = ui_Field.$extend({
+MetaphorJs.ui.field.Select = ui_field_Field.$extend({
 
     $mixins: [mixin_Selectable],
     $alias: "MetaphorJs.directive.component.ui-select",
     $view: "MetaphorJs.ui.field.view.Select",
-
     template: "ui/field/select.html",
+
+    supportsDirectives: {
+        bind: true,
+        model: true,
+        show: true,
+        hide: true,
+        class: true,
+        style: true,
+        "in-focus": "search",
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true,
+        field: true
+    },
+
     dialog: null,
 
     currentValue: null,

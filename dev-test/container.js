@@ -1,4 +1,4 @@
-require("metaphorjs-ui/src/ui/Container.js");
+require("metaphorjs/src/app/Container.js");
 
 var cls = require("metaphorjs-class/src/cls.js"),
     ns = require("metaphorjs-namespace/src/var/ns.js"),

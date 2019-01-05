@@ -1,6 +1,6 @@
 
 require("../../__init.js");
-require("../Field.js");
+require("./Field.js");
 require("metaphorjs/src/lib/Input.js");
 require("metaphorjs/src/lib/Config.js");
 
@@ -8,7 +8,7 @@ var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
     bind = require("metaphorjs-shared/src/func/bind.js");
 
 
-module.exports = MetaphorJs.ui.field.Input = MetaphorJs.ui.Field.$extend({
+module.exports = MetaphorJs.ui.field.Input = MetaphorJs.ui.field.Field.$extend({
     $alias: "MetaphorJs.directive.component.ui-input",
     template: "ui/field/input.html",
 
@@ -25,8 +25,6 @@ module.exports = MetaphorJs.ui.field.Input = MetaphorJs.ui.Field.$extend({
         mousedown: true, 
         mouseup: true,
         mousemove: true,
-        draggable: true,
-        droppable: true,
         field: true
     },
 
