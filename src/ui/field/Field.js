@@ -1,5 +1,5 @@
 require("../../__init.js");
-require("metaphorjs/src/app/Component.js");
+require("metaphorjs/src/app/Container.js");
 require("metaphorjs/src/lib/Config.js");
 require("metaphorjs/src/directive/attr/bind.js");
 require("metaphorjs/src/directive/attr/model.js");
