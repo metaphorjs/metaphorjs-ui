@@ -112,3 +112,38 @@ cls({
     }
 });
 
+
+
+
+
+cls({
+    $class: "Test.UIApp",
+    $extends: "MetaphorJs.app.App",
+
+    initApp: function(node, scope) {
+
+        window.mainApp = this;
+
+        var menu1 = new MetaphorJs.ui.menu.Menu({
+            renderTo: document.getElementById("dynamic-menu"),
+
+            items: [
+                new MetaphorJs.ui.menu.Item({
+                    config: {
+                        text: "Text 1"
+                    },
+                    callback: {
+                        click: function() {
+                            console.log("dynamic menu click")
+                        }
+                    }
+                }),
+                '|'
+            ]
+        });
+
+        menu1.render();
+
+    }
+});
+

@@ -8,6 +8,8 @@ var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 module.exports = MetaphorJs.ui.menu.Item = MetaphorJs.app.Container.$extend({
     $alias: "MetaphorJs.directive.component.ui-menu-item",
     template: "ui/menu/item.html",
+    as: "item",
+    node: false,
 
     supportsDirectives: {
         show: true,
@@ -19,6 +21,11 @@ module.exports = MetaphorJs.ui.menu.Item = MetaphorJs.app.Container.$extend({
         mousedown: true, 
         mouseup: true,
         mousemove: true
+    },
+
+    _initConfig: function() {
+        this.config.setDefaultMode("text", MetaphorJs.lib.Config.MODE_STATIC);
+        this.$super();
     },
 
     onClick: function(ev) {

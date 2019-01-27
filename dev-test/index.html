@@ -3,11 +3,10 @@
         <title>MetaphorJs UI Feature Test</title>
         <script src="metaphorjs.ui.js"></script>
         <link rel="stylesheet" href="semantic.css">
-        <link rel="stylesheet" href="overrides.css">
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div class="cases" mjs-app>
+        <div class="cases" mjs-app="Test.UIApp">
             <div class="case double" 
                 {init}="
                     this.sval = 2;
@@ -46,9 +45,17 @@
             <div class="case double" >
                 <p>Menu markup</p>
                 <ui-menu>
-                    <a class="item">Test</a>
+                    <a class="item" 
+                        (click)="console.log('click1')">Test</a>
+                    <ui-menu-item 
+                        $text="Menu ui-menu-item"
+                        $on--click="console.log('click2')"></ui-menu-item>
+                    <ui-menu-item 
+                        $text="Menu ui-menu-item 2"
+                        (click)="console.log('click3')"></ui-menu-item>
                 </ui-menu>
                 <p>Menu code</p>
+                <div id="dynamic-menu"></div>
             </div>
         
     </body>

@@ -10,6 +10,7 @@ var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 module.exports = MetaphorJs.ui.menu.Menu = MetaphorJs.app.Container.$extend({
     $alias: "MetaphorJs.directive.component.ui-menu",
     template: "ui/menu/menu.html",
+    node: false,
 
     _initObjectItem: function(def) {
         if (def.__containerItemDef) {
@@ -24,7 +25,7 @@ module.exports = MetaphorJs.ui.menu.Menu = MetaphorJs.app.Container.$extend({
         return new MetaphorJs.ui.menu.Menu(cfg);
     },
 
-    _initTextItem: function(def) {
+    _initStringItem: function(def) {
         if (def === '-' || def === '|') {
             return "MetaphorJs.ui.menu.Divider";
         }
