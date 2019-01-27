@@ -8442,6 +8442,7 @@ MetaphorJs.app.App = cls({
         self.scope          = scope;
         self.cmpListeners   = {};
         self.components     = {};
+        self.$refs          = {node: {}, cmp: {}};
 
         self.factory('$parentCmp', ['$node', self.getParentCmp], self);
         self.value('$app', self);
@@ -8451,6 +8452,7 @@ MetaphorJs.app.App = cls({
 
         self.renderer       = new app_Renderer(node, scope);
         self.renderer.on("rendered", self.afterRender, self);
+        self.renderer.on("reference", self._onChildReference, self);
 
         args = toArray(arguments);
         args[1] = scope;
@@ -8461,6 +8463,14 @@ MetaphorJs.app.App = cls({
 
     afterRender: function() {
 
+    },
+
+    _onChildReference: function(type, ref, item) {
+        var self = this;
+        if (!self.$refs[type]) {
+            self.$refs[type] = {};
+        }
+        self.$refs[type][ref] = item;
     },
 
     /**
@@ -8535,6 +8545,15 @@ MetaphorJs.app.App = cls({
         }
 
         return null;
+    },
+
+    /**
+     * Get referenced node from top level
+     * @param {string} name 
+     * @returns Node|null
+     */
+    getRefEl: function(name) {
+        return this.$refs['node'][name];
     },
 
     /**
@@ -13063,7 +13082,11 @@ var app_Component = MetaphorJs.app.Component = cls({
     render: function(parent, before) {
 
         var self = this;
-        console.log("start", self.id)
+
+        if (parent && parent.nodeType === 8) {
+            before = parent;
+            parent = parent.parentNode;
+        }
 
         if (self._rendered) {
             parent && self.attach(parent, before);
@@ -13078,7 +13101,6 @@ var app_Component = MetaphorJs.app.Component = cls({
         self.trigger('render', self);
 
         if (self.template) {
-            
             self.template.startRendering();
         }
     },
@@ -13765,25 +13787,19 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
             itemid = cmp[idkey],
             item;
 
-        console.log("resolved", cmp, itemid)
-
         if (itemid && (item = self.itemsMap[itemid])) {
             item.resolved = true;
             item.component = cmp;
-            console.log("found resolved", item, cmp, self.itemsMap[itemid])
 
             self._initChildEvents("on", cmp);
 
             if (self._rendered) {
-                console.log(2)
                 self._attachChildItem(item);
             }
         }
     },
 
     render: function() {
-
-        console.log("container render", this.id)
 
         var self = this,
             items = self.items || [],
@@ -13841,7 +13857,6 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
             else refnode.insertBefore(item.node, item.placeholder);
         }
         else if (item.type === "component") {
-            console.log("attach", item.component)
             if (refnode.nodeType === 8)
                 item.component.render(refnode.parentNode, item.placeholder);    
             else item.component.render(refnode, item.placeholder);
@@ -18964,9 +18979,10 @@ Directive.registerAttribute("model", 1000, Directive.$extend({
     onInputChange: function(val) {
 
         var self    = this,
-            scope   = self.scope;
+            scope   = self.scope,
+            binding = self.binding || self.config.get("binding")
 
-        if (self.config.get("binding") !== "scope") {
+        if (binding !== "scope") {
 
             if (val && isString(val) && val.indexOf('\\{') !== -1) {
                 val = val.replace(/\\{/g, '{');
@@ -35316,9 +35332,7 @@ cls({
 
         window.mainApp = this;
 
-        var menu1 = new MetaphorJs.ui.menu.Menu({
-            renderTo: document.getElementById("dynamic-menu"),
-
+        this.menu1 = new MetaphorJs.ui.menu.Menu({
             items: [
                 new MetaphorJs.ui.menu.Item({
                     config: {
@@ -35333,9 +35347,10 @@ cls({
                 '|'
             ]
         });
+    },
 
-        menu1.render();
-
+    afterRender: function() {
+        this.menu1.render(this.getRefEl("dynamic-menu"));
     }
 });
 

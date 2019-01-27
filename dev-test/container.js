@@ -124,9 +124,7 @@ cls({
 
         window.mainApp = this;
 
-        var menu1 = new MetaphorJs.ui.menu.Menu({
-            renderTo: document.getElementById("dynamic-menu"),
-
+        this.menu1 = new MetaphorJs.ui.menu.Menu({
             items: [
                 new MetaphorJs.ui.menu.Item({
                     config: {
@@ -141,9 +139,10 @@ cls({
                 '|'
             ]
         });
+    },
 
-        menu1.render();
-
+    afterRender: function() {
+        this.menu1.render(this.getRefEl("dynamic-menu"));
     }
 });
 
