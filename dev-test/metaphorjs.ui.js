@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/button/button.html":"<button ##button ##body class=\"ui button\" (click)=\"this.button.onClick(this.$event)\"><!--##before--> {{ this.$cfg.text }}<!--##after--></button>","ui/field/input.html":"<div class=\"ui input\" ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","ui/menu/divider.html":"<div class=\"divider\"></div>","ui/menu/item.html":"<a class=\"item\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span ##text class=\"text\" {bind}=\"this.$cfg.text\"></span><!--##after--></a>","ui/menu/menu.html":"<div class=\"ui vertical menu\"><!--##before--><!--##body--><!--##after--></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/button/button.html":"<button ##button ##body class=\"ui button\" (click)=\"this.button.onClick(this.$event)\"><!--##before--> {{ this.$cfg.text }}<!--##after--></button>","ui/field/input.html":"<div class=\"ui input\" ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","ui/menu/container.html":"<div class=\"item\"></div>","ui/menu/divider.html":"<div class=\"divider\"></div>","ui/menu/item.html":"<a class=\"item\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span ##text class=\"text\" {bind}=\"this.$cfg.text\"></span><!--##after--></a>","ui/menu/menu.html":"<div class=\"ui vertical menu\"><!--##before--><!--##body--><!--##after--></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -13540,7 +13540,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
             foundCmp, foundPromise,
             scope = self.config.getOption("scope"),
             items = self.items || [],
-            
+
             refCallback = function(type, ref, cmp, cfg, attrSet){
                 if (cfg.node === node) {
                     foundCmp = cmp;
@@ -13587,8 +13587,8 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
                         renderer: renderer,
                         component: foundCmp || foundPromise,
                         resolved: !!foundCmp
-                    })
-                }   
+                    });
+                }
                 else {
                     attrSet = dom_getAttrSet(node);
                     renderRef = attrSet.at || "body";
@@ -13623,17 +13623,17 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
             defs,
             list = [],
             item,
-            i, l;
+            i, l, ref;
 
         self.itemsMap = {};
-        
+
         if (isArray(items)) {
             items = {
                 body: items
             }
         }
 
-        for (var ref in items) {
+        for (ref in items) {
             defs = items[ref];
             if (!isArray(defs)) {
                 defs = [defs];
@@ -13642,6 +13642,8 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
                 item = self._processItemDef(defs[i]);
                 item.renderRef = ref;
                 list.push(item);
+
+                // moved to _processItemDef
                 //self.itemsMap[item.id] = item;
             }
         }
@@ -13653,17 +13655,21 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
         return "$$container_" + this.id;
     },
 
+    _createDefaultItemDef: function() {
+        return {
+            __containerItemDef: true,
+            type: "component",
+            placeholder: window.document.createComment("***"),
+            id: nextUid(),
+            resolved: true
+        };
+    },
+
     _processItemDef: function(def) {
 
         var self = this,
             idkey = self._getIdKey(),
-            item = {
-                __containerItemDef: true,
-                type: "component",
-                placeholder: window.document.createComment("***"),
-                id: nextUid(),
-                resolved: true
-            };
+            item = self._createDefaultItemDef();
 
         self.itemsMap[item.id] = item;
 
@@ -13681,65 +13687,70 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
         if (isPlainObject(def)) {
             item = extend({}, def, item, false, false);
-            self.itemsMap[item.id] = item;
-            if (item.type === "component") {
-                if (isThenable(item.component)) {
-                    item.resolved = false;
-                    item.component.done(function(cmp){
-                        cmp[idkey] = item.id;
-                        self._onChildResolved(cmp);
-                    });
-                }
-                else {
-                    item.component[idkey] = item.id;
-                    self._initChildEvents("on", item.component);
-                }
-            }
-            else {
-                item.node[idkey] = item.id;
-            }
+            self.itemsMap[item.id] = item; // rewrite item map
+        }
+        else if (typeof def === "function") {
+            item.component = new def({
+                scope: self.scope.$new()
+            });
         }
         else if (def instanceof app_Component) {
             item.component = def;
-            def[idkey] = item.id;
-            self._initChildEvents("on", def);   
         }
         else if (def instanceof window.Node) {
             item.type = "node";
             item.node = def;
-            def[idkey] = item.id;
         }
         else if (def instanceof app_Template) {
             item.component = new app_Component({
                 scope: self.scope,
                 template: def
             });
-            item.component[idkey] = item.id;
-            self._initChildEvents("on", item.component);
         }
         else if (typeof def === "string") {
             var cfg = {scope: self.scope};
-            cfg[idkey] = item.id;
-            item.resolved = false;
-            var promise = MetaphorJs.app
-                .resolve(def, cfg)
-                .done(self._onChildResolved, self);
-            if (!item.component){
-                item.component = promise;
-            }
+            item.component = app_resolve(def, cfg);
         }
         else if (isThenable(def)) {
-            item.resolved = false;
             item.component = def;
-            def.done(function(cmp){
-                cmp[idkey] = item.id;
-                self._onChildResolved(cmp);
-            });
         }
         else {
             throw new Error("Failed to initialize item");
         }
 
+        var prevItem = item;
+
+        if (item.type === "node") {
+            item = self._wrapChildItem(item);
+            item.node[idkey] = item.id;
+        }
+        else if (item.type === "component") {
+            if (isThenable(item.component)) {
+                item.resolved = false;
+                item.component.done(function(cmp){
+                    item.component = cmp;
+                    item = self._wrapChildItem(item);
+                    item.component[idkey] = item.id;
+                    self._onChildResolved(item.component);
+                });
+            }
+            else {
+                item = self._wrapChildItem(item);
+                item.component[idkey] = item.id;
+                self._onChildResolved(item.component);
+            }
+        }
+
+        // item got wrapped
+        if (prevItem !== item) {
+            delete self.itemsMap[prevItem.id];
+            self.itemsMap[item.id] = item;
+        }
+
+        return item;
+    },
+
+    _wrapChildItem: function(item) {
         return item;
     },
 
@@ -35126,6 +35137,26 @@ MetaphorJs.ui.field.Select = ui_field_Field.$extend({
 
 
 
+var ui_menu_Container = MetaphorJs.ui.menu.Container = app_Container.$extend({
+    $alias: "MetaphorJs.directive.component.ui-menu-container",
+    template: "ui/menu/container.html",
+    as: "item",
+    node: false,
+
+    supportsDirectives: {
+        show: true,
+        hide: true,
+        class: true,
+        style: true
+    }
+});
+
+
+
+
+
+
+
 var ui_menu_Divider = MetaphorJs.ui.menu.Divider = app_Container.$extend({
     $alias: "MetaphorJs.directive.component.ui-menu-divider",
     template: "ui/menu/divider.html",
@@ -35145,7 +35176,7 @@ var ui_menu_Divider = MetaphorJs.ui.menu.Divider = app_Container.$extend({
 
 
 
-MetaphorJs.ui.menu.Item = app_Container.$extend({
+var ui_menu_Item = MetaphorJs.ui.menu.Item = app_Container.$extend({
     $alias: "MetaphorJs.directive.component.ui-menu-item",
     template: "ui/menu/item.html",
     as: "item",
@@ -35181,6 +35212,7 @@ MetaphorJs.ui.menu.Item = app_Container.$extend({
 
 
 
+
 MetaphorJs.ui.menu.Menu = app_Container.$extend({
     $alias: "MetaphorJs.directive.component.ui-menu",
     template: "ui/menu/menu.html",
@@ -35201,9 +35233,29 @@ MetaphorJs.ui.menu.Menu = app_Container.$extend({
 
     _initStringItem: function(def) {
         if (def === '-' || def === '|') {
-            return "MetaphorJs.ui.menu.Divider";
+            return ui_menu_Divider;
         }
         return this.$super(def);
+    },
+
+    _wrapChildItem: function(item) {
+        var self = this;
+        
+        if (item.type === "component" && 
+            !(item.component instanceof ui_menu_Item) && 
+            !(item.component instanceof ui_menu_Divider) && 
+            !(item.component instanceof ui_menu_Container)) {
+
+            var newItem = self._createDefaultItemDef();
+            newItem.component = new ui_menu_Container({
+                scope: self.scope,
+                items: [
+                    item.component
+                ]
+            });
+            return newItem;
+        }
+        return item;
     }
 
 });

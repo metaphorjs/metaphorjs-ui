@@ -48,11 +48,26 @@
                     <a class="item" 
                         (click)="console.log('click1')">Test</a>
                     <ui-menu-item 
-                        $text="Menu ui-menu-item"
+                        $text="Menu item"
                         $on--click="console.log('click2')"></ui-menu-item>
                     <ui-menu-item 
-                        $text="Menu ui-menu-item 2"
-                        (click)="console.log('click3')"></ui-menu-item>
+                        $text="Menu item 2"
+                        (click)="console.log('click3')">
+                        <div class="ui label" @after>51</div>
+                    </ui-menu-item>
+                    <ui-input {class}:="transparent" 
+                                $placeholder:="Input field"
+                                $type="number"></ui-input>
+                    <ui-select 
+                        $empty-text:="Nothing selected" 
+                        $options*="this.options"
+                        $keep-selected-options:="false"
+                        $empty-item-text:="Nope"
+                        $searchable
+                        $css-dialog
+                        {model}="this.sval"
+                        $selection-mode="single">
+                    </ui-select>
                 </ui-menu>
                 <p>Menu code</p>
                 <!--##dynamic-menu-->
