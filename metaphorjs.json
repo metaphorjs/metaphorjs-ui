@@ -8,6 +8,7 @@
                 "metaphorjs/src/app/**",
                 "src/mixin/**",
                 "src/ui/**",
+                "metaphorjs-dialog/src/directive/**",
                 "dev-test/container.js"
             ],
             "templates": [

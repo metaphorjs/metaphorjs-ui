@@ -8,7 +8,6 @@ var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 module.exports = MetaphorJs.ui.menu.Container = MetaphorJs.app.Container.$extend({
     $alias: "MetaphorJs.directive.component.ui-menu-container",
     template: "ui/menu/container.html",
-    as: "item",
     node: false,
 
     supportsDirectives: {
@@ -16,5 +15,10 @@ module.exports = MetaphorJs.ui.menu.Container = MetaphorJs.app.Container.$extend
         hide: true,
         class: true,
         style: true
-    }
+    },
+
+    _initConfig: function() {
+        this.$super();
+        this.config.setDefaultValue("as", "item");
+    },
 });

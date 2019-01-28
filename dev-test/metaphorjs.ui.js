@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/button/button.html":"<button ##button ##body class=\"ui button\" (click)=\"this.button.onClick(this.$event)\"><!--##before--> {{ this.$cfg.text }}<!--##after--></button>","ui/field/input.html":"<div class=\"ui input\" ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","ui/menu/container.html":"<div class=\"item\"></div>","ui/menu/divider.html":"<div class=\"divider\"></div>","ui/menu/item.html":"<a class=\"item\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span ##text class=\"text\" {bind}=\"this.$cfg.text\"></span><!--##after--></a>","ui/menu/menu.html":"<div class=\"ui vertical menu\"><!--##before--><!--##body--><!--##after--></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/button/button.html":"<button ##button ##body class=\"ui button\" (click)=\"this.button.onClick(this.$event)\"><!--##before--> {{ this.$cfg.text }}<!--##after--></button>","ui/field/input.html":"<div class=\"ui input\" ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","ui/menu/container.html":"<div class=\"item\"></div>","ui/menu/divider.html":"<div class=\"divider\"></div>","ui/menu/item-with-sub.html":"<div class=\"ui dropdown item\"><!--##before--> {{ this.$cfg.text }}<!--##body--><!--##after--></div>","ui/menu/item.html":"<a class=\"item\" (click)=\"this.item.onClick(this.$event)\"><!--##before--> {{ this.$cfg.text }}<!--##body--><!--##after--></a>","ui/menu/menu.html":"<div class=\"ui menu\"><!--##before--><!--##body--><!--##after--></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -4844,12 +4844,14 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
                 props = self.properties,
                 prop,
                 changed = false,
+                newProp = false,
                 value;
 
             if (!props[name]) {
                 props[name] = {};
                 self.keys.push(name);
                 changed = true;
+                newProp = true;
             }
 
             prop = props[name];
@@ -4890,6 +4892,9 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
                     prop.mode = self.cfg.defaultMode;
                     changed = true;
                 }
+                else if (newProp && value !== undf) {
+                    prop.mode = MODE_STATIC;
+                }
             }
 
             if (prop.mode === MODE_DYNAMIC && 
@@ -4903,7 +4908,8 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
             if (value !== undf) {
                 self.values[name] = value;
             }
-            else if (changed && self.values[name] !== undf) {
+            else if (changed && self.values[name] !== undf && 
+                    prop.mode !== MODE_STATIC) {
                 delete self.values[name];
             }
 
@@ -12548,10 +12554,10 @@ var app_Template = MetaphorJs.app.Template = function() {
             });
         }
         else if (def) {
-            if (def.name || def.nameExpression) {
+            if (def.name || def.nameExpression || def.expression) {
                 tplConfig.setProperty("name", {
-                    expression: def.name || def.nameExpression,
-                    mode: def.nameExpression ? 
+                    expression: def.name || def.nameExpression || def.expression,
+                    mode: def.nameExpression || def.expression ? 
                         lib_Config.MODE_DYNAMIC :
                         lib_Config.MODE_STATIC
                 });
@@ -12695,6 +12701,7 @@ var htmlTags = MetaphorJs.dom.htmlTags = [
     "video",
     "wbr"
 ];
+
 
 
 
@@ -12990,9 +12997,12 @@ var app_Component = MetaphorJs.app.Component = cls({
             if ((dirCfg = dirs[name]) !== undf) {
                 if (typeof dirCfg === "string") {
                     dirCfg = {
-                        value: dirCfg
+                        value: {
+                            value: dirCfg
+                        }
                     }
                 }
+
                 config = new lib_Config(
                     dirCfg, 
                     {scope: parentScope}
@@ -13022,7 +13032,13 @@ var app_Component = MetaphorJs.app.Component = cls({
         if (!self.$refs[type]) {
             self.$refs[type] = {};
         }
+
+        var th = self.$refs[type][ref];
         self.$refs[type][ref] = item;
+
+        if (th && isThenable(th)) {
+            th.resolve(item);
+        }
     },
 
     _claimNode: function(node) {
@@ -13143,6 +13159,23 @@ var app_Component = MetaphorJs.app.Component = cls({
 
     getRefEl: function(name) {
         return this.$refs['node'][name];
+    },
+
+    getRefCmp: function(name) {
+        return this.$refs['cmp'][name];
+    },
+
+    getRefCmpPromise: function(name) {
+        var cmp = this.$refs['cmp'][name];
+        if (!cmp) {
+            return this.$refs['cmp'][name] = new lib_Promise;
+        }
+        else if (isThenable(cmp)) {
+            return cmp;
+        }
+        else {
+            return lib_Promise.resolve(cmp);
+        }
     },
 
     onBeforeRender: function() {
@@ -13747,7 +13780,13 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
             self.itemsMap[item.id] = item;
         }
 
+        this._initChildItem(item);
+
         return item;
+    },
+
+    _initChildItem: function(item) {
+
     },
 
     _wrapChildItem: function(item) {
@@ -13796,11 +13835,15 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
         var self = this,
             idkey = self._getIdKey(),
             itemid = cmp[idkey],
-            item;
-
+            item, ref;
+        
         if (itemid && (item = self.itemsMap[itemid])) {
             item.resolved = true;
             item.component = cmp;
+
+            if (ref = cmp.config.get("ref")) {
+                self._onChildReference("cmp", ref, cmp);
+            }
 
             self._initChildEvents("on", cmp);
 
@@ -29778,9 +29821,201 @@ MetaphorJs.ui = MetaphorJs.ui || {
     field: {
         view: {}
     },
+    dialog: {},
     menu: {},
     form: {}
 };
+
+
+
+
+
+
+
+var ui_menu_Item = MetaphorJs.ui.menu.Item = app_Container.$extend({
+    $alias: "MetaphorJs.directive.component.ui-menu-item",
+    template: {
+        expression: "this.tpl"
+    },
+    node: false,
+
+    supportsDirectives: {
+        show: true,
+        hide: true,
+        class: true,
+        style: true,
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true,
+        dropdown: true
+    },
+
+    initComponent: function() {
+        this.scope.tpl = "ui/menu/item.html";
+        this.$super.apply(this, arguments);
+    },
+    
+    _initConfig: function() {
+        this.$super();
+        this.config.setDefaultMode("text", lib_Config.MODE_STATIC);
+        this.config.setDefaultValue("as", "item");
+    },
+
+    _initItems: function() {
+        if (this.menu) {
+            MetaphorJs.ui.menu.Menu.initItemWithMenu(this, this.menu);
+        }
+        this.$super();
+    },
+
+    _initChildItem: function(item) {
+        if (item.type === "component" && item.resolved && 
+            item.component.$is("MetaphorJs.ui.menu.Menu")) {
+            var self = this;
+            self.scope.tpl = "ui/menu/item-with-sub.html";
+            if (!self.directives) {
+                self.directives = {};
+            }
+            if (!self.directives.dropdown) {
+                self.directives.dropdown = {
+                    cmp: {
+                        value: item.component
+                    },
+                    on: "mouseover"
+                };
+            }
+        }
+    },
+
+    onClick: function(ev) {
+        this.trigger("click", this, ev);
+    }
+});
+
+
+
+
+
+
+
+var ui_menu_Divider = MetaphorJs.ui.menu.Divider = app_Container.$extend({
+    $alias: "MetaphorJs.directive.component.ui-menu-divider",
+    template: "ui/menu/divider.html",
+    node: false,
+
+    supportsDirectives: {
+        show: true,
+        hide: true,
+        class: true,
+        style: true
+    }
+});
+
+
+
+
+
+
+
+var ui_menu_Container = MetaphorJs.ui.menu.Container = app_Container.$extend({
+    $alias: "MetaphorJs.directive.component.ui-menu-container",
+    template: "ui/menu/container.html",
+    node: false,
+
+    supportsDirectives: {
+        show: true,
+        hide: true,
+        class: true,
+        style: true
+    },
+
+    _initConfig: function() {
+        this.$super();
+        this.config.setDefaultValue("as", "item");
+    },
+});
+
+
+
+
+
+
+
+
+
+
+var ui_menu_Menu = MetaphorJs.ui.menu.Menu = app_Container.$extend({
+    $alias: "MetaphorJs.directive.component.ui-menu",
+    template: "ui/menu/menu.html",
+    node: false,
+
+    supportsDirectives: {
+        show: true,
+        hide: true,
+        class: true,
+        style: true
+    },
+
+    _initObjectItem: function(def) {
+        if (def.__containerItemDef) {
+            return def;
+        }
+        var cfg = {
+            scope: this.scope.$new(),
+            config: new lib_Config(def, {
+                scope: this.scope
+            })
+        }
+        return new MetaphorJs.ui.menu.Menu(cfg);
+    },
+
+    _initStringItem: function(def) {
+        if (def === '-' || def === '|') {
+            return ui_menu_Divider;
+        }
+        return this.$super(def);
+    },
+
+    _wrapChildItem: function(item) {
+        var self = this;
+        
+        if (item.type === "component" && 
+            !(item.component instanceof ui_menu_Item) && 
+            !(item.component instanceof ui_menu_Divider) && 
+            !(item.component instanceof ui_menu_Container)) {
+
+            var newItem = self._createDefaultItemDef();
+            newItem.component = new ui_menu_Container({
+                scope: self.scope,
+                items: [
+                    item.component
+                ]
+            });
+            return newItem;
+        }
+        return item;
+    }
+
+}, {
+
+    initItemWithMenu: function(host, menu) {
+        var item = host._createDefaultItemDef();
+        item.component = menu;
+        item.resolved = !isThenable(menu);
+        !host.items && (host.items = []);
+        if (isArray(host.items)) {
+            host.items.push(item);
+        }
+        else {
+            host.items.body.push(item);
+        }
+    }
+
+});
+
+
 
 
 
@@ -29792,6 +30027,7 @@ MetaphorJs.ui.Button = app_Container.$extend({
     $alias: "MetaphorJs.directive.component.ui-button",
     template: "ui/button/button.html",
     as: "button",
+    node: false,
 
     supportsDirectives: {
         show: true,
@@ -29802,138 +30038,47 @@ MetaphorJs.ui.Button = app_Container.$extend({
         dblclick: "button", 
         mousedown: "button", 
         mouseup: "button",
-        mousemove: "button"
+        mousemove: "button",
+        dropdown: true
     },
 
-    _initConfig: function() {
-        this.config.setDefaultMode("text", lib_Config.MODE_STATIC);
-        this.config.setType("as", null, null, "button");
-    },
-
-    onClick: function(e) {
-
-    }
-});
-
-
-
-
-
-
-
-
-var ui_field_Field = MetaphorJs.ui.field.Field = app_Container.$extend({
-
-    supportsDirectives: {
-        "bind": true,
-        "model": true
-    },
-
-    _initConfig: function() {
-        
-        var self = this,
-            config = self.config;
-
-        config.setOption("defaultMode", lib_Config.MODE_STATIC);
-        config.setType("inputAutoCapitalize", "bool", null, true);
-        config.setType("inputAutoCorrect", "bool", null, true);
-        config.setType("inputDisabled", "bool", null, false);
-        config.setType("clearable", "bool", null, true);
-        config.setType("as", null, null, "field");
-        config.setType("disabled", "bool", null, false);
-        config.setType("readonly", "bool", null, false);
-        config.setDefaultMode("name", lib_Config.MODE_STATIC);
-
-        self.$super();  
-    },
-
-    onDestroy: function() {
-        var self = this;
-
-        if (self.bindDirective) {
-            self.bindDirective.$destroy();
-            self.bindDirective = null;
+    _initItems: function() {
+        if (this.menu) {
+            ui_menu_Menu.initItemWithMenu(this, this.menu);
         }
-        if (self.modelDirective) {
-            self.modelDirective.$destroy();
-            self.modelDirective = null;
-        }
-
-        self.$super();
-    },
-
-    
-    
-
-    /* Input API */
-    setValue: emptyFn,
-    getValue: emptyFn,
-    onKey: emptyFn,
-    unKey: emptyFn,
-    onChange: function(fn, ctx, opt) {
-        return this.on("change", fn, ctx, opt);
-    },
-    unChange: function(fn, ctx) {
-        return this.un("change", fn, ctx);
-    },
-
-    getInputApi: function() {
-        return this;
-    }
-});
-
-
-
-
-
-
-
-
-
-
-MetaphorJs.ui.field.Input = ui_field_Field.$extend({
-    $alias: "MetaphorJs.directive.component.ui-input",
-    template: "ui/field/input.html",
-
-    supportsDirectives: {
-        bind: "input",
-        model: "input",
-        show: true,
-        hide: true,
-        class: true,
-        style: true,
-        "in-focus": "input",
-        click: true, 
-        dblclick: true, 
-        mousedown: true, 
-        mouseup: true,
-        mousemove: true,
-        field: true
+        this.$super();
     },
 
     _initConfig: function() {
         this.$super();
-
-        var config = this.config;
-        config.setType("type", null, lib_Config.MODE_STATIC, "text");
-        config.setType("placeholder", null, lib_Config.MODE_STATIC, "");
+        this.config.setDefaultMode("text", lib_Config.MODE_STATIC);
+        this.config.setDefaultValue("as", "button");
     },
 
-    afterRender: function() {
-        var self = this,
-            input;
+    onClick: function(e) {
+        this.trigger("click", this, e);
+    },
 
-        self.input = input = lib_Input.get(self.$refs.node.input);
-        self.setValue = bind(input.setValue, input);
-        self.getValue = bind(input.getValue, input);
-        self.onKey = bind(input.onKey, input);
-        self.unKey = bind(input.unKey, input);
+    _wrapChildItem: function(item) {
+        if (item.type === "component" && 
+            item.component.$is("MetaphorJs.ui.menu.Menu")) {
 
-        self.$$observable.relayEvent(input, "change");
+        }
+        return item;
+    },
 
-        self.$super();
+    _onChildResolved: function(cmp) {
+        if (cmp.$is("MetaphorJs.ui.menu.Menu")) {
+            this.menu = cmp;
+        }
+        this.$super(cmp);
     }
 });
+
+
+
+
+MetaphorJs.dialog = MetaphorJs.dialog || {pointer: {}, position: {}};
 
 /**
  * Change first character to upper case
@@ -29944,9 +30089,6 @@ MetaphorJs.ui.field.Input = ui_field_Field.$extend({
 function ucfirst(str) {
     return str.substr(0, 1).toUpperCase() + str.substr(1);
 };
-
-
-MetaphorJs.dialog = MetaphorJs.dialog || {pointer: {}, position: {}};
 
 
 
@@ -34424,6 +34566,286 @@ var dialog_Dialog = MetaphorJs.dialog.Dialog = (function(){
 
 
 
+
+
+MetaphorJs.dialog.Component = app_Component.$extend({
+
+    dialog: null,
+    dialogPreset: null,
+    dialogCfg: null,
+
+    dialogNode: null,
+
+    hidden: true,
+
+    target: null,
+    isTooltip: false,
+
+    $init: function(cfg) {
+
+        var self = this;
+
+        if (self.isTooltip) {
+            self.target = cfg.node;
+            cfg.node = null;
+        }
+
+        self.$super(cfg);
+    },
+
+    initComponent: function() {
+
+        var self    = this;
+
+        self.$super();
+        self._createDialog();
+    },
+
+    _getDialogCfg: function() {
+
+        var self    = this;
+
+        return extend({}, self.dialogCfg, {
+            preset: self.dialogPreset,
+            render: {
+                el: self.dialogNode || self.node,
+                keepInDOM: true
+            }
+        }, true, true);
+    },
+
+    _createDialog: function() {
+
+        var self    = this;
+        self.dialog = new dialog_Dialog(self._getDialogCfg());
+        self.dialog.on("show", self.onDialogShow, self);
+        self.dialog.on("hide", self.onDialogHide, self);
+        self.dialog.on("before-show", self.onBeforeDialogShow, self);
+        self.dialog.on("before-hide", self.onBeforeDialogHide, self);
+        self.dialog.on("destroy", self.onDialogDestroy, self);
+    },
+
+    getDialog: function() {
+        return this.dialog;
+    },
+
+    // skips the append part
+    _onRenderingFinished: function() {
+        var self = this;
+        self.rendered   = true;
+        self.afterRender();
+        self.trigger('after-render', self);
+    },
+
+    show: function(e) {
+        if (e && !(e instanceof lib_DomEvent)) {
+            e = null;
+        }
+
+        this.dialog.show(e);
+    },
+
+    hide: function(e) {
+
+        if (e && !(e instanceof lib_DomEvent)) {
+            e = null;
+        }
+
+        this.dialog.hide(e);
+    },
+
+    onBeforeDialogShow: function() {
+
+        var self = this;
+        if (!self.rendered) {
+            self.render();
+        }
+
+        self.template.config.set("animate", true);
+        self.hidden = false;
+    },
+
+    onDialogShow: function() {
+        var self = this;
+        //self.onShow();
+        self.trigger("show", self);
+    },
+
+    onBeforeDialogHide: function() {},
+
+    onDialogHide: function() {
+        var self = this;
+        if (!self.$destroyed) {
+            self.template.config.set("animate", false);
+            //self.template.setAnimation(false);
+            self.hidden = true;
+            //self.onHide();
+            self.trigger("hide", self);
+        }
+    },
+
+    onDialogDestroy: function() {
+        var self    = this;
+
+        if (!self.$destroying) {
+            self.dialog = null;
+            self.$destroy();
+        }
+    },
+
+    onDestroy: function() {
+
+        var self    = this;
+
+        if (self.dialog) {
+            self.dialog.$destroy();
+        }
+
+        self.$super();
+
+    }
+
+});
+
+
+
+
+
+
+
+
+
+MetaphorJs.ui.dialog.Popup = app_Container.$extend({
+    node: false,
+
+});
+
+
+
+
+
+
+
+
+
+var ui_field_Field = MetaphorJs.ui.field.Field = app_Container.$extend({
+
+    supportsDirectives: {
+        "bind": true,
+        "model": true
+    },
+
+    _initConfig: function() {
+        
+        var self = this,
+            config = self.config;
+
+        config.setOption("defaultMode", lib_Config.MODE_STATIC);
+        config.setType("inputAutoCapitalize", "bool", null, true);
+        config.setType("inputAutoCorrect", "bool", null, true);
+        config.setType("inputDisabled", "bool", null, false);
+        config.setType("clearable", "bool", null, true);
+        config.setType("as", null, null, "field");
+        config.setType("disabled", "bool", null, false);
+        config.setType("readonly", "bool", null, false);
+        config.setDefaultMode("name", lib_Config.MODE_STATIC);
+
+        self.$super();  
+    },
+
+    onDestroy: function() {
+        var self = this;
+
+        if (self.bindDirective) {
+            self.bindDirective.$destroy();
+            self.bindDirective = null;
+        }
+        if (self.modelDirective) {
+            self.modelDirective.$destroy();
+            self.modelDirective = null;
+        }
+
+        self.$super();
+    },
+
+    
+    
+
+    /* Input API */
+    setValue: emptyFn,
+    getValue: emptyFn,
+    onKey: emptyFn,
+    unKey: emptyFn,
+    onChange: function(fn, ctx, opt) {
+        return this.on("change", fn, ctx, opt);
+    },
+    unChange: function(fn, ctx) {
+        return this.un("change", fn, ctx);
+    },
+
+    getInputApi: function() {
+        return this;
+    }
+});
+
+
+
+
+
+
+
+
+
+
+MetaphorJs.ui.field.Input = ui_field_Field.$extend({
+    $alias: "MetaphorJs.directive.component.ui-input",
+    template: "ui/field/input.html",
+
+    supportsDirectives: {
+        bind: "input",
+        model: "input",
+        show: true,
+        hide: true,
+        class: true,
+        style: true,
+        "in-focus": "input",
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true,
+        field: true
+    },
+
+    _initConfig: function() {
+        this.$super();
+
+        var config = this.config;
+        config.setType("type", null, lib_Config.MODE_STATIC, "text");
+        config.setType("placeholder", null, lib_Config.MODE_STATIC, "");
+    },
+
+    afterRender: function() {
+        var self = this,
+            input;
+
+        self.input = input = lib_Input.get(self.$refs.node.input);
+        self.setValue = bind(input.setValue, input);
+        self.getValue = bind(input.getValue, input);
+        self.onKey = bind(input.onKey, input);
+        self.unKey = bind(input.unKey, input);
+
+        self.$$observable.relayEvent(input, "change");
+
+        self.$super();
+    }
+});
+
+
+
+
+
+
 var ui_field_view_Select = MetaphorJs.ui.field.view.Select = app_component_View.$extend({
 
     $beforeHostInit: function() {
@@ -35136,129 +35558,174 @@ MetaphorJs.ui.field.Select = ui_field_Field.$extend({
 
 
 
+Directive.registerAttribute("dropdown", 1100,
+    Directive.$extend({
+        $class: "MetaphorJs.app.Directive.attr.Dropdown",
 
-var ui_menu_Container = MetaphorJs.ui.menu.Container = app_Container.$extend({
-    $alias: "MetaphorJs.directive.component.ui-menu-container",
-    template: "ui/menu/container.html",
-    as: "item",
-    node: false,
+        _dialog: null,
+        _contentNode: null,
+        _hostCmp: null,
+        _contentCmp: null,
 
-    supportsDirectives: {
-        show: true,
-        hide: true,
-        class: true,
-        style: true
-    }
-});
+        $init: function(scope, node, config, renderer) {
 
+            var self = this,
+                s = lib_Config.MODE_STATIC;
 
+            // value holds the ref name or cmp id or cmp itself
+            config.disableProperty("value");
+            config.setDefaultMode("ref", s);
+            config.setDefaultMode("selector", s);
+            config.setDefaultMode("cmp", s);
+            config.setDefaultMode("dialog", s);
+            config.setDefaultMode("on", s);
+            config.setDefaultMode("un", s);
+            config.setDefaultMode("appendTo", s);
+            config.setDefaultMode("position", s);
+            config.setDefaultMode("preset", s);
+            config.setDefaultValue("dialog", "MetaphorJs.dialog.Dialog");
+            config.setDefaultValue("on", "click");
 
+            this.$super.apply(this, arguments);
 
+            var ref = config.get("ref"),
+                cmpid = config.get("cmp"),
+                selector = config.get("selector"),
+                cmp;
 
+            if (node.getDomApi) {
+                self._hostCmp = node;
+                self.node = node.getDomApi("dropdown");
 
+                if (ref) {
+                    cmp = self._hostCmp.getRefCmp(ref) || 
+                            self._hostCmp.getRefCmpPromise(ref);
+                }
+                else if (cmpid) {
+                    if (typeof cmpid === "string") {
+                        cmp = scope.$app.getCmp(cmpid) ||
+                                scope.$app.onAvailable(cmpid);
+                    }
+                    else {
+                        cmp = cmpid;
+                    }
+                }
+                else if (selector) {
+                    self._contentNode = document.querySelector(selector);    
+                }
 
-var ui_menu_Divider = MetaphorJs.ui.menu.Divider = app_Container.$extend({
-    $alias: "MetaphorJs.directive.component.ui-menu-divider",
-    template: "ui/menu/divider.html",
-    node: false,
+                if (cmp) {
+                    if (isThenable(cmp)) {
+                        cmp.done(function(component){
+                            self._contentCmp = component;
+                            self._contentNode = component.getEl();
+                        });
+                        cmp.done(self._initDialog, self);
+                    }
+                    else {
+                        self._contentCmp = cmp;
+                        self._contentNode = cmp.getEl();
+                        self._initDialog();
+                    }
+                }
+            }
+            else {
+                this._contentNode = document.getElementById(ref);
+                self._initDialog();
+            }            
+        },
 
-    supportsDirectives: {
-        show: true,
-        hide: true,
-        class: true,
-        style: true
-    }
-});
+        initialSet: function(){
+            // skip setting onChange listener
+        },
 
+        _initDialog: function() {
+            if (!this._dialog) {
+                var cls = ns.get(this.config.get("dialog")),
+                    cfg = this._getDialogConfig();
+                this._dialog = new cls(cfg);
+            }
 
+            return this._dialog;
+        },
 
+        _getDialogConfig: function() {
+            var self = this,
+                cfgCfg = self.config.get("config"),
+                on = self.config.get("on"),
+                un = self.config.get("un"),
+                appendTo = self.config.get("appendTo"),
+                position = self.config.get("position"),
+                opposite = {
+                    "click": "click",
+                    "mouseover": "mouseout"
+                };
 
+            if (appendTo && typeof appendTo === "string") {
+                appendTo = document.querySelector(appendTo);
+            }
 
+            var defCfg = {
+                preset: self.config.get("preset") || null,
+                target: self.node,
+                content: false,
+                render: {
+                    el: self._contentNode,
+                    keepInDOM: true,
+                    appendTo: appendTo || false
+                },
+                position: position || false
+            };
 
+            if (on === "click") {
+                extend(defCfg, {
+                    events: {
+                        show: {
+                            "click": {
+                                stopPropagation: true
+                            }
+                        }
+                    },
+                    toggle: {
+                        events: {
+                            _target: on
+                        }
+                    },
+                    hide: {
+                        events: {
+                            body: "click"
+                        }
+                    }
+                });
+            }
+            else if (on === "mouseover") {
+                extend(defCfg, {
+                    show: {
+                        events: {
+                            _target: on
+                        }
+                    },
+                    hide: {
+                        events: {
+                            _target: un || opposite[on]
+                        }
+                    }
+                });
+            }
 
-var ui_menu_Item = MetaphorJs.ui.menu.Item = app_Container.$extend({
-    $alias: "MetaphorJs.directive.component.ui-menu-item",
-    template: "ui/menu/item.html",
-    as: "item",
-    node: false,
+            var cfg = extend({}, cfgCfg, defCfg, true, true);
+            return cfg;
+        },
 
-    supportsDirectives: {
-        show: true,
-        hide: true,
-        class: true,
-        style: true,
-        click: true, 
-        dblclick: true, 
-        mousedown: true, 
-        mouseup: true,
-        mousemove: true
-    },
-
-    _initConfig: function() {
-        this.config.setDefaultMode("text", lib_Config.MODE_STATIC);
-        this.$super();
-    },
-
-    onClick: function(ev) {
-        this.trigger("click", ev);
-    }
-});
-
-
-
-
-
-
-
-
-
-
-MetaphorJs.ui.menu.Menu = app_Container.$extend({
-    $alias: "MetaphorJs.directive.component.ui-menu",
-    template: "ui/menu/menu.html",
-    node: false,
-
-    _initObjectItem: function(def) {
-        if (def.__containerItemDef) {
-            return def;
+        onDestroy: function() {
+            if (this._dialog) {
+                this._dialog.$destroy();
+            }
+            this.$super();
         }
-        var cfg = {
-            scope: this.scope.$new(),
-            config: new lib_Config(def, {
-                scope: this.scope
-            })
-        }
-        return new MetaphorJs.ui.menu.Menu(cfg);
-    },
+    })
 
-    _initStringItem: function(def) {
-        if (def === '-' || def === '|') {
-            return ui_menu_Divider;
-        }
-        return this.$super(def);
-    },
-
-    _wrapChildItem: function(item) {
-        var self = this;
-        
-        if (item.type === "component" && 
-            !(item.component instanceof ui_menu_Item) && 
-            !(item.component instanceof ui_menu_Divider) && 
-            !(item.component instanceof ui_menu_Container)) {
-
-            var newItem = self._createDefaultItemDef();
-            newItem.component = new ui_menu_Container({
-                scope: self.scope,
-                items: [
-                    item.component
-                ]
-            });
-            return newItem;
-        }
-        return item;
-    }
-
-});
+);
 
 
 
@@ -35385,6 +35852,9 @@ cls({
         window.mainApp = this;
 
         this.menu1 = new MetaphorJs.ui.menu.Menu({
+            directives:{
+                "class": "vertical"
+            },
             items: [
                 new MetaphorJs.ui.menu.Item({
                     config: {
@@ -35394,7 +35864,16 @@ cls({
                         click: function() {
                             console.log("dynamic menu click")
                         }
-                    }
+                    },
+                    menu: new MetaphorJs.ui.menu.Menu({
+                        items: [
+                            new MetaphorJs.ui.menu.Item({
+                                config: {
+                                    text: "Text 2"
+                                }
+                            })
+                        ]
+                    })
                 }),
                 '|'
             ]

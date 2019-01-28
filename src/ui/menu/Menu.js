@@ -13,6 +13,13 @@ module.exports = MetaphorJs.ui.menu.Menu = MetaphorJs.app.Container.$extend({
     template: "ui/menu/menu.html",
     node: false,
 
+    supportsDirectives: {
+        show: true,
+        hide: true,
+        class: true,
+        style: true
+    },
+
     _initObjectItem: function(def) {
         if (def.__containerItemDef) {
             return def;
@@ -51,6 +58,21 @@ module.exports = MetaphorJs.ui.menu.Menu = MetaphorJs.app.Container.$extend({
             return newItem;
         }
         return item;
+    }
+
+}, {
+
+    initItemWithMenu: function(host, menu) {
+        var item = host._createDefaultItemDef();
+        item.component = menu;
+        item.resolved = !isThenable(menu);
+        !host.items && (host.items = []);
+        if (isArray(host.items)) {
+            host.items.push(item);
+        }
+        else {
+            host.items.body.push(item);
+        }
     }
 
 });

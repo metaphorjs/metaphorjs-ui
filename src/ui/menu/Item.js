@@ -7,8 +7,9 @@ var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 
 module.exports = MetaphorJs.ui.menu.Item = MetaphorJs.app.Container.$extend({
     $alias: "MetaphorJs.directive.component.ui-menu-item",
-    template: "ui/menu/item.html",
-    as: "item",
+    template: {
+        expression: "this.tpl"
+    },
     node: false,
 
     supportsDirectives: {
@@ -20,15 +21,48 @@ module.exports = MetaphorJs.ui.menu.Item = MetaphorJs.app.Container.$extend({
         dblclick: true, 
         mousedown: true, 
         mouseup: true,
-        mousemove: true
+        mousemove: true,
+        dropdown: true
     },
 
+    initComponent: function() {
+        this.scope.tpl = "ui/menu/item.html";
+        this.$super.apply(this, arguments);
+    },
+    
     _initConfig: function() {
+        this.$super();
         this.config.setDefaultMode("text", MetaphorJs.lib.Config.MODE_STATIC);
+        this.config.setDefaultValue("as", "item");
+    },
+
+    _initItems: function() {
+        if (this.menu) {
+            MetaphorJs.ui.menu.Menu.initItemWithMenu(this, this.menu);
+        }
         this.$super();
     },
 
+    _initChildItem: function(item) {
+        if (item.type === "component" && item.resolved && 
+            item.component.$is("MetaphorJs.ui.menu.Menu")) {
+            var self = this;
+            self.scope.tpl = "ui/menu/item-with-sub.html";
+            if (!self.directives) {
+                self.directives = {};
+            }
+            if (!self.directives.dropdown) {
+                self.directives.dropdown = {
+                    cmp: {
+                        value: item.component
+                    },
+                    on: "mouseover"
+                };
+            }
+        }
+    },
+
     onClick: function(ev) {
-        this.trigger("click", ev);
+        this.trigger("click", this, ev);
     }
 });

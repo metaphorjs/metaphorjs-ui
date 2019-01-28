@@ -125,6 +125,9 @@ cls({
         window.mainApp = this;
 
         this.menu1 = new MetaphorJs.ui.menu.Menu({
+            directives:{
+                "class": "vertical"
+            },
             items: [
                 new MetaphorJs.ui.menu.Item({
                     config: {
@@ -134,7 +137,16 @@ cls({
                         click: function() {
                             console.log("dynamic menu click")
                         }
-                    }
+                    },
+                    menu: new MetaphorJs.ui.menu.Menu({
+                        items: [
+                            new MetaphorJs.ui.menu.Item({
+                                config: {
+                                    text: "Text 2"
+                                }
+                            })
+                        ]
+                    })
                 }),
                 '|'
             ]

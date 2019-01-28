@@ -5,6 +5,7 @@ MetaphorJs.ui = MetaphorJs.ui || {
     field: {
         view: {}
     },
+    dialog: {},
     menu: {},
     form: {}
 };
