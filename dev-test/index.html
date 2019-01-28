@@ -74,7 +74,10 @@
                         $text="Menu item 2"
                         {class}:="active"
                         (click)="console.log('click3')">
-                        <div class="ui label" @after {bind}="this.sval"></div>
+                        <div class="ui label" 
+                                @after 
+                                {show}="!!this.sval"
+                                {bind}="this.sval"></div>
                     </ui-menu-item>
                     <ui-input {class}:="transparent" 
                                 $placeholder:="Input field"

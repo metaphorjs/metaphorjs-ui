@@ -26,7 +26,8 @@ module.exports = MetaphorJs.ui.menu.Item = MetaphorJs.app.Container.$extend({
     },
 
     initComponent: function() {
-        this.scope.tpl = "ui/menu/item.html";
+        this.scope.tpl = this.isDivider? "ui/menu/divider.html" : 
+                                            "ui/menu/item.html";
         this.$super.apply(this, arguments);
     },
     
@@ -44,9 +45,12 @@ module.exports = MetaphorJs.ui.menu.Item = MetaphorJs.app.Container.$extend({
     },
 
     _initChildItem: function(item) {
+        var self = this;
+        if (item.type === "component") {
+            self.scope.tpl = "ui/menu/container.html";
+        }
         if (item.type === "component" && item.resolved && 
             item.component.$is("MetaphorJs.ui.menu.Menu")) {
-            var self = this;
             self.scope.tpl = "ui/menu/item-with-sub.html";
             if (!self.directives) {
                 self.directives = {};

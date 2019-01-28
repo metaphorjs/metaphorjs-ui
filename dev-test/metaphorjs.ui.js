@@ -13711,11 +13711,11 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
         // holding its id in parent container;
         // and by idkey itself we can identify container
 
+        if (typeof def === "string") {
+            def = self._initStringItem(def);
+        }
         if (isPlainObject(def)) {
             def = self._initObjectItem(def);
-        }
-        else if (typeof def === "string") {
-            def = self._initStringItem(def);
         }
 
         if (isPlainObject(def)) {
@@ -29853,7 +29853,8 @@ var ui_menu_Item = MetaphorJs.ui.menu.Item = app_Container.$extend({
     },
 
     initComponent: function() {
-        this.scope.tpl = "ui/menu/item.html";
+        this.scope.tpl = this.isDivider? "ui/menu/divider.html" : 
+                                            "ui/menu/item.html";
         this.$super.apply(this, arguments);
     },
     
@@ -29871,9 +29872,12 @@ var ui_menu_Item = MetaphorJs.ui.menu.Item = app_Container.$extend({
     },
 
     _initChildItem: function(item) {
+        var self = this;
+        if (item.type === "component") {
+            self.scope.tpl = "ui/menu/container.html";
+        }
         if (item.type === "component" && item.resolved && 
             item.component.$is("MetaphorJs.ui.menu.Menu")) {
-            var self = this;
             self.scope.tpl = "ui/menu/item-with-sub.html";
             if (!self.directives) {
                 self.directives = {};
@@ -29916,51 +29920,6 @@ var ui_menu_Item = MetaphorJs.ui.menu.Item = app_Container.$extend({
 
 
 
-var ui_menu_Divider = MetaphorJs.ui.menu.Divider = app_Container.$extend({
-    $alias: "MetaphorJs.directive.component.ui-menu-divider",
-    template: "ui/menu/divider.html",
-    node: false,
-
-    supportsDirectives: {
-        show: true,
-        hide: true,
-        class: true,
-        style: true
-    }
-});
-
-
-
-
-
-
-
-var ui_menu_Container = MetaphorJs.ui.menu.Container = app_Container.$extend({
-    $alias: "MetaphorJs.directive.component.ui-menu-container",
-    template: "ui/menu/container.html",
-    node: false,
-
-    supportsDirectives: {
-        show: true,
-        hide: true,
-        class: true,
-        style: true
-    },
-
-    _initConfig: function() {
-        this.$super();
-        this.config.setDefaultValue("as", "item");
-    },
-});
-
-
-
-
-
-
-
-
-
 
 var ui_menu_Menu = MetaphorJs.ui.menu.Menu = app_Container.$extend({
     $alias: "MetaphorJs.directive.component.ui-menu",
@@ -29984,7 +29943,9 @@ var ui_menu_Menu = MetaphorJs.ui.menu.Menu = app_Container.$extend({
 
     _initStringItem: function(def) {
         if (def === '-' || def === '|') {
-            return ui_menu_Divider;
+            return {
+                isDivider: true
+            };
         }
         return this.$super(def);
     },
@@ -29993,12 +29954,10 @@ var ui_menu_Menu = MetaphorJs.ui.menu.Menu = app_Container.$extend({
         var self = this;
         
         if (item.type === "component" && 
-            !(item.component instanceof ui_menu_Item) && 
-            !(item.component instanceof ui_menu_Divider) && 
-            !(item.component instanceof ui_menu_Container)) {
+            !(item.component instanceof ui_menu_Item)) {
 
             var newItem = self._createDefaultItemDef();
-            newItem.component = new ui_menu_Container({
+            newItem.component = new ui_menu_Item({
                 scope: self.scope,
                 items: [
                     item.component
@@ -35578,6 +35537,25 @@ MetaphorJs.ui.field.Select = ui_field_Field.$extend({
 
 
 
+
+MetaphorJs.ui.menu.Divider = app_Container.$extend({
+    $alias: "MetaphorJs.directive.component.ui-menu-divider",
+    template: "ui/menu/divider.html",
+    node: false,
+
+    supportsDirectives: {
+        show: true,
+        hide: true,
+        class: true,
+        style: true
+    }
+});
+
+
+
+
+
+
 Directive.registerAttribute("dropdown", 1100,
     Directive.$extend({
         $class: "MetaphorJs.app.Directive.attr.Dropdown",
@@ -35888,7 +35866,10 @@ cls({
                     ],
                     menu: {items: [{text: "Text 2"}]}
                 },
-                '|'
+                '|',
+                {
+                    text: "Test"
+                }
             ]
         });
     },

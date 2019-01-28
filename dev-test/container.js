@@ -141,7 +141,10 @@ cls({
                     ],
                     menu: {items: [{text: "Text 2"}]}
                 },
-                '|'
+                '|',
+                {
+                    text: "Test"
+                }
             ]
         });
     },
