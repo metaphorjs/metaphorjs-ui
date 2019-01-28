@@ -29892,6 +29892,22 @@ var ui_menu_Item = MetaphorJs.ui.menu.Item = app_Container.$extend({
     onClick: function(ev) {
         this.trigger("click", this, ev);
     }
+}, {
+
+    createFromPlainObject: function(obj) {
+        if (!obj.config) {
+            var config = {};
+            obj.config = config;
+
+            if (obj.text) {
+                config.text = obj.text;
+                delete obj.text;
+            }
+        }
+
+        return new MetaphorJs.ui.menu.Item(obj);
+    }
+
 });
 
 
@@ -29962,13 +29978,8 @@ var ui_menu_Menu = MetaphorJs.ui.menu.Menu = app_Container.$extend({
         if (def.__containerItemDef) {
             return def;
         }
-        var cfg = {
-            scope: this.scope.$new(),
-            config: new lib_Config(def, {
-                scope: this.scope
-            })
-        }
-        return new MetaphorJs.ui.menu.Menu(cfg);
+        !def.scope && (def.scope = this.scope.$new());
+        return new ui_menu_Item.createFromPlainObject(def);
     },
 
     _initStringItem: function(def) {
@@ -30002,6 +30013,11 @@ var ui_menu_Menu = MetaphorJs.ui.menu.Menu = app_Container.$extend({
 
     initItemWithMenu: function(host, menu) {
         var item = host._createDefaultItemDef();
+
+        if (!(menu instanceof MetaphorJs.ui.menu.Menu)) {
+            menu = MetaphorJs.ui.menu.Menu.createFromPlainObject(menu);
+        }
+
         item.component = menu;
         item.resolved = !isThenable(menu);
         !host.items && (host.items = []);
@@ -30011,6 +30027,10 @@ var ui_menu_Menu = MetaphorJs.ui.menu.Menu = app_Container.$extend({
         else {
             host.items.body.push(item);
         }
+    },
+
+    createFromPlainObject: function(obj) {
+        return new MetaphorJs.ui.menu.Menu(obj);
     }
 
 });
@@ -35856,25 +35876,18 @@ cls({
                 "class": "vertical"
             },
             items: [
-                new MetaphorJs.ui.menu.Item({
-                    config: {
-                        text: "Text 1"
-                    },
+                {
+                    text: "Text 1",
                     callback: {
                         click: function() {
                             console.log("dynamic menu click")
                         }
                     },
-                    menu: new MetaphorJs.ui.menu.Menu({
-                        items: [
-                            new MetaphorJs.ui.menu.Item({
-                                config: {
-                                    text: "Text 2"
-                                }
-                            })
-                        ]
-                    })
-                }),
+                    items: [
+                        '<i class="dropdown icon" @after></i>'
+                    ],
+                    menu: {items: [{text: "Text 2"}]}
+                },
                 '|'
             ]
         });

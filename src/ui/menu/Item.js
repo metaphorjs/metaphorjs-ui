@@ -65,4 +65,20 @@ module.exports = MetaphorJs.ui.menu.Item = MetaphorJs.app.Container.$extend({
     onClick: function(ev) {
         this.trigger("click", this, ev);
     }
+}, {
+
+    createFromPlainObject: function(obj) {
+        if (!obj.config) {
+            var config = {};
+            obj.config = config;
+
+            if (obj.text) {
+                config.text = obj.text;
+                delete obj.text;
+            }
+        }
+
+        return new MetaphorJs.ui.menu.Item(obj);
+    }
+
 });

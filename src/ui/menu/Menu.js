@@ -24,13 +24,8 @@ module.exports = MetaphorJs.ui.menu.Menu = MetaphorJs.app.Container.$extend({
         if (def.__containerItemDef) {
             return def;
         }
-        var cfg = {
-            scope: this.scope.$new(),
-            config: new MetaphorJs.lib.Config(def, {
-                scope: this.scope
-            })
-        }
-        return new MetaphorJs.ui.menu.Menu(cfg);
+        !def.scope && (def.scope = this.scope.$new());
+        return new MetaphorJs.ui.menu.Item.createFromPlainObject(def);
     },
 
     _initStringItem: function(def) {
@@ -64,6 +59,11 @@ module.exports = MetaphorJs.ui.menu.Menu = MetaphorJs.app.Container.$extend({
 
     initItemWithMenu: function(host, menu) {
         var item = host._createDefaultItemDef();
+
+        if (!(menu instanceof MetaphorJs.ui.menu.Menu)) {
+            menu = MetaphorJs.ui.menu.Menu.createFromPlainObject(menu);
+        }
+
         item.component = menu;
         item.resolved = !isThenable(menu);
         !host.items && (host.items = []);
@@ -73,6 +73,10 @@ module.exports = MetaphorJs.ui.menu.Menu = MetaphorJs.app.Container.$extend({
         else {
             host.items.body.push(item);
         }
+    },
+
+    createFromPlainObject: function(obj) {
+        return new MetaphorJs.ui.menu.Menu(obj);
     }
 
 });

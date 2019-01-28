@@ -129,25 +129,18 @@ cls({
                 "class": "vertical"
             },
             items: [
-                new MetaphorJs.ui.menu.Item({
-                    config: {
-                        text: "Text 1"
-                    },
+                {
+                    text: "Text 1",
                     callback: {
                         click: function() {
                             console.log("dynamic menu click")
                         }
                     },
-                    menu: new MetaphorJs.ui.menu.Menu({
-                        items: [
-                            new MetaphorJs.ui.menu.Item({
-                                config: {
-                                    text: "Text 2"
-                                }
-                            })
-                        ]
-                    })
-                }),
+                    items: [
+                        '<i class="dropdown icon" @after></i>'
+                    ],
+                    menu: {items: [{text: "Text 2"}]}
+                },
                 '|'
             ]
         });
