@@ -96,6 +96,25 @@
                 <p>Menu code</p>
                 <!--##dynamic-menu-->
             </div>
-        
+
+            <div class="double case">
+                <ui-toolbar>
+                    <ui-toolbar-item 
+                        $text="Menu item 2"
+                        {class}:="active"
+                        (click)="console.log('click3')">
+                        <div class="ui label" 
+                                @after 
+                                {show}="!!this.sval"
+                                {bind}="this.sval"></div>
+                    </ui-toolbar-item>
+                    <ui-menu {class.right} {class.ui}="false">
+                        <ui-input {class}:="transparent" 
+                            $placeholder:="Input field"
+                            $type="number"></ui-input>
+                    </ui-menu>
+                </ui-toolbar>
+            </div>
+        </div>
     </body>
 </html>

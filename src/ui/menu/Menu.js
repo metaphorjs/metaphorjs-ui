@@ -4,26 +4,23 @@ require("metaphorjs/src/app/Container.js");
 require("metaphorjs/src/lib/Config.js");
 require("./Item.js");
 
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
+var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
+    ns = require("metaphorjs-namespace/src/var/ns.js");
 
 module.exports = MetaphorJs.ui.menu.Menu = MetaphorJs.app.Container.$extend({
+    $class: "MetaphorJs.ui.menu.Menu",
     $alias: "MetaphorJs.directive.component.ui-menu",
     template: "ui/menu/menu.html",
     node: false,
-
-    supportsDirectives: {
-        show: true,
-        hide: true,
-        class: true,
-        style: true
-    },
 
     _initObjectItem: function(def) {
         if (def.__containerItemDef) {
             return def;
         }
         !def.scope && (def.scope = this.scope.$new());
-        return new MetaphorJs.ui.menu.Item.createFromPlainObject(def);
+        var itemCls = this.$self.classes.item;
+        typeof itemCls === "string" && (itemCls = ns.get(itemCls));
+        return itemCls.createFromPlainObject(def);
     },
 
     _initStringItem: function(def) {
@@ -33,48 +30,21 @@ module.exports = MetaphorJs.ui.menu.Menu = MetaphorJs.app.Container.$extend({
             };
         }
         return this.$super(def);
-    },
-
-    _wrapChildItem: function(item) {
-        var self = this;
-        
-        if (item.type === "component" && 
-            !(item.component instanceof MetaphorJs.ui.menu.Item)) {
-
-            var newItem = self._createDefaultItemDef();
-            newItem.component = new MetaphorJs.ui.menu.Item({
-                scope: self.scope,
-                items: [
-                    item.component
-                ]
-            });
-            return newItem;
-        }
-        return item;
     }
-
 }, {
 
-    initItemWithMenu: function(host, menu) {
-        var item = host._createDefaultItemDef();
-
-        if (!(menu instanceof MetaphorJs.ui.menu.Menu)) {
-            menu = MetaphorJs.ui.menu.Menu.createFromPlainObject(menu);
-        }
-
-        item.component = menu;
-        item.resolved = !isThenable(menu);
-        !host.items && (host.items = []);
-        if (isArray(host.items)) {
-            host.items.push(item);
-        }
-        else {
-            host.items.body.push(item);
-        }
+    supportsDirectives: {
+        show: true,
+        hide: true,
+        class: true,
+        style: true
     },
 
-    createFromPlainObject: function(obj) {
-        return new MetaphorJs.ui.menu.Menu(obj);
+    allowUnwrapped: ["MetaphorJs.ui.menu.Item"],
+    wrapper: "MetaphorJs.ui.menu.Item",
+
+    classes: {
+        item: "MetaphorJs.ui.menu.Item"
     }
 
 });

@@ -8,11 +8,7 @@ var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
     emptyFn = require("metaphorjs-shared/src/func/emptyFn.js");
 
 module.exports = MetaphorJs.ui.field.Field = MetaphorJs.app.Container.$extend({
-
-    supportsDirectives: {
-        "bind": true,
-        "model": true
-    },
+    $class: "MetaphorJs.ui.field.Field",
 
     _initConfig: function() {
         
@@ -64,5 +60,11 @@ module.exports = MetaphorJs.ui.field.Field = MetaphorJs.app.Container.$extend({
 
     getInputApi: function() {
         return this;
+    }
+}, {
+
+    supportsDirectives: {
+        "bind": true,
+        "model": true
     }
 });

@@ -123,6 +123,7 @@ cls({
     initApp: function(node, scope) {
 
         window.mainApp = this;
+        window.cls = cls;
 
         this.menu1 = new MetaphorJs.ui.menu.Menu({
             directives:{

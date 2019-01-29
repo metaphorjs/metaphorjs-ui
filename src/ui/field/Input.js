@@ -9,24 +9,9 @@ var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
 
 
 module.exports = MetaphorJs.ui.field.Input = MetaphorJs.ui.field.Field.$extend({
+    $class: "MetaphorJs.ui.field.Input",
     $alias: "MetaphorJs.directive.component.ui-input",
     template: "ui/field/input.html",
-
-    supportsDirectives: {
-        bind: "input",
-        model: "input",
-        show: true,
-        hide: true,
-        class: true,
-        style: true,
-        "in-focus": "input",
-        click: true, 
-        dblclick: true, 
-        mousedown: true, 
-        mouseup: true,
-        mousemove: true,
-        field: true
-    },
 
     _initConfig: function() {
         this.$super();
@@ -49,5 +34,22 @@ module.exports = MetaphorJs.ui.field.Input = MetaphorJs.ui.field.Field.$extend({
         self.$$observable.relayEvent(input, "change");
 
         self.$super();
+    }
+}, {
+
+    supportsDirectives: {
+        bind: "input",
+        model: "input",
+        show: true,
+        hide: true,
+        class: true,
+        style: true,
+        "in-focus": "input",
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true,
+        field: true
     }
 });

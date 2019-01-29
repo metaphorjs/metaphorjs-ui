@@ -23,25 +23,10 @@ var async = require("metaphorjs-shared/src/func/async.js"),
 module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend({
 
     $mixins: [MetaphorJs.mixin.Selectable],
+    $class: "MetaphorJs.ui.field.Select",
     $alias: "MetaphorJs.directive.component.ui-select",
     $view: "MetaphorJs.ui.field.view.Select",
     template: "ui/field/select.html",
-
-    supportsDirectives: {
-        bind: true,
-        model: true,
-        show: true,
-        hide: true,
-        class: true,
-        style: true,
-        "in-focus": "search",
-        click: true, 
-        dblclick: true, 
-        mousedown: true, 
-        mouseup: true,
-        mousemove: true,
-        field: true
-    },
 
     dialog: null,
 
@@ -469,5 +454,22 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
         self.dialog.on("show", self.onDialogShow, self);
         self.dialog.on("hide", self.onDialogHide, self);
         self.dialog.on("before-show", self.onBeforeDialogShow, self);
+    }
+}, {
+
+    supportsDirectives: {
+        bind: true,
+        model: true,
+        show: true,
+        hide: true,
+        class: true,
+        style: true,
+        "in-focus": "search",
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true,
+        field: true
     }
 });
