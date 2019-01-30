@@ -12402,8 +12402,7 @@ var app_Template = MetaphorJs.app.Template = function() {
         startRendering: function() {
 
             var self    = this;
-            if (self.deferRendering && 
-                (self.node || self.node === false)) {
+            if (self.deferRendering) {
                 self.deferRendering = false;
 
                 if (self.config.has("name")) {
@@ -12942,7 +12941,7 @@ var app_Component = MetaphorJs.app.Component = cls({
 
         self.id = self.id || "cmp-" + nextUid();
 
-        if (!self.node && self.node !== false) {
+        if (!self.node && self.config.has("tag")) {
             self.node = window.document.createElement(self.config.get("tag"));
         }
 
@@ -13016,7 +13015,6 @@ var app_Component = MetaphorJs.app.Component = cls({
             ctx;
 
         config.setDefaultMode("tag", lib_Config.MODE_STATIC);
-        config.setDefaultValue("tag", "div");
         config.setDefaultMode("as", lib_Config.MODE_STATIC);
 
         if (self.as) {
@@ -30065,7 +30063,6 @@ MetaphorJs.ui.button.Button = app_Container.$extend({
     $alias: "MetaphorJs.directive.component.ui-button",
     template: "ui/button/button.html",
     as: "button",
-    node: false,
 
     onClick: function(e) {
         this.trigger("click", this, e);
@@ -30105,8 +30102,7 @@ MetaphorJs.ui.button.Button = app_Container.$extend({
 
 MetaphorJs.ui.button.Group = app_Container.$extend({
     $class: "MetaphorJs.ui.button.Group",
-    template: "ui/button/group.html",
-    node: false
+    template: "ui/button/group.html"
 }, {
     allowUnwrapped: ["MetaphorJs.ui.button.Button"],
     wrapper: "MetaphorJs.ui.button.Button",
@@ -34761,7 +34757,6 @@ MetaphorJs.dialog.Component = app_Component.$extend({
 
 
 MetaphorJs.ui.dialog.Popup = app_Container.$extend({
-    node: false,
 
 });
 
@@ -35838,8 +35833,7 @@ MetaphorJs.ui.field.Select = ui_field_Field.$extend({
 var ui_menu_Divider = MetaphorJs.ui.menu.Divider = app_Container.$extend({
     $class: "MetaphorJs.ui.menu.Divider",
     $alias: "MetaphorJs.directive.component.ui-menu-divider",
-    template: "ui/menu/divider.html",
-    node: false
+    template: "ui/menu/divider.html"
 }, {
     supportsDirectives: {
         show: true,
@@ -35873,7 +35867,6 @@ var ui_menu_Item = MetaphorJs.ui.menu.Item = app_Container.$extend({
     template: {
         expression: "this.tpl"
     },
-    node: false,
 
     initComponent: function() {
         this.scope.tpl = this.$self.templates.item;
@@ -35942,7 +35935,6 @@ var ui_menu_Menu = MetaphorJs.ui.menu.Menu = app_Container.$extend({
     $class: "MetaphorJs.ui.menu.Menu",
     $alias: "MetaphorJs.directive.component.ui-menu",
     template: "ui/menu/menu.html",
-    node: false,
 
     _initObjectItem: function(def) {
         if (def.__containerItemDef) {
@@ -35989,8 +35981,7 @@ var ui_menu_Menu = MetaphorJs.ui.menu.Menu = app_Container.$extend({
 MetaphorJs.ui.panel.Panel = app_Container.$extend({
     $class: "MetaphorJs.ui.panel.Panel",
     $alias: "MetaphorJs.directive.component.ui-panel",
-    template: "ui/panel/panel.html",
-    node: false
+    template: "ui/panel/panel.html"
 }, {
     supportsDirectives: {
         show: true,
@@ -36073,7 +36064,6 @@ MetaphorJs.ui.menu.Toolbar = ui_menu_Menu.$extend({
 MetaphorJs.ui.window.Window = app_Container.$extend({
     $class: "MetaphorJs.ui.window.Window",
     template: "ui/window/window.html",
-    node: false,
 
     _initDraggable: function() {
         

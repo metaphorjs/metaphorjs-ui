@@ -11,7 +11,6 @@ module.exports = MetaphorJs.ui.menu.Menu = MetaphorJs.app.Container.$extend({
     $class: "MetaphorJs.ui.menu.Menu",
     $alias: "MetaphorJs.directive.component.ui-menu",
     template: "ui/menu/menu.html",
-    node: false,
 
     _initObjectItem: function(def) {
         if (def.__containerItemDef) {

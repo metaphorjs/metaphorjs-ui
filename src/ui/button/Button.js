@@ -16,7 +16,6 @@ module.exports = MetaphorJs.ui.button.Button = MetaphorJs.app.Container.$extend(
     $alias: "MetaphorJs.directive.component.ui-button",
     template: "ui/button/button.html",
     as: "button",
-    node: false,
 
     onClick: function(e) {
         this.trigger("click", this, e);

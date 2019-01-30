@@ -7,6 +7,5 @@ require("metaphorjs-dialog/src/dialog/Component.js");
 var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 
 module.exports = MetaphorJs.ui.dialog.Popup = MetaphorJs.app.Container.$extend({
-    node: false,
 
 });

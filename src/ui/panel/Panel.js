@@ -8,8 +8,7 @@ var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 module.exports = MetaphorJs.ui.panel.Panel = MetaphorJs.app.Container.$extend({
     $class: "MetaphorJs.ui.panel.Panel",
     $alias: "MetaphorJs.directive.component.ui-panel",
-    template: "ui/panel/panel.html",
-    node: false
+    template: "ui/panel/panel.html"
 }, {
     supportsDirectives: {
         show: true,

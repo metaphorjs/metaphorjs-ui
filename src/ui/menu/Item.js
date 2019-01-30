@@ -18,7 +18,6 @@ module.exports = MetaphorJs.ui.menu.Item = MetaphorJs.app.Container.$extend({
     template: {
         expression: "this.tpl"
     },
-    node: false,
 
     initComponent: function() {
         this.scope.tpl = this.$self.templates.item;
