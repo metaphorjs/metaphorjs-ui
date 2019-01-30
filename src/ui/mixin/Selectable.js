@@ -3,7 +3,7 @@ require("metaphorjs/src/lib/Config.js");
 
 var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 
-module.exports = MetaphorJs.mixin.Selectable = {
+module.exports = MetaphorJs.ui.mixin.Selectable = {
 
     $beforeInit: function() {
         this.$$selection = [];

@@ -134,6 +134,7 @@ cls({
                     text: "Text 1",
                     callback: {
                         click: function() {
+                            console.log(this)
                             console.log("dynamic menu click")
                         }
                     },

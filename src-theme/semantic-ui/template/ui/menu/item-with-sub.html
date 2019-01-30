@@ -1,6 +1,8 @@
-<div class="ui dropdown item">
+<div class="ui item" 
+        {class.active}="this.$cfg.active" 
+        {class.dropdown}="this.item.hasDropdown()">
     <!--##before-->
-    {{ this.$cfg.text }}
+    <span {bind}="this.$cfg.text"></span>
     <!--##body-->
     <!--##after-->
 </div>

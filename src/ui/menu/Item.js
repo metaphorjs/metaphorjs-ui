@@ -2,28 +2,27 @@
 require("../../__init.js");
 require("metaphorjs/src/app/Container.js");
 require("metaphorjs/src/lib/Config.js");
+require("../mixin/WithActiveState.js");
+require("../mixin/WithText.js");
+require("../mixin/WithDropdown.js");
 
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
-    extend = require("metaphorjs-shared/src/func/extend.js");
+var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 
 module.exports = MetaphorJs.ui.menu.Item = MetaphorJs.app.Container.$extend({
+    $mixins: [MetaphorJs.ui.mixin.WithActiveState, 
+                MetaphorJs.ui.mixin.WithText,
+                MetaphorJs.ui.mixin.WithDropdown],
     $class: "MetaphorJs.ui.menu.Item",
     $alias: "MetaphorJs.directive.component.ui-menu-item",
+    as: "item",
     template: {
         expression: "this.tpl"
     },
     node: false,
 
     initComponent: function() {
-        this.scope.tpl = this.isDivider? this.$self.templates.divider : 
-                                            this.$self.templates.item;
+        this.scope.tpl = this.$self.templates.item;
         this.$super.apply(this, arguments);
-    },
-    
-    _initConfig: function() {
-        this.$super();
-        this.config.setDefaultMode("text", MetaphorJs.lib.Config.MODE_STATIC);
-        this.config.setDefaultValue("as", "item");
     },
 
     _initChildItem: function(item) {
@@ -33,19 +32,11 @@ module.exports = MetaphorJs.ui.menu.Item = MetaphorJs.app.Container.$extend({
             self.scope.tpl = self.$self.templates.container;
         }
 
-        if (item.type === "component" && item.resolved && 
-            item.component.$is("MetaphorJs.ui.menu.Menu")) {
-            self._initDropdownItem(item);
-        }
+        self.$super();
     },
 
-    _initDropdownItem: function(item) {
-        var self = this,
-            dd = extend({}, self.$self.defaultDropdown);
-
-        self.scope.tpl = self.$self.templates.submenu;
-        dd.cmp = {value: item.component};
-        self.applyDirective("dropdown", dd);
+    _onDropdownCreated: function(component) {
+        this.scope.tpl = this.$self.templates.submenu;
     },
 
     onClick: function(ev) {
@@ -73,12 +64,12 @@ module.exports = MetaphorJs.ui.menu.Item = MetaphorJs.app.Container.$extend({
     templates: {
         item: "ui/menu/item.html",
         container: "ui/menu/container.html",
-        submenu: "ui/menu/item-with-sub.html",
-        divider: "ui/menu/divider.html"
+        submenu: "ui/menu/item-with-sub.html"
     },  
 
-    configProps: ["text"],
+    configProps: ["text", "active"],
 
+    dropdownClasses: ["MetaphorJs.ui.menu.Menu"],
     defaultDropdown: {
         on: "mouseover"
     }

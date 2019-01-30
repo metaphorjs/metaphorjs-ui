@@ -13,9 +13,12 @@ module.exports = MetaphorJs.ui.menu.Toolbar = MetaphorJs.ui.menu.Menu.$extend({
     template: "ui/toolbar/toolbar.html"
 
 }, {
-    allowUnwrapped: ["MetaphorJs.ui.toolbar.Item", "MetaphorJs.ui.menu.Menu"],
+    allowUnwrapped: ["MetaphorJs.ui.toolbar.Item", 
+                        "MetaphorJs.ui.menu.Menu", 
+                        "MetaphorJs.ui.toolbar.Divider"],
     wrapper: "MetaphorJs.ui.toolbar.Item",
     classes: {
-        item: "MetaphorJs.ui.toolbar.Item"
+        item: "MetaphorJs.ui.toolbar.Item",
+        divider: "MetaphorJs.ui.toolbar.Divider"
     }
 });

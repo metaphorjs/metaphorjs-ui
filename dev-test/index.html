@@ -41,7 +41,7 @@
                 <ui-button 
                         $text="Click me" 
                         {class}:="dropdown"
-                        (click)="console.log('ok')" 
+                        (click)="console.log(this.$eventCmp)" 
                         {dropdown.$ref}="menu">
                     <i class="user icon" @before></i>
                     <i class="dropdown icon" @after></i>
@@ -63,11 +63,8 @@
                         $text="Menu item">
                         <i class="dropdown icon" @after></i>
                         <ui-menu>
-                            <a class="item" 
-                                (click)="console.log('click11')">Test</a>
-                            <ui-menu-item 
-                                $text="Sub">
-                            </ui-menu-item>
+                            <a class="item" (click)="console.log('click11')">Test</a>
+                            <ui-menu-item $text:="Sub"></ui-menu-item>
                         </ui-menu>
                     </ui-menu-item>
                     <ui-menu-item 
@@ -76,20 +73,20 @@
                         (click)="console.log('click3')">
                         <div class="ui label" 
                                 @after 
-                                {show}="!!this.sval"
-                                {bind}="this.sval"></div>
+                                {show}="!!this.$root.sval"
+                                {bind}="this.$root.sval"></div>
                     </ui-menu-item>
                     <ui-input {class}:="transparent" 
                                 $placeholder:="Input field"
                                 $type="number"></ui-input>
                     <ui-select 
                         $empty-text:="Nothing selected" 
-                        $options*="this.options"
+                        $options*="this.$root.options"
                         $keep-selected-options:="false"
                         $empty-item-text:="Nope"
                         $searchable
                         $css-dialog
-                        {model}="this.sval"
+                        {model}="this.$root.sval"
                         $selection-mode="single">
                     </ui-select>
                 </ui-menu>
@@ -105,8 +102,8 @@
                         (click)="console.log('click3')">
                         <div class="ui label" 
                                 @after 
-                                {show}="!!this.sval"
-                                {bind}="this.sval"></div>
+                                {show}="!!this.$root.sval"
+                                {bind}="this.$root.sval"></div>
                     </ui-toolbar-item>
                     <ui-menu {class.right} {class.ui}="false">
                         <ui-input {class}:="transparent" 

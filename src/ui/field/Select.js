@@ -1,6 +1,6 @@
 
 require("../../__init.js");
-require("../../mixin/Selectable.js");
+require("../mixin/Selectable.js");
 require("./Field.js");
 require("metaphorjs-model/src/model/Store.js");
 require("metaphorjs-shared/src/lib/Queue.js");
@@ -22,7 +22,7 @@ var async = require("metaphorjs-shared/src/func/async.js"),
 
 module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend({
 
-    $mixins: [MetaphorJs.mixin.Selectable],
+    $mixins: [MetaphorJs.ui.mixin.Selectable],
     $class: "MetaphorJs.ui.field.Select",
     $alias: "MetaphorJs.directive.component.ui-select",
     $view: "MetaphorJs.ui.field.view.Select",

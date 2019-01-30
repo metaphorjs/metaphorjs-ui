@@ -19,6 +19,7 @@ module.exports = MetaphorJs.ui.toolbar.Item = MetaphorJs.ui.menu.Item.$extend({
         divider: "ui/toolbar/divider.html"
     },
 
+    dropdownClasses: ["MetaphorJs.ui.menu.Menu"],
     configProps: ["text"]
 
 });

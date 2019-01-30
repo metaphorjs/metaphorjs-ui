@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/button/button.html":"<button ##button ##body class=\"ui button\" (click)=\"this.button.onClick(this.$event)\"><!--##before--> {{ this.$cfg.text }}<!--##after--></button>","ui/field/input.html":"<div class=\"ui input\" ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","ui/menu/container.html":"<div class=\"item\"></div>","ui/menu/divider.html":"<div class=\"divider\"></div>","ui/menu/item-with-sub.html":"<div class=\"ui dropdown item\"><!--##before--> {{ this.$cfg.text }}<!--##body--><!--##after--></div>","ui/menu/item.html":"<a class=\"item\" (click)=\"this.item.onClick(this.$event)\"><!--##before--> {{ this.$cfg.text }}<!--##body--><!--##after--></a>","ui/menu/menu.html":"<div class=\"ui menu\"><!--##before--><!--##body--><!--##after--></div>","ui/toolbar/container.html":"<!--{includes: true}--><!-- include ui/menu/container.html -->","ui/toolbar/divider.html":"<!--{includes: true}--><!-- include ui/menu/divider.html -->","ui/toolbar/item-with-sub.html":"<!--{includes: true}--><!-- include ui/menu/item-with-sub.html -->","ui/toolbar/item.html":"<!--{includes: true}--><!-- include ui/menu/item.html -->","ui/toolbar/toolbar.html":"<!--{includes: true}--><!-- include ui/menu/menu.html -->","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true},"ui/toolbar/container.html":{"includes":true},"ui/toolbar/divider.html":{"includes":true},"ui/toolbar/item-with-sub.html":{"includes":true},"ui/toolbar/item.html":{"includes":true},"ui/toolbar/toolbar.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/button/button.html":"<button ##button ##body class=\"ui button\" {class.dropdown}=\"this.button.hasDropdown()\" (click)=\"this.button.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##after--></button>","ui/button/group.html":"<div class=\"ui buttons\" ##body></div>","ui/field/input.html":"<div class=\"ui input\" ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","ui/menu/container.html":"<div class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\"><!--##before--><!--##body--><!--##after--></div>","ui/menu/divider.html":"<div class=\"divider\"></div>","ui/menu/item-with-sub.html":"<div class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></div>","ui/menu/item.html":"<a class=\"item\" {class.active}=\"this.$cfg.active\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></a>","ui/menu/menu.html":"<div class=\"ui menu\"><!--##before--><!--##body--><!--##after--></div>","ui/panel/panel.html":"<div class=\"ui segment\"><!--##tbar--><!--##bbar--></div>","ui/toolbar/container.html":"<!--{includes: true}--><!-- include ui/menu/container.html -->","ui/toolbar/divider.html":"<!--{includes: true}--><!-- include ui/menu/divider.html -->","ui/toolbar/item-with-sub.html":"<!--{includes: true}--><!-- include ui/menu/item-with-sub.html -->","ui/toolbar/item.html":"<!--{includes: true}--><!-- include ui/menu/item.html -->","ui/toolbar/toolbar.html":"<!--{includes: true}--><!-- include ui/menu/menu.html -->","ui/window/window.html":"<div class=\"ui modal\" ##body></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true},"ui/toolbar/container.html":{"includes":true},"ui/toolbar/divider.html":{"includes":true},"ui/toolbar/item-with-sub.html":{"includes":true},"ui/toolbar/item.html":{"includes":true},"ui/toolbar/toolbar.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -4837,8 +4837,11 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
          * @param {string} name 
          * @param {string} cfg 
          * @param {*} val 
+         * @param {bool} override {
+         *  @default true
+         * }
          */
-        setProperty: function(name, cfg, val) {
+        setProperty: function(name, cfg, val, override) {
 
             var self = this,
                 props = self.properties,
@@ -4846,6 +4849,10 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
                 changed = false,
                 newProp = false,
                 value;
+
+            if (override === undf) {
+                override = true;
+            }
 
             if (!props[name]) {
                 props[name] = {};
@@ -4856,14 +4863,14 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
 
             prop = props[name];
 
-            if (val === undf) {
+            if (val === undf || val === null) {
                 var k;
                 for (k in cfg) {
                     if (k === "value") {
                         value = cfg[k];
                         continue;
                     }
-                    if (cfg[k] !== prop[k]) {
+                    if (cfg[k] !== prop[k] && override) {
                         changed = true;
                         prop[k] = cfg[k];
                     }
@@ -4873,7 +4880,7 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
                 if (cfg === "value") {
                     value = val;
                 }
-                else if (val !== prop[cfg]) {
+                else if (val !== prop[cfg] && override) {
                     changed = true;
                     prop[cfg] = val;
                 }
@@ -4884,7 +4891,8 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
                     prop.mode = prop.defaultMode;
                     changed = true;
                 }
-                else if (prop.expression === true) {
+                else if (prop.expression === true || 
+                        prop.expression === false) {
                     prop.mode = MODE_STATIC;
                     changed = true;
                 }
@@ -4892,9 +4900,13 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
                     prop.mode = self.cfg.defaultMode;
                     changed = true;
                 }
-                else if (newProp && value !== undf) {
+                else if (newProp && value !== undf && value !== null) {
                     prop.mode = MODE_STATIC;
                 }
+            }
+
+            if (!prop.scope) {
+                prop.scope = self.cfg.scope;
             }
 
             if (prop.mode === MODE_DYNAMIC && 
@@ -4905,7 +4917,7 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
                 changed = true;
             }
 
-            if (value !== undf) {
+            if (value !== undf && value !== null) {
                 self.values[name] = value;
             }
             else if (changed && self.values[name] !== undf && 
@@ -5088,9 +5100,14 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
          * @method
          * @param {string} name 
          * @param {int} mode 
+         * @param {string|*} expression
          */
-        setMode: function(name, mode) {
-            this.setProperty(name, "mode", mode);
+        setMode: function(name, mode, expression) {
+            var prop = {mode: mode};
+            if (expression !== undf) {
+                prop.expression = expression;
+            }
+            this.setProperty(name, prop);
         },
 
         /**
@@ -5138,11 +5155,44 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
         },
 
         /**
+         * Transform property to dynamic mode if it is static
+         * @param {string} name 
+         * @param {string} expression 
+         * @param {object|null} scope {
+         *  @optional
+         * }
+         */
+        makeLocalDynamic: function(name, expression, scope) {
+            var self = this,
+                prop, val;
+            scope = scope || self.cfg.scope;
+            if (prop = self.properties[name]) {
+                if (!prop.mode || prop.mode === MODE_STATIC || prop.mode === MODE_SINGLE) {
+                    val = self.get(name);
+                    self.setProperty(name, {
+                        expression: expression,
+                        mode: MODE_DYNAMIC,
+                        scope: scope
+                    });
+                    self.values[name] = val;
+                    self.set(name, val);
+                }
+            }
+            else {
+                self.setProperty(name, {
+                    expression: expression,
+                    mode: MODE_DYNAMIC,
+                    scope: scope
+                });
+            }
+        },
+
+        /**
          * Force property to static mode with given value
          * @param {string} name 
          * @param {*} val 
          */
-        set: function(name, val) {
+        setStatic: function(name, val) {
             var self = this;
             if (self.properties[name]) {
                 var prev = self.values[val];
@@ -5151,6 +5201,40 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
                 if (prev != val) {
                     $$observable.trigger(self.id, name, val, prev);
                     $$observable.trigger(self.id +'-'+ name, val, prev) ;
+                }
+            }
+        },
+
+        /**
+         * Try to set value based on property mode
+         * @param {string} name 
+         * @param {*} val 
+         */
+        set: function(name, val) {
+            var self = this,
+                prop;
+            if (prop = self.properties[name]) {
+                switch (prop.mode) {
+                    case MODE_DYNAMIC: {
+                        !prop.mo && self._initMo(name);
+                        prop.mo.setValue(val);
+                        break;
+                    }
+                    case MODE_GETTER:
+                    case MODE_FUNC:
+                    case MODE_SETTER:
+                    case MODE_FNSET: {
+                        throw new Error("Incompatible property mode");
+                    }
+                    case MODE_SINGLE:
+                    case MODE_STATIC: {
+                        self.setStatic(name, val);
+                        break;
+                    }
+                    default: {
+                        self.setStatic(name, val);
+                        break;
+                    }
                 }
             }
         },
@@ -12818,22 +12902,19 @@ var app_Component = MetaphorJs.app.Component = cls({
         if (!self.scope) {
             self.scope = new lib_Scope;
         }
-        if (!self.config) {
-            self.config = new lib_Config(null, {
-                scope: self.parentScope || self.scope
+
+        // We initialize config with current scope or change config's scope
+        // to current so that all new properties that come from _initConfig
+        // are bound to local scope. 
+        // All pre-existing properties are already bound to outer scope;
+        // Also, each property configuration can have its scope specified
+        if (!self.config || !(self.config instanceof lib_Config)) {
+            self.config = new lib_Config(self.config, {
+                scope: self.scope
             });
         }
-        else if (!(self.config instanceof lib_Config)) {
-            var cfgScope = self.config.scope;
-            if (cfgScope) {
-                delete self.config.scope;
-            }
-            self.config = new lib_Config(
-                self.config, 
-                {
-                    scope: cfgScope || self.parentScope || self.scope
-                }
-            );
+        else {
+            self.config.setOption("scope", self.scope);
         }
 
         self.$refs = {node: {}, cmp: {}};
@@ -13438,7 +13519,10 @@ var app_Component = MetaphorJs.app.Component = cls({
             for (i = 0, l = props.length; i < l; i++) {
                 name = props[i];
                 if (obj[name]) {
-                    config[name] = obj[name];
+                    if (isPrimitive(obj[name])) {
+                        config[name] = {defaultValue: obj[name]};    
+                    }
+                    else config[name] = obj[name];
                     delete obj[name];
                 }
             }
@@ -13639,6 +13723,8 @@ var app_resolve = MetaphorJs.app.resolve = function app_resolve(cmp, cfg, scope,
 
 
 var app_Container = MetaphorJs.app.Container = app_Component.$extend({
+
+    $mixinEvents: ["$initChildItem"],
 
     initComponent: function() {
         var self = this;
@@ -13887,7 +13973,8 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
             self.itemsMap[item.id] = item;
         }
 
-        this._initChildItem(item);
+        self._initChildItem(item);
+        self.$callMixins("$initChildItem", item);
 
         return item;
     },
@@ -14103,8 +14190,37 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
     hasItem: function(cmp) {
         var self = this,
-        idkey = self._getIdKey();
-        return !!cmp[idkey];
+            idkey = self._getIdKey(),
+            id,
+            item;
+
+        if (typeof cmp === "string" || typeof cmp === "function") {
+            for (id in self.itemMap) {
+                item = self.itemMap[id];
+                if (item.type === "component" && 
+                    (item.componet.id === cmp || item.component.$is(cmp))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else return !!cmp[idkey];
+    },
+
+    hasItemIn: function(ref, smth) {
+        if (!this.items[ref] || this.items[ref].length === 0) {
+            return false;
+        }
+        var i, l, item;
+        for (i = 0, l = this.items[ref].length; i < l; i++) {
+            item = this.items[ref][i];
+            if (item.type === "component") {
+                if (item.component.$is(smth)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     },
 
     addItem: function(cmp, to) {
@@ -18613,6 +18729,7 @@ extend(MetaphorJs.lib.EventHandler.prototype, {
             scope.$event = e;
             scope.$eventNode = self.node;
             scope.$prevEvent = self.prevEvent[e.type];
+            scope.$eventCmp = self.config.get("targetComponent");
 
             if (handler) {
                 res = handler.call(cfg.context || null, scope);
@@ -18746,6 +18863,10 @@ var lib_EventHandler = MetaphorJs.lib.EventHandler;
                 function(scope, node, config, renderer, attrSet) {
 
                 if (node.getDomApi) {
+                    config.setProperty("targetComponent", {
+                        mode: lib_Config.MODE_STATIC,
+                        value: node
+                    });
                     node = node.getDomApi(name);
                     if (!node) {
                         return null;
@@ -29818,193 +29939,16 @@ Directive.registerTag("tag", function directive_tag_tag(scope, node) {
 
 
 
-
-
-var mixin_Selectable = MetaphorJs.mixin.Selectable = {
-
-    $beforeInit: function() {
-        this.$$selection = [];
-        this.$$_selectable_itemCache = {};
-    },
-
-    $initConfig: function() {
-        this.config.setType("selectionMode", 
-            null, lib_Config.MODE_STATIC, "single");
-    },
-
-    $beforeDestroy: function() {
-        this.$$_selectable_itemCache = null;
-    },
-
-    $$_selectable_getItemId: function(item) {
-        if (this.store) {
-            return this.store.getRecordId(item);
-        }
-        return item.id;
-    },
-
-    getSelection: function() {
-        var self = this,
-            store = self.store,
-            sels = self.$$selection,
-            items = [],
-            i, l, id;
-
-        for (i = 0, l = sels.length; i < l; i++) {
-            id = sels[i];
-            items.push(store.getById(id) || self.$$_selectable_itemCache[id]);
-        }
-        
-        return items;
-    },
-
-    toggleItemSelected: function(item) {
-        var self = this;
-        if (self.isSelected(item)) {
-            self.unselectItem(item);
-        }
-        else {
-            self.selectItem(item);
-        }
-    },
-
-    selectItem: function(item) {
-        var self = this;
-        self.selectItemById(self.$$_selectable_getItemId(item));
-    },
-
-    selectItemById: function(id) {
-
-        var self = this;
-        if (!self.isSelectionEnabled()) {
-            return;
-        }
-
-        if (self.$$selection.indexOf(id) === -1) {
-
-            if (!self.isMultiSelection()) {
-                self.$$selection = [];
-                self.$$_selectable_itemCache = {};
-            }
-
-            var item = self.store.getById(id);
-
-            if (item) {
-                self.$$selection.push(id);
-                self.$$_selectable_itemCache[id] = item;
-                self.trigger("selection-change");
-                self.onSelectionChange();
-            }
-        }
-    },
-
-    unselectItem: function(item) {
-        this.unselectItemById(this.$$_selectable_getItemId(item));
-    },
-
-    unselectItemById: function(id) {
-        var self = this,
-            inx = self.$$selection.indexOf(id);
-        if (!self.isSelectionEnabled()) {
-            return;
-        }
-        if (inx !== -1) {
-            self.$$selection.splice(inx, 1);
-            delete self.$$_selectable_itemCache[id];
-            self.trigger("selection-change");
-            self.onSelectionChange();
-        }
-    },
-
-    toggleAllSelected: function() {
-        var self = this;
-        if (!self.isAllSelected()) {
-            self.selectAll();
-        }
-        else {
-            self.unselectAll();
-        }
-    },
-
-    selectAll: function() {
-        var self = this,
-            changed = !self.isAllSelected();
-
-        if (!self.isSelectionEnabled()) {
-            return;
-        }
-
-        if (self.config.get("selectionMode") !== "single") {
-            self.$$selection = [];
-            self.$$_selectable_itemCache = {};
-            self.store.each(function(item){
-                var id = self.$$_selectable_getItemId(item);
-                self.$$selection.push(id);
-                self.$$_selectable_itemCache[id] = item;
-            });
-        }
-
-        if (changed) {
-            self.trigger("selection-change");
-            self.onSelectionChange();
-        }
-    },
-
-    unselectAll: function() {
-        var self = this;
-        if (!self.isSelectionEnabled()) {
-            return;
-        }
-        if (self.$$selection.length > 0) {
-            self.$$selection = [];
-            self.$$_selectable_itemCache = {};
-            self.trigger("selection-change");
-            self.onSelectionChange();
-        }
-    },
-
-    isIdSelected: function(id) {
-        return this.$$selection.indexOf(id) !== -1;
-    },
-
-    isSelected: function(item) {
-        return this.isIdSelected(this.$$_selectable_getItemId(item));
-    },
-
-    isSelectionEnabled: function() {
-        return true;
-    },
-
-    isMultiSelection: function() {
-        return this.config.get("selectionMode") === "multi";
-    },
-
-    isAllSelected: function() {
-        return this.$$selection.length > 0 &&
-            this.$$selection.length === this.store.getLength();
-    },
-
-    hasSelection: function() {
-        return this.$$selection.length > 0;
-    },
-
-    onSelectionChange: function() {
-
-    }
-
-};
-
-
-
 MetaphorJs.ui = MetaphorJs.ui || {
     button: {},
-    field: {
-        view: {}
-    },
+    panel: {},
+    window: {},
+    field: {view: {}},
     dialog: {},
     menu: {},
     toolbar: {},
-    form: {}
+    form: {},
+    mixin: {}
 };
 
 
@@ -30012,30 +29956,82 @@ MetaphorJs.ui = MetaphorJs.ui || {
 
 
 
+var ui_mixin_WithActiveState = MetaphorJs.ui.mixin.WithActiveState = {
 
-MetaphorJs.ui.button.Button = app_Container.$extend({
-    $class: "MetaphorJs.ui.button.Button",
-    $alias: "MetaphorJs.directive.component.ui-button",
-    template: "ui/button/button.html",
-    as: "button",
-    node: false,
+    $initConfig: function() {
+        this.config.setType("active", "bool", null, false);
+        this.config.makeLocalDynamic("active", "this.active");
+    },  
 
-    _initConfig: function() {
-        this.$super();
-        this.config.setDefaultMode("text", lib_Config.MODE_STATIC);
-        this.config.setDefaultValue("as", "button");
+    isActive: function() {
+        return this.config.get("active");
     },
 
-    onClick: function(e) {
-        this.trigger("click", this, e);
+    setActive: function(state) {
+        state !== false && (state = true);
+        this.config.set("active", state);
     },
 
-    _initChildItem: function(item) {
-        var self = this;
+    toggleActive: function() {
+        this.setActive(!this.config.get("active"));
+    }
+}
 
-        if (item.type === "component" && item.resolved && 
-            item.component.$is("MetaphorJs.ui.menu.Menu")) {
-            self._initDropdownItem(item);
+
+
+
+
+
+var ui_mixin_WithText = MetaphorJs.ui.mixin.WithText = {
+
+    $initConfig: function() {
+        this.config.setType("text", "string", lib_Config.MODE_STATIC);
+        this.config.setProperty("text", "defaultValue", "", false);
+        this.config.makeLocalDynamic("text", "this.text");
+    },  
+
+    getText: function() {
+        return this.config.get("text");
+    },
+
+    setText: function(text) {
+        this.config.set("text", text);
+    }
+}
+
+
+
+
+
+
+var ui_mixin_WithDropdown = MetaphorJs.ui.mixin.WithDropdown = {
+
+    $beforeInit: function() {
+        this.$$dropdowns = [];
+    },
+
+    $beforeDestroy: function() {
+        this.$$dropdowns = null;
+    },
+
+    $initChildItem: function(item) {
+        this._checkDropdownItem(item);
+    },
+
+    hasDropdown: function() {
+        return this.$$dropdowns.length > 0;
+    },
+
+    _checkDropdownItem: function(item) {
+        var clss = this.$self.dropdownClasses,
+            i, l;
+        if (clss && item.type === "component" && item.resolved) {
+            for (i = 0, l = clss.length; i < l; i++) {
+                if (item.component.$is(clss[i])) {
+                    this._initDropdownItem(item);
+                    return;
+                }
+            }
         }
     },
 
@@ -30044,7 +30040,35 @@ MetaphorJs.ui.button.Button = app_Container.$extend({
             dd = extend({}, self.$self.defaultDropdown);
 
         dd.cmp = {value: item.component};
+        self.$$dropdowns.push(item.component);
         self.applyDirective("dropdown", dd);
+        self._onDropdownCreated(item.component);
+    },
+
+    _onDropdownCreated: function() {}
+}
+
+
+
+
+
+
+
+
+
+
+MetaphorJs.ui.button.Button = app_Container.$extend({
+    $mixins: [ui_mixin_WithActiveState, 
+                ui_mixin_WithText,
+                ui_mixin_WithDropdown],
+    $class: "MetaphorJs.ui.button.Button",
+    $alias: "MetaphorJs.directive.component.ui-button",
+    template: "ui/button/button.html",
+    as: "button",
+    node: false,
+
+    onClick: function(e) {
+        this.trigger("click", this, e);
     }
 }, {
 
@@ -30068,8 +30092,32 @@ MetaphorJs.ui.button.Button = app_Container.$extend({
     propsToItems: {
         "menu": "MetaphorJs.ui.menu.Menu"
     },
-    configProps: ["text"]
+
+    dropdownClasses: ["MetaphorJs.ui.menu.Menu"],
+    configProps: ["text", "active"]
 });
+
+
+
+
+
+
+
+MetaphorJs.ui.button.Group = app_Container.$extend({
+    $class: "MetaphorJs.ui.button.Group",
+    template: "ui/button/group.html",
+    node: false
+}, {
+    allowUnwrapped: ["MetaphorJs.ui.button.Button"],
+    wrapper: "MetaphorJs.ui.button.Button",
+    supportsDirectives: {
+        show: true,
+        hide: true,
+        class: true,
+        style: true
+    }
+});
+
 
 
 
@@ -34796,6 +34844,53 @@ var ui_field_Field = MetaphorJs.ui.field.Field = app_Container.$extend({
 
 
 
+MetaphorJs.ui.field.Checkbox = ui_field_Field.$extend({
+    $class: "MetaphorJs.ui.field.Checkbox",
+    $alias: "MetaphorJs.directive.component.ui-checkbox",
+    template: "ui/field/checkbox.html",
+
+    afterRender: function() {
+        var self = this,
+            input;
+
+        if (self.$refs.node.input) {
+            self.input = input = lib_Input.get(self.$refs.node.input);
+            self.setValue = bind(input.setValue, input);
+            self.getValue = bind(input.getValue, input);
+            self.onKey = bind(input.onKey, input);
+            self.unKey = bind(input.unKey, input);
+            self.$$observable.relayEvent(input, "change");
+        }
+
+        self.$super();
+    }
+}, {
+
+    supportsDirectives: {
+        bind: "input",
+        model: "input",
+        show: true,
+        hide: true,
+        class: true,
+        style: true,
+        "in-focus": "input",
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true,
+        field: true
+    }
+});
+
+
+
+
+
+
+
+
+
 MetaphorJs.ui.field.Input = ui_field_Field.$extend({
     $class: "MetaphorJs.ui.field.Input",
     $alias: "MetaphorJs.directive.component.ui-input",
@@ -34841,6 +34936,185 @@ MetaphorJs.ui.field.Input = ui_field_Field.$extend({
         field: true
     }
 });
+
+
+
+
+
+
+var ui_mixin_Selectable = MetaphorJs.ui.mixin.Selectable = {
+
+    $beforeInit: function() {
+        this.$$selection = [];
+        this.$$_selectable_itemCache = {};
+    },
+
+    $initConfig: function() {
+        this.config.setType("selectionMode", 
+            null, lib_Config.MODE_STATIC, "single");
+    },
+
+    $beforeDestroy: function() {
+        this.$$_selectable_itemCache = null;
+    },
+
+    $$_selectable_getItemId: function(item) {
+        if (this.store) {
+            return this.store.getRecordId(item);
+        }
+        return item.id;
+    },
+
+    getSelection: function() {
+        var self = this,
+            store = self.store,
+            sels = self.$$selection,
+            items = [],
+            i, l, id;
+
+        for (i = 0, l = sels.length; i < l; i++) {
+            id = sels[i];
+            items.push(store.getById(id) || self.$$_selectable_itemCache[id]);
+        }
+        
+        return items;
+    },
+
+    toggleItemSelected: function(item) {
+        var self = this;
+        if (self.isSelected(item)) {
+            self.unselectItem(item);
+        }
+        else {
+            self.selectItem(item);
+        }
+    },
+
+    selectItem: function(item) {
+        var self = this;
+        self.selectItemById(self.$$_selectable_getItemId(item));
+    },
+
+    selectItemById: function(id) {
+
+        var self = this;
+        if (!self.isSelectionEnabled()) {
+            return;
+        }
+
+        if (self.$$selection.indexOf(id) === -1) {
+
+            if (!self.isMultiSelection()) {
+                self.$$selection = [];
+                self.$$_selectable_itemCache = {};
+            }
+
+            var item = self.store.getById(id);
+
+            if (item) {
+                self.$$selection.push(id);
+                self.$$_selectable_itemCache[id] = item;
+                self.trigger("selection-change");
+                self.onSelectionChange();
+            }
+        }
+    },
+
+    unselectItem: function(item) {
+        this.unselectItemById(this.$$_selectable_getItemId(item));
+    },
+
+    unselectItemById: function(id) {
+        var self = this,
+            inx = self.$$selection.indexOf(id);
+        if (!self.isSelectionEnabled()) {
+            return;
+        }
+        if (inx !== -1) {
+            self.$$selection.splice(inx, 1);
+            delete self.$$_selectable_itemCache[id];
+            self.trigger("selection-change");
+            self.onSelectionChange();
+        }
+    },
+
+    toggleAllSelected: function() {
+        var self = this;
+        if (!self.isAllSelected()) {
+            self.selectAll();
+        }
+        else {
+            self.unselectAll();
+        }
+    },
+
+    selectAll: function() {
+        var self = this,
+            changed = !self.isAllSelected();
+
+        if (!self.isSelectionEnabled()) {
+            return;
+        }
+
+        if (self.config.get("selectionMode") !== "single") {
+            self.$$selection = [];
+            self.$$_selectable_itemCache = {};
+            self.store.each(function(item){
+                var id = self.$$_selectable_getItemId(item);
+                self.$$selection.push(id);
+                self.$$_selectable_itemCache[id] = item;
+            });
+        }
+
+        if (changed) {
+            self.trigger("selection-change");
+            self.onSelectionChange();
+        }
+    },
+
+    unselectAll: function() {
+        var self = this;
+        if (!self.isSelectionEnabled()) {
+            return;
+        }
+        if (self.$$selection.length > 0) {
+            self.$$selection = [];
+            self.$$_selectable_itemCache = {};
+            self.trigger("selection-change");
+            self.onSelectionChange();
+        }
+    },
+
+    isIdSelected: function(id) {
+        return this.$$selection.indexOf(id) !== -1;
+    },
+
+    isSelected: function(item) {
+        return this.isIdSelected(this.$$_selectable_getItemId(item));
+    },
+
+    isSelectionEnabled: function() {
+        return true;
+    },
+
+    isMultiSelection: function() {
+        return this.config.get("selectionMode") === "multi";
+    },
+
+    isAllSelected: function() {
+        return this.$$selection.length > 0 &&
+            this.$$selection.length === this.store.getLength();
+    },
+
+    hasSelection: function() {
+        return this.$$selection.length > 0;
+    },
+
+    onSelectionChange: function() {
+
+    }
+
+};
 
 
 
@@ -35103,7 +35377,7 @@ var ui_field_view_Select = MetaphorJs.ui.field.view.Select = app_component_View.
 
 MetaphorJs.ui.field.Select = ui_field_Field.$extend({
 
-    $mixins: [mixin_Selectable],
+    $mixins: [ui_mixin_Selectable],
     $class: "MetaphorJs.ui.field.Select",
     $alias: "MetaphorJs.directive.component.ui-select",
     $view: "MetaphorJs.ui.field.view.Select",
@@ -35561,25 +35835,49 @@ MetaphorJs.ui.field.Select = ui_field_Field.$extend({
 
 
 
+var ui_menu_Divider = MetaphorJs.ui.menu.Divider = app_Container.$extend({
+    $class: "MetaphorJs.ui.menu.Divider",
+    $alias: "MetaphorJs.directive.component.ui-menu-divider",
+    template: "ui/menu/divider.html",
+    node: false
+}, {
+    supportsDirectives: {
+        show: true,
+        hide: true,
+        class: true,
+        style: true,
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true
+    }
+});
+
+
+
+
+
+
+
+
+
 
 var ui_menu_Item = MetaphorJs.ui.menu.Item = app_Container.$extend({
+    $mixins: [ui_mixin_WithActiveState, 
+                ui_mixin_WithText,
+                ui_mixin_WithDropdown],
     $class: "MetaphorJs.ui.menu.Item",
     $alias: "MetaphorJs.directive.component.ui-menu-item",
+    as: "item",
     template: {
         expression: "this.tpl"
     },
     node: false,
 
     initComponent: function() {
-        this.scope.tpl = this.isDivider? this.$self.templates.divider : 
-                                            this.$self.templates.item;
+        this.scope.tpl = this.$self.templates.item;
         this.$super.apply(this, arguments);
-    },
-    
-    _initConfig: function() {
-        this.$super();
-        this.config.setDefaultMode("text", lib_Config.MODE_STATIC);
-        this.config.setDefaultValue("as", "item");
     },
 
     _initChildItem: function(item) {
@@ -35589,19 +35887,11 @@ var ui_menu_Item = MetaphorJs.ui.menu.Item = app_Container.$extend({
             self.scope.tpl = self.$self.templates.container;
         }
 
-        if (item.type === "component" && item.resolved && 
-            item.component.$is("MetaphorJs.ui.menu.Menu")) {
-            self._initDropdownItem(item);
-        }
+        self.$super();
     },
 
-    _initDropdownItem: function(item) {
-        var self = this,
-            dd = extend({}, self.$self.defaultDropdown);
-
-        self.scope.tpl = self.$self.templates.submenu;
-        dd.cmp = {value: item.component};
-        self.applyDirective("dropdown", dd);
+    _onDropdownCreated: function(component) {
+        this.scope.tpl = this.$self.templates.submenu;
     },
 
     onClick: function(ev) {
@@ -35629,12 +35919,12 @@ var ui_menu_Item = MetaphorJs.ui.menu.Item = app_Container.$extend({
     templates: {
         item: "ui/menu/item.html",
         container: "ui/menu/container.html",
-        submenu: "ui/menu/item-with-sub.html",
-        divider: "ui/menu/divider.html"
+        submenu: "ui/menu/item-with-sub.html"
     },  
 
-    configProps: ["text"],
+    configProps: ["text", "active"],
 
+    dropdownClasses: ["MetaphorJs.ui.menu.Menu"],
     defaultDropdown: {
         on: "mouseover"
     }
@@ -35666,9 +35956,7 @@ var ui_menu_Menu = MetaphorJs.ui.menu.Menu = app_Container.$extend({
 
     _initStringItem: function(def) {
         if (def === '-' || def === '|') {
-            return {
-                isDivider: true
-            };
+            return this.$self.classes.divider;
         }
         return this.$super(def);
     }
@@ -35681,15 +35969,50 @@ var ui_menu_Menu = MetaphorJs.ui.menu.Menu = app_Container.$extend({
         style: true
     },
 
-    allowUnwrapped: ["MetaphorJs.ui.menu.Item"],
+    allowUnwrapped: ["MetaphorJs.ui.menu.Item", "MetaphorJs.ui.menu.Divider"],
     wrapper: "MetaphorJs.ui.menu.Item",
 
     classes: {
-        item: "MetaphorJs.ui.menu.Item"
+        item: "MetaphorJs.ui.menu.Item",
+        divider: "MetaphorJs.ui.menu.Divider"
     }
 
 });
 
+
+
+
+
+
+
+
+MetaphorJs.ui.panel.Panel = app_Container.$extend({
+    $class: "MetaphorJs.ui.panel.Panel",
+    $alias: "MetaphorJs.directive.component.ui-panel",
+    template: "ui/panel/panel.html",
+    node: false
+}, {
+    supportsDirectives: {
+        show: true,
+        hide: true,
+        class: true,
+        style: true
+    }
+});
+
+
+
+
+
+
+
+
+
+MetaphorJs.ui.toolbar.Divider = ui_menu_Divider.$extend({
+    $class: "MetaphorJs.ui.toolbar.Divider",
+    $alias: "MetaphorJs.directive.component.ui-toolbar-divider",
+    template: "ui/toolbar/divider.html"
+});
 
 
 
@@ -35711,6 +36034,7 @@ var ui_toolbar_Item = MetaphorJs.ui.toolbar.Item = ui_menu_Item.$extend({
         divider: "ui/toolbar/divider.html"
     },
 
+    dropdownClasses: ["MetaphorJs.ui.menu.Menu"],
     configProps: ["text"]
 
 });
@@ -35729,10 +36053,37 @@ MetaphorJs.ui.menu.Toolbar = ui_menu_Menu.$extend({
     template: "ui/toolbar/toolbar.html"
 
 }, {
-    allowUnwrapped: ["MetaphorJs.ui.toolbar.Item", "MetaphorJs.ui.menu.Menu"],
+    allowUnwrapped: ["MetaphorJs.ui.toolbar.Item", 
+                        "MetaphorJs.ui.menu.Menu", 
+                        "MetaphorJs.ui.toolbar.Divider"],
     wrapper: "MetaphorJs.ui.toolbar.Item",
     classes: {
-        item: "MetaphorJs.ui.toolbar.Item"
+        item: "MetaphorJs.ui.toolbar.Item",
+        divider: "MetaphorJs.ui.toolbar.Divider"
+    }
+});
+
+
+
+
+
+
+
+
+MetaphorJs.ui.window.Window = app_Container.$extend({
+    $class: "MetaphorJs.ui.window.Window",
+    template: "ui/window/window.html",
+    node: false,
+
+    _initDraggable: function() {
+        
+    }
+}, {
+    supportsDirectives: {
+        show: true,
+        hide: true,
+        class: true,
+        style: true
     }
 });
 
@@ -36045,6 +36396,7 @@ cls({
                     text: "Text 1",
                     callback: {
                         click: function() {
+                            console.log(this)
                             console.log("dynamic menu click")
                         }
                     },

@@ -25,9 +25,7 @@ module.exports = MetaphorJs.ui.menu.Menu = MetaphorJs.app.Container.$extend({
 
     _initStringItem: function(def) {
         if (def === '-' || def === '|') {
-            return {
-                isDivider: true
-            };
+            return this.$self.classes.divider;
         }
         return this.$super(def);
     }
@@ -40,11 +38,12 @@ module.exports = MetaphorJs.ui.menu.Menu = MetaphorJs.app.Container.$extend({
         style: true
     },
 
-    allowUnwrapped: ["MetaphorJs.ui.menu.Item"],
+    allowUnwrapped: ["MetaphorJs.ui.menu.Item", "MetaphorJs.ui.menu.Divider"],
     wrapper: "MetaphorJs.ui.menu.Item",
 
     classes: {
-        item: "MetaphorJs.ui.menu.Item"
+        item: "MetaphorJs.ui.menu.Item",
+        divider: "MetaphorJs.ui.menu.Divider"
     }
 
 });

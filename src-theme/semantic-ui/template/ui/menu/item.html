@@ -1,7 +1,8 @@
 <a class="item" 
+    {class.active}="this.$cfg.active"
     (click)="this.item.onClick(this.$event)">
     <!--##before-->
-    {{ this.$cfg.text }}
+    <span {bind}="this.$cfg.text"></span>
     <!--##body-->
     <!--##after-->
 </a>

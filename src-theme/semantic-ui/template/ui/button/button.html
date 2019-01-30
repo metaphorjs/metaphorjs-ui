@@ -1,8 +1,9 @@
 <button ##button 
         ##body
         class="ui button" 
+        {class.dropdown}="this.button.hasDropdown()"
         (click)="this.button.onClick(this.$event)">
     <!--##before-->
-    {{ this.$cfg.text }}
+    <span {bind}="this.$cfg.text"></span>
     <!--##after-->
 </button>
