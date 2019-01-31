@@ -42,7 +42,7 @@
                         $text="Click me" 
                         {class}:="dropdown"
                         (click)="console.log(this.$eventCmp)" 
-                        {dropdown.$ref}="menu">
+                        {dropdown.$ref}:="menu">
                     <i class="user icon" @before></i>
                     <i class="dropdown icon" @after></i>
                     <ui-menu $ref="menu">
@@ -111,6 +111,10 @@
                             $type="number"></ui-input>
                     </ui-menu>
                 </ui-toolbar>
+            </div>
+
+            <div class="double case">
+                <ui-checkbox></ui-checkbox>
             </div>
         </div>
     </body>

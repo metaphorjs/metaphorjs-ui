@@ -39,7 +39,6 @@ module.exports = MetaphorJs.ui.mixin.WithDropdown = {
     _initDropdownItem: function(item) {
         var self = this,
             dd = extend({}, self.$self.defaultDropdown);
-
         dd.cmp = {value: item.component};
         self.$$dropdowns.push(item.component);
         self.applyDirective("dropdown", dd);

@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/button/button.html":"<button ##button ##body class=\"ui button\" {class.dropdown}=\"this.button.hasDropdown()\" (click)=\"this.button.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##after--></button>","ui/button/group.html":"<div class=\"ui buttons\" ##body></div>","ui/field/input.html":"<div class=\"ui input\" ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","ui/menu/container.html":"<div class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\"><!--##before--><!--##body--><!--##after--></div>","ui/menu/divider.html":"<div class=\"divider\"></div>","ui/menu/item-with-sub.html":"<div class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></div>","ui/menu/item.html":"<a class=\"item\" {class.active}=\"this.$cfg.active\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></a>","ui/menu/menu.html":"<div class=\"ui menu\"><!--##before--><!--##body--><!--##after--></div>","ui/panel/panel.html":"<div class=\"ui segment\"><!--##tbar--><!--##bbar--></div>","ui/toolbar/container.html":"<!--{includes: true}--><!-- include ui/menu/container.html -->","ui/toolbar/divider.html":"<!--{includes: true}--><!-- include ui/menu/divider.html -->","ui/toolbar/item-with-sub.html":"<!--{includes: true}--><!-- include ui/menu/item-with-sub.html -->","ui/toolbar/item.html":"<!--{includes: true}--><!-- include ui/menu/item.html -->","ui/toolbar/toolbar.html":"<!--{includes: true}--><!-- include ui/menu/menu.html -->","ui/window/window.html":"<div class=\"ui modal\" ##body></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true},"ui/toolbar/container.html":{"includes":true},"ui/toolbar/divider.html":{"includes":true},"ui/toolbar/item-with-sub.html":{"includes":true},"ui/toolbar/item.html":{"includes":true},"ui/toolbar/toolbar.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/button/button.html":"<button ##button ##body class=\"ui button\" {class.dropdown}=\"this.button.hasDropdown()\" (click)=\"this.button.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##after--></button>","ui/button/group.html":"<div class=\"ui buttons\" ##body></div>","ui/field/checkbox.html":"<div class=\"ui checkbox\" {class.active}=\"this.$cfg.active\"><input type=\"checkbox\" [name]=\"this.$cfg.name\" {model}=\"this.checked\"><label {bind}=\"this.$cfg.label\"></label></div>","ui/field/input.html":"<div class=\"ui input\" ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","ui/menu/container.html":"<div class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\"><!--##before--><!--##body--><!--##after--></div>","ui/menu/divider.html":"<div class=\"divider\"></div>","ui/menu/item-with-sub.html":"<div class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></div>","ui/menu/item.html":"<a class=\"item\" {class.active}=\"this.$cfg.active\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></a>","ui/menu/menu.html":"<div class=\"ui menu\"><!--##before--><!--##body--><!--##after--></div>","ui/panel/panel.html":"<div class=\"ui segment\"><!--##tbar--><!--##bbar--></div>","ui/toolbar/container.html":"<!--{includes: true}--><!-- include ui/menu/container.html -->","ui/toolbar/divider.html":"<!--{includes: true}--><!-- include ui/menu/divider.html -->","ui/toolbar/item-with-sub.html":"<!--{includes: true}--><!-- include ui/menu/item-with-sub.html -->","ui/toolbar/item.html":"<!--{includes: true}--><!-- include ui/menu/item.html -->","ui/toolbar/toolbar.html":"<!--{includes: true}--><!-- include ui/menu/menu.html -->","ui/window/window.html":"<div class=\"ui modal\" ##body></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true},"ui/toolbar/container.html":{"includes":true},"ui/toolbar/divider.html":{"includes":true},"ui/toolbar/item-with-sub.html":{"includes":true},"ui/toolbar/item.html":{"includes":true},"ui/toolbar/toolbar.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -1317,16 +1317,6 @@ Observable.$initHost = function(host, hostCfg, observable)  {
 return Observable;
 }());
 
-/**
- * Check if given value is a string
- * @function isString
- * @param {*} value 
- * @returns {boolean}
- */
-function isString(value) {
-    return typeof value === "string" || value === ""+value;
-};
-
 
 
 /**
@@ -1337,6 +1327,181 @@ function isString(value) {
  */
 function isArray(value) {
     return typeof value === "object" && _varType(value) === 5;
+};
+
+/**
+ * Bind function to context (Function.bind wrapper)
+ * @function bind
+ * @param {function} fn
+ * @param {*} context
+ * @returns {function}
+ */
+function bind(fn, context){
+    return fn.bind(context);
+};
+
+
+
+/**
+ * Check if given value is a Date object
+ * @function isDate
+ * @param {*} value
+ * @returns {boolean} 
+ */
+function isDate(value) {
+    return _varType(value) === 10;
+};
+
+
+
+/**
+ * Check if given value is regular expression
+ * @function isRegExp
+ * @param {*} value 
+ * @returns {boolean}
+ */
+function isRegExp(value) {
+    return _varType(value) === 9;
+};
+
+/**
+ * Check if given object is a window object
+ * @function isWindow
+ * @param {*} obj 
+ * @returns {boolean}
+ */
+function isWindow(obj) {
+    if (typeof window === "undefined") {
+        return false;
+    }
+    return obj === window ||
+           (obj && obj.document && obj.location && 
+            obj.alert && obj.setInterval);
+};
+
+
+
+// from Angular
+
+/**
+ * Performs various checks comparing two arguments. 
+ * Compared items can be of any type including
+ * objects and arrays.
+ * @function equals
+ * @param {*} o1 
+ * @param {*} o2 
+ * @returns {boolean}
+ */
+function equals(o1, o2) {
+    if (o1 === o2) return true;
+    if (o1 === null || o2 === null) return false;
+    if (o1 !== o1 && o2 !== o2) return true; // NaN === NaN
+    var t1 = typeof o1, t2 = typeof o2, length, key, keySet;
+    if (t1 === t2) {
+        if (t1 === 'object') {
+            if (isArray(o1)) {
+                if (!isArray(o2)) return false;
+                if ((length = o1.length) === o2.length) {
+                    for(key=0; key<length; key++) {
+                        if (!equals(o1[key], o2[key])) return false;
+                    }
+                    return true;
+                }
+            } else if (isDate(o1)) {
+                return isDate(o2) && o1.getTime() === o2.getTime();
+            } else if (isRegExp(o1) && isRegExp(o2)) {
+                return o1.toString() === o2.toString();
+            } else {
+                if (isWindow(o1) || isWindow(o2) || isArray(o2)) return false;
+                keySet = {};
+                for(key in o1) {
+                    if (key.charAt(0) === '$' || isFunction(o1[key])) {//&& typeof o1[key] == "object") {
+                        continue;
+                    }
+                    //if (isFunction(o1[key])) {
+                    //    continue;
+                    //}
+                    if (!equals(o1[key], o2[key])) {
+                        return false;
+                    }
+                    keySet[key] = true;
+                }
+                for(key in o2) {
+                    if (!keySet.hasOwnProperty(key) &&
+                        key.charAt(0) !== '$' &&
+                        o2[key] !== undf &&
+                        !isFunction(o2[key])) return false;
+                }
+                return true;
+            }
+        }
+    }
+    return false;
+};
+
+
+
+
+function copy(source, dest){
+
+    if (typeof window != strUndef && source === window) {
+        throw new Error("Cannot copy window object");
+    }
+    else if (typeof global != strUndef && source === global) {
+        throw new Error("Cannot copy global object");
+    }
+
+    if (!dest) {
+        dest = source;
+        if (source) {
+            if (isArray(source)) {
+                dest = copy(source, []);
+            } else if (isDate(source)) {
+                dest = new Date(source.getTime());
+            } else if (isRegExp(source)) {
+                dest = new RegExp(source.source);
+            } else if (isPlainObject(source)) {
+                dest = copy(source, {});
+            }
+        }
+    } else {
+        if (source === dest) {
+            throw new Error("Objects are identical");
+        }
+        if (isArray(source)) {
+            dest.length = 0;
+            for ( var i = 0, l = source.length; i < l; i++) {
+                dest.push(copy(source[i]));
+            }
+        } else {
+            var key;
+            for (key in dest) {
+                delete dest[key];
+            }
+            for (key in source) {
+                if (source.hasOwnProperty(key)) {
+                    if (key.charAt(0) == '$' || isFunction(source[key])) {
+                        dest[key] = source[key];
+                    }
+                    else {
+                        dest[key] = copy(source[key]);
+                    }
+                }
+            }
+        }
+    }
+    return dest;
+};
+
+
+/**
+ * Check if given value is a string
+ * @function isString
+ * @param {*} value 
+ * @returns {boolean}
+ */
+function isString(value) {
+    return typeof value === "string" || value === ""+value;
 };
 
 
@@ -2269,171 +2434,6 @@ var lib_Expression = MetaphorJs.lib.Expression = (function() {
 }());
 
 
-/**
- * Bind function to context (Function.bind wrapper)
- * @function bind
- * @param {function} fn
- * @param {*} context
- * @returns {function}
- */
-function bind(fn, context){
-    return fn.bind(context);
-};
-
-
-
-/**
- * Check if given value is a Date object
- * @function isDate
- * @param {*} value
- * @returns {boolean} 
- */
-function isDate(value) {
-    return _varType(value) === 10;
-};
-
-
-
-/**
- * Check if given value is regular expression
- * @function isRegExp
- * @param {*} value 
- * @returns {boolean}
- */
-function isRegExp(value) {
-    return _varType(value) === 9;
-};
-
-/**
- * Check if given object is a window object
- * @function isWindow
- * @param {*} obj 
- * @returns {boolean}
- */
-function isWindow(obj) {
-    if (typeof window === "undefined") {
-        return false;
-    }
-    return obj === window ||
-           (obj && obj.document && obj.location && 
-            obj.alert && obj.setInterval);
-};
-
-
-
-// from Angular
-
-/**
- * Performs various checks comparing two arguments. 
- * Compared items can be of any type including
- * objects and arrays.
- * @function equals
- * @param {*} o1 
- * @param {*} o2 
- * @returns {boolean}
- */
-function equals(o1, o2) {
-    if (o1 === o2) return true;
-    if (o1 === null || o2 === null) return false;
-    if (o1 !== o1 && o2 !== o2) return true; // NaN === NaN
-    var t1 = typeof o1, t2 = typeof o2, length, key, keySet;
-    if (t1 === t2) {
-        if (t1 === 'object') {
-            if (isArray(o1)) {
-                if (!isArray(o2)) return false;
-                if ((length = o1.length) === o2.length) {
-                    for(key=0; key<length; key++) {
-                        if (!equals(o1[key], o2[key])) return false;
-                    }
-                    return true;
-                }
-            } else if (isDate(o1)) {
-                return isDate(o2) && o1.getTime() === o2.getTime();
-            } else if (isRegExp(o1) && isRegExp(o2)) {
-                return o1.toString() === o2.toString();
-            } else {
-                if (isWindow(o1) || isWindow(o2) || isArray(o2)) return false;
-                keySet = {};
-                for(key in o1) {
-                    if (key.charAt(0) === '$' || isFunction(o1[key])) {//&& typeof o1[key] == "object") {
-                        continue;
-                    }
-                    //if (isFunction(o1[key])) {
-                    //    continue;
-                    //}
-                    if (!equals(o1[key], o2[key])) {
-                        return false;
-                    }
-                    keySet[key] = true;
-                }
-                for(key in o2) {
-                    if (!keySet.hasOwnProperty(key) &&
-                        key.charAt(0) !== '$' &&
-                        o2[key] !== undf &&
-                        !isFunction(o2[key])) return false;
-                }
-                return true;
-            }
-        }
-    }
-    return false;
-};
-
-
-
-
-function copy(source, dest){
-
-    if (typeof window != strUndef && source === window) {
-        throw new Error("Cannot copy window object");
-    }
-    else if (typeof global != strUndef && source === global) {
-        throw new Error("Cannot copy global object");
-    }
-
-    if (!dest) {
-        dest = source;
-        if (source) {
-            if (isArray(source)) {
-                dest = copy(source, []);
-            } else if (isDate(source)) {
-                dest = new Date(source.getTime());
-            } else if (isRegExp(source)) {
-                dest = new RegExp(source.source);
-            } else if (isPlainObject(source)) {
-                dest = copy(source, {});
-            }
-        }
-    } else {
-        if (source === dest) {
-            throw new Error("Objects are identical");
-        }
-        if (isArray(source)) {
-            dest.length = 0;
-            for ( var i = 0, l = source.length; i < l; i++) {
-                dest.push(copy(source[i]));
-            }
-        } else {
-            var key;
-            for (key in dest) {
-                delete dest[key];
-            }
-            for (key in source) {
-                if (source.hasOwnProperty(key)) {
-                    if (key.charAt(0) == '$' || isFunction(source[key])) {
-                        dest[key] = source[key];
-                    }
-                    else {
-                        dest[key] = copy(source[key]);
-                    }
-                }
-            }
-        }
-    }
-    return dest;
-};
-
-
 
 
 
@@ -2872,15 +2872,21 @@ var lib_MutationObserver = MetaphorJs.lib.MutationObserver = (function(){
 
 
 /**
- * The scope object is what templates see while rendering
+ * The scope object is what templates see as "this" when executing expressions.
+ * (Actually, this is more like a Context)
  * @class MetaphorJs.lib.Scope
  */
+var lib_Scope = MetaphorJs.lib.Scope = (function(){
+
+
+var publicScopes = {};
+
 /**
  * @method Scope
  * @constructor
  * @param {object} cfg Whatever data should be visible in template
  */
-MetaphorJs.lib.Scope = function(cfg) {
+var Scope = function(cfg) {
     var self    = this;
 
     self.$$observable    = new lib_Observable;
@@ -2915,9 +2921,16 @@ MetaphorJs.lib.Scope = function(cfg) {
         self.$root  = self;
         self.$isRoot= true;
     }
+
+    if (self.$$publicName) {
+        if (publicScopes[self.$$publicName]) {
+            self.$$publicName = null;
+        }
+        publicScopes[self.$$publicName] = self;
+    }
 };
 
-extend(MetaphorJs.lib.Scope.prototype, {
+extend(Scope.prototype, {
 
     /**
      * @property {MetaphorJs.app.App}
@@ -2952,6 +2965,7 @@ extend(MetaphorJs.lib.Scope.prototype, {
     $$checking: false,
     $$destroyed: false,
     $$changing: false,
+    $$publicName: null,
 
     $$tmt: null,
 
@@ -2963,7 +2977,7 @@ extend(MetaphorJs.lib.Scope.prototype, {
      */
     $new: function(data) {
         var self = this;
-        return new MetaphorJs.lib.Scope(extend({}, data, {
+        return new Scope(extend({}, data, {
             $parent: self,
             $root: self.$root,
             $app: self.$app,
@@ -2980,7 +2994,7 @@ extend(MetaphorJs.lib.Scope.prototype, {
      * @returns {MetaphorJs.lib.Scope}
      */
     $newIsolated: function(data) {
-        return new MetaphorJs.lib.Scope(extend({}, data, {
+        return new Scope(extend({}, data, {
             $app: this.$app,
             $level: self.$level + 1,
             $static: this.$static
@@ -3031,21 +3045,6 @@ extend(MetaphorJs.lib.Scope.prototype, {
      */
     $un: function(event, fn, fnScope) {
         return this.$$observable.un(event, fn, fnScope);
-    },
-
-    /**
-     * Create a function out of an expression and bind it to the scope
-     * @method
-     * @param {string} expr 
-     * @param {object} opt See lib_Expression.parse
-     * @returns {function}
-     */
-    $parseExpression: function(expr, opt) {
-        var self = this,
-            func = lib_Expression.parse(expr, opt);
-        return function(inputVal) {
-            return func(self, inputVal);
-        }
     },
 
     /**
@@ -3203,6 +3202,32 @@ extend(MetaphorJs.lib.Scope.prototype, {
     },
 
     /**
+     * Register this scope as public
+     * @method
+     * @param {string} name 
+     */
+    $registerPublic: function(name) {
+        if (this.$$publicName || publicScopes[name]) {
+            return;
+        }
+        this.$$publicName = name;
+        publicScopes[name] = this;
+    },
+
+    /**
+     * Unregister public scope
+     * @method
+     */
+    $unregisterPublic: function() {
+        var name = this.$$publicName;
+        if (!name || !publicScopes[name]) {
+            return;
+        }
+        delete publicScopes[name];
+        this.$$publicName = null;
+    },
+
+    /**
      * Destroy scope
      * @method
      */
@@ -3234,6 +3259,8 @@ extend(MetaphorJs.lib.Scope.prototype, {
             self.$unwatchHistory(param);
         }
 
+        self.$unregisterPublic();
+
         for (i in self) {
             if (self.hasOwnProperty(i)) {
                 self[i] = null;
@@ -3245,8 +3272,61 @@ extend(MetaphorJs.lib.Scope.prototype, {
 
 }, true, false);
 
+/**
+ * Check if public scope exists
+ * @static
+ * @method $exists
+ * @param {string} name
+ * @returns MetaphorJs.lib.Scope
+ */
+Scope.$exists = function(name) {
+    return !!publicScopes[name];    
+};
 
-var lib_Scope = MetaphorJs.lib.Scope;
+/**
+ * Get public scope
+ * @static
+ * @method $get
+ * @param {string} name
+ * @returns MetaphorJs.lib.Scope
+ */
+Scope.$get = function(name) {
+    return publicScopes[name];
+};
+
+/**
+ * Produce a scope either by getting a public scope,
+ * or creating a child of public scope or
+ * creating a new scope
+ * @static
+ * @method
+ * @param {string|MetaphorJs.lib.Scope} name {
+ *  @optional
+ * }
+ * @returns MetaphorJs.lib.Scope
+ */
+Scope.$produce = function(name) {
+
+    if (name instanceof Scope) {
+        return name;
+    }
+
+    if (!name) {
+        return new Scope;
+    }
+    var scope = this.$get(name);
+
+    if (scope) {
+        return scope;
+    }
+
+    return new Scope;
+};
+
+return Scope;
+
+}());
+
 
 
 
@@ -4774,7 +4854,7 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
                     return !isArray(value) ? [value] : value;
                 case 'string':
                 case 'str':
-                    return "" + value;
+                    return value === null || value === undf ? "" : "" + value;
             }
 
             return value;
@@ -7489,6 +7569,17 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
                     name,
                     res,
                     handler;
+                
+                // skip <slot> but reference it same way as ##ref
+                if (tag === "slot") {
+                    observer.trigger(
+                        "reference-" + self.id, 
+                        "node",
+                        node.getAttribute("name"),
+                        node
+                    );
+                    return;
+                }
 
                 if (tag.substr(0, 4) === "mjs-") {
                     tag = tag.substr(4);
@@ -12241,9 +12332,8 @@ var app_Template = MetaphorJs.app.Template = function() {
             autoTrigger: true
         });
 
-        if (!self.scope) {
-            self.scope = new lib_Scope;
-        }
+        self.scope = lib_Scope.$produce(self.scope);
+
         if (!self.config) {
             self.config = new lib_Config(null, {
                 scope: self.scope
@@ -12279,7 +12369,7 @@ var app_Template = MetaphorJs.app.Template = function() {
         }
 
         if ((config.has("name") || config.has("html")) && 
-            node && node.firstChild) {
+            node && node.firstChild && !self.useShadow) {
             dom_data(node, "mjs-transclude", 
                 dom_toFragment(node.childNodes));
         }
@@ -12290,6 +12380,10 @@ var app_Template = MetaphorJs.app.Template = function() {
 
         if (self.ownRenderer) {
             self.childrenPromise.resolve(false);
+        }
+
+        if (self.useShadow && !self.deferRendering) {
+            self._createShadow();
         }
 
         if (config.has("name")) {
@@ -12333,7 +12427,10 @@ var app_Template = MetaphorJs.app.Template = function() {
         _fragment:          null,
         _prevEl:            null,
         _nextEl:            null,
+        _shadowRoot:        null,
+        _shadowParent:      null,
 
+        useShadow:          false,
         scope:              null,
         node:               null,
         config:             null,
@@ -12345,11 +12442,22 @@ var app_Template = MetaphorJs.app.Template = function() {
         replace:            false,
         animate:            false,
 
+        _createShadow: function() {
+            if (!this._shadowRoot) {
+                this._shadowParent = this.node;
+                this._shadowRoot = this.node.shadowRoot || 
+                                    this.node.attachShadow({mode: "open"});
+                this.node = this._shadowRoot;
+            }
+
+        },
+
         _runRenderer: function() {
             var self = this;
             if (!self._renderer) {
                 self._renderer   = new app_Renderer(
-                    self.node, self.scope
+                    self.node, 
+                    self.scope
                 );
                 observable.relayEvent(self._renderer, "reference", "reference-" + self.id);
                 observable.relayEvent(self._renderer, "first-node", "first-node-" + self.id);
@@ -12389,10 +12497,15 @@ var app_Template = MetaphorJs.app.Template = function() {
                         parent.insertBefore(el[j], before);
                     }
                 else {
-                    if (el.parentNode !== parent) {
-                        moved = true;
+                    if (parent instanceof window.HTMLSlotElement) {
+                        el.setAttribute("slot", parent.getAttribute("name"));
                     }
-                    parent.insertBefore(el, before);
+                    else {
+                        if (el.parentNode !== parent) {
+                            moved = true;
+                        }
+                        parent.insertBefore(el, before);
+                    }
                 } 
             }
 
@@ -12404,6 +12517,10 @@ var app_Template = MetaphorJs.app.Template = function() {
             var self    = this;
             if (self.deferRendering) {
                 self.deferRendering = false;
+
+                if (self.useShadow) {
+                    self._createShadow();
+                }
 
                 if (self.config.has("name")) {
                     self._resolveTemplate().done(self._applyTemplate, self);
@@ -12472,9 +12589,7 @@ var app_Template = MetaphorJs.app.Template = function() {
                 return;
             }
 
-            //self._clearNode();
             self._resolveHtml();
-            
         },
 
         _onChange: function() {
@@ -12485,8 +12600,6 @@ var app_Template = MetaphorJs.app.Template = function() {
                 self._renderer.$destroy();
                 self._renderer = null;
             }
-
-            //self._clearNode();
 
             var tplVal = self.config.get("name");
 
@@ -12533,17 +12646,6 @@ var app_Template = MetaphorJs.app.Template = function() {
                 children = toArray(frg.childNodes);
 
                 if (el && el.nodeType) {
-                    
-                    /*var transclude = el ? dom_data(el, "mjs-transclude") : null;
-
-                    if (transclude) {
-                        var tr = select(
-                            "[{transclude}], [mjs-transclude], mjs-transclude", frg, true);
-                        if (tr.length) {
-                            dom_data(tr[0], "mjs-transclude", transclude);
-                        }
-                    }*/
-
                     el.parentNode && el.parentNode.removeChild(el);
                 }
 
@@ -12829,6 +12931,12 @@ var app_Component = MetaphorJs.app.Component = cls({
 
     /**
      * @var boolean
+     * @access protected
+     */
+    keepCustomNode: false,
+
+    /**
+     * @var boolean
      * @access private
      */
     _nodeReplaced:  false,
@@ -12871,6 +12979,12 @@ var app_Component = MetaphorJs.app.Component = cls({
      */
     template:       null,
 
+    /**
+     * @var bool
+     * @access private
+     */
+    isWebComponent: false,
+
     $constructor: function(cfg) {
         var self = this,
             viewCls = self.$view || (cfg ? cfg.$view : null);
@@ -12898,9 +13012,7 @@ var app_Component = MetaphorJs.app.Component = cls({
         self.$super(cfg);
         extend(self, cfg, true, false);
 
-        if (!self.scope) {
-            self.scope = new lib_Scope;
-        }
+        self.scope = lib_Scope.$produce(self.scope);
 
         // We initialize config with current scope or change config's scope
         // to current so that all new properties that come from _initConfig
@@ -12956,7 +13068,7 @@ var app_Component = MetaphorJs.app.Component = cls({
             self.parentRenderer.on("destroy", self._onParentRendererDestroy, self);
         }
 
-        if (self.node) {
+        if (self.node && !self.isWebComponent) {
             self._claimNode();
         }
 
@@ -12969,7 +13081,10 @@ var app_Component = MetaphorJs.app.Component = cls({
             tpl = self.template;
 
         if (self.node) {
-            self._nodeReplaced = htmlTags.indexOf(self.node.tagName.toLowerCase()) === -1;
+            self._nodeReplaced = !self.keepCustomNode && 
+                                    htmlTags.indexOf(
+                                        self.node.tagName.toLowerCase()
+                                    ) === -1;
         }
 
         if (tpl instanceof app_Template) {
@@ -12991,6 +13106,7 @@ var app_Component = MetaphorJs.app.Component = cls({
                 node: self.node,
                 deferRendering: self._nodeReplaced || !self.autoRender,
                 ownRenderer: true,
+                useShadow: self.isWebComponent,
                 replace: self._nodeReplaced, // <some-custom-tag>
                 config: tplConfig,
                 callback: {
@@ -13167,9 +13283,11 @@ var app_Component = MetaphorJs.app.Component = cls({
         }
 
         var th = self.$refs[type][ref];
-        self.$refs[type][ref] = item;
 
-        if (th && isThenable(th)) {
+        if (!th) {
+            self.$refs[type][ref] = item;
+        }
+        if (isThenable(th)) {
             th.resolve(item);
         }
     },
@@ -13274,7 +13392,6 @@ var app_Component = MetaphorJs.app.Component = cls({
         self.renderTo = parent;
         self.renderBefore = before;
 
-        
         if (self.template.moveTo(parent, before)) {
             self.afterAttached();
             self.trigger('attached', self);
@@ -13483,6 +13600,13 @@ var app_Component = MetaphorJs.app.Component = cls({
     }
 
 }, {
+
+    registerWebComponent: function(tagName) {
+        var cls = this;
+        Directive.registerComponent(tagName, cls);
+        return MetaphorJs.dom.webComponentWrapper(tagName, cls);
+    },
+
     registerDirective: function(cmp) {
         if (typeof(cmp) === "string") {
             Directive.registerComponent(cmp);
@@ -13716,6 +13840,41 @@ var app_resolve = MetaphorJs.app.resolve = function app_resolve(cmp, cfg, scope,
 
 
 
+/**
+ * Check if given element matches selector
+ * @function MetaphorJs.dom.is
+ * @param {Element} el
+ * @param {string} selector
+ * @returns {boolean}
+ */
+var dom_is = MetaphorJs.dom.is = function(el, selector) {
+
+    if (!selector) {
+        return false;
+    }
+
+    if (typeof selector === "function") {
+        return el instanceof selector;
+    }
+
+    var els = select(selector, el.parentNode),
+        i, l;
+
+    for (i = -1, l = els.length; ++i < l;) {
+        if (els[i] === el) {
+            return true;
+        }
+    }
+
+    return false;
+};
+
+
+
+
+
+
+
 
 
 
@@ -13723,6 +13882,7 @@ var app_resolve = MetaphorJs.app.resolve = function app_resolve(cmp, cfg, scope,
 var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
     $mixinEvents: ["$initChildItem"],
+    _itemsInitialized: false,
 
     initComponent: function() {
         var self = this;
@@ -13741,10 +13901,12 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
         var self = this,
             i, l, node, renderer,
             found = false,
+            idkey = self._getIdKey(),
             renderRef, attrSet,
             foundCmp, foundPromise,
             scope = self.config.getOption("scope"),
             items = self.items || [],
+            def,
 
             refCallback = function(type, ref, cmp, cfg, attrSet){
                 if (cfg.node === node) {
@@ -13760,7 +13922,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
                 }
             };
 
-        if (isArray(items)) {
+        if (!self._itemsInitialized && isArray(items)) {
             items = {
                 body: items
             }
@@ -13768,7 +13930,17 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
         for (i = 0, l = nodes.length; i < l; i++) {
             node = nodes[i];
+
+            if (!node) {
+                continue;
+            }
+
+            def = null;
             if (node.nodeType === 1) {
+
+                if (node[idkey]) {
+                    continue;
+                }
 
                 foundCmp = null;
                 foundPromise = null;
@@ -13782,40 +13954,42 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
                     if (!renderRef) {
                         renderRef = "body";
                     }
-                    if (!items[renderRef]) {
-                        items[renderRef] = [];
-                    }
-                    items[renderRef].push({
-                        __containerItemDef: true,
+                    def = extend({
                         type: "component",
                         renderRef: renderRef,
                         renderer: renderer,
                         component: foundCmp || foundPromise,
                         resolved: !!foundCmp
-                    });
+                    }, self._createDefaultItemDef());
+                    node[idkey] = def.id;
                 }
                 else {
                     attrSet = dom_getAttrSet(node);
-                    renderRef = attrSet.at || "body";
-                    if (!items[renderRef]) {
-                        items[renderRef] = [];
-                    }
-                    items[renderRef].push({
-                        __containerItemDef: true,
+                    renderRef = attrSet.at || attrSet.rest.slot || "body";
+                    def = extend({
                         type: "node",
                         renderRef: renderRef,
                         node: node
-                    });
+                    }, self._createDefaultItemDef());
                 }
 
                 found = true;
-
                 renderer.un("reference", refCallback);
                 renderer.un("reference-promise", promiseCallback);
+
+                if (!self._itemsInitialized) {
+                    if (!items[renderRef]) {
+                        items[renderRef] = [];
+                    }
+                    items[renderRef].push(def);
+                }
+                else {
+                    self.addItem(def);
+                }
             }
         }
 
-        if (found) {
+        if (found && !self._itemsInitialized) {
             self.items = items;
         }
 
@@ -13831,6 +14005,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
             item, name,
             i, l, ref;
 
+        self._itemsInitialized = true;
         self.itemsMap = {};
 
         if (isArray(items)) {
@@ -13878,7 +14053,8 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
             type: "component",
             placeholder: window.document.createComment("***"),
             id: nextUid(),
-            resolved: true
+            resolved: true,
+            processed: false
         };
     },
 
@@ -13886,93 +14062,105 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
         var self = this,
             idkey = self._getIdKey(),
-            item = self._createDefaultItemDef();
+            item;
 
-        self.itemsMap[item.id] = item;
-
-        // component[idkey] = item.id
-        // every child component contains `idkey` field
-        // holding its id in parent container;
-        // and by idkey itself we can identify container
-
-        if (typeof def === "string") {
-            def = self._initStringItem(def);
-        }
-        if (isPlainObject(def)) {
-            def = self._initObjectItem(def);
-        }
-
-        if (isPlainObject(def)) {
-            item = extend({}, def, item, false, false);
-            self.itemsMap[item.id] = item; // rewrite item map
-        }
-        else if (typeof def === "function") {
-            item.component = new def({
-                scope: self.scope.$new()
-            });
-        }
-        else if (def instanceof app_Component) {
-            item.component = def;
-        }
-        else if (def instanceof window.Node) {
-            item.type = "node";
-            item.node = def;
-        }
-        else if (def instanceof app_Template) {
-            item.component = new app_Component({
-                scope: self.scope,
-                template: def
-            });
-        }
-        else if (typeof def === "string") {
-            var cfg = {scope: self.scope};
-            item.component = app_resolve(def, cfg);
-        }
-        else if (isThenable(def)) {
-            item.component = def;
+        if (def.__containerItemDef) {
+            item = def;
+            self.itemsMap[item.id] = item;
         }
         else {
-            throw new Error("Failed to initialize item");
+            item = self._createDefaultItemDef();
+            self.itemsMap[item.id] = item;
+
+            // component[idkey] = item.id
+            // every child component contains `idkey` field
+            // holding its id in parent container;
+            // and by idkey itself we can identify container
+
+            if (typeof def === "string") {
+                def = self._initStringItem(def);
+            }
+            if (isPlainObject(def)) {
+                def = self._initObjectItem(def);
+            }
+
+            if (isPlainObject(def)) {
+                item = extend({}, def, item, false, false);
+                self.itemsMap[item.id] = item; // rewrite item map
+            }
+            else if (typeof def === "function") {
+                item.component = new def({
+                    scope: self.scope.$new()
+                });
+            }
+            else if (def instanceof app_Component) {
+                item.component = def;
+            }
+            else if (def instanceof window.Node) {
+                item.type = "node";
+                item.node = def;
+            }
+            else if (def instanceof app_Template) {
+                item.component = new app_Component({
+                    scope: self.scope,
+                    template: def
+                });
+            }
+            else if (typeof def === "string") {
+                var cfg = {scope: self.scope};
+                item.component = app_resolve(def, cfg);
+            }
+            else if (isThenable(def)) {
+                item.component = def;
+            }
+            else {
+                throw new Error("Failed to initialize item");
+            }
         }
 
-        var prevItem = item;
+        if (!item.processed) {
 
-        if (!self._allowChildItem(item)) {
-            return null;
-        }
+            var prevItem = item;
 
-        if (item.type === "node") {
-            item = self._wrapChildItem(item);
-            item.node[idkey] = item.id;
-        }
-        else if (item.type === "component") {
-            if (isThenable(item.component)) {
-                item.resolved = false;
-                item.component.done(function(cmp){
-                    item.component = cmp;
-                    if (!self._allowChildItem(item)) {
-                        return null;
-                    }
+            if (!self._allowChildItem(item)) {
+                return null;
+            }
+
+            if (item.type === "node") {
+                item = self._wrapChildItem(item);
+                item.node[idkey] = item.id;
+            }
+            else if (item.type === "component") {
+                if (isThenable(item.component)) {
+                    item.resolved = false;
+                    item.component.done(function(cmp){
+                        item.component = cmp;
+                        if (!self._allowChildItem(item)) {
+                            return null;
+                        }
+                        item = self._wrapChildItem(item);
+                        item.component[idkey] = item.id;
+                        self._onChildResolved(item.component);
+                    });
+                }
+                else {
                     item = self._wrapChildItem(item);
                     item.component[idkey] = item.id;
                     self._onChildResolved(item.component);
-                });
+                }
             }
-            else {
-                item = self._wrapChildItem(item);
-                item.component[idkey] = item.id;
-                self._onChildResolved(item.component);
+
+            // item got wrapped
+            if (prevItem !== item) {
+                delete self.itemsMap[prevItem.id];
+                self.itemsMap[item.id] = item;
             }
-        }
 
-        // item got wrapped
-        if (prevItem !== item) {
-            delete self.itemsMap[prevItem.id];
-            self.itemsMap[item.id] = item;
-        }
+            self._initChildItem(item);
+            self.$callMixins("$initChildItem", item);
 
-        self._initChildItem(item);
-        self.$callMixins("$initChildItem", item);
+            item.processed = true;
+        }
 
         return item;
     },
@@ -14069,11 +14257,12 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
     },
 
     _onChildResolved: function(cmp) {
+        
         var self = this,
             idkey = self._getIdKey(),
             itemid = cmp[idkey],
             item, ref;
-        
+
         if (itemid && (item = self.itemsMap[itemid])) {
             item.resolved = true;
             item.component = cmp;
@@ -14131,7 +14320,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
         self.$super();
 
         // empty container without template or content
-        if (!self.node.firstChild) {
+        if (!self.node.firstChild && !self.isWebComponent) {
             self.$refs.node.body = self.node;
         }
 
@@ -14148,9 +14337,21 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
     _preparePlaceholder: function(item) {
         var self = this,
             refnode = self.getRefEl(item.renderRef);
+
+        if (item.type === "node" && item.node.hasAttribute("slot")) {
+            return;
+        }
+
         if (!refnode) {
             throw new Error("Can't find referenced node: " + item.renderRef);
         }
+
+        // if refnode is <slot> we do nothing;
+        // when attaching, we just set "slot" attribute on item
+        if (refnode instanceof window.HTMLSlotElement) {
+            return;
+        }
+
         // comment
         if (refnode.nodeType === 8) {
             refnode.parentNode.insertBefore(item.placeholder, refnode);
@@ -14164,8 +14365,15 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
             refnode = self.getRefEl(item.renderRef);
 
         if (item.type === "node") {
-            if (refnode.nodeType === 8)
+            if (item.node.hasAttribute("slot")) {
+                return;
+            }
+            if (refnode instanceof window.HTMLSlotElement) {
+                item.node.setAttribute("slot", refnode.getAttribute("name"));
+            }
+            else if (refnode.nodeType === 8) {
                 refnode.parentNode.insertBefore(item.node, item.placeholder);
+            }
             else refnode.insertBefore(item.node, item.placeholder);
         }
         else if (item.type === "component") {
@@ -14234,7 +14442,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
         }
 
         item = self._processItemDef(cmp);
-        item.renderRef = to || "body";
+        item.renderRef = item.renderRef || to || "body";
         self.items.push(item);
         self.itemsMap[item.id] = item;
 
@@ -17838,27 +18046,42 @@ DO NOT put class="{}" when using class.name="{}"
 
 
 
+
 (function(){
 
-    var cmpAttr = function(scope, node, config, parentRenderer, attrSet) { 
+    var cmpAttr = function(scope, node, config, parentRenderer, attrSet) {
+        
+        var ms = lib_Config.MODE_STATIC;
 
-        config.setDefaultMode("value", lib_Config.MODE_STATIC);
-        config.setType("sameScope", "bool", lib_Config.MODE_STATIC);
-        config.setDefaultMode("as", lib_Config.MODE_STATIC);
-        config.setDefaultMode("ref", lib_Config.MODE_STATIC);
-        config.setMode("into", lib_Config.MODE_STATIC);
+        config.setDefaultMode("value", ms);
+        config.setType("sameScope", "bool", ms);
+        config.setType("publicScope", "string", ms);
+        config.setDefaultMode("as", ms);
+        config.setDefaultMode("ref", ms);
+        config.setMode("into", ms);
 
         var cmpName = config.get("value"),
             constr  = typeof cmpName === "string" ?
                         ns.get(cmpName, true) : cmpName,
-            tag     = node.tagName.toLowerCase();
+            tag     = node.tagName.toLowerCase(),
+            newScope;
 
         if (!constr) {
             throw new Error("Component " + cmpName + " not found");
         }
 
         var sameScope   = config.get("sameScope") || constr.$sameScope;
-        var newScope    = sameScope ? scope : scope.$new();
+        var publicScope = config.get("publicScope");
+
+        if (publicScope) {
+            newScope    =  lib_Scope.$get(publicScope);
+            if (!newScope) {
+                throw new Error("Public scope " + publicScope + " not found");
+            }
+        }
+        else {
+            newScope    = sameScope ? scope : scope.$new();
+        }
 
         config.removeProperty("value");
 
@@ -17889,6 +18112,7 @@ DO NOT put class="{}" when using class.name="{}"
                     cfg, attrSet
                 );
             });
+
         parentRenderer.trigger(
             "reference-promise", 
             res, cmpName, 
@@ -30036,7 +30260,6 @@ var ui_mixin_WithDropdown = MetaphorJs.ui.mixin.WithDropdown = {
     _initDropdownItem: function(item) {
         var self = this,
             dd = extend({}, self.$self.defaultDropdown);
-
         dd.cmp = {value: item.component};
         self.$$dropdowns.push(item.component);
         self.applyDirective("dropdown", dd);
@@ -30172,33 +30395,8 @@ var dom_setStyle = MetaphorJs.dom.setStyle = function dom_setStyle(el, name, val
  * @param {DomNode} el
  * @returns {boolean}
  */
-var dom_isVisible = MetaphorJs.dom.isVisible = function dom_isVisible(el) {
+MetaphorJs.dom.isVisible = function dom_isVisible(el) {
     return el && !(el.offsetWidth <= 0 || el.offsetHeight <= 0);
-};
-
-
-
-
-
-
-/**
- * Check if given element matches selector
- * @function MetaphorJs.dom.is
- * @param {Element} el
- * @param {string} selector
- * @returns {boolean}
- */
-var dom_is = MetaphorJs.dom.is = function(el, selector) {
-
-    var els = select(selector, el.parentNode),
-        i, l;
-
-    for (i = -1, l = els.length; ++i < l;) {
-        if (els[i] === el) {
-            return true;
-        }
-    }
-    return false;
 };
 
 
@@ -35421,7 +35619,7 @@ MetaphorJs.ui.field.Select = ui_field_Field.$extend({
         var self = this,
             scope = self.scope,
             config = self.config;
-        
+
         self._prevQuery = "";
         self.searchQueue = new lib_Queue({
             auto: true,
@@ -36117,7 +36315,7 @@ Directive.registerAttribute("dropdown", 1100,
                 cmpid = config.get("cmp"),
                 selector = config.get("selector"),
                 cmp;
-
+            
             if (node.getDomApi) {
                 self._hostCmp = node;
                 self.node = node.getDomApi("dropdown");

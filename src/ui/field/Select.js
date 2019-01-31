@@ -71,7 +71,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
         var self = this,
             scope = self.scope,
             config = self.config;
-        
+
         self._prevQuery = "";
         self.searchQueue = new MetaphorJs.lib.Queue({
             auto: true,
