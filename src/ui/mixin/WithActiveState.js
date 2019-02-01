@@ -17,7 +17,11 @@ module.exports = MetaphorJs.ui.mixin.WithActiveState = {
 
     setActive: function(state) {
         state !== false && (state = true);
+        var prev = this.config.get("active");
         this.config.set("active", state);
+        if (prev != state) {
+            this.trigger("active-state-change", this, state, prev);
+        }
     },
 
     toggleActive: function() {

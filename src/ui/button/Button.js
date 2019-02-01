@@ -22,6 +22,11 @@ module.exports = MetaphorJs.ui.button.Button = MetaphorJs.app.Container.$extend(
     }
 }, {
 
+    templates: {
+        button: "ui/button/button.html",
+        dropdown: "ui/button/button.html"
+    },
+
     defaultDropdown: {
         on: "click"
     },

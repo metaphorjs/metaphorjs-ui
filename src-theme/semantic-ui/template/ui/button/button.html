@@ -1,9 +1,12 @@
-<button ##button 
-        ##body
-        class="ui button" 
-        {class.dropdown}="this.button.hasDropdown()"
-        (click)="this.button.onClick(this.$event)">
-    <!--##before-->
-    <span {bind}="this.$cfg.text"></span>
-    <!--##after-->
-</button>
+<apply-to-root ##button 
+    ##body
+    class="ui button" 
+    {class.active}="this.$cfg.active"
+    {class.loading}="this.$cfg.loading"
+    {class.disabled}="this.$cfg.disabled"
+    {class.dropdown}="this.button.hasDropdown()"
+    (click)="this.button.onClick(this.$event)"
+    (click.$if)="!this.$cfg.disabled && !this.$cfg.loading"></apply-to-root>
+<!--##before-->
+<span {bind}="this.$cfg.text"></span>
+<!--##after-->
