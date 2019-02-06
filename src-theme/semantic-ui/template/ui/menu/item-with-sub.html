@@ -1,6 +1,7 @@
 <div ##main class="ui item" 
         {class.active}="this.$cfg.active" 
-        {class.dropdown}="this.item.hasDropdown()">
+        {class.dropdown}="this.item.hasDropdown()"
+        (click)="this.item.onClick(this.$event)">
     <!--##before-->
     <span {bind}="this.$cfg.text"></span>
     <!--##body-->
