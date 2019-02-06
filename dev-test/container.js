@@ -12,9 +12,10 @@ ns.register("Test", Test);
 cls({
     $class: "Test.container.Cmp1",
     $extends: "MetaphorJs.app.Component",
+    as: "ctrl",
     move: function() {
-        var parent1 = this.scope.$app.getCmp("parent1"),
-            parent2 = this.scope.$app.getCmp("parent2");
+        var parent1 = window.mainApp.getCmp("parent1"),
+            parent2 = window.mainApp.getCmp("parent2");
 
         if (parent1.hasItem(this)) {
             parent2.addItem(this);
@@ -32,6 +33,7 @@ cls({
 cls({
     $class: "Test.container.Cmp2",
     $extends: "Test.container.Cmp1",
+    as: "ctrl",
     template: {
         html: "<p>This is container child #2; "+
                 "<a href=\"#\" (click)=\"this.ctrl.move()\">move</a></p>"
@@ -41,13 +43,17 @@ cls({
 cls({
     $class: "Test.container.Cmp3",
     $extends: "MetaphorJs.app.Component",
-    supportsDirectives: {
-        "bind-html": "bindhere"
-    },
+    as: "ctrl",
     template: {
         html: "<div>Before bind // <span ##bindhere></span> // After bind</div>"
     }
-});
+}, 
+{
+    supportsDirectives: {
+        "bind-html": "bindhere"
+    }
+}
+);
 
 cls({
     $class: "Test.container.Parent3",
@@ -76,6 +82,7 @@ cls({
         window.mainApp = this;
 
         scope.bindText = "AAA";
+        scope.$makePublicDefault();
 
         var div = document.createElement("div");
         div.innerHTML = 'Dynamicly created node';
@@ -95,7 +102,11 @@ cls({
                     id: "child3",
                     directives: {
                         scope: scope,
-                        "bind-html": "this.bindText"
+                        "bind-html": {
+                            value: {
+                                expression: "this.bindText"
+                            }
+                        }
                     }
                 }),
                 div
@@ -105,7 +116,10 @@ cls({
         parent1.render();
 
         var parent2 = new MetaphorJs.app.Container({
-            id: "parent2"
+            id: "parent2",
+            config: {
+                tag: "div"
+            }
         });
 
         parent2.render(document.getElementById("container-app"));

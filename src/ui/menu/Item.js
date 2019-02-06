@@ -16,7 +16,9 @@ module.exports = MetaphorJs.ui.menu.Item = MetaphorJs.app.Container.$extend({
     $alias: "MetaphorJs.directive.component.ui-menu-item",
     as: "item",
     template: {
-        expression: "this.tpl"
+        name: {
+            expression: "this.tpl"
+        }
     },
 
     initComponent: function() {

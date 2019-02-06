@@ -24,6 +24,7 @@ module.exports = MetaphorJs.ui.field.Field = MetaphorJs.app.Container.$extend({
         config.setType("disabled", "bool", null, false);
         config.setType("readonly", "bool", null, false);
         config.setDefaultMode("name", MetaphorJs.lib.Config.MODE_STATIC);
+        config.setDefaultValue("name", "");
 
         self.$super();  
     },
