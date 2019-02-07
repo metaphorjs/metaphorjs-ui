@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/button/button.html":"<a ##main ##button ##body class=\"ui button\" {class.active}=\"this.$cfg.active\" {class.loading}=\"this.$cfg.loading\" {class.disabled}=\"this.$cfg.disabled\" {class.dropdown}=\"this.button.hasDropdown()\" (click)=\"this.button.onClick(this.$event)\" (click.$if)=\"!this.$cfg.disabled && !this.$cfg.loading\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##after--></a>","ui/button/group.html":"<div class=\"ui buttons\" ##body></div>","ui/field/checkbox.html":"<div ##main class=\"ui checkbox\" {class.active}=\"this.$cfg.active\"><input type=\"checkbox\" [name]=\"this.$cfg.name\" {model}=\"this.checked\"><label {bind}=\"this.$cfg.label\"></label></div>","ui/field/input.html":"<div class=\"ui input\" ##main ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div ##main class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","ui/menu/container.html":"<div ##main class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\"><!--##before--><!--##body--><!--##after--></div>","ui/menu/divider.html":"<div class=\"divider\" ##main></div>","ui/menu/item-with-sub.html":"<div ##main class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></div>","ui/menu/item.html":"<a ##main class=\"item\" {class.active}=\"this.$cfg.active\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></a>","ui/menu/menu.html":"<div ##main class=\"ui menu\"><!--##before--><!--##body--><!--##after--></div>","ui/panel/panel.html":"<div class=\"ui segment\"><!--##tbar--><!--##bbar--></div>","ui/toolbar/container.html":"<!--{includes: true}--><!-- include ui/menu/container.html -->","ui/toolbar/divider.html":"<!--{includes: true}--><!-- include ui/menu/divider.html -->","ui/toolbar/item-with-sub.html":"<!--{includes: true}--><!-- include ui/menu/item-with-sub.html -->","ui/toolbar/item.html":"<!--{includes: true}--><!-- include ui/menu/item.html -->","ui/toolbar/toolbar.html":"<!--{includes: true}--><!-- include ui/menu/menu.html -->","ui/window/window.html":"<div class=\"ui modal\" ##body></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true},"ui/toolbar/container.html":{"includes":true},"ui/toolbar/divider.html":{"includes":true},"ui/toolbar/item-with-sub.html":{"includes":true},"ui/toolbar/item.html":{"includes":true},"ui/toolbar/toolbar.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/button/button-container.html":"<div ##main><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##after--></div>","ui/button/button-plain.html":"<a ##main><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##after--></a>","ui/button/button.html":"<!--<main ##button\n    ##body\n    class=\"ui button\" \n    {class.active}=\"this.$cfg.active\"\n    {class.loading}=\"this.$cfg.loading\"\n    {class.disabled}=\"this.$cfg.disabled\"\n    {class.dropdown}=\"this.button.hasDropdown()\"\n    (click)=\"this.button.onClick(this.$event)\"\n    (click.$if)=\"!this.$cfg.disabled && !this.$cfg.loading\">--><include $name*=\"this.button.hasDropdown() ? \n                    'ui/button/button-container.html' : \n                    'ui/button/button-plain.html'\"></include>","ui/button/group.html":"<div class=\"ui buttons\" ##body></div>","ui/field/checkbox.html":"<div ##main class=\"ui checkbox\" {class.active}=\"this.$cfg.active\"><input type=\"checkbox\" [name]=\"this.$cfg.name\" {model}=\"this.checked\"><label {bind}=\"this.$cfg.label\"></label></div>","ui/field/input.html":"<div class=\"ui input\" ##main ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div ##main class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.active}=\"this.opened\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","ui/menu/container.html":"<div ##main class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\"><!--##before--><!--##body--><!--##after--></div>","ui/menu/divider.html":"<div class=\"divider\" ##main></div>","ui/menu/item-with-sub.html":"<div ##main class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></div>","ui/menu/item.html":"<a ##main class=\"item\" {class.active}=\"this.$cfg.active\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></a>","ui/menu/menu.html":"<div ##main class=\"ui menu\"><!--##before--><!--##body--><!--##after--></div>","ui/panel/panel.html":"<div class=\"ui segment\"><!--##tbar--><!--##bbar--></div>","ui/toolbar/container.html":"<!--{includes: true}--><!-- include ui/menu/container.html -->","ui/toolbar/divider.html":"<!--{includes: true}--><!-- include ui/menu/divider.html -->","ui/toolbar/item-with-sub.html":"<!--{includes: true}--><!-- include ui/menu/item-with-sub.html -->","ui/toolbar/item.html":"<!--{includes: true}--><!-- include ui/menu/item.html -->","ui/toolbar/toolbar.html":"<!--{includes: true}--><!-- include ui/menu/menu.html -->","ui/window/window.html":"<div class=\"ui modal\" ##body></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div ##main>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true},"ui/toolbar/container.html":{"includes":true},"ui/toolbar/divider.html":{"includes":true},"ui/toolbar/item-with-sub.html":{"includes":true},"ui/toolbar/item.html":{"includes":true},"ui/toolbar/toolbar.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -9584,11 +9584,9 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
         _processCommentNode: function(node) {
             var cmtData = node.textContent || node.data;
             if (cmtData.substring(0,2) === '##') {
-                observer.trigger(
-                    "reference-" + this.id, 
-                    "node",
-                    cmtData.substring(2),
-                    node
+                this.trigger(
+                    "reference", "node",
+                    cmtData.substring(2), node
                 );
             }
         },
@@ -9617,8 +9615,8 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
 
         // skip <slot> but reference it same way as ##ref
         _processSlotNode: function(node) {
-            observer.trigger(
-                "reference-" + this.id, "node",
+            this.trigger(
+                "reference", "node",
                 node.getAttribute("name"), node
             );
             return false;
@@ -9674,12 +9672,7 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
             for (i = 0, len = attrs.references.length; i < len; i++) {
                 ref = attrs.references[i];
                 if (ref[0] === '#') {
-                    observer.trigger(
-                        "reference-" + self.id, 
-                        "node",
-                        ref.substring(1),
-                        node
-                    );
+                    self.trigger("reference", "node", ref.substring(1), node);
                 }
                 else {
                     self.scope[ref] = node;
@@ -9716,9 +9709,14 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
          * along with this node's children<br>
          * Return a Promise resolving in any of the above
          * @param {Node} node 
+         * @param {object} attrSet {
+         *  Usually you don't pass this one. If skipped, attrSet will be taken directly 
+         *  from the node which is the default behavior. This param is used
+         *  for virtual nodes.
+         * }
          * @returns {boolean|array|Promise|Node}
          */
-        processNode: function(node) {
+        processNode: function(node, attrs) {
 
             var self        = this,
                 nodeType    = node.nodeType;
@@ -9737,10 +9735,11 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
                     component,
                     directive,
                     i, len,
-                    attrs = dom_getAttrSet(node),
                     name,
                     res;
-                
+
+                attrs = attrs || dom_getAttrSet(node);
+
                 if (tag.substr(0, 4) === "mjs-") {
                     tag = tag.substr(4);
                 }
@@ -13223,6 +13222,7 @@ var ajax = function(){
 
 
 
+
 var app_Template = MetaphorJs.app.Template = function() {
 
     var observable      = new MetaphorJs.lib.Observable,
@@ -13385,6 +13385,8 @@ var app_Template = MetaphorJs.app.Template = function() {
             delete self.parentRenderer;
         }
         self.id = nextUid();
+        self._virtualSets = {};
+        self._namedNodes = {};
         observable.createEvent("rendered-" + self.id, {
             returnResult: false,
             autoTrigger: true
@@ -13411,9 +13413,11 @@ var app_Template = MetaphorJs.app.Template = function() {
         config.setType("useShadow", "bool", sm);
         config.setType("deferRendering", "bool", sm);
         config.setType("makeTranscludes", "bool", sm);
+        config.setType("passReferences", "bool", sm);
 
         config.setProperty("useComments", "defaultValue", true, /*override: */false);
         config.setProperty("makeTranscludes", "defaultValue", true, /*override: */false);
+        config.setProperty("passReferences", "defaultValue", false, /*override: */false);
 
         !shadowSupported && config.setStatic("useShadow", false);
         config.get("useShadow") && config.setStatic("useComments", false);
@@ -13453,6 +13457,8 @@ var app_Template = MetaphorJs.app.Template = function() {
         _resolvePromise:    null,
         _pubResolvePromise: null,
         _parentRenderer:    null,
+        _virtualSets:       null,
+        _namedNodes:      null,
 
         attachTo:           null,
         attachBefore:       null,
@@ -13625,6 +13631,69 @@ var app_Template = MetaphorJs.app.Template = function() {
             return self._resolvePromise.done(self._onTemplateResolved, self);
         },
 
+        getVirtualSet: function(ref) {
+            return this._virtualSets[ref] ? copy(this._virtualSets[ref]) : null;
+        },
+
+        setNamedNode: function(ref, node) {
+            var self = this,
+                nodes = self._namedNodes[ref];
+
+            if (node['__namedRenderer'] && node['__namedRenderer'][ref]) {
+                return;
+            }
+
+            if (!nodes) {
+                nodes = self._namedNodes[ref] = [];
+            }
+
+            if (node && nodes.indexOf(node) === -1) {
+                nodes.push(node);
+                if (self._renderer && self._virtualSets[ref]) {
+                    self._renderer.processNode(node, self.getVirtualSet(ref));
+                }
+            }
+        },
+
+        removeNamedNode: function(ref, node) {
+            var nodes = this._namedNodes[ref],
+                inx;
+            if (!nodes || (inx = nodes.indexOf(node)) !== -1) {
+                nodes.splice(inx, 1);
+            }
+        },
+
+
+        _extractVirtualSets: function(frag) {
+            var self = this,
+                node = frag.firstChild,
+                cmtType = window.document.COMMENT_NODE,
+                data, next;
+            while (node) {
+                next = node.nextSibling;
+                if (node.nodeType === cmtType) {
+                    data = node.textContent || node.data;
+                    if (data.substring(0,1) === '<' && 
+                        data.substring(data.length-1) === '>') {
+                        self._processVirtualSet(data);
+                        frag.removeChild(node);
+                    }
+                }
+                node = next;
+            }
+        },
+
+        _processVirtualSet: function(data) {
+            var div = window.document.createElement("div");
+            div.innerHTML = data;
+            var node = div.firstChild;
+            if (node) {
+                var ref = node.tagName.toLowerCase(),
+                    attrSet = dom_getAttrSet(node);
+                this._virtualSets[ref] = attrSet;
+            }
+        },
+
         _onTemplateResolved: function(fragment) {
             var self = this,
                 root = self.rootNode;
@@ -13638,6 +13707,7 @@ var app_Template = MetaphorJs.app.Template = function() {
                                 dom_toFragment(fragment) :
                                 fragment;
                 self._fragment = dom_clone(self._template);
+                self._extractVirtualSets(self._fragment);
 
                 if (root) {
                     while (root.firstChild) {
@@ -13765,23 +13835,97 @@ var app_Template = MetaphorJs.app.Template = function() {
             var self = this;
 
             if (self.config.get("runRenderer")) {
-                if (self._renderer) {
-                    self._renderer.$destroy();
-                    self._renderer = null;
-                }
+                
+                self._destroyRenderer();
 
                 observable.trigger("before-render-" + self.id, self);
 
                 self._renderer   = new app_Renderer(self.scope);
-                observable.relayEvent(self._renderer, "reference", "reference-" + self.id);
+
+                if (self.config.get("passReferences") && self._parentRenderer) {
+                    self._renderer.on(
+                        "reference", 
+                        self._parentRenderer.trigger,
+                        self._parentRenderer,
+                        {
+                            prepend: ["reference"]
+                        }
+                    );
+                }
+
+                // after renderer had its course, the list of nodes may have changed.
+                // we need to reflect this in _nodes before attaching stuff
+                self._renderer.on("rendered", self._collectedNodesAfterRendered, self);
+                // then we apply directives to all named nodes we have at the moment
+                self._renderer.on("rendered", self._processNamedNodes, self);
+                // then send the 'rendered' signal up the chain
                 observable.relayEvent(self._renderer, "rendered", "rendered-" + self.id);
+
+                observable.relayEvent(self._renderer, "reference", "reference-" + self.id);
                 self._renderer.process(self._nodes);
+            }
+        },
+
+
+        _collectedNodesAfterRendered: function() {
+            var self = this;
+            if (self._fragment) {
+                this._nodes = toArray(self._fragment.childNodes);
+            }
+        },
+
+        _processNamedNodes: function() {
+            var self = this,
+                vnodes = self._namedNodes,
+                vsets = self._virtualSets,
+                ref, i, l,
+                node, nr, attrSet,
+                attr;
+
+            for (ref in vnodes) {
+                if (vsets[ref]) {
+                    for (i = 0, l = vnodes[ref].length; i < l; i++) {
+                        node = vnodes[ref][i];
+                        nr = node['__namedRenderer'] || {};
+                        nr[ref] = self._renderer.id;
+                        node['__namedRenderer'] = nr;
+                        attrSet = self.getVirtualSet(ref);
+
+                        if (attrSet.rest && node.nodeType === window.document.ELEMENT_NODE) {
+                            for (attr in attrSet.rest) {
+                                node.setAttribute(attr, attrSet.rest[attr]);
+                            }
+                        }
+                        self._renderer.processNode(node, attrSet);
+                    }
+                }
+            }
+        },
+
+        _destroyRenderer: function() {
+            var self = this;
+
+            if (self._renderer) {
+                var id = self._renderer.id,
+                    vnodes = self._namedNodes,
+                    ref, i, l,
+                    node, nr;
+                self._renderer.$destroy();
+                self._renderer = null;
+
+                for (ref in vnodes) {
+                    for (i = 0, l = vnodes[ref].length; i < l; i++) {
+                        node = vnodes[ref][i];
+                        nr = node['__namedRenderer'];
+                        nr && nr[ref] === id && (nr[ref] = null);
+                    }
+                }
+                self._namedNodes = {};
             }
         },
 
         _resolveTemplate: function() {
             var tpl = this.config.get("name");
-            
             return new lib_Promise(
                 function(resolve, reject) {
                     if (tpl) {
@@ -13888,10 +14032,9 @@ var app_Template = MetaphorJs.app.Template = function() {
             }
         },
 
-        _clear: function() {
+        _collectNodes: function() {
             var self = this,
-                nodes = [], 
-                i, l, n, parent;
+                nodes = [], parent;
 
             // remove all children between prev and next
             if (self._nextEl) {
@@ -13904,6 +14047,14 @@ var app_Template = MetaphorJs.app.Template = function() {
                     nodes = toArray(parent.childNodes);
                 }
             }
+
+            return nodes;
+        },
+
+        _clear: function() {
+            var self = this,
+                nodes = self._collectNodes(), 
+                i, l, n;
 
             for (i = 0, l = nodes.length; i < l; i++) {
                 n = nodes[i];
@@ -13970,6 +14121,9 @@ var app_Template = MetaphorJs.app.Template = function() {
             config.setDefaultValue("name", values);
         }
         else if (values) {
+            if (!values.name && !values.html && values.expression) {
+                values.name = {expression: values.expression};
+            }
             config.addProperties(values, "defaultValue");
         }
     };
@@ -14294,12 +14448,6 @@ var app_Component = MetaphorJs.app.Component = cls({
 
         self.id = self.id || "cmp-" + nextUid();
 
-        if (!self.node && config.has("tag")) {
-            self.node = window.document.createElement(config.get("tag"));
-            self.$refs.node.main = node;
-            self._nodeCreated = true;
-        }
-
         self.beforeInitComponent.apply(self, arguments);
         self.initComponent.apply(self, arguments);
 
@@ -14315,13 +14463,17 @@ var app_Component = MetaphorJs.app.Component = cls({
             self._claimNode();
         }
 
+        self.config.getAll();
         self._initTemplate();
     },
 
     _initTemplate: function() {
 
         var self = this,
-            tpl = self.template;
+            tpl = self.template,
+            rootNode = null,
+            replaceNode = null,
+            config = self.config;
 
         if (self.node) {
             self._nodeReplaced = self.replaceCustomNode && 
@@ -14329,15 +14481,24 @@ var app_Component = MetaphorJs.app.Component = cls({
                                         self.node.tagName.toLowerCase()
                                     ) === -1;
             if (self._nodeReplaced) {
+                replaceNode = self.node;
+                self.node = null;
                 self.$refs.node.main = null;
             }
         }
 
+        if (!self.node && config.has("tag")) {
+            rootNode = window.document.createElement(config.get("tag"));
+            self.node = rootNode;
+            self.$refs.node.main = rootNode;
+            self._nodeCreated = true;
+        }
+
         var tplConfig = new lib_Config({
-            deferRendering: !self.autoRender,
+            deferRendering: true,
             runRenderer: true,
-            useShadow: self.config.copyProperty("useShadow"),
-            makeTranscludes: self.config.copyProperty("makeTranscludes")
+            useShadow: config.copyProperty("useShadow"),
+            makeTranscludes: config.copyProperty("makeTranscludes")
         }, {scope: self.scope});
 
         app_Template.prepareConfig(tplConfig, tpl);
@@ -14348,9 +14509,9 @@ var app_Component = MetaphorJs.app.Component = cls({
             scope: self.scope,
             config: tplConfig,
 
-            rootNode: self._nodeCreated ? self.node : null,
-            attachTo: self._nodeReplaced ? null : self.node,
-            replaceNode: self._nodeReplaced ? self.node : null,
+            rootNode: self._nodeCreated ? rootNode : null,
+            attachTo: self._nodeReplaced || self._nodeCreated ? null : self.node,
+            replaceNode: self._nodeReplaced ? replaceNode : null,
 
             callback: {
                 context: self,
@@ -14359,10 +14520,16 @@ var app_Component = MetaphorJs.app.Component = cls({
             }
         });
 
+        if (self._nodeCreated) {
+            self.template.setNamedNode("main", self.node);
+        }
+
         self.afterInitComponent.apply(self, arguments);
 
         if (self.autoRender) {
-            tpl.resolve().done(self.render, self);
+            tpl.resolve()
+                .done(tpl.render, tpl)
+                .done(self.render, self);
         }
     },
 
@@ -14526,14 +14693,23 @@ var app_Component = MetaphorJs.app.Component = cls({
 
         var th = self.$refs[type][ref];
 
-        if (!th || isThenable(th)) {
-            // change comment's reference name so
-            // that it won't get referenced twice
-            if (item && item.nodeType && 
+        // change comment's reference name so
+        // that it won't get referenced twice
+        if (item) {
+            if (item.nodeType && 
                 item.nodeType === window.document.COMMENT_NODE) {
                 item.textContent = "*" + self.id + "*" + ref + "*";
             }
-        }
+            else {
+                if (!self.node && type === "node" && ref === "main") {
+                    self.node = item;
+                    self._claimNode();
+                }
+                if (self.template instanceof MetaphorJs.app.Template) {
+                    self.template.setNamedNode(ref, item);
+                }
+            }
+        }    
 
         if (!th) {
             self.$refs[type][ref] = item;
@@ -14645,7 +14821,6 @@ var app_Component = MetaphorJs.app.Component = cls({
     },
 
     onBeforeRender: function() {
-        this.config.getAll(); // calc all props and put into scope.$cfg
     },
 
     _onRenderingFinished: function() {
@@ -15098,6 +15273,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
     $mixinEvents: ["$initChildItem"],
     _itemsInitialized: false,
+    defaultAddTo: "main",
 
     initComponent: function() {
         var self = this;
@@ -15177,7 +15353,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
                 if (foundCmp || foundPromise) {
                     if (!renderRef) {
-                        renderRef = "body";
+                        renderRef = self.defaultAddTo;
                     }
                     def = extend({
                         type: "component",
@@ -15190,7 +15366,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
                 }
                 else {
                     attrSet = dom_getAttrSet(node);
-                    renderRef = attrSet.at || attrSet.rest.slot || "body";
+                    renderRef = attrSet.at || attrSet.rest.slot || self.defaultAddTo;
                     def = extend({
                         type: "node",
                         renderRef: renderRef,
@@ -15277,7 +15453,8 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
             placeholder: window.document.createComment("*" + this.id + "*" + id + "*"),
             id: id,
             resolved: true,
-            processed: false
+            processed: false,
+            attached: false
         };
     },
 
@@ -15502,10 +15679,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
             self._initChildEvents("on", cmp);
 
             if (self._rendered) {
-                if (item.placeholder && !item.placeholder.parentNode) {
-                    self._preparePlaceholder(item);
-                }
-                self._attachChildItem(item);
+                self._putItemInPlace(item);
             }
         }
     },
@@ -15550,18 +15724,23 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
         var self = this, i, l, items = self.items;
         self.$super();
 
-        // empty container without template or content
-        //if (self.node && !self.node.firstChild) {
-        //    self.$refs.node.body = self.node;
-        //}
-
         // insert all placeholders, but
         // attach only resolved items
         for (i = -1, l = items.length; ++i < l;){
-            self._preparePlaceholder(items[i]);
-            if (items[i].resolved) {
-                self._attachChildItem(items[i]);
+            self._putItemInPlace(items[i]);
+        }
+    },
+
+    _putItemInPlace: function(item) {
+        var self = this;
+        if (item.placeholder && !item.placeholder.parentNode) {
+            self._preparePlaceholder(item);
+        }
+        if (item.resolved) {
+            if (item.renderRef) {
+                self.template.setNamedNode(item.renderRef, item.node || item.component);
             }
+            self._attachChildItem(item);
         }
     },
 
@@ -15595,8 +15774,13 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
         var self = this,
             refnode = self.getRefEl(item.renderRef);
 
+        if (item.attached) {
+            return;
+        }
+
         if (item.type === "node") {
             if (item.node.hasAttribute("slot")) {
+                item.attached = true;
                 return;
             }
             if (refnode instanceof window.HTMLSlotElement) {
@@ -15612,9 +15796,14 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
                 item.component.render(refnode.parentNode, item.placeholder);    
             else item.component.render(refnode, item.placeholder);
         }
+
+        item.attached = true;
     },
 
     _detachChildItem: function(item) {
+        if (!item.attached) {
+            return;
+        }
         if (item.type === "node") {
             item.node.parentNode && item.node.parentNode.removeChild(item.node);
         }
@@ -15623,6 +15812,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
             item.placeholder.parentNode && 
                 item.placeholder.parentNode.removeChild(item.placeholder);
         }
+        item.attached = false;
     },
 
     hasItem: function(cmp) {
@@ -15673,15 +15863,13 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
         }
 
         item = self._processItemDef(cmp, {
-            renderRef: to || "body"
+            renderRef: to || self.defaultAddTo
         });
         self.items.push(item);
 
+        // component item got attached via onChildResolved
         if (item.type === "node" && self._rendered) {
-            if (item.placeholder && !item.placeholder.parentNode) {
-                self._preparePlaceholder(item);
-            }
-            self._attachChildItem(item);
+            self._putItemInPlace(item);
         }
     },
 
@@ -19772,11 +19960,12 @@ Directive.registerAttribute("include", 1100,
     config.enableProperty("name");
     config.setType("asis", "bool", lib_Config.MODE_STATIC);
     config.setDefaultValue("runRenderer", !config.get("asis"));
+    config.set("passReferences", true);
 
     var tpl = new app_Template({
         scope: scope,
         attachTo: node,
-        renderer: renderer,
+        parentRenderer: renderer,
         config: config
     });
 
@@ -30609,12 +30798,13 @@ Directive.registerTag("include", function(scope, node, config, renderer) {
     config.setType("asis", "bool", lib_Config.MODE_STATIC);
     config.setDefaultValue("runRenderer", !config.get("asis"));
     config.set("useComments", true);
+    config.set("passReferences", true);
 
     var tpl = new app_Template({
         scope: scope,
         replaceNode: node,
         config: config,
-        renderer: renderer
+        parentRenderer: renderer
     });
 
     renderer.on("destroy", function(){
@@ -30802,11 +30992,6 @@ MetaphorJs.ui.button.Button = app_Container.$extend({
         this.trigger("click", this, e);
     }
 }, {
-
-    templates: {
-        button: "ui/button/button.html",
-        dropdown: "ui/button/button.html"
-    },
 
     defaultDropdown: {
         on: "click"
@@ -37130,6 +37315,7 @@ cls({
 
         var parent1 = new app_Container({
             id: "parent1",
+            defaultAddTo: "body",
             renderTo: document.getElementById("container-app"),
             template: 'container1.html',
             items: [

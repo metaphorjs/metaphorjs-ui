@@ -17,6 +17,8 @@
                     ]
                 ">
                 <p>Inputs</p>
+                
+                
                 <ui-select 
                     $empty-text:="Nothing selected" 
                     $options*="this.options"
@@ -46,11 +48,7 @@
                     <i class="user icon" @before></i>
                     <i class="dropdown icon" @after></i>
                     <ui-menu $ref="menu">
-                        <a class="item" 
-                            (click)="console.log('click1')">Test</a>
-                        <ui-menu-item 
-                            $text="Menu item"
-                            $on--click="console.log('click2')"></ui-menu-item>
+                        <a class="item" (click)="console.log('click11')">Test11</a>
                     </ui-menu>
                 </ui-button>
             </div>

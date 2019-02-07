@@ -1,5 +1,4 @@
-<a  ##main
-    ##button 
+<!--<main ##button
     ##body
     class="ui button" 
     {class.active}="this.$cfg.active"
@@ -7,8 +6,7 @@
     {class.disabled}="this.$cfg.disabled"
     {class.dropdown}="this.button.hasDropdown()"
     (click)="this.button.onClick(this.$event)"
-    (click.$if)="!this.$cfg.disabled && !this.$cfg.loading">
-<!--##before-->
-<span {bind}="this.$cfg.text"></span>
-<!--##after-->
-</a>
+    (click.$if)="!this.$cfg.disabled && !this.$cfg.loading">-->
+<include $name*="this.button.hasDropdown() ? 
+                    'ui/button/button-container.html' : 
+                    'ui/button/button-plain.html'"></include>

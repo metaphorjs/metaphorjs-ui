@@ -4,6 +4,7 @@
      (click)="this.$view.onSelfClick(this.$event)"
      {init}="this.emptyShown = false; this.selectedShown = false;"
      {class.loading}="this.loading"
+     {class.active}="this.opened"
      {class.disabled}="this.$cfg.disabled"
      {class.search}="this.$cfg.searchable"
      {class.multiple}="this.field.isMultiSelection()">
