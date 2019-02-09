@@ -7,6 +7,6 @@
     {class.dropdown}="this.button.hasDropdown()"
     (click)="this.button.onClick(this.$event)"
     (click.$if)="!this.$cfg.disabled && !this.$cfg.loading">-->
-<include $name*="this.button.hasDropdown() ? 
+<mjs-include $name*="this.button.hasDropdown() ? 
                     'ui/button/button-container.html' : 
-                    'ui/button/button-plain.html'"></include>
+                    'ui/button/button-plain.html'"></mjs-include>

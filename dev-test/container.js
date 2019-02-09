@@ -8,7 +8,6 @@ var Test = {};
 
 ns.register("Test", Test);
 
-
 cls({
     $class: "Test.container.Cmp1",
     $extends: "MetaphorJs.app.Component",
