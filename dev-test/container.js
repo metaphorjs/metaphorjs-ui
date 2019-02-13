@@ -88,7 +88,7 @@ cls({
 
         var parent1 = new MetaphorJs.app.Container({
             id: "parent1",
-            defaultAddTo: "body",
+            _defaultAddTo: "body",
             renderTo: document.getElementById("container-app"),
             template: 'container1.html',
             items: [

@@ -10,5 +10,6 @@ MetaphorJs.ui = MetaphorJs.ui || {
     menu: {},
     toolbar: {},
     form: {},
-    mixin: {}
+    mixin: {},
+    util: {}
 };
