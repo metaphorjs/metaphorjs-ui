@@ -1,0 +1,14 @@
+<div ##main style="position:relative"
+     {style.width}="this.$cfg.width + 'px'"
+     {style.height}="this.$cfg.height + 'px'">
+    <i ##pointer
+        {style.left}="this.pointerLeft"
+        {style.top}="this.pointerTop"></i>
+    <canvas ##canvas
+        [width]="this.$cfg.width"
+        [height]="this.$cfg.height"
+        {style.width}="this.$cfg.width + 'px'"
+        {style.height}="this.$cfg.height + 'px'"
+        {style.cursor}="this.$cfg.cursor"
+        (mousedown)="this.cnv.onMouseDown(this.$event)"></canvas>
+</div>

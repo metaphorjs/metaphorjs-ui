@@ -4,8 +4,11 @@ require("metaphorjs/src/app/Component.js");
 require("metaphorjs/src/lib/Config.js");
 require("metaphorjs-shared/src/lib/Queue.js");
 require("../../lib/Color.js");
+require("metaphorjs/src/func/dom/getInnerWidth.js");
+require("metaphorjs/src/func/dom/getInnerHeight.js");
 
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
+var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
+    async = require("metaphorjs-shared/src/func/async.js");
 
 module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
     $class: "MetaphorJs.ui.util.Canvas",
@@ -23,8 +26,7 @@ module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
 
         config.setType("width", "int", mst);
         config.setType("height", "int", mst);
-        config.on("width", self._onCfgWidthChange, self);
-        config.on("height", self._onCfgHeightChange, self);
+        
     },
 
     initComponent: function() {
@@ -50,7 +52,15 @@ module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
     },
 
     afterAttached: function() {
-        this._renderQueue.add(this.renderCanvas);
+        if (!this.config.has("width") || 
+            !this.config.has("height")) {
+            this._renderQueue.add(this.getSize);
+            async(this.renderCanvas, this, [], 50);    
+        }
+        else this._renderQueue.add(this.renderCanvas);
+        
+        this.config.on("width", this._onCfgWidthChange, this);
+        this.config.on("height", this._onCfgHeightChange, this);
     },
 
 
@@ -69,6 +79,33 @@ module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
 
         if (!this._currentSize) {
             var config = this.config;
+
+            var w = config.has("width"),
+                h = config.has("height"),
+                main = this.getRefEl("main");
+
+            if (!w) {
+                if (main) {
+                    if (main.style.width) {
+                        config.setDefaultValue("width", parseInt(main.style.width));
+                    }
+                    else {
+                        config.setDefaultValue("width", 
+                            parseInt(MetaphorJs.dom.getInnerWidth(main)));
+                    }
+                }
+            }
+            if (!h) {
+                if (main) {
+                    if (main.style.height) {
+                        config.setDefaultValue("height", parseInt(main.style.height));
+                    }
+                    else {
+                        config.setDefaultValue("height", 
+                            parseInt(MetaphorJs.dom.getInnerHeight(main)));
+                    }
+                }
+            }
 
             this._currentSize = {
                 width: config.get("width"),

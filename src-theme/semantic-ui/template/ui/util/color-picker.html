@@ -1,0 +1,78 @@
+<div ##main>
+
+<div style="width:50px; height: 30px;"
+    {style.background-color}="'#'+this.sv"></div>
+
+<ui-color-sv 
+    $ref="sv"
+    $width="150" 
+    $height="150" 
+    $cursor="crosshair"
+    $color!="this.color"
+    {model}="this.sv"
+    {model.$binding}="input"
+    {bind}="this.hue"></ui-color-sv>
+
+<ui-color-hue 
+    $ref="hue"
+    $width="30" 
+    $height="150" 
+    $cursor="crosshair"
+    $color!="this.color"
+    {model}="this.hue"
+    {model.$binding}="input"></ui-color-hue>
+
+<div style="clear:both">
+
+    HEX: <input type="text" 
+                {bind}="this.color.getHEX()"
+                {bind.$preserve-input}
+                {model}="this.input.hex"
+                {model.$binding}="input"
+                {model.$focus-only}><br>
+
+    R: <input type="number" 
+            {model}="this.input.r"
+            {model.$binding}="input"
+            {model.$focus-only}
+            {bind}="this.color.getRGBA()[0]" 
+            {bind.$preserve-input}
+            min="0" max="255">
+    G: <input type="number" 
+            {model}="this.input.g"
+            {model.$binding}="input"
+            {model.$focus-only}
+            {bind}="this.color.getRGBA()[1]" 
+            {bind.$preserve-input}
+            min="0" max="255">
+    B: <input type="number" 
+            {model}="this.input.b"
+            {model.$binding}="input"
+            {model.$focus-only}
+            {bind}="this.color.getRGBA()[2]" 
+            {bind.$preserve-input}
+            min="0" max="255"><br>
+
+    H: <input type="number" 
+            {model}="this.input.h"
+            {model.$binding}="input"
+            {model.$focus-only}
+            {bind}="this.color.getHSVA()[0]" 
+            {bind.$preserve-input}
+            min="0" max="360">
+    S: <input type="number" 
+            {model}="this.input.s"       
+            {model.$binding}="input"
+            {model.$focus-only}
+            {bind}="this.color.getHSVA()[1]" 
+            {bind.$preserve-input}
+            min="0" max="100">
+    V: <input type="number" 
+            {model}="this.input.v"
+            {model.$binding}="input"
+            {model.$focus-only}
+            {bind}="this.color.getHSVA()[2]" 
+            {bind.$preserve-input}
+            min="0" max="100"><br>
+</div>
+</div>
