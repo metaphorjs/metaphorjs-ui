@@ -164,6 +164,21 @@ extend(MetaphorJs.lib.Color.prototype, {
         this._rgba = this._processSet(arguments, this._rgba);
     },
 
+    /**
+     * Set alpha channel
+     * @param {float} a 
+     */
+    setAlpha: function(a) {
+        a = parseFloat(a);
+        if (a < 0) {
+            a = 0;
+        }
+        if (a > 1) {
+            a = a / 100;
+        }
+        this._rgba[3] = a;
+    },
+
     getAs: function(format, floats) {
         switch (format) {
             case "hex":
@@ -185,6 +200,9 @@ extend(MetaphorJs.lib.Color.prototype, {
         }
     },
 
+    getAlpha: function() {
+        return this._rgba[3];
+    },
     getHEX: function() {
         return this._rgba2hex(this._round(this.getRGBA()));
     },
@@ -218,7 +236,12 @@ extend(MetaphorJs.lib.Color.prototype, {
     },
 
     _rgba2str: function(rgba) {
-        return "rgba(" + rgba.join(',') + ")";
+        var vals = rgba.slice(),
+            a = vals[3];
+        if (a > 0 && a < 1) {
+            vals[3] = a.toFixed(2);
+        }
+        return "rgba(" + vals.join(',') + ")";
     },
 
     _rgba2hex: function(rgba) {

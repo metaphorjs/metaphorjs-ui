@@ -135,6 +135,7 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
 
         bind: true,
         model: true,
+        input: true,
 
         click: true, 
         dblclick: true, 

@@ -6,6 +6,7 @@ require("../../lib/Color.js");
 require("../../filter/color.js");
 require("./ColorSV.js");
 require("./ColorHue.js");
+require("./ColorAlpha.js");
 
 var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 
@@ -37,18 +38,6 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
         scope.sv = initialColor;
         scope.color = new MetaphorJs.lib.Color(initialColor);
         this._prev = initialColor;
-
-        scope.$watch("this.input.hex", this._onInputHex, this);
-
-        scope.$watch("this.input.r", this._onInputR, this);
-        scope.$watch("this.input.g", this._onInputG, this);
-        scope.$watch("this.input.b", this._onInputB, this);
-
-        scope.$watch("this.input.h", this._onInputH, this);
-        scope.$watch("this.input.s", this._onInputS, this);
-        scope.$watch("this.input.v", this._onInputV, this);
-
-        scope.$watch("this.sv", this._onSVChange, this);
     },
 
     initConfig: function() {
@@ -73,7 +62,7 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
     },
 
 
-    _onInputHex: function(hex) {
+    onInputHex: function(hex) {
         hex = (""+hex).toLowerCase().trim();
         if (hex.substring(0,1) === "#") {
             hex = hex.substring(1);
@@ -95,13 +84,13 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
         this._onChange();
     },
 
-    _onInputR: function(r) {
+    onInputR: function(r) {
         this._onInputRGB(this._frame(r, 0, 255));
     },
-    _onInputG: function(g) {
+    onInputG: function(g) {
         this._onInputRGB(null, this._frame(g, 0, 255));
     },
-    _onInputB: function(b) {
+    onInputB: function(b) {
         this._onInputRGB(null, null, this._frame(b, 0, 255));
     },
 
@@ -112,21 +101,34 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
         this._onChange();
     },
 
-    _onInputH: function(h) {
+    onInputH: function(h) {
         this._onInputHSV(this._frame(h, 0, 360));
     },
-    _onInputS: function(s) {
+    onInputS: function(s) {
         this._onInputHSV(null, this._frame(s, 0, 100));
     },
-    _onInputV: function(v) {
+    onInputV: function(v) {
         this._onInputHSV(null, null, this._frame(v, 0, 100));
     },
 
+    onInputA: function(a) {
+        this.scope.color.setAlpha(a);
+        this._updateCanvas();
+        this._onChange();
+    },
 
-    _onSVChange: function(hex) {
+
+    onSVChange: function(hex) {
         if (this.getRefCmp("sv").isDragging() ||
             this.getRefCmp("hue").isDragging()) {
             this.scope.color.setColor(hex);
+            this._onChange();
+        }
+    },
+
+    onAChange: function(a) {
+        if (this.getRefCmp("alpha").isDragging()) {
+            this.scope.color.setAlpha(a);
             this._onChange();
         }
     },
