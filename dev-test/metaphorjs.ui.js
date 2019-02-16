@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/button/button-container.html":"<div ##main><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##after--></div>","ui/button/button-plain.html":"<a ##main><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##after--></a>","ui/button/button.html":"<!--<main ##button\n    ##body\n    class=\"ui button\" \n    {class.active}=\"this.$cfg.active\"\n    {class.loading}=\"this.$cfg.loading\"\n    {class.disabled}=\"this.$cfg.disabled\"\n    {class.dropdown}=\"this.button.hasDropdown()\"\n    (click)=\"this.button.onClick(this.$event)\"\n    (click.$if)=\"!this.$cfg.disabled && !this.$cfg.loading\">--><mjs-include $name*=\"this.button.hasDropdown() ? \n                    'ui/button/button-container.html' : \n                    'ui/button/button-plain.html'\"></mjs-include>","ui/button/group.html":"<div class=\"ui buttons\" ##body></div>","ui/field/checkbox.html":"<div ##main class=\"ui checkbox\" {class.active}=\"this.$cfg.active\"><input type=\"checkbox\" [name]=\"this.$cfg.name\" {model}=\"this.checked\"><label {bind}=\"this.$cfg.label\"></label></div>","ui/field/input.html":"<div class=\"ui input\" ##main ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div ##main class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.active}=\"this.opened\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","ui/menu/container.html":"<div ##main class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\"><!--##before--><!--##body--><!--##after--></div>","ui/menu/divider.html":"<div class=\"divider\" ##main></div>","ui/menu/item-with-sub.html":"<div ##main class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></div>","ui/menu/item.html":"<a ##main class=\"item\" {class.active}=\"this.$cfg.active\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></a>","ui/menu/menu.html":"<div ##main class=\"ui menu\"><!--##before--><!--##body--><!--##after--></div>","ui/panel/panel.html":"<div class=\"ui segment\"><!--##tbar--><!--##bbar--></div>","ui/toolbar/container.html":"<!--{includes: true}--><!-- include ui/menu/container.html -->","ui/toolbar/divider.html":"<!--{includes: true}--><!-- include ui/menu/divider.html -->","ui/toolbar/item-with-sub.html":"<!--{includes: true}--><!-- include ui/menu/item-with-sub.html -->","ui/toolbar/item.html":"<!--{includes: true}--><!-- include ui/menu/item.html -->","ui/toolbar/toolbar.html":"<!--{includes: true}--><!-- include ui/menu/menu.html -->","ui/window/window.html":"<div class=\"ui modal\" ##body></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div ##main>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true},"ui/toolbar/container.html":{"includes":true},"ui/toolbar/divider.html":{"includes":true},"ui/toolbar/item-with-sub.html":{"includes":true},"ui/toolbar/item.html":{"includes":true},"ui/toolbar/toolbar.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/button/button-container.html":"<div ##main><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##after--></div>","ui/button/button-plain.html":"<a ##main><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##after--></a>","ui/button/button.html":"<!--<main ##button\n    ##body\n    class=\"ui button\" \n    {class.active}=\"this.$cfg.active\"\n    {class.loading}=\"this.$cfg.loading\"\n    {class.disabled}=\"this.$cfg.disabled\"\n    {class.dropdown}=\"this.button.hasDropdown()\"\n    (click)=\"this.button.onClick(this.$event)\"\n    (click.$if)=\"!this.$cfg.disabled && !this.$cfg.loading\">--><mjs-include $name*=\"this.button.hasDropdown() ? \n                    'ui/button/button-container.html' : \n                    'ui/button/button-plain.html'\"></mjs-include>","ui/button/group.html":"<div class=\"ui buttons\" ##body></div>","ui/dialog/color-picker.html":"<div class=\"section\"></div>","ui/field/checkbox.html":"<div ##main class=\"ui checkbox\" {class.active}=\"this.$cfg.active\"><input type=\"checkbox\" [name]=\"this.$cfg.name\" {model}=\"this.checked\"><label {bind}=\"this.$cfg.label\"></label></div>","ui/field/input.html":"<div class=\"ui input\" ##main ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div ##main class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.active}=\"this.opened\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","ui/menu/container.html":"<div ##main class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\"><!--##before--><!--##body--><!--##after--></div>","ui/menu/divider.html":"<div class=\"divider\" ##main></div>","ui/menu/item-with-sub.html":"<div ##main class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></div>","ui/menu/item.html":"<a ##main class=\"item\" {class.active}=\"this.$cfg.active\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></a>","ui/menu/menu.html":"<div ##main class=\"ui menu\"><!--##before--><!--##body--><!--##after--></div>","ui/panel/panel.html":"<div class=\"ui segment\"><!--##tbar--><!--##bbar--></div>","ui/toolbar/container.html":"<!--{includes: true}--><!-- include ui/menu/container.html -->","ui/toolbar/divider.html":"<!--{includes: true}--><!-- include ui/menu/divider.html -->","ui/toolbar/item-with-sub.html":"<!--{includes: true}--><!-- include ui/menu/item-with-sub.html -->","ui/toolbar/item.html":"<!--{includes: true}--><!-- include ui/menu/item.html -->","ui/toolbar/toolbar.html":"<!--{includes: true}--><!-- include ui/menu/menu.html -->","ui/util/canvas.html":"<canvas ##main ##canvas [width]=\"this.$cfg.width\" [height]=\"this.$cfg.height\" {style.width}=\"this.$cfg.width + 'px'\" {style.height}=\"this.$cfg.height + 'px'\"></canvas>","ui/util/color-picker.html":"<div ##main><div style=\"width:50px; height: 30px;\" {style.background-color}=\"'#'+this.sv\"></div><ui-color-sv $ref=\"sv\" $width=\"150\" $height=\"150\" $cursor=\"crosshair\" $color!=\"this.color\" {model}=\"this.sv\" {model.$binding}=\"input\" {bind}=\"this.hue\"></ui-color-sv><ui-color-hue $ref=\"hue\" $width=\"30\" $height=\"150\" $cursor=\"crosshair\" $color!=\"this.color\" {model}=\"this.hue\" {model.$binding}=\"input\"></ui-color-hue><div style=\"clear:both\">HEX: <input type=\"text\" {bind}=\"this.color.getHEX()\" {bind.$preserve-input} {model}=\"this.input.hex\" {model.$binding}=\"input\" {model.$focus-only}><br>R: <input type=\"number\" {model}=\"this.input.r\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getRGBA()[0]\" {bind.$preserve-input} min=\"0\" max=\"255\"> G: <input type=\"number\" {model}=\"this.input.g\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getRGBA()[1]\" {bind.$preserve-input} min=\"0\" max=\"255\"> B: <input type=\"number\" {model}=\"this.input.b\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getRGBA()[2]\" {bind.$preserve-input} min=\"0\" max=\"255\"><br>H: <input type=\"number\" {model}=\"this.input.h\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getHSVA()[0]\" {bind.$preserve-input} min=\"0\" max=\"360\"> S: <input type=\"number\" {model}=\"this.input.s\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getHSVA()[1]\" {bind.$preserve-input} min=\"0\" max=\"100\"> V: <input type=\"number\" {model}=\"this.input.v\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getHSVA()[2]\" {bind.$preserve-input} min=\"0\" max=\"100\"><br></div></div>","ui/util/color.html":"<div ##main style=\"position:relative\" {style.width}=\"this.$cfg.width + 'px'\" {style.height}=\"this.$cfg.height + 'px'\"><i ##pointer {style.left}=\"this.pointerLeft\" {style.top}=\"this.pointerTop\"></i><canvas ##canvas [width]=\"this.$cfg.width\" [height]=\"this.$cfg.height\" {style.width}=\"this.$cfg.width + 'px'\" {style.height}=\"this.$cfg.height + 'px'\" {style.cursor}=\"this.$cfg.cursor\" (mousedown)=\"this.cnv.onMouseDown(this.$event)\"></canvas></div>","ui/window/window.html":"<div class=\"ui modal\" ##body></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div ##main>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true},"ui/toolbar/container.html":{"includes":true},"ui/toolbar/divider.html":{"includes":true},"ui/toolbar/item-with-sub.html":{"includes":true},"ui/toolbar/item.html":{"includes":true},"ui/toolbar/toolbar.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -4874,6 +4874,10 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
                     }
                     else {
                         value = lib_Expression.func(prop.expression);
+                        value = self._wrapListener(
+                                    value, 
+                                    prop.scope || self.cfg.scope
+                                );
                     }
                 }
             }
@@ -4882,15 +4886,32 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
                 value = prop.defaultValue;
             }
 
-            value = self._prepareValue(value, prop);
-            self.values[name] = value;
+            var retValue = self._prepareValue(value, prop);
+
+            if (value !== undf) {
+                self.values[name] = retValue;
+            }
 
             setTo = self.cfg.setTo || prop.setTo;
             if (setTo) {
-                setTo[name] = value;
+                setTo[name] = retValue;
             }
 
-            return value;
+            return retValue;
+        },
+
+        _wrapListener: function(ls, scope) {
+            return function() {
+                var args = toArray(arguments),
+                    i, l;
+                for (i = 1, l = args.length; i <= l; i++) {
+                    scope["$" + i] = args[i];
+                }
+                ls(scope);
+                for (i = 1, l = args.length; i <= l; i++) {
+                    delete scope["$" + i];
+                }
+            };
         },
 
 
@@ -5200,12 +5221,18 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
         getAll: function() {
             var self = this, k, vs = {};
             for (k in self.properties) {
-                if (self.values[k] === undf) {
+                if (!self._isValue(self.values[k])) {
                     vs[k] = self._calcProperty(k);
                 }
                 else vs[k] = self.values[k];
             }
             return vs;
+        },
+
+        _isValue: function(v) {
+            return v !== undf && 
+                    v !== null && 
+                    !(typeof v === "number" && isNaN(v));
         },
 
         /**
@@ -5263,11 +5290,13 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
          */
         has: function(name) {
             var self = this;
-            return self.values[name] !== undf || (
-                self.properties[name] && 
-                (self.properties[name].defaultValue !== undf ||
-                 self.properties[name].expression !== undf)
-            );
+            return (self._isValue(self.values[name])) || (
+                    self.properties[name] && 
+                    (
+                        self.properties[name].defaultValue !== undf ||
+                        self.properties[name].expression !== undf
+                    )
+                );
         },
 
         _toggleProperty: function(name, val) {
@@ -5527,8 +5556,8 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
          * @returns {*}
          */
         get: function(name) {
-            if (this.values[name] === undf) {
-                this._calcProperty(name);
+            if (!this._isValue(this.values[name])) {
+                return this._calcProperty(name);
             }
             return this.values[name];
         },
@@ -5683,11 +5712,13 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
          */
         checkScope: function(propName) {
 
-            if (!this.cfg) {
+            var prop = this.properties[propName];
+
+            if (!prop) {
                 return;
             }
 
-            var scope = this.cfg.scope,
+            var scope = prop.scope || this.cfg.scope,
                 descr = lib_Expression.describeExpression(
                     this.getExpression(propName)
                 );
@@ -8308,18 +8339,18 @@ var Directive = MetaphorJs.app.Directive = (function() {
             self.attrSet    = attrSet;
             self._nodeAttr  = node;
 
-            self._initConfig(config);
-            self._initScope(scope);
+            self.initConfig();
+            self.initScope();
 
-            self._asyncInit && self._initAsyncInit();
-            self._initNodeAttr(node);
+            self._asyncInit && self.initAsyncInit();
+            self.initNodeAttr();
 
             self._initPromise ? 
-                self._initPromise.done(self._initDirective, self) :
-                self._initDirective();
+                self._initPromise.done(self.initDirective, self) :
+                self.initDirective();
         },
 
-        _initAsyncInit: function() {
+        initAsyncInit: function() {
             var self = this;
             self._initPromise = new MetaphorJs.lib.Promise;
             var asnc = new MetaphorJs.lib.Promise;
@@ -8332,43 +8363,47 @@ var Directive = MetaphorJs.app.Directive = (function() {
             });
         },
 
-        _initNodeAttr: function(node) {
-            var self = this;
+        initNodeAttr: function() {
+            var self = this,
+                node = self._nodeAttr;
 
             if (node instanceof window.Node) {
                 self.node = node;
-                self._initNode(node);
+                self.initNode(node);
                 self._initPromise && self._initPromise.resolve();
             }
             else if (node.$is && node.$is("MetaphorJs.app.Component")) {
                 self.component = node;
-                self._initComponent(node);
+                self.initComponent(node);
                 self._initPromise && self._initPromise.resolve();
             }
             else if (isThenable(node)) {
-                node.done(self._initNodeAttr, self);
+                node.done(function(node){ self._nodeAttr = node })
+                    .done(self.initNodeAttr, self);
             }
         },
 
-        _initConfig: function(config) {
+        initConfig: function() {
+            var config = this.config;
             config.setDefaultMode("saveState", lib_Config.MODE_SETTER);
             if (config.has("saveState")) {
                 self._stateFn = config.get("saveSate");
             }
         },
 
-        _initScope: function(scope) {
-            var self = this;
+        initScope: function() {
+            var self = this,
+                scope = self.scope;
             scope.$on("destroy", self.onScopeDestroy, self);
             scope.$on("reset", self.onScopeReset, self);
         },
 
-        _initComponent: function(component) {
+        initComponent: function(component) {
             var self = this,
                 apis = self._apis,
                 i, l, res;
             for (i = 0, l = apis.length; i < l; i++) {
-                res = self._initApi(component, apis[i]);
+                res = self.initApi(component, apis[i]);
                 if (isThenable(res)) {
                     !self._initPromise && 
                         (self._initPromise = new MetaphorJs.lib.Promise);
@@ -8377,14 +8412,14 @@ var Directive = MetaphorJs.app.Directive = (function() {
             }
         },
 
-        _initNode: function(node) {
+        initNode: function(node) {
             if (this._apis.indexOf("input") !== -1 && 
                 dom_isField(node)) {
                 this.input = lib_Input.get(node, this.scope);
             }
         },
 
-        _initApi: function(component, apiType) {
+        initApi: function(component, apiType) {
             var self = this,
                 api = component.getApi(apiType, self.id);
             if (isThenable(api)) {
@@ -8399,11 +8434,11 @@ var Directive = MetaphorJs.app.Directive = (function() {
             this[apiType] = api;
         },
 
-        _initDirective: function() {
-            this._initChange();
+        initDirective: function() {
+            this.initChange();
         },
 
-        _initChange: function() {
+        initChange: function() {
             var self = this,
                 val;
             self.config.on("value", self.onScopeChange, self);
@@ -8411,7 +8446,6 @@ var Directive = MetaphorJs.app.Directive = (function() {
                 self.onScopeChange(val, undf);
             }
         },
-
 
         createCommentWrap: function(node, name) {
             var cmts = dom_commentWrap(node, name || this.$class);
@@ -13263,6 +13297,8 @@ var app_Template = MetaphorJs.app.Template = function() {
                 self._resolvePromise = lib_Promise.resolve();
             }
 
+            self._resolvePromise.fail(self._onTemplateNotFound, self);
+
             return self._resolvePromise.done(self._onTemplateResolved, self);
         },
 
@@ -13342,6 +13378,7 @@ var app_Template = MetaphorJs.app.Template = function() {
                                 dom_toFragment(fragment) :
                                 fragment;
                 self._fragment = dom_clone(self._template);
+
                 self._extractVirtualSets(self._fragment);
 
                 if (root) {
@@ -13363,6 +13400,10 @@ var app_Template = MetaphorJs.app.Template = function() {
             }
 
             self._pubResolvePromise.resolve();
+        },
+
+        _onTemplateNotFound: function() {
+            throw new Error("Template " + this.config.get("name") + " not found");
         },
 
         _collectInitialNodes: function(parent) {
@@ -13865,7 +13906,7 @@ var app_Controller = MetaphorJs.app.Controller = cls({
         scope = self.scope = lib_Scope.$produce(self.scope);
 
         // We initialize config with current scope or change config's scope
-        // to current so that all new properties that come from _initConfig
+        // to current so that all new properties that come from initConfig
         // are bound to local scope. 
         // All pre-existing properties are already bound to outer scope;
         // Also, each property configuration can have its own scope specified
@@ -13877,7 +13918,7 @@ var app_Controller = MetaphorJs.app.Controller = cls({
         config.setOption("scope", scope);
         scope.$cfg = {};
         config.setTo(scope.$cfg);
-        self._initConfig();
+        self.initConfig();
         self.$callMixins("$initConfig", config);
         if (self._protoCfg) {
             config.addProperties(
@@ -13912,7 +13953,7 @@ var app_Controller = MetaphorJs.app.Controller = cls({
         self._claimNode();
     },
 
-    _initConfig: function() {
+    initConfig: function() {
         var self = this,
             scope = self.scope,
             config = self.config,
@@ -14385,7 +14426,7 @@ var app_Component = MetaphorJs.app.Component = app_Controller.$extend({
 
     _initTplConfig: function(config) {},
 
-    _initConfig: function() {
+    initConfig: function() {
         var self = this,
             config = self.config,
             mst = lib_Config.MODE_STATIC;
@@ -18168,6 +18209,45 @@ Directive.registerAttribute("app", 100, appDirective);
 
 
 
+Directive.registerAttribute("in-focus", 500, Directive.$extend({
+
+    $class: "MetaphorJs.app.Directive.attr.Autofocus",
+    id: "autofocus",
+
+    initConfig: function() {
+        this.config.setType("value");
+        this.$super();
+    },
+
+    initChange: function(){},
+
+    initDirective: function() {
+
+        var self = this,
+            val = self.config.get("value");
+
+        if (""+parseInt(val) === val) {
+            val = parseInt(val);
+        }
+        else {
+            if (val === "false") val = false;
+            else val = !!val;
+        }
+
+        if (val) {
+            var set = function() {
+                self.node.focus();
+                self.$destroy();
+            };
+            async(set, null, [], val === true ? 300 : val);
+        }
+    }
+}));
+
+
+
+
+
 
 
 
@@ -18183,7 +18263,7 @@ Directive.registerAttribute("bind", 1000,
         input: null,
         textRenderer: null,
 
-        _initDirective: function() {
+        initDirective: function() {
 
             var self    = this,
                 config  = self.config;
@@ -18216,45 +18296,55 @@ Directive.registerAttribute("bind", 1000,
             }
         },
 
-        _initConfig: function(config) {
-            this.$super(config);
+        initConfig: function() {
+            this.$super();
+            var config = this.config;
+            config.setType("if", "bool");
             config.setType("recursive", "bool");
             config.setType("once", "bool", lib_Config.MODE_STATIC);
             config.setType("locked", "bool");
         },
 
-        _initNode: function(node) {
+        initNode: function(node) {
             var self = this;
             if (dom_isField(node)) {
                 self.input = lib_Input.get(node);
             }
         },
 
+        onInputChange: function() {
 
-        
-        onInputChange: function(val) {
             var self = this,
-                cfgVal = self.config.get("value") || null;
-            val = val || null;
-            if (self.config.get("locked") && val != cfgVal) {
-                self.onScopeChange(cfgVal);
+                config = self.config,
+                scopeVal,
+                inputVal;
+
+            if (config.has("locked") && config.get("locked")) {
+                scopeVal = self.config.get("value") || null;
+                inputVal = self.input.getValue() || null;
+                if (scopeVal != inputVal) {
+                    self.onScopeChange();
+                }
             }
         },
 
         onTextRendererChange: function() {
-            this.onScopeChange(this.textRenderer.getString());
+            this.onScopeChange();
         },
 
         onOptionsChange: function() {
-            this.onScopeChange(
-                this.textRenderer ? 
-                    this.textRenderer.getString() :
-                    this.config.get("value")
-            );
+            this.onScopeChange();
         },
 
-        onScopeChange: function(text) {
-            this.updateElement(text);
+        onScopeChange: function() {
+            var config = this.config;
+            if (config.has("if") && !config.get("if")) {
+                return;
+            }
+            var val = this.textRenderer ? 
+                        this.textRenderer.getString() :
+                        this.config.get("value")
+            this.updateElement(val);
         },
 
         updateElement: function(val) {
@@ -18401,18 +18491,19 @@ DO NOT put class="{}" when using class.name="{}"
         _initial: true,
         _prev: null,
 
-        _initConfig: function(config) {
-            var self = this;
+        initConfig: function() {
+            var self = this,
+                config = self.config;
             config.setType("animate", "bool");
             config.eachProperty(function(k) {
                 if (k === 'value' || k.indexOf("value.") === 0) {
                     config.on(k, self.onScopeChange, self);
                 }
             });
-            self.$super(config);
+            self.$super();
         },
 
-        _initChange: function() {
+        initChange: function() {
             var self = this;
             if (self._autoOnChange) {
                 self.onScopeChange();
@@ -19067,7 +19158,7 @@ var lib_EventBuffer = MetaphorJs.lib.EventBuffer = function(){
          * @method
          */
         watchHeight: function() {
-            this.addWatcher("width", MetaphorJs.dom.getHeight);
+            this.addWatcher("height", MetaphorJs.dom.getHeight);
         },
 
         /**
@@ -19686,6 +19777,49 @@ var lib_EventHandler = MetaphorJs.lib.EventHandler;
 
 
 
+Directive.registerAttribute("focused", 600, Directive.$extend({
+
+    $class: "MetaphorJs.app.Directive.attr.InFocus",
+    id: "focused",
+
+    initConfig: function() {
+        this.config.setMode("value", lib_Config.MODE_SETTER);
+        this.$super();
+    },
+
+    initChange: function() {},
+
+    initDirective: function() {
+
+        this.focusDelegate = bind(this.onInputFocus, this);
+        this.blurDelegate = bind(this.onInputBlur, this);
+
+        dom_addListener(this.node, "focus", this.focusDelegate);
+        dom_addListener(this.node, "blur", this.blurDelegate);
+    },
+
+    onInputFocus: function() {
+        this.config.get("value")(this.scope, true);
+    },
+    onInputBlur: function() {
+        this.config.get("value")(this.scope, false);
+    },
+
+    onDestroy: function(){
+        dom_removeListener(this.node, "focus", this.focusDelegate);
+        dom_removeListener(this.node, "blur", this.blurDelegate);
+        this.$super();
+    }
+}));
+
+
+
+
+
+
+
+
+
 Directive.registerAttribute("show", 500, Directive.$extend({
 
     $class: "MetaphorJs.app.Directive.attr.Show",
@@ -19693,12 +19827,13 @@ Directive.registerAttribute("show", 500, Directive.$extend({
 
     _initial: true,
 
-    _initConfig: function(config) {
+    initConfig: function() {
+        var config = this.config;
         config.setType("display", 
             "string", lib_Config.MODE_STATIC, "");
         config.setType("animate", 
             "bool", lib_Config.MODE_STATIC, false);
-        this.$super(config);
+        this.$super();
     },
 
     runAnimation: function(show) {
@@ -19770,14 +19905,15 @@ Directive.registerAttribute("if", 500, Directive.$extend({
 
     _initial: true,
     
-    _initConfig: function(config) {
+    initConfig: function() {
+        var config = this.config;
         config.setType("animate", "bool", lib_Config.MODE_STATIC)
         config.setType("value", "bool");
         config.setType("once", "bool", lib_Config.MODE_STATIC);
-        this.$super(config);
+        this.$super();
     },
     
-    _initDirective: function() {
+    initDirective: function() {
         this.createCommentWrap(this.node, "if");
         this.$super();
     },
@@ -19817,28 +19953,6 @@ Directive.registerAttribute("if", 500, Directive.$extend({
             if (self.config.get("once")) {
                 self.$destroy();
             }
-        }
-    }
-}));
-
-
-
-
-
-Directive.registerAttribute("in-focus", 500, Directive.$extend({
-
-    $class: "MetaphorJs.app.Directive.attr.InFocus",
-    id: "in-focus",
-
-    _initConfig: function(config) {
-        config.setType("value", "bool");
-        this.$super(config);
-    },
-
-    onScopeChange: function(val) {
-        var self    = this;
-        if (val) {
-            async(self.node.focus, self.node, [], 300);
         }
     }
 }));
@@ -19903,6 +20017,92 @@ Directive.registerAttribute("init", 250, function() {
 
     return initDir;
 }());
+
+
+
+
+
+
+
+
+
+
+Directive.registerAttribute("input", 1000, Directive.$extend({
+
+    $class: "MetaphorJs.app.Directive.attr.Model",
+    id: "input",
+    _apis: ["node", "input"],
+
+    _inProg: false,
+    _prev: null,
+
+    initDirective: function() {
+
+        var self    = this;
+
+        self.input.onChange(self.onInputChange, self);
+        self._prev = self.input.getValue();
+        self.$super();
+    },
+
+    initChange: function(){},
+
+    initConfig: function() {
+        this.config.setType("if", "bool");
+        this.config.setMode("value", lib_Config.MODE_FUNC);
+    },
+
+    initChange: emptyFn,
+
+    onOptionsChange: function() {
+        this.onScopeChange();
+    },
+
+    onInputChange: function(val) {
+
+        var self    = this,
+            scope   = self.scope,
+            config  = self.config;
+
+        if (config.has("if") && !config.get("if")) {
+            return;
+        }
+        if (self._prev == val || self._inProg) {
+            return;
+        }
+
+        self._inProg = true;
+
+        var fn = config.get("value");
+        scope.$prev = self._prev;
+        scope.$value = val;
+        fn(scope);
+        scope.$prev = null;
+        scope.$value = null;
+
+        config.checkScope("value");
+        self._prev = val;
+        self._inProg = false;
+    },
+
+    onDestroy: function() {
+        var self        = this;
+
+        self.input.unChange(self.onInputChange, self);
+        self.input.$destroy();
+        self.input = null;
+
+        self.$super();
+    }
+
+
+}, {
+
+    $prebuild: {
+        skip: true
+    }
+
+}));
 
 
 
@@ -20042,16 +20242,20 @@ Directive.registerAttribute("model", 1000, Directive.$extend({
     id: "model",
     _apis: ["node", "input"],
 
-    _changeFn: null,
     _binding: null,
     _inProg: false,
-    _initial: false,
-    _autoOnChange: false,
 
-    _initDirective: function() {
+    initDirective: function() {
 
-        var self    = this;
+        var self    = this,
+            expr    = self.config.getExpression("value")
 
+        self.mo = lib_MutationObserver.get(
+            self.scope, expr, null, null, {
+                setter: true
+            }
+        );
+        self.mo.subscribe(self.onScopeChange, self);
         self.input.onChange(self.onInputChange, self);
 
         self.optionsChangeDelegate = bind(self.onOptionsChange, self);
@@ -20063,8 +20267,6 @@ Directive.registerAttribute("model", 1000, Directive.$extend({
         var inputValue      = self.input.getValue(),
             scopeValue      = self.mo.getValue(),
             binding         = self.config.get("binding");
-        
-        self._initial = true;
 
         if (scopeValue !== inputValue) {
             // scope value takes priority
@@ -20075,41 +20277,20 @@ Directive.registerAttribute("model", 1000, Directive.$extend({
                 self.onInputChange(inputValue);
             }
         }
-
-        self._initial = false;
     },
 
-    _initConfig: function(config) {
-        var self    = this,
-            expr    = config.getExpression("value"),
-            descr   = lib_Expression.describeExpression(expr);
+    initConfig: function() {
+        var config  = this.config;
 
         config.setMode("value", lib_Config.MODE_FNSET);
-        config.setProperty("checkRoot", {
-            type: 'bool',
-            defaultValue: descr.indexOf('r') !== -1
-        });
-        config.setProperty("checkParent", {
-            type: 'bool',
-            defaultValue: descr.indexOf('p') !== -1
-        });
+        config.setType("if", "bool");
         config.setProperty("binding", {
             defaultValue: "both",
             defaultMode: lib_Config.MODE_STATIC
         });
-
-        if (config.hasExpression("change")) {
-            self._changeFn   = lib_Expression.func(config.get("change"));
-        }
-        self.mo             = lib_MutationObserver.get(
-            self.scope, expr, null, null, {
-                setter: true
-            }
-        );
-        self.mo.subscribe(self.onScopeChange, self);
     },
 
-    _initChange: emptyFn,
+    initChange: emptyFn,
 
     onOptionsChange: function() {
         this.onScopeChange();
@@ -20118,10 +20299,14 @@ Directive.registerAttribute("model", 1000, Directive.$extend({
     onInputChange: function(val) {
 
         var self    = this,
-            scope   = self.scope,
-            binding = self._binding || self.config.get("binding")
+            config  = self.config,
+            binding = self._binding || config.get("binding");
 
         if (binding !== "scope") {
+
+            if (config.has("if") && !config.get("if")) {
+                return;
+            }
 
             if (val && isString(val) && val.indexOf('\\{') !== -1) {
                 val = val.replace(/\\{/g, '{');
@@ -20132,24 +20317,9 @@ Directive.registerAttribute("model", 1000, Directive.$extend({
             }
 
             self.mo.setValue(val);
-            self._inProg = true;
 
-            if (scope instanceof MetaphorJs.lib.Scope) {
-                if (self.config.get("checkRoot")) {
-                    scope.$root.$check();
-                }
-                else if (self.config.get("checkParent")) {
-                    scope.$parent ? 
-                        scope.$parent.$check() : 
-                        scope.$root.$check();
-                }
-                else {
-                    scope.$check();
-                }
-            }
-            else {
-                self.config.check("value");
-            }
+            self._inProg = true;
+            self.config.checkScope("value");
             self._inProg = false;
         }
     },
@@ -20158,11 +20328,16 @@ Directive.registerAttribute("model", 1000, Directive.$extend({
     onScopeChange: function() {
 
         var self    = this,
-            val     = self.mo.getValue(), //self.getterFn(self.scope),
-            binding = self._binding || self.config.get("binding"),
+            config  = self.config,
+            val     = self.mo.getValue(), 
+            binding = self._binding || config.get("binding"),
             ie;
 
         if (binding !== "input" && !self._inProg) {
+
+            if (config.has("if") && !config.get("if")) {
+                return;
+            }
 
             // when scope value changed but this field
             // is not in focus, it should try to
@@ -20183,10 +20358,6 @@ Directive.registerAttribute("model", 1000, Directive.$extend({
             }
 
             self._binding = null;
-        }
-
-        if (self._changeFn && !self.initial) {
-            self._changeFn(self.scope);
         }
     },
 
@@ -20284,18 +20455,19 @@ Directive.registerAttribute("options", 100, Directive.$extend({
         this.$super(scope, node, config, renderer, attrSet);
     },
 
-    _initConfig: function(config) {
+    initConfig: function() {
         var self    = this,
+            config  = self.config,
             expr;
 
         config.disableProperty("value");
         expr = config.getExpression("value");
 
         self.parseExpr(expr);
-        self.$super(config);
+        self.$super();
     },
 
-    _initDirective: function() {
+    initDirective: function() {
 
         var self    = this,
             node    = self.node;
@@ -20525,9 +20697,9 @@ Directive.registerAttribute("options", 100, Directive.$extend({
             this.$super(scope, node, config, renderer, attrSet);
         },
 
-        _initConfig: function(config) {
-            this.$super(config);
-            config.setType("value", "bool");
+        initConfig: function() {
+            this.$super();
+            this.config.setType("value", "bool");
         },
 
         onScopeChange: function(val) {
@@ -20871,7 +21043,7 @@ Directive.registerAttribute("src", 1000, Directive.$extend({
         self.$super(scope, node, config);
     },
 
-    _initDirective: function(scope, node, config, renderer, attrSet) {
+    initDirective: function(scope, node, config, renderer, attrSet) {
 
         var self = this;
 
@@ -21022,11 +21194,12 @@ Directive.registerAttribute("style", 1000, Directive.$extend({
     $class: "MetaphorJs.app.Directive.attr.Style",
     id: "style",
 
-    _initDirective: function() {
+    initDirective: function() {
 
         var self = this,
             config = self.config;
 
+        config.on("value", self.onScopeChange, self);
         config.eachProperty(function(k){
             if (k.indexOf("value.") === 0) {
                 config.on(k, self.onScopeChange, self);
@@ -21034,6 +21207,10 @@ Directive.registerAttribute("style", 1000, Directive.$extend({
         });
 
         this.$super();
+    },
+
+    initChange: function() {
+        this.onScopeChange();
     },
 
     getCurrentValue: function() {
@@ -30426,14 +30603,14 @@ cls({
         var self = this;
         self.directive = directive;
         directive.$intercept("onScopeChange", self.onScopeChange, self, "instead");
-        directive.$intercept("_initDirective", self.$_initDirective, self, "before");
+        directive.$intercept("initDirective", self.$initDirective, self, "before");
         self.queue = 
             directive.queue || 
             new lib_Queue({auto: true, async: true, 
                             mode: lib_Queue.REPLACE, thenable: true});
     },
 
-    $_initDirective: function() {
+    $initDirective: function() {
 
         var self = this;
 
@@ -30538,11 +30715,11 @@ cls({
         var self = this;
         self.directive = directive;
 
-        directive.$intercept("_initDirective", self.$_initDirective, self, "after");
+        directive.$intercept("initDirective", self.$initDirective, self, "after");
         self.origOnChange = directive.$intercept("onSrcChanged", self.onSrcChanged, self, "after");
     },
 
-    $_initDirective: function() {
+    $initDirective: function() {
 
         var attr    = self.directive.attr,
             node    = self.directive.node,
@@ -30815,7 +30992,10 @@ MetaphorJs.ui = MetaphorJs.ui || {
     menu: {},
     toolbar: {},
     form: {},
-    mixin: {}
+    mixin: {},
+    util: {
+        view: {}
+    }
 };
 
 
@@ -30985,6 +31165,7 @@ MetaphorJs.ui.button.Group = app_Container.$extend({
         style: true
     }
 });
+
 
 
 
@@ -35482,7 +35663,8 @@ MetaphorJs.dialog.Component = app_Component.$extend({
         this._createDialog();
     },
 
-    _initConfig: function() {
+    initConfig: function() {
+        this.$super();
         this.config.set("tag", "div");
     },
 
@@ -35613,7 +35795,7 @@ MetaphorJs.ui.dialog.Popup = app_Container.$extend({
 var ui_field_Field = MetaphorJs.ui.field.Field = app_Container.$extend({
     $class: "MetaphorJs.ui.field.Field",
 
-    _initConfig: function() {
+    initConfig: function() {
         
         var self = this,
             config = self.config;
@@ -35734,7 +35916,7 @@ MetaphorJs.ui.field.Input = ui_field_Field.$extend({
     $alias: "MetaphorJs.directive.component.ui-input",
     template: "ui/field/input.html",
 
-    _initConfig: function() {
+    initConfig: function() {
         this.$super();
 
         var config = this.config;
@@ -36228,7 +36410,7 @@ MetaphorJs.ui.field.Select = ui_field_Field.$extend({
     resizeBuffer: null,
     _firstLoadSet: false,
 
-    _initConfig: function() {
+    initConfig: function() {
 
         this.$super();
 
@@ -36962,6 +37144,1324 @@ MetaphorJs.ui.menu.Toolbar = ui_menu_Menu.$extend({
 
 
 
+var lib_Color = MetaphorJs.lib.Color = function(color) {
+
+    this._rgba = [0,0,0,1];
+
+    if (color) {
+        this.setColor(color);
+    }
+
+}; 
+
+extend(MetaphorJs.lib.Color.prototype, {
+
+    _rgba: null,
+
+    /**
+     * @method
+     * @param {string|MetaphorJs.lib.Color|array} color {
+     *  hex code, color object or rgba array
+     * }
+     */
+    setColor: function(color) {
+        if (!color) {
+            return;
+        }
+
+        var t = typeof color;
+
+        if (t === 'string') {
+            if (color.substring(0,1) === "#") {
+                color = color.substring(1);
+            }
+            color = color.toLowerCase();
+            if (color.length === 3) {
+                this.setHEX(this._hex2full(color));
+            }
+            else if (color.length === 6) {
+                this.setHEX(color);
+            }
+            else if (color.indexOf("rgba") !== -1) {
+                this.setRGBA(this._parseString(color));
+            }
+            else if (color.indexOf("hsl") !== -1) {
+                this.setHSLA(this._parseString(color));
+            }
+            else if (color.indexOf("hsv") !== -1) {
+                this.setHSVA(this._parseString(color));
+            }
+        }
+        else if (color instanceof MetaphorJs.lib.Color) {
+            this.setRGBA(color.getRGBA());
+        }
+        else if (isArray(color)) {
+            this.setRGBA(color);
+        }
+    },
+
+    /**
+     * @method
+     * @param {string} hex 
+     */
+    setHEX: function(hex) {
+        this._rgba = this._hex2rgba(hex);
+    },
+
+
+    _processSet: function(args, prev) {
+        
+        var val = [];
+
+        if (args.length > 1 || 
+            typeof args[0] === "number" || 
+            typeof args[0] === "string") {
+
+            var a1 = args[0],
+                a2 = args[1],
+                a3 = args[2],
+                a4 = args[3];
+
+            val = prev.slice();
+            a1 !== undf && a1 !== null && (val[0] = a1);
+            a2 !== undf && a2 !== null && (val[1] = a2);
+            a3 !== undf && a3 !== null && (val[2] = a3);
+            a4 !== undf && a4 !== null && (val[3] = a4);
+        }
+        else {
+            val = args[0];
+        }
+
+        val[0] = parseFloat(val[0] || 0);
+        val[1] = parseFloat(val[1] || 0);
+        val[2] = parseFloat(val[2] || 0);
+        val[3] = parseFloat(val[3] || 1);
+
+        return val;
+    },
+
+    _round: function(input) {
+        var val = input.slice();
+        val[0] = Math.round(val[0] || 0);
+        val[1] = Math.round(val[1] || 0);
+        val[2] = Math.round(val[2] || 0);
+        return val;
+    },
+
+    /**
+     * Set hsla
+     * @method setHSLA
+     * @param {int} h
+     * @param {int} s
+     * @param {int} l
+     * @param {float} a
+     */
+    /**
+     * Set hsla
+     * @method setHSLA
+     * @param {array} hsla 
+     */
+    setHSLA: function() {
+        this._rgba = this._hsla2rgba(
+            this._processSet(arguments, this.getHSLA())
+        );
+    },
+
+
+    /**
+     * Set hsva
+     * @method setHSVA
+     * @param {int} h
+     * @param {int} s
+     * @param {int} v
+     * @param {float} a
+     */
+    /**
+     * Set hsla
+     * @method setHSVA
+     * @param {array} hsva 
+     */
+    setHSVA: function() {
+        this._rgba = this._hsva2rgba(
+            this._processSet(arguments, this.getHSVA())
+        );
+    },
+
+    /**
+     * Set rgba
+     * @method setRGBA
+     * @param {int} r
+     * @param {int} g
+     * @param {int} b
+     * @param {float} a
+     */
+    /**
+     * Set hsla
+     * @method setRGBA
+     * @param {array} rgba 
+     */
+    setRGBA: function() {
+        this._rgba = this._processSet(arguments, this._rgba);
+    },
+
+    getAs: function(format, floats) {
+        switch (format) {
+            case "hex":
+                return this.getHEX();
+            case "rgba":
+                return this.getRGBA(floats);
+            case "hsla":
+                return this.getHSLA(floats);
+            case "hsva":
+                return this.getHSVA(floats);
+            case "rgbastr":
+                return this.getRGBAString();
+            case "hslastr":
+                return this.getHSLAString();
+            case "hsvastr":
+                return this.getHSVAString();
+            default:
+                return this.getHEX();
+        }
+    },
+
+    getHEX: function() {
+        return this._rgba2hex(this._round(this.getRGBA()));
+    },
+    getHSLA: function(floats) {
+        var val = this._rgba2hsla(this.getRGBA());
+        return floats === true ? val : this._round(val);
+    },
+    getHSLAString: function() {
+        return this._hsla2str(this._round(this.getHSLA()));
+    },
+    getRGBA: function(floats) {
+        return floats === true ? this._rgba.slice() : this._round(this._rgba);
+    },
+    getRGBAString: function() {
+        return this._rgba2str(this._round(this.getRGBA()));
+    },
+    getHSVA: function(floats) {
+        var val = this._rgba2hsva(this.getRGBA());
+        return floats === true ? val : this._round(val);
+    },
+    getHSVAString: function() {
+        return this._hsva2str(this._round(this.getHSVA()));
+    },
+
+
+    _hex2full: function(short) {
+        var r = short.substring(0,1).toLowerCase(),
+            g = short.substring(1,2).toLowerCase(),
+            b = short.substring(2,3).toLowerCase();
+        return r+r+g+g+b+b;
+    },
+
+    _rgba2str: function(rgba) {
+        return "rgba(" + rgba.join(',') + ")";
+    },
+
+    _rgba2hex: function(rgba) {
+        var r = Math.round(rgba[0]).toString(16),
+            g = Math.round(rgba[1]).toString(16),
+            b = Math.round(rgba[2]).toString(16);
+
+        r.length === 1 && (r = "0"+r);
+        g.length === 1 && (g = "0"+g);
+        b.length === 1 && (b = "0"+b);
+        
+        return r + g + b;
+    },
+    _hex2rgba: function(hex) {
+        return [
+            parseInt(hex.substring(0,2), 16),
+            parseInt(hex.substring(2,4), 16),
+            parseInt(hex.substring(4,6), 16),
+            1
+        ];
+    },
+
+    _rgba2hsla: function(rgba) {
+        var r = rgba[0] / 255;
+        var g = rgba[1] / 255;
+        var b = rgba[2] / 255;
+        var min = Math.min(r, g, b);
+        var max = Math.max(r, g, b);
+        var delta = max - min;
+        var h;
+        var s;
+
+        if (max === min) {
+            h = 0;
+        } else if (r === max) {
+            h = (g - b) / delta;
+        } else if (g === max) {
+            h = 2 + (b - r) / delta;
+        } else if (b === max) {
+            h = 4 + (r - g) / delta;
+        }
+
+        h = Math.min(h * 60, 360);
+
+        if (h < 0) {
+            h += 360;
+        }
+
+        var l = (min + max) / 2;
+
+        if (max === min) {
+            s = 0;
+        } else if (l <= 0.5) {
+            s = delta / (max + min);
+        } else {
+            s = delta / (2 - max - min);
+        }
+
+        return [
+            h, 
+            s * 100, 
+            l * 100, 
+            rgba[3] || 1
+        ];
+    },
+    _hsla2rgba: function(hsla) {
+        var h = hsla[0] / 360;
+        var s = (hsla[1]||100) / 100;
+        var l = (hsla[2]||100) / 100;
+        var a = hsla[3] || 1;
+        var t2;
+        var t3;
+        var val;
+    
+        if (s === 0) {
+            val = l * 255;
+            return [val, val, val, a];
+        }
+    
+        if (l < 0.5) {
+            t2 = l * (1 + s);
+        } else {
+            t2 = l + s - l * s;
+        }
+    
+        var t1 = 2 * l - t2;
+        var rgba = [0, 0, 0, a];
+
+        for (var i = 0; i < 3; i++) {
+            t3 = h + 1 / 3 * -(i - 1);
+            if (t3 < 0) {
+                t3++;
+            }
+    
+            if (t3 > 1) {
+                t3--;
+            }
+    
+            if (6 * t3 < 1) {
+                val = t1 + (t2 - t1) * 6 * t3;
+            } else if (2 * t3 < 1) {
+                val = t2;
+            } else if (3 * t3 < 2) {
+                val = t1 + (t2 - t1) * (2 / 3 - t3) * 6;
+            } else {
+                val = t1;
+            }
+    
+            rgba[i] = val * 255;
+        }
+    
+        return rgba;
+
+    },
+    _hsla2str: function(hsla) {
+        return "hsla(" + hsla.join(',') + ")";
+    },
+
+
+    _hsva2rgba: function(hsva) {
+        var h = hsva[0] / 60,
+            s = hsva[1] / 100,
+            v = hsva[2] / 100,
+            a = hsva[3] || 1,
+            hi = Math.floor(h) % 6,
+            
+            f = h - Math.floor(h),
+            p = 255 * v * (1 - s),
+            q = 255 * v * (1 - (s * f)),
+            t = 255 * v * (1 - (s * (1 - f)));
+            
+        v *= 255;
+    
+        switch (hi) {
+            case 0:
+                return [v, t, p, a];
+            case 1:
+                return [q, v, p, a];
+            case 2:
+                return [p, v, t, a];
+            case 3:
+                return [p, q, v, a];
+            case 4:
+                return [t, p, v, a];
+            case 5:
+                return [v, p, q, a];
+        }
+    },
+
+    _rgba2hsva: function(rgba) {
+        var rdif,
+            gdif,
+            bdif,
+            h,
+            s,
+
+            r = rgba[0] / 255,
+            g = rgba[1] / 255,
+            b = rgba[2] / 255,
+            a = rgba[3] || 1,
+            v = Math.max(r, g, b),
+            diff = v - Math.min(r, g, b);
+
+        var diffc = function (c) {
+            return (v - c) / 6 / diff + 1 / 2;
+        };
+    
+        if (diff === 0) {
+            h = 0;
+            s = 0;
+        } else {
+            s = diff / v;
+            rdif = diffc(r);
+            gdif = diffc(g);
+            bdif = diffc(b);
+    
+            if (r === v) {
+                h = bdif - gdif;
+            } else if (g === v) {
+                h = (1 / 3) + rdif - bdif;
+            } else if (b === v) {
+                h = (2 / 3) + gdif - rdif;
+            }
+    
+            if (h < 0) {
+                h += 1;
+            } else if (h > 1) {
+                h -= 1;
+            }
+        }
+    
+        return [
+            h * 360,
+            s * 100,
+            v * 100,
+            a
+        ];
+    },
+
+    _hsva2str: function(hsva) {
+        return "hsva(" + hsva.join(',') + ")";
+    },
+
+
+    _parseString: function(str) {
+        var match = str.match(/[\d, ]+/);
+        if (match) {
+            var parts = match[0].split(",");
+            parts[0] && (parts[0] = parseInt(parts[0]));
+            parts[1] && (parts[1] = parseInt(parts[1]));
+            parts[2] && (parts[2] = parseInt(parts[2]));
+            parts[3] && (parts[3] = parseFloat(parts[3]));
+            return parts;
+        }
+        return [0,0,0,1];
+    },
+
+    toString: function(format) {
+        return format ? this.getAs(format) : this.getHEX();
+    }
+});
+
+
+
+
+/**
+ * Get element inner width
+ * @function MetaphorJs.dom.getInnerWidth
+ * @param {HTMLElement} el
+ * @returns {int}
+ */
+var dom_getInnerWidth = MetaphorJs.dom.getInnerWidth = _dom_getDimensions("inner", "Width");
+
+
+
+
+/**
+ * Get element inner height
+ * @function MetaphorJs.dom.getInnerHeight
+ * @param {HTMLElement} el
+ * @returns {int}
+ */
+var dom_getInnerHeight = MetaphorJs.dom.getInnerHeight = _dom_getDimensions("inner", "Height");
+
+
+
+
+
+
+
+
+
+
+
+var ui_util_Canvas = MetaphorJs.ui.util.Canvas = app_Component.$extend({
+    $class: "MetaphorJs.ui.util.Canvas",
+    $alias: "MetaphorJs.directive.component.ui-canvas",
+    template: "ui/util/canvas.html",
+    as: "cnv",
+
+    _renderQueue: null,
+    _currentSize: null,
+
+    initConfig: function() {
+        this.$super();
+        var config = this.config,
+            mst = lib_Config.MODE_STATIC;
+
+        config.setType("width", "int", mst);
+        config.setType("height", "int", mst);
+        
+    },
+
+    initComponent: function() {
+
+        var self = this;
+
+        self._renderQueue = new lib_Queue({
+            async: "raf",
+            auto: true,
+            mode: lib_Queue.REPLACE,
+            context: self
+        });
+    },
+
+    _onCfgWidthChange: function() {
+        this._currentSize = null;
+        this._renderQueue.add(this.renderCanvas);
+    },
+
+    _onCfgHeightChange: function() {
+        this._currentSize = null;
+        this._renderQueue.add(this.renderCanvas);
+    },
+
+    afterAttached: function() {
+        if (!this.config.has("width") || 
+            !this.config.has("height")) {
+            this._renderQueue.add(this.getSize);
+            async(this.renderCanvas, this, [], 50);    
+        }
+        else this._renderQueue.add(this.renderCanvas);
+        
+        this.config.on("width", this._onCfgWidthChange, this);
+        this.config.on("height", this._onCfgHeightChange, this);
+    },
+
+
+    /**Sizing */
+
+
+    getCtx: function() {
+        if (!this._ctx) {
+            var canvas = this.getRefEl("canvas");
+            this._ctx = canvas.getContext('2d');
+        }
+        return this._ctx;
+    },
+
+    getSize: function() {
+
+        if (!this._currentSize) {
+            var config = this.config;
+
+            var w = config.has("width"),
+                h = config.has("height"),
+                main = this.getRefEl("main");
+
+            if (!w) {
+                if (main) {
+                    if (main.style.width) {
+                        config.setDefaultValue("width", parseInt(main.style.width));
+                    }
+                    else {
+                        config.setDefaultValue("width", 
+                            parseInt(dom_getInnerWidth(main)));
+                    }
+                }
+            }
+            if (!h) {
+                if (main) {
+                    if (main.style.height) {
+                        config.setDefaultValue("height", parseInt(main.style.height));
+                    }
+                    else {
+                        config.setDefaultValue("height", 
+                            parseInt(dom_getInnerHeight(main)));
+                    }
+                }
+            }
+
+            this._currentSize = {
+                width: config.get("width"),
+                height: config.get("height")
+            };
+        }
+
+        return this._currentSize;
+    },
+
+    getCanvasWidth: function() {
+        return this.getSize().width;
+    },
+
+    getCanvasHeight: function() {
+        return this.getSize().width;
+    },
+
+
+    /**Rendering */
+
+    renderCanvas: function() {
+        
+    },
+
+
+    onDestroy: function() {
+
+        this._renderQueue.$destroy();
+        this.$super();
+    }
+}, {
+    supportsDirectives: {
+        show: true,
+        hide: true,
+        class: true,
+        style: true,
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+var ui_util_Color = MetaphorJs.ui.util.Color = ui_util_Canvas.$extend({
+    $class: "MetaphorJs.ui.util.Color",
+    template: "ui/util/color.html",
+
+    _apis: ["dom", "input"],
+    _color: null,
+    _colorHex: null,
+    _lastX: 0,
+    _lastY: 0,
+
+    initConfig: function() {
+
+        this.$super();
+        var config = this.config,
+            mst = lib_Config.MODE_STATIC;
+
+        config.setType("format", "string", mst, "hex");
+        config.setType("color", null, null, "rgba(255,0,0,1)");
+        config.on("color", this._onCfgColorChange, this);
+    },
+
+    initComponent: function() {
+        var self = this;
+        self.$super();
+        self.scope.pointerLeft = null;
+        self.scope.pointerTop = null;
+        self._color = new lib_Color(this.config.get("color"));
+        self._colorHex = self._color.getHEX();
+
+        self._mouseUpDelegate = bind(self.onMouseUp, self);
+        self._mouseMoveDelegate = bind(self.onMouseMove, self);
+    },
+
+    isDragging: function() {
+        return this._drag;
+    },
+
+    afterAttached: function() {
+        this.$super();
+        this._renderQueue.add(this.updatePointer);
+    },
+
+    _onCfgColorChange: function() {},
+
+
+    renderCanvas: function(){},
+    updateColor: function(){},
+    updatePointer: function(){},
+
+
+    /**Mouse handling */
+
+    _updateCoords: function(e) {
+        var size = this.getSize();
+        var ofs = dom_getOffset(this.getRefEl("main"));
+        var x = e.clientX - ofs.left;
+        var y = e.clientY - ofs.top;
+
+        x < 0 && (x = 0);
+        y < 0 && (y = 0);
+        x > size.width && (x = size.width);
+        y > size.height && (y = size.height);
+
+        this._lastX = x;
+        this._lastY = y;
+    },
+
+    onMouseDown: function(e) {
+        var b = window.document.body;
+        dom_addListener(b, "mouseup", this._mouseUpDelegate);
+        dom_addListener(b, "mousemove", this._mouseMoveDelegate);
+        this._drag = true;
+        
+        this._updateCoords(e);
+        this.updateColor(); 
+        this.updatePointer();
+    },
+    onMouseMove: function(e) {
+        if (this._drag) {
+            this._updateCoords(e);
+            this.updateColor();        
+            this.updatePointer();
+            this.scope.$check();
+        }
+    },
+    onMouseUp: function(e) {
+        var b = window.document.body;
+        dom_removeListener(b, "mouseup", this._mouseUpDelegate);
+        dom_removeListener(b, "mousemove", this._mouseMoveDelegate);
+        this.scope.$check();
+        this._drag = false;
+    },
+
+
+    /* Input API */
+    setValue: function(color) {
+        
+    },
+    getValue: function() {
+        return this._color.getAs(this.config.get("format"));
+    },
+    onKey: emptyFn,
+    unKey: emptyFn,
+    onChange: function(fn, ctx, opt) {
+        return this.on("change", fn, ctx, opt);
+    },
+    unChange: function(fn, ctx) {
+        return this.un("change", fn, ctx);
+    },
+
+    getInputApi: function() {
+        return this;
+    }
+}, {
+    supportsDirectives: {
+        show: true,
+        hide: true,
+
+        class: true,
+        style: true,
+
+        bind: true,
+        model: true,
+
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true,
+        mouseover: true,
+        mouseout: true
+    }
+});
+
+
+
+
+
+
+
+
+MetaphorJs.ui.util.ColorHue = ui_util_Color.$extend({
+    $class: "MetaphorJs.ui.util.ColorHue",
+    $alias: "MetaphorJs.directive.component.ui-color-hue",
+
+    _apis: ["dom", "input"],
+    _color: null,
+    _colorHex: null,
+    _lastX: 0,
+    _lastY: 0,
+
+    initConfig: function() {
+        this.$super();
+
+        var config = this.config,
+            mst = lib_Config.MODE_STATIC;
+
+        config.setType("position", "string", mst, "v");
+        config.setType("cursor", "string", mst);
+    },
+
+    initComponent: function() {
+        this.$super();
+        this._color.setHSVA(null, 100, 100, 1);
+        this._colorHex = this._color.getHEX();
+    },
+
+    _setValue: function(color) {
+        var c = new lib_Color(color),
+            prev = this._color.getHEX(),
+            hex;
+        this._color.setHSVA(c.getHSVA(/**floats: */ true)[0]);
+        hex = this._color.getHEX();
+        if (this._attached) {
+            this._renderQueue.add(this.updatePointer);
+        }
+        if (hex !== prev) {
+            this._colorHex = hex;
+            this.trigger("change", hex, prev);
+        }
+    },
+
+    setColor: function(color) {
+        this._setValue(color);
+    },
+
+    setValue: function(color) {
+        this.config.disableProperty("color");
+        this._setValue(color);
+    },
+
+    _onCfgColorChange: function() {
+        this._setValue(this.config.get("color"));
+    },
+
+    _onCfgColorChange: function() {
+        var c = new lib_Color(this.config.get("color")),
+            hsva = c.getHSVA();
+        this._color.setHSVA(hsva[0]);
+        if (this._attached) {
+            this._renderQueue.add(this.updatePointer);
+        }
+    },
+
+    /**Rendering */
+
+    renderCanvas: function() {
+        var self = this,
+            ctx = self.getCtx(),
+            size = self.getSize(),
+            pos = self.config.get("position"),
+            grd;
+        
+        ctx.rect(0, 0, size.width, size.height);
+
+        if (pos === "v") {
+            grd = ctx.createLinearGradient(0, 0, 0, size.height);
+        }
+        else {
+            grd = ctx.createLinearGradient(0, 0, size.width, 0);
+        }
+        grd.addColorStop(0, 'rgba(255, 0, 0, 1)');
+        grd.addColorStop(0.17, 'rgba(255, 255, 0, 1)');
+        grd.addColorStop(0.34, 'rgba(0, 255, 0, 1)');
+        grd.addColorStop(0.51, 'rgba(0, 255, 255, 1)');
+        grd.addColorStop(0.68, 'rgba(0, 0, 255, 1)');
+        grd.addColorStop(0.85, 'rgba(255, 0, 255, 1)');
+        grd.addColorStop(1, 'rgba(255, 0, 0, 1)');
+        ctx.fillStyle = grd;
+        ctx.fill();
+    },
+
+
+    /** Color */
+
+    _getIntValue: function() {
+        var pos = this.config.get("position"),
+            size = this.getSize()[pos === "v" ? "height" : "width"],
+            mouse = this[pos === "v" ? "_lastY" : "_lastX"];
+        return mouse / size;
+    },
+
+    updateColor: function() {
+        var pos = this._getIntValue();
+        var h = pos * 360;
+
+        this._color.setHSVA(h);
+        var hex = this._color.getHEX(),
+            prev;
+
+        if (this._colorHex !== hex) {
+            prev = this._colorHex;
+            this._colorHex = hex;
+            this.trigger("change", hex, prev);
+        }
+    },
+
+    updatePointer: function() {
+        var mouse,
+            pos = this.config.get("position"),
+            size = this.getSize(),
+            skey = pos === 'v' ? 'height' : 'width',
+            pkeyPrim = pos === 'v' ? 'pointerTop' : 'pointerLeft',
+            pkeySec = pos === 'v' ? 'pointerLeft' : 'pointerTop',
+            ckey = pos === 'v' ? '_lastY' : '_lastX';
+
+        // follow mouse
+        if (this._drag) {
+            mouse = this[ckey];
+        }   
+        // reflect current value
+        else {
+            var hsva = this._color.getHSVA(),
+                h = hsva[0] / 360,
+                mouse = h * size[skey];
+        }
+
+        mouse < 0 && (mouse = 0);
+        mouse > size[skey] && (mouse = size[skey]);
+
+        this.scope[pkeySec] = "50%";
+        this.scope[pkeyPrim] = parseInt(mouse) + "px";
+
+        // if pointer is updated via renderQueue
+        if (!this._drag) {
+            this.scope.$check();
+        }
+    }
+}, {
+    supportsDirectives: {
+        show: true,
+        hide: true,
+
+        class: true,
+        style: true,
+
+        bind: true,
+        model: true,
+
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true,
+        mouseover: true,
+        mouseout: true
+    }
+});
+
+
+
+
+
+/**
+ * @filter get
+ * @param {object} input
+ * @param {string} format
+ * @returns {*}
+ */
+MetaphorJs.filter.color = function(val, scope, prop) {
+    var c = new lib_Color(val);
+    return c.getAs(prop);
+}
+
+
+
+
+
+
+
+
+MetaphorJs.ui.util.ColorSV = ui_util_Color.$extend({
+    $class: "MetaphorJs.ui.util.ColorSV",
+    $alias: "MetaphorJs.directive.component.ui-color-sv",
+
+    _color: null,
+    _colorHex: null,
+    _lastX: 0,
+    _lastY: 0,
+    _hue: 0,
+
+    initConfig: function() {
+        this.$super();
+        var config = this.config,
+            mst = lib_Config.MODE_STATIC;
+
+        config.setType("cursor", "string", mst);
+    },
+
+    initComponent: function() {
+        this.$super();
+        this._hue = this._color.getHSVA(/**floats: */true)[0];
+    },
+
+    setColor: function(color) {
+        var prev = this._color.getHEX(),
+            hex;
+        this._hue = color.getHSVA(/**floats: */true)[0];
+        this._color.setColor(color);
+        this._colorHex = hex = this._color.getHEX();
+        if (this._attached) {
+            this._renderQueue.add(this.renderCanvas);
+            this._renderQueue.add(this.updatePointer);
+        }
+        if (hex !== prev) {
+            this.trigger("change", hex, prev);
+        }
+    },
+
+    setValue: function(color) {
+        var c = new lib_Color(color),
+            prev = this._color.getHEX(),
+            hex;
+        this._hue = c.getHSVA(/**floats: */true)[0];
+        this._color.setHSVA(this._hue);
+        this.config.disableProperty("color");
+        hex = this._color.getHEX();
+        if (this._attached) {
+            this._renderQueue.add(this.renderCanvas);
+            this._renderQueue.add(this.updatePointer);
+        }
+        if (hex !== prev) {
+            this._colorHex = hex;
+            this.trigger("change", hex, prev);
+        }
+    },
+
+    _onCfgColorChange: function() {
+        this.setColor(this.config.get("color"));
+    },
+
+    /**Rendering */
+
+    renderCanvas: function() {
+        var self = this,
+            ctx = self.getCtx(),
+            size = self.getSize(),
+            c = new lib_Color(this._color);
+
+        c.setHSVA(this._hue, 100, 100);
+
+        ctx.clearRect(0, 0, size.width, size.height);
+        ctx.rect(0, 0, size.width, size.height);
+        ctx.fillStyle = c.getRGBAString();
+        ctx.fillRect(0, 0, size.width, size.height);
+
+        var grdWhite = ctx.createLinearGradient(0, 0, size.width, 0);
+        grdWhite.addColorStop(0, 'rgba(255,255,255,1)');
+        grdWhite.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = grdWhite;
+        ctx.fillRect(0, 0, size.width, size.height);
+
+        var grdBlack = ctx.createLinearGradient(0, 0, 0, size.height);
+        grdBlack.addColorStop(0, 'rgba(0,0,0,0)');
+        grdBlack.addColorStop(1, 'rgba(0,0,0,1)');
+        ctx.fillStyle = grdBlack;
+        ctx.fillRect(0, 0, size.width, size.height);
+    },
+    
+
+    /** Color */
+
+    _getS: function() {
+        var size = this.getSize().width,
+            mouse = this._lastX;
+        return parseInt((mouse / size) * 100);
+    },
+
+    _getV: function() {
+        var size = this.getSize().height,
+            mouse = this._lastY;
+        return 100 - parseInt((mouse / size) * 100);
+    },
+
+    updateColor: function() {
+        var s = this._getS(),
+            v = this._getV();
+
+        this._color.setHSVA(this._hue, s, v);
+        var hex = this._color.getHEX(),
+            prev;
+
+        if (this._colorHex !== hex) {
+            prev = this._colorHex;
+            this._colorHex = hex;
+            this.trigger("change", hex, prev);
+        }
+    },
+
+    updatePointer: function() {
+        var size = this.getSize(),
+            pleft,
+            ptop,
+            x, y,
+            hsva;
+
+        // follow mouse
+        if (this._drag) {
+
+            x = this._lastX;
+            y = this._lastY;
+
+            x < 0 && (x = 0);
+            x > size.width && (x = size.width);
+            y < 0 && (y = 0);
+            y > size.width && (y = size.width);
+
+            x = x / size.width;
+            y = y / size.height;
+            
+            pleft = parseInt(x * 100) + "%";
+            ptop = parseInt(y * 100) + "%";
+        }   
+        // reflect current value
+        else {
+            hsva = this._color.getHSVA();
+            pleft = hsva[1] + "%";
+            ptop = (100-hsva[2]) + "%";
+        }
+
+        this.scope.pointerLeft = pleft;
+        this.scope.pointerTop = ptop;
+
+        // if pointer is updated via renderQueue
+        if (!this._drag) {
+            this.scope.$check();
+        }
+    }
+}, {
+    supportsDirectives: {
+        show: true,
+        hide: true,
+
+        class: true,
+        style: true,
+
+        bind: true,
+        model: true,
+
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true,
+        mouseover: true,
+        mouseout: true
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+MetaphorJs.ui.util.ColorPicker = app_Container.$extend({
+    $class: "MetaphorJs.ui.util.ColorPicker",
+    $alias: "MetaphorJs.directive.component.ui-color-picker",
+    template: "ui/util/color-picker.html",
+    as: "pckr",
+
+    _apis: ["node", "input"],
+    _updating: false,
+    _prev: null,
+
+    initComponent: function() {
+        var scope = this.scope,
+            initialColor = "ff0000";
+        
+        scope.input = {
+            hex: null,
+            r: null,
+            g: null,
+            b: null,
+            h: null,
+            s: null,
+            v: null
+        };
+
+        scope.hue = initialColor;
+        scope.sv = initialColor;
+        scope.color = new lib_Color(initialColor);
+        this._prev = initialColor;
+
+        scope.$watch("this.input.hex", this._onInputHex, this);
+
+        scope.$watch("this.input.r", this._onInputR, this);
+        scope.$watch("this.input.g", this._onInputG, this);
+        scope.$watch("this.input.b", this._onInputB, this);
+
+        scope.$watch("this.input.h", this._onInputH, this);
+        scope.$watch("this.input.s", this._onInputS, this);
+        scope.$watch("this.input.v", this._onInputV, this);
+
+        scope.$watch("this.sv", this._onSVChange, this);
+    },
+
+    initConfig: function() {
+        this.$super();
+        this.config.setType("format", "string", lib_Config.MODE_STATIC);
+    },
+
+    _frame: function(val, min, max) {
+        val = parseInt(val);
+        val < min && (val = min);
+        val > max && (val = max);
+        return val;
+    },
+
+    _updateCanvas: function() {
+        this._updating = true;
+        var scope = this.scope;
+        this.getRefCmp("sv").setColor(scope.color);
+        this.getRefCmp("hue").setColor(scope.color);
+        scope.$check();
+        this._updating = false;
+    },
+
+
+    _onInputHex: function(hex) {
+        hex = (""+hex).toLowerCase().trim();
+        if (hex.substring(0,1) === "#") {
+            hex = hex.substring(1);
+        }
+        if (hex === this.scope.color.getHEX()) {
+            return;
+        }
+        var c = new lib_Color(hex);
+        if (c.getHEX() === hex) {
+            this.scope.color.setColor(hex);
+            this._updateCanvas();
+            this._onChange();
+        }
+    },
+
+    _onInputRGB: function(r,g,b) {
+        this.scope.color.setRGBA(r,g,b,1);
+        this._updateCanvas();
+        this._onChange();
+    },
+
+    _onInputR: function(r) {
+        this._onInputRGB(this._frame(r, 0, 255));
+    },
+    _onInputG: function(g) {
+        this._onInputRGB(null, this._frame(g, 0, 255));
+    },
+    _onInputB: function(b) {
+        this._onInputRGB(null, null, this._frame(b, 0, 255));
+    },
+
+
+    _onInputHSV: function(h,s,v) {
+        this.scope.color.setHSVA(h,s,v,1);
+        this._updateCanvas();
+        this._onChange();
+    },
+
+    _onInputH: function(h) {
+        this._onInputHSV(this._frame(h, 0, 360));
+    },
+    _onInputS: function(s) {
+        this._onInputHSV(null, this._frame(s, 0, 100));
+    },
+    _onInputV: function(v) {
+        this._onInputHSV(null, null, this._frame(v, 0, 100));
+    },
+
+
+    _onSVChange: function(hex) {
+        if (this.getRefCmp("sv").isDragging() ||
+            this.getRefCmp("hue").isDragging()) {
+            this.scope.color.setColor(hex);
+            this._onChange();
+        }
+    },
+
+
+    _onChange: function() {
+        var hex = this.scope.color.getHEX(),
+            prev = this._prev;
+
+        this._prev = hex;
+        if (prev !== hex) {
+            this.trigger("change", hex, prev);
+        }
+    },
+
+
+    /* Input API */
+    setValue: function(color) {
+        this.scope.color.setColor(color);
+        this._updateCanvas();
+        this._onChange();
+    },
+    getValue: function() {
+        return this.scope.color.getAs(this.config.get("format"));
+    },
+    onKey: emptyFn,
+    unKey: emptyFn,
+    onChange: function(fn, ctx, opt) {
+        return this.on("change", fn, ctx, opt);
+    },
+    unChange: function(fn, ctx) {
+        return this.un("change", fn, ctx);
+    },
+
+    getInputApi: function() {
+        return this;
+    }
+}, {
+    supportsDirectives: {
+        show: true,
+        hide: true,
+
+        class: true,
+        style: true,
+
+        bind: true,
+        model: true,
+
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true,
+        mouseover: true,
+        mouseout: true
+    }
+});
+
+
+
 
 
 
@@ -37001,10 +38501,10 @@ Directive.registerAttribute("dropdown", 1100,
 
         _asyncInit: true,
 
-        _initConfig: function(config) {
-            this.$super(config);
-
-            var s = lib_Config.MODE_STATIC;
+        initConfig: function() {
+            this.$super();
+            var s = lib_Config.MODE_STATIC,
+                config = this.config;
             config.disableProperty("value");
             config.setDefaultMode("ref", s);
             config.setDefaultMode("selector", s);
@@ -37020,7 +38520,7 @@ Directive.registerAttribute("dropdown", 1100,
             config.setDefaultValue("on", "click");
         },
 
-        _initDirective: function() {
+        initDirective: function() {
 
             var self = this,
                 config = self.config,
@@ -37073,7 +38573,7 @@ Directive.registerAttribute("dropdown", 1100,
             self.$super();
         },
 
-        _initChange: function(){
+        initChange: function(){
             // skip setting onChange listener
         },
 

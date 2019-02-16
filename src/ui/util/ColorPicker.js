@@ -51,7 +51,7 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
         scope.$watch("this.sv", this._onSVChange, this);
     },
 
-    _initConfig: function() {
+    initConfig: function() {
         this.$super();
         this.config.setType("format", "string", MetaphorJs.lib.Config.MODE_STATIC);
     },

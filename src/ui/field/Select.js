@@ -35,7 +35,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
     resizeBuffer: null,
     _firstLoadSet: false,
 
-    _initConfig: function() {
+    initConfig: function() {
 
         this.$super();
 

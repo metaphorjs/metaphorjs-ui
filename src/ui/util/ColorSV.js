@@ -16,7 +16,7 @@ module.exports = MetaphorJs.ui.util.ColorSV = MetaphorJs.ui.util.Color.$extend({
     _lastY: 0,
     _hue: 0,
 
-    _initConfig: function() {
+    initConfig: function() {
         this.$super();
         var config = this.config,
             mst = MetaphorJs.lib.Config.MODE_STATIC;

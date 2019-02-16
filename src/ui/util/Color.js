@@ -22,7 +22,7 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
     _lastX: 0,
     _lastY: 0,
 
-    _initConfig: function() {
+    initConfig: function() {
 
         this.$super();
         var config = this.config,

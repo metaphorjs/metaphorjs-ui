@@ -13,7 +13,7 @@ module.exports = MetaphorJs.ui.field.Input = MetaphorJs.ui.field.Field.$extend({
     $alias: "MetaphorJs.directive.component.ui-input",
     template: "ui/field/input.html",
 
-    _initConfig: function() {
+    initConfig: function() {
         this.$super();
 
         var config = this.config;

@@ -10,7 +10,7 @@ var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
 module.exports = MetaphorJs.ui.field.Field = MetaphorJs.app.Container.$extend({
     $class: "MetaphorJs.ui.field.Field",
 
-    _initConfig: function() {
+    initConfig: function() {
         
         var self = this,
             config = self.config;

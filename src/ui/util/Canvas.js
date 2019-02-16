@@ -19,7 +19,7 @@ module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
     _renderQueue: null,
     _currentSize: null,
 
-    _initConfig: function() {
+    initConfig: function() {
         this.$super();
         var config = this.config,
             mst = MetaphorJs.lib.Config.MODE_STATIC;

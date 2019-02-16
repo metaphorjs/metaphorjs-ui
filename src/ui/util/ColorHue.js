@@ -16,7 +16,7 @@ module.exports = MetaphorJs.ui.util.ColorHue = MetaphorJs.ui.util.Color.$extend(
     _lastX: 0,
     _lastY: 0,
 
-    _initConfig: function() {
+    initConfig: function() {
         this.$super();
 
         var config = this.config,
