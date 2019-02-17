@@ -18,35 +18,27 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
 
     _apis: ["node", "input"],
     _updating: false,
+    _color: null,
     _prev: null,
 
     initComponent: function() {
-        var scope = this.scope,
-            initialColor = "ff0000";
-        
-        scope.input = {
-            hex: null,
-            r: null,
-            g: null,
-            b: null,
-            h: null,
-            s: null,
-            v: null
-        };
-
-        scope.hue = initialColor;
-        scope.sv = initialColor;
-        scope.color = new MetaphorJs.lib.Color(initialColor);
-        this._prev = initialColor;
+        this.$super();
+        this._color = this.scope.color = new MetaphorJs.lib.Color(null, "hsva");
+        this._color.setColor(this.config.get("color"));
+        this._prev = this._color.getHSVAString();
     },
 
     initConfig: function() {
         this.$super();
-        this.config.setType("format", "string", MetaphorJs.lib.Config.MODE_STATIC);
+        this.config.setType("color", null, null, "hsva(0,100,100,1)")
+    },
+
+    afterRender: function(){
+        this._updateCanvas();
     },
 
     _frame: function(val, min, max) {
-        val = parseInt(val);
+        val = parseFloat(val);
         val < min && (val = min);
         val > max && (val = max);
         return val;
@@ -54,10 +46,17 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
 
     _updateCanvas: function() {
         this._updating = true;
-        var scope = this.scope;
-        this.getRefCmp("sv").setColor(scope.color);
-        this.getRefCmp("hue").setColor(scope.color);
-        scope.$check();
+
+        var sv = this.getRefCmp("sv"),
+            hue = this.getRefCmp("hue"),
+            alpha = this.getRefCmp("alpha"),
+            c = this._color;
+
+        sv && sv.setValue(c);
+        hue && hue.setValue(c.getH());
+        alpha && alpha.setValue(c.getAlpha());
+
+        this.scope.$check();
         this._updating = false;
     },
 
@@ -67,36 +66,39 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
         if (hex.substring(0,1) === "#") {
             hex = hex.substring(1);
         }
-        if (hex === this.scope.color.getHEX()) {
+        if (hex === this._color.getHEX()) {
             return;
         }
         var c = new MetaphorJs.lib.Color(hex);
         if (c.getHEX() === hex) {
-            this.scope.color.setColor(hex);
+            this._color.setColor(hex);
             this._updateCanvas();
             this._onChange();
         }
     },
 
-    _onInputRGB: function(r,g,b) {
-        this.scope.color.setRGBA(r,g,b,1);
+    _onInputRGBA: function(r,g,b,a) {
+        this._color.setRGBA(r,g,b,a);
         this._updateCanvas();
         this._onChange();
     },
 
     onInputR: function(r) {
-        this._onInputRGB(this._frame(r, 0, 255));
+        this._onInputRGBA(this._frame(r, 0, 255));
     },
     onInputG: function(g) {
-        this._onInputRGB(null, this._frame(g, 0, 255));
+        this._onInputRGBA(null, this._frame(g, 0, 255));
     },
     onInputB: function(b) {
-        this._onInputRGB(null, null, this._frame(b, 0, 255));
+        this._onInputRGBA(null, null, this._frame(b, 0, 255));
+    },
+    onInputA: function(a) {
+        this._onInputRGBA(null, null, null, this._frame(a, 0, 1));
     },
 
 
     _onInputHSV: function(h,s,v) {
-        this.scope.color.setHSVA(h,s,v,1);
+        this._color.setHSVA(h,s,v);
         this._updateCanvas();
         this._onChange();
     },
@@ -110,49 +112,46 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
     onInputV: function(v) {
         this._onInputHSV(null, null, this._frame(v, 0, 100));
     },
-
-    onInputA: function(a) {
-        this.scope.color.setAlpha(a);
-        this._updateCanvas();
-        this._onChange();
-    },
+    
 
 
-    onSVChange: function(hex) {
-        if (this.getRefCmp("sv").isDragging() ||
-            this.getRefCmp("hue").isDragging()) {
-            this.scope.color.setColor(hex);
+    onInputSV: function(sv) {
+        if (this.getRefCmp("sv").isDragging()) {
+            this._color.setHSVA(null, sv[0], sv[1]);
             this._onChange();
         }
     },
-
-    onAChange: function(a) {
+    onInputHue: function(hue) {
+        if (this.getRefCmp("hue").isDragging()) {
+            this._color.setHSVA(hue);
+            this._onChange();
+        }
+    },
+    onInputAlpha: function(a) {
         if (this.getRefCmp("alpha").isDragging()) {
-            this.scope.color.setAlpha(a);
+            this._color.setAlpha(a);
             this._onChange();
         }
     },
 
 
     _onChange: function() {
-        var hex = this.scope.color.getHEX(),
+        var val = this._color.getRGBAString(),
             prev = this._prev;
-
-        this._prev = hex;
-        if (prev !== hex) {
-            this.trigger("change", hex, prev);
+        if (prev !== val) {
+            this._prev = val;
+            this.trigger("change", val, prev);
         }
     },
 
 
     /* Input API */
     setValue: function(color) {
-        this.scope.color.setColor(color);
-        this._updateCanvas();
+        this._color.setColor(color);
         this._onChange();
     },
     getValue: function() {
-        return this.scope.color.getAs(this.config.get("format"));
+        return this._color;
     },
     onKey: emptyFn,
     unKey: emptyFn,

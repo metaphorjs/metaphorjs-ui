@@ -11,8 +11,7 @@ module.exports = MetaphorJs.ui.util.ColorHue = MetaphorJs.ui.util.Color.$extend(
     $alias: "MetaphorJs.directive.component.ui-color-hue",
 
     _apis: ["dom", "input"],
-    _color: null,
-    _colorHex: null,
+    _hue: 0,
     _lastX: 0,
     _lastY: 0,
 
@@ -24,50 +23,32 @@ module.exports = MetaphorJs.ui.util.ColorHue = MetaphorJs.ui.util.Color.$extend(
 
         config.setType("position", "string", mst, "v");
         config.setType("cursor", "string", mst);
+        config.setType("hue", "float", null, 0);
+        config.on("hue", this.setValue, this);
     },
 
     initComponent: function() {
         this.$super();
-        this._color.setHSVA(null, 100, 100, 1);
-        this._colorHex = this._color.getHEX();
+
+        if (this.config.has("hue")) {
+            this._hue = this.config.get("hue");
+        }
     },
 
-    _setValue: function(color) {
-        var c = new MetaphorJs.lib.Color(color),
-            prev = this._color.getHEX(),
-            hex;
-        this._color.setHSVA(c.getHSVA(/**floats: */ true)[0]);
-        hex = this._color.getHEX();
+    setValue: function(hue) {
+        hue = parseFloat(hue);
+        hue < 0 && (hue = 0);
+        hue > 360 && (hue = 360);
+        var prev = this._hue;
+        this._hue = hue;
         if (this._attached) {
             this._renderQueue.add(this.updatePointer);
         }
-        if (hex !== prev) {
-            this._colorHex = hex;
-            this.trigger("change", hex, prev);
+        if (hue !== prev) {
+            this.trigger("change", hue, prev);
         }
     },
 
-    setColor: function(color) {
-        this._setValue(color);
-    },
-
-    setValue: function(color) {
-        this.config.disableProperty("color");
-        this._setValue(color);
-    },
-
-    _onCfgColorChange: function() {
-        this._setValue(this.config.get("color"));
-    },
-
-    _onCfgColorChange: function() {
-        var c = new MetaphorJs.lib.Color(this.config.get("color")),
-            hsva = c.getHSVA();
-        this._color.setHSVA(hsva[0]);
-        if (this._attached) {
-            this._renderQueue.add(this.updatePointer);
-        }
-    },
 
     /**Rendering */
 
@@ -78,6 +59,7 @@ module.exports = MetaphorJs.ui.util.ColorHue = MetaphorJs.ui.util.Color.$extend(
             pos = self.config.get("position"),
             grd;
         
+        ctx.clearRect(0, 0, size.width, size.height);
         ctx.rect(0, 0, size.width, size.height);
 
         if (pos === "v") {
@@ -104,22 +86,11 @@ module.exports = MetaphorJs.ui.util.ColorHue = MetaphorJs.ui.util.Color.$extend(
         var pos = this.config.get("position"),
             size = this.getSize()[pos === "v" ? "height" : "width"],
             mouse = this[pos === "v" ? "_lastY" : "_lastX"];
-        return mouse / size;
+        return (mouse / size) * 360;
     },
 
     updateColor: function() {
-        var pos = this._getIntValue();
-        var h = pos * 360;
-
-        this._color.setHSVA(h);
-        var hex = this._color.getHEX(),
-            prev;
-
-        if (this._colorHex !== hex) {
-            prev = this._colorHex;
-            this._colorHex = hex;
-            this.trigger("change", hex, prev);
-        }
+        this.setValue(this._getIntValue());
     },
 
     updatePointer: function() {
@@ -137,9 +108,7 @@ module.exports = MetaphorJs.ui.util.ColorHue = MetaphorJs.ui.util.Color.$extend(
         }   
         // reflect current value
         else {
-            var hsva = this._color.getHSVA(),
-                h = hsva[0] / 360,
-                mouse = h * size[skey];
+            mouse = (this._hue / 360) * size[skey];
         }
 
         mouse < 0 && (mouse = 0);

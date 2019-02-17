@@ -25,8 +25,7 @@ module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
             mst = MetaphorJs.lib.Config.MODE_STATIC;
 
         config.setType("width", "int", mst);
-        config.setType("height", "int", mst);
-        
+        config.setType("height", "int", mst);  
     },
 
     initComponent: function() {
@@ -55,7 +54,7 @@ module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
         if (!this.config.has("width") || 
             !this.config.has("height")) {
             this._renderQueue.add(this.getSize);
-            async(this.renderCanvas, this, [], 50);    
+            async(this.renderCanvas, this, [], 100);    
         }
         else this._renderQueue.add(this.renderCanvas);
         
@@ -121,19 +120,16 @@ module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
     },
 
     getCanvasHeight: function() {
-        return this.getSize().width;
+        return this.getSize().height;
     },
 
 
     /**Rendering */
 
-    renderCanvas: function() {
-        
-    },
+    renderCanvas: function() {},
 
 
     onDestroy: function() {
-
         this._renderQueue.$destroy();
         this.$super();
     }

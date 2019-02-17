@@ -13,69 +13,70 @@ module.exports = MetaphorJs.ui.util.ColorAlpha = MetaphorJs.ui.util.Color.$exten
     _apis: ["dom", "input"],
     _color: null,
     _alpha: null,
-    //_hue: null,
     _lastX: 0,
     _lastY: 0,
 
     initConfig: function() {
         this.$super();
 
-        var config = this.config,
+        var self = this,
+            config = self.config,
             mst = MetaphorJs.lib.Config.MODE_STATIC;
 
         config.setType("position", "string", mst, "v");
         config.setType("cursor", "string", mst);
+        config.setType("alpha", "float", null, 1);
+        config.setDefaultValue("color", "hsva(0,100,100,1)")
+        config.on("alpha", self.setValue, self);
+        config.on("color", self.setColor, self);
+        config.on("hue", self.setHue, self);
     },
 
     initComponent: function() {
         this.$super();
-        //this._color.setHSVA(null, 100, 100);
-        this._alpha = this._color.getAlpha();
-        //this._hue = this._color.getHSVA(/**floats: */true)[0];
-    },
-
-    _setValue: function(color, setHue, setA) {
-        var c = new MetaphorJs.lib.Color(color),
-            prev = this._color.getAlpha(),
-            a = prev;
-
-        if (setHue) {
-            //this._hue = c.getHSVA(/**floats: */true)[0];
-            var hue = c.getHSVA(/**floats: */true);
-            this._color.setHSVA(hue[0], hue[1], hue[2]);
-        }
-
-        if (setA) {
-            this._alpha = a = c.getAlpha();
+        this._color = new MetaphorJs.lib.Color(null, "hsva");
+        this._color.setColor(this.config.get("color"));
+        if (this.config.has("alpha")) {
+            this._alpha = this.config.get("alpha");
             this._color.setAlpha(this._alpha);
         }
-
-        if (this._attached) {
-            this._renderQueue.add(this.renderCanvas);
-            this._renderQueue.add(this.updatePointer);
-        }
-        if (a !== prev) {
-            this.trigger("change", a, prev);
-        }
+        else this._alpha = this._color.getAlpha();
     },
 
     setColor: function(color) {
-        this._setValue(color, true, true);
+        this._color.setColor(color);
+        if (this._attached) {
+            this._renderQueue.add(this.renderCanvas);
+        }
     },
 
-    setValue: function(color) {
-        this.config.disableProperty("color");
-        this._setValue(color, true, false);
+    setHue: function(hue) {
+        this._color.setHSVA(hue);
+        if (this._attached) {
+            this._renderQueue.add(this.renderCanvas);
+        }
     },
 
-    _onCfgColorChange: function() {
-        this._setValue(this.config.get("color"), true, true);
+    setValue: function(alpha) {
+        alpha = parseFloat(alpha);
+        alpha < 0 && (alpha = 0);
+        alpha > 1 && (alpha = 1);
+        var prev = this._alpha;
+        this._alpha = alpha;
+    
+        if (alpha != prev) {
+            if (this._attached) {
+                this._renderQueue.add(this.updatePointer);
+            }
+            this.trigger("change", alpha, prev);
+        }
     },
 
 
     /**Rendering */
 
     renderCanvas: function() {
+
         var self = this,
             ctx = self.getCtx(),
             size = self.getSize(),
@@ -112,15 +113,7 @@ module.exports = MetaphorJs.ui.util.ColorAlpha = MetaphorJs.ui.util.Color.$exten
     },
 
     updateColor: function() {
-        var a = this._getIntValue(),
-            prev = this._alpha;
-
-        this._color.setAlpha(a);
-        
-        if (this._alpha !== a) {
-            this._alpha = a;
-            this.trigger("change", a, prev);
-        }
+        this.setValue(this._getIntValue());
     },
 
     updatePointer: function() {
@@ -138,8 +131,7 @@ module.exports = MetaphorJs.ui.util.ColorAlpha = MetaphorJs.ui.util.Color.$exten
         }   
         // reflect current value
         else {
-            var a = this._color.getAlpha(),
-                mouse = (1-a) * size[skey];
+            mouse = (1 - this._alpha) * size[skey];
         }
 
         mouse < 0 && (mouse = 0);

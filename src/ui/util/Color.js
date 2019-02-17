@@ -17,30 +17,14 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
     template: "ui/util/color.html",
 
     _apis: ["dom", "input"],
-    _color: null,
-    _colorHex: null,
     _lastX: 0,
     _lastY: 0,
-
-    initConfig: function() {
-
-        this.$super();
-        var config = this.config,
-            mst = MetaphorJs.lib.Config.MODE_STATIC;
-
-        config.setType("format", "string", mst, "hex");
-        config.setType("color", null, null, "rgba(255,0,0,1)");
-        config.on("color", this._onCfgColorChange, this);
-    },
 
     initComponent: function() {
         var self = this;
         self.$super();
         self.scope.pointerLeft = null;
         self.scope.pointerTop = null;
-        self._color = new MetaphorJs.lib.Color(this.config.get("color"));
-        self._colorHex = self._color.getHEX();
-
         self._mouseUpDelegate = bind(self.onMouseUp, self);
         self._mouseMoveDelegate = bind(self.onMouseMove, self);
     },
@@ -54,8 +38,6 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
         this._renderQueue.add(this.updatePointer);
     },
 
-    _onCfgColorChange: function() {},
-
 
     renderCanvas: function(){},
     updateColor: function(){},
@@ -64,7 +46,7 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
 
     /**Mouse handling */
 
-    _updateCoords: function(e) {
+    updateCoords: function(e) {
         var size = this.getSize();
         var ofs = MetaphorJs.dom.getOffset(this.getRefEl("main"));
         var x = e.clientX - ofs.left;
@@ -85,13 +67,13 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
         MetaphorJs.dom.addListener(b, "mousemove", this._mouseMoveDelegate);
         this._drag = true;
         
-        this._updateCoords(e);
+        this.updateCoords(e);
         this.updateColor(); 
         this.updatePointer();
     },
     onMouseMove: function(e) {
         if (this._drag) {
-            this._updateCoords(e);
+            this.updateCoords(e);
             this.updateColor();        
             this.updatePointer();
             this.scope.$check();
@@ -107,12 +89,8 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
 
 
     /* Input API */
-    setValue: function(color) {
-        
-    },
-    getValue: function() {
-        return this._color.getAs(this.config.get("format"));
-    },
+    setValue: emptyFn,
+    getValue: emptyFn,
     onKey: emptyFn,
     unKey: emptyFn,
     onChange: function(fn, ctx, opt) {
@@ -121,7 +99,6 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
     unChange: function(fn, ctx) {
         return this.un("change", fn, ctx);
     },
-
     getInputApi: function() {
         return this;
     }
