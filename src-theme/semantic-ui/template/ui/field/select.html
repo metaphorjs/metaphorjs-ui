@@ -50,7 +50,7 @@
          {show}="!this.searchQuery && !this.field.hasSelection() &&
                     !!this.$cfg.emptyText"
          {show.$display}="inline-block"
-         {show.$save-state}="this.emptyShown"
+         {show.$on--change}="this.emptyShown = this.$1"
          {bind}="this.$cfg.emptyText"></div>
 
     <div class="text"
@@ -59,7 +59,7 @@
          {class.default}="this.focused && this.searchQuery == ''"
          {show}="!this.searchQuery && !this.field.isMultiSelection() && 
                     this.field.hasSelection()"
-         {show.$save-state}="this.selectedShown"
+         {show.$on--change}="this.selectedShown = this.$1"
          {show.$display}="inline-block"
          {bind-html}="this.field.getSelectedName() || '&nbsp;'"></div>
 

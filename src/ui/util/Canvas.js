@@ -3,7 +3,7 @@ require("../../__init.js");
 require("metaphorjs/src/app/Component.js");
 require("metaphorjs/src/lib/Config.js");
 require("metaphorjs-shared/src/lib/Queue.js");
-require("../../lib/Color.js");
+require("metaphorjs-shared/src/lib/Color.js");
 require("metaphorjs/src/func/dom/getInnerWidth.js");
 require("metaphorjs/src/func/dom/getInnerHeight.js");
 

@@ -1,6 +1,6 @@
 
 
-require("../lib/Color.js");
+require("metaphorjs-shared/src/lib/Color.js");
 var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 
 /**

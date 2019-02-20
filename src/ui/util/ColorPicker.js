@@ -2,7 +2,7 @@ require("../../__init.js");
 require("metaphorjs/src/app/Container.js");
 require("metaphorjs/src/lib/Config.js");
 
-require("../../lib/Color.js");
+require("metaphorjs-shared/src/lib/Color.js");
 require("../../filter/color.js");
 require("./ColorSV.js");
 require("./ColorHue.js");

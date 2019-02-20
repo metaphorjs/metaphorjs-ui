@@ -3,7 +3,7 @@ require("metaphorjs/src/app/Component.js");
 require("metaphorjs/src/lib/Config.js");
 require("metaphorjs-shared/src/lib/Queue.js");
 require("./Canvas.js");
-require("../../lib/Color.js");
+require("metaphorjs-shared/src/lib/Color.js");
 require("metaphorjs/src/func/dom/addListener.js");
 require("metaphorjs/src/func/dom/removeListener.js");
 require("metaphorjs/src/func/dom/getOffset.js");

@@ -2,7 +2,7 @@
 require("../../__init.js");
 require("metaphorjs/src/app/Container.js");
 require("metaphorjs/src/lib/Config.js");
-require("metaphorjs-dialog/src/dialog/Component.js");
+require("metaphorjs-dialog/src/dialog/Container.js");
 
 var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 

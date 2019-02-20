@@ -4837,7 +4837,7 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
                 else if (prop.mode === MODE_SINGLE) {
                     value = lib_Expression.get(
                         prop.expression, 
-                        self.cfg.scope
+                        prop.scope || self.cfg.scope
                     );
                 }
                 else if (prop.mode === MODE_DYNAMIC) {
@@ -4869,7 +4869,7 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
                         prop.expression.indexOf('=') === -1) {
                         value = lib_Expression.get(
                             prop.expression, 
-                            self.cfg.scope
+                            prop.scope || self.cfg.scope
                         );
                     }
                     else {
@@ -9381,7 +9381,10 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
                 self._eachNode(smth);
             }
             else {
-                self._nodeChildren(null, smth);
+                if (self._nodeChildren(null, smth) === 0 && 
+                    self._treeState.countdown === 0) {
+                    self._onProcessingFinished();
+                }
             }
         },
 
@@ -9397,7 +9400,7 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
                 if (res.nodeType) {
                     ts.countdown += 1;
                     this._eachNode(res);
-                    return;
+                    return 1;
                 }
                 else {
                     children = res.slice();
@@ -9414,6 +9417,8 @@ var app_Renderer = MetaphorJs.app.Renderer = function() {
             for(i = -1;
                 ++i < len;
                 this._eachNode(children[i])){}
+
+            return len;
         },
 
         _eachNode: function(el) {
@@ -12867,6 +12872,7 @@ var ajax = function(){
 
 
 
+
 var app_Template = MetaphorJs.app.Template = function() {
 
     var observable      = new MetaphorJs.lib.Observable,
@@ -13164,12 +13170,15 @@ var app_Template = MetaphorJs.app.Template = function() {
                 self._attachBefore = before;  
 
                 if (self._rendered) {
-                    if (window.requestAnimationFrame) {
+                    if (window.requestAnimationFrame && 
+                        isAttached(self._attachTo)) {
                         requestAnimationFrame(function(){
                             self._rafAttach();
                         });
                     }
-                    else self._rafAttach();
+                    else {
+                        self._rafAttach();
+                    }
                 }
             }
         },
@@ -13181,6 +13190,9 @@ var app_Template = MetaphorJs.app.Template = function() {
 
             if (self._nodes) {
                 self._doAttach();   
+            }
+            else {
+                self._setAttached();
             }
         },
 
@@ -13232,6 +13244,7 @@ var app_Template = MetaphorJs.app.Template = function() {
             if (self._nodes) {
                 self._doAttach();
             }
+            else self._setAttached();
         },
 
         attachOrReplace: function() {
@@ -13244,8 +13257,12 @@ var app_Template = MetaphorJs.app.Template = function() {
                 self.replace(self.replaceNode, self.attachTo);
             }
             // new attachment via append
-            else if (self.attachTo && self.attachTo.parentNode) {
-                self.attach(self.attachTo, self.attachBefore);
+            else if (self.attachTo) {
+                if (self.attachBefore) {
+                    self.attachBefore.parentNode && 
+                        self.attach(self.attachTo, self.attachBefore);
+                }
+                else self.attach(self.attachTo);
             }
             // reattaching to previous
             else if (self._nextEl || self._attachTo || self._shadowRoot) {
@@ -13538,7 +13555,13 @@ var app_Template = MetaphorJs.app.Template = function() {
                 observable.relayEvent(self._renderer, "rendered", "rendered-" + self.id);
 
                 observable.relayEvent(self._renderer, "reference", "reference-" + self.id);
-                self._renderer.process(self._nodes, self.scope);
+                
+                if (self._nodes) {
+                    self._renderer.process(self._nodes, self.scope);
+                }
+                else {
+                    self._renderer.trigger("rendered", self._renderer);
+                }
             }
         },
 
@@ -13716,11 +13739,16 @@ var app_Template = MetaphorJs.app.Template = function() {
 
             self._attached = attached;
             if (attached) {
-                observable.trigger("attached-" + self.id, self, nodes);
+                self._setAttached(nodes);
+            }
+        },
 
-                if (self._renderer) {
-                    self._renderer.attached(self._attachTo);
-                }
+        _setAttached: function(nodes) {
+            var self = this;
+            self._attached = true;
+            observable.trigger("attached-" + self.id, self, nodes);
+            if (self._renderer) {
+                self._renderer.attached(self._attachTo);
             }
         },
 
@@ -14520,7 +14548,7 @@ var app_Component = MetaphorJs.app.Component = app_Controller.$extend({
         var self = this,
             dirs = self.directives,
             support = self.$self.supportsDirectives,
-            dirCfg, ds,
+            ds,
             handlers = Directive.getAttributes(),
             i, len, name,
             j, jlen;
@@ -14624,7 +14652,7 @@ var app_Component = MetaphorJs.app.Component = app_Controller.$extend({
         self.template.attach(parent, before);
     },
 
-    detach: function(willAttach) {
+    detach: function() {
         var self = this;
         if (self.template.isAttached()) {
             self.template.detach();
@@ -15016,7 +15044,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
     $mixinEvents: ["$initChildItem"],
     _itemsInitialized: false,
-    _defaultAddTo: "main",
+    defaultAddTo: "main",
 
     _initComponent: function() {
         var self = this;
@@ -15096,7 +15124,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
                 if (foundCmp || foundPromise) {
                     if (!renderRef) {
-                        renderRef = self._defaultAddTo;
+                        renderRef = self.defaultAddTo;
                     }
                     def = extend({
                         type: "component",
@@ -15109,7 +15137,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
                 }
                 else {
                     attrSet = dom_getAttrSet(node);
-                    renderRef = attrSet.at || attrSet.rest.slot || self._defaultAddTo;
+                    renderRef = attrSet.at || attrSet.rest.slot || self.defaultAddTo;
                     def = extend({
                         type: "node",
                         renderRef: renderRef,
@@ -15153,9 +15181,9 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
         self.itemsMap = {};
 
         if (isArray(items)) {
-            items = {
-                body: items
-            }
+            var tmp = {};
+            tmp[self.defaultAddTo] = items;
+            items = tmp;
         }
 
         if (p2i) {
@@ -15463,9 +15491,6 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
         self.$super.apply(self, arguments);
     },
 
-    _onRenderingFinished: function() {
-        this.$super();  
-    },
 
     _onTemplateAttached: function() {
         var self = this, i, l, items = self.items;
@@ -15613,7 +15638,7 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
         }
 
         item = self._processItemDef(cmp, {
-            renderRef: to || self._defaultAddTo
+            renderRef: to || self.defaultAddTo
         });
         self.items.push(item);
 
@@ -18276,6 +18301,10 @@ Directive.registerAttribute("bind", 1000,
             dom_addListener(self.node, "optionschange", 
                                     self.optionsChangeDelegate);
 
+            if (config.has("if")) {
+                config.on("if", self.onIfChange, self);
+            }
+
             if (config.get("recursive")) {
                 config.disableProperty("value");
                 config.disableProperty("recursive");
@@ -18334,6 +18363,12 @@ Directive.registerAttribute("bind", 1000,
 
         onOptionsChange: function() {
             this.onScopeChange();
+        },
+
+        onIfChange: function(val) {
+            if (this.config.get("if")) {
+                this.onScopeChange();
+            }
         },
 
         onScopeChange: function() {
@@ -19800,9 +19835,11 @@ Directive.registerAttribute("focused", 600, Directive.$extend({
 
     onInputFocus: function() {
         this.config.get("value")(this.scope, true);
+        this.scope.$check();
     },
     onInputBlur: function() {
         this.config.get("value")(this.scope, false);
+        this.scope.$check();
     },
 
     onDestroy: function(){
@@ -35638,14 +35675,14 @@ var dialog_Dialog = MetaphorJs.dialog.Dialog = (function(){
 
 
 
-MetaphorJs.dialog.Component = app_Component.$extend({
+MetaphorJs.dialog.Container = app_Container.$extend({
 
     dialog: null,
     dialogPreset: null,
     dialogCfg: null,
-    dialogNode: null,
 
-    hidden: true,
+    _hidden: true,
+    autoRender: true,
 
     target: null,
     isTooltip: false,
@@ -35654,18 +35691,13 @@ MetaphorJs.dialog.Component = app_Component.$extend({
 
         var self = this;
 
-        if (self.isTooltip) {
-            self.target = cfg.node;
-            cfg.node = null;
+        if ((!cfg || !cfg.node) && 
+            !self.template && 
+            (!cfg || !cfg.template)) {
+            self.node = window.document.createElement("div");
         }
 
         self.$super(cfg);
-        this._createDialog();
-    },
-
-    initConfig: function() {
-        this.$super();
-        this.config.set("tag", "div");
     },
 
     _getDialogCfg: function() {
@@ -35675,11 +35707,24 @@ MetaphorJs.dialog.Component = app_Component.$extend({
         return extend({}, self.dialogCfg, {
             preset: self.dialogPreset,
             render: {
-                el: self.dialogNode || self.node,
+                el: self.getRefEl("main"),
                 keepInDOM: true
             }
         }, true, true);
     },
+
+    _onRenderingFinished: function() {
+        var self = this, i, l, items = self.items
+        self.$super();
+        // insert all placeholders, but
+        // attach only resolved items
+        for (i = -1, l = items.length; ++i < l;){
+            self._putItemInPlace(items[i]);
+        }
+
+        this._createDialog();  
+    },
+
 
     _createDialog: function() {
 
@@ -35690,38 +35735,37 @@ MetaphorJs.dialog.Component = app_Component.$extend({
         self.dialog.on("before-show", self.onBeforeDialogShow, self);
         self.dialog.on("before-hide", self.onBeforeDialogHide, self);
         self.dialog.on("destroy", self.onDialogDestroy, self);
+
+        if (!self._hidden) {
+            self.show();
+        }
     },
 
     getDialog: function() {
         return this.dialog;
     },
 
-    // skips the append part
-    _onRenderingFinished: function() {
-        var self = this;
-        self._rendered   = true;
-        self.afterRender();
-        self.trigger('after-render', self);
-        if (self.directives) {
-            self._initDirectives();
-        }
-    },
 
     show: function(e) {
         if (e && !(e instanceof MetaphorJs.lib.DomEvent)) {
             e = null;
         }
 
-        this.dialog.show(e);
+        if (this.dialog) {
+            this.dialog.show(e);
+        }
+        else this._hidden = false;
     },
 
     hide: function(e) {
-
         if (e && !(e instanceof MetaphorJs.lib.DomEvent)) {
             e = null;
         }
 
-        this.dialog.hide(e);
+        if (this.dialog) {
+            this.dialog.hide(e);
+        }
+        else this._hidden = true;
     },
 
     onBeforeDialogShow: function() {
@@ -35731,7 +35775,7 @@ MetaphorJs.dialog.Component = app_Component.$extend({
             self.render();
         }
 
-        self.hidden = false;
+        self._hidden = false;
     },
 
     onDialogShow: function() {
@@ -35744,7 +35788,7 @@ MetaphorJs.dialog.Component = app_Component.$extend({
     onDialogHide: function() {
         var self = this;
         if (!self.$destroyed) {
-            self.hidden = true;
+            self._hidden = true;
             self.trigger("hide", self);
         }
     },
@@ -37144,72 +37188,11 @@ MetaphorJs.ui.menu.Toolbar = ui_menu_Menu.$extend({
 
 
 
-var lib_Color = MetaphorJs.lib.Color = function(color) {
 
-    this._rgba = [0,0,0,1];
-
-    if (color) {
-        this.setColor(color);
-    }
-
-}; 
-
-extend(MetaphorJs.lib.Color.prototype, {
-
-    _rgba: null,
-
-    /**
-     * @method
-     * @param {string|MetaphorJs.lib.Color|array} color {
-     *  hex code, color object or rgba array
-     * }
-     */
-    setColor: function(color) {
-        if (!color) {
-            return;
-        }
-
-        var t = typeof color;
-
-        if (t === 'string') {
-            if (color.substring(0,1) === "#") {
-                color = color.substring(1);
-            }
-            color = color.toLowerCase();
-            if (color.length === 3) {
-                this.setHEX(this._hex2full(color));
-            }
-            else if (color.length === 6) {
-                this.setHEX(color);
-            }
-            else if (color.indexOf("rgba") !== -1) {
-                this.setRGBA(this._parseString(color));
-            }
-            else if (color.indexOf("hsl") !== -1) {
-                this.setHSLA(this._parseString(color));
-            }
-            else if (color.indexOf("hsv") !== -1) {
-                this.setHSVA(this._parseString(color));
-            }
-        }
-        else if (color instanceof MetaphorJs.lib.Color) {
-            this.setRGBA(color.getRGBA());
-        }
-        else if (isArray(color)) {
-            this.setRGBA(color);
-        }
-    },
-
-    /**
-     * @method
-     * @param {string} hex 
-     */
-    setHEX: function(hex) {
-        this._rgba = this._hex2rgba(hex);
-    },
+var lib_Color = MetaphorJs.lib.Color = (function(){
 
 
-    _processSet: function(args, prev) {
+    var processSet = function(args, prev) {
         
         var val = [];
 
@@ -37240,7 +37223,37 @@ extend(MetaphorJs.lib.Color.prototype, {
         return val;
     },
 
-    _round: function(input) {
+
+    set = function(inModel, outModel, args, prev) {
+
+        var val = processSet(args, prev);
+        return convert(inModel, outModel, val);
+    },
+
+    convert = function(from, to, val, doRound) {
+        var conv = from+"2"+to;
+        if (from !== to) {
+            if (conversion[conv]) {
+                val = conversion[conv](val);
+            }
+            else if (conversion[from+"2rgba"] && conversion["rgba2" + to]) {
+                val = conversion["rgba2" + to](
+                    conversion[from+"2rgba"](val)
+                );
+            }
+            else {
+                throw new Error("Cannot convert " + from + " to " + to);
+            }
+        }
+
+        if (doRound) {
+            val = round(val);
+        }
+
+        return val;
+    },
+
+    round = function(input) {
         var val = input.slice();
         val[0] = Math.round(val[0] || 0);
         val[1] = Math.round(val[1] || 0);
@@ -37248,6 +37261,347 @@ extend(MetaphorJs.lib.Color.prototype, {
         return val;
     },
 
+    hex2full = function(short) {
+        var r = short.substring(0,1).toLowerCase(),
+            g = short.substring(1,2).toLowerCase(),
+            b = short.substring(2,3).toLowerCase();
+        return r+r+g+g+b+b;
+    },
+
+    
+    conversion = {
+
+        rgba2hex: function(rgba) {
+            var r = Math.round(rgba[0]).toString(16),
+                g = Math.round(rgba[1]).toString(16),
+                b = Math.round(rgba[2]).toString(16);
+    
+            r.length === 1 && (r = "0"+r);
+            g.length === 1 && (g = "0"+g);
+            b.length === 1 && (b = "0"+b);
+            
+            return r + g + b;
+        },
+        
+        hex2rgba: function(hex) {
+            return [
+                parseInt(hex.substring(0,2), 16),
+                parseInt(hex.substring(2,4), 16),
+                parseInt(hex.substring(4,6), 16),
+                1
+            ];
+        },
+
+        rgba2hsla: function(rgba) {
+            var r = rgba[0] / 255;
+            var g = rgba[1] / 255;
+            var b = rgba[2] / 255;
+            var min = Math.min(r, g, b);
+            var max = Math.max(r, g, b);
+            var delta = max - min;
+            var h;
+            var s;
+
+            if (max === min) {
+                h = 0;
+            } else if (r === max) {
+                h = (g - b) / delta;
+            } else if (g === max) {
+                h = 2 + (b - r) / delta;
+            } else if (b === max) {
+                h = 4 + (r - g) / delta;
+            }
+
+            h = Math.min(h * 60, 360);
+
+            if (h < 0) {
+                h += 360;
+            }
+
+            var l = (min + max) / 2;
+
+            if (max === min) {
+                s = 0;
+            } else if (l <= 0.5) {
+                s = delta / (max + min);
+            } else {
+                s = delta / (2 - max - min);
+            }
+
+            return [
+                h, 
+                s * 100, 
+                l * 100, 
+                rgba.length > 3 ? rgba[3] : 1
+            ];
+        },
+
+        hsla2rgba: function(hsla) {
+            var h = hsla[0] / 360;
+            var s = (hsla[1]||100) / 100;
+            var l = (hsla[2]||100) / 100;
+            var a = hsla.length > 3 ? hsla[3] : 1;
+            var t2;
+            var t3;
+            var val;
+        
+            if (s === 0) {
+                val = l * 255;
+                return [val, val, val, a];
+            }
+        
+            if (l < 0.5) {
+                t2 = l * (1 + s);
+            } else {
+                t2 = l + s - l * s;
+            }
+        
+            var t1 = 2 * l - t2;
+            var rgba = [0, 0, 0, a];
+    
+            for (var i = 0; i < 3; i++) {
+                t3 = h + 1 / 3 * -(i - 1);
+                if (t3 < 0) {
+                    t3++;
+                }
+        
+                if (t3 > 1) {
+                    t3--;
+                }
+        
+                if (6 * t3 < 1) {
+                    val = t1 + (t2 - t1) * 6 * t3;
+                } else if (2 * t3 < 1) {
+                    val = t2;
+                } else if (3 * t3 < 2) {
+                    val = t1 + (t2 - t1) * (2 / 3 - t3) * 6;
+                } else {
+                    val = t1;
+                }
+        
+                rgba[i] = val * 255;
+            }
+        
+            return rgba;
+        },
+    
+        hsva2rgba: function(hsva) {
+            var h = hsva[0] / 60,
+                s = hsva[1] / 100,
+                v = hsva[2] / 100,
+                a = hsva.length > 3 ? hsva[3] : 1,
+                hi = Math.floor(h) % 6,
+
+                f = h - Math.floor(h),
+                p = 255 * v * (1 - s),
+                q = 255 * v * (1 - (s * f)),
+                t = 255 * v * (1 - (s * (1 - f)));
+                
+            v *= 255;
+        
+            switch (hi) {
+                case 0:
+                    return [v, t, p, a];
+                case 1:
+                    return [q, v, p, a];
+                case 2:
+                    return [p, v, t, a];
+                case 3:
+                    return [p, q, v, a];
+                case 4:
+                    return [t, p, v, a];
+                case 5:
+                    return [v, p, q, a];
+            }
+        },
+    
+        rgba2hsva: function(rgba) {
+            var rdif,
+                gdif,
+                bdif,
+                h,
+                s,
+    
+                r = rgba[0] / 255,
+                g = rgba[1] / 255,
+                b = rgba[2] / 255,
+                a = rgba.length > 3 ? rgba[3] : 1,
+                v = Math.max(r, g, b),
+                diff = v - Math.min(r, g, b);
+    
+            var diffc = function (c) {
+                return (v - c) / 6 / diff + 1 / 2;
+            };
+        
+            if (diff === 0) {
+                h = 0;
+                s = 0;
+            } else {
+                s = diff / v;
+                rdif = diffc(r);
+                gdif = diffc(g);
+                bdif = diffc(b);
+        
+                if (r === v) {
+                    h = bdif - gdif;
+                } else if (g === v) {
+                    h = (1 / 3) + rdif - bdif;
+                } else if (b === v) {
+                    h = (2 / 3) + gdif - rdif;
+                }
+        
+                if (h < 0) {
+                    h += 1;
+                } else if (h > 1) {
+                    h -= 1;
+                }
+            }
+        
+            return [
+                h * 360,
+                s * 100,
+                v * 100,
+                a
+            ];
+        },
+
+        rgba2str: function(rgba) {
+            return color2str("rgba", rgba);
+        },
+    
+        hsla2str: function(hsla) {
+            return color2str("hsla", hsla);
+        },
+    
+        hsva2str: function(hsva) {
+            return color2str("hsva", hsva);
+        },
+
+        str2rgba: function(str) {
+            return parseString(str);
+        },
+
+        str2hsla: function(str) {
+            return parseString(str);
+        },
+
+        str2hsva: function(str) {
+            return parseString(str);
+        }
+    },
+
+    
+    color2str = function(model, color) {
+        var vals = round(color.slice()),
+            a = vals[3];
+        if (a > 0 && a < 1) {
+            vals[3] = a.toFixed(2);
+        }
+        return model + "(" + vals.join(',') + ")";
+    },
+
+    parseString = function(str) {
+        var match = str.match(/[\d, ]+/);
+        if (match) {
+            var parts = match[0].split(",");
+            parts[0] && (parts[0] = parseInt(parts[0]));
+            parts[1] && (parts[1] = parseInt(parts[1]));
+            parts[2] && (parts[2] = parseInt(parts[2]));
+            parts[3] && (parts[3] = parseFloat(parts[3]));
+            return parts;
+        }
+        return [0,0,0,1];
+    };
+
+
+/**
+ * @class MetaphorJs.lib.Color
+ * @constructor
+ * @param {string|MetaphorJs.lib.Color|array|null} color 
+ * @param {string} model rgba|hsva
+ */
+var Color = function(color, model) {
+
+    if (!model && color instanceof MetaphorJs.lib.Color) {
+        model = color.model;
+    }
+
+    this.model = model || "rgba";
+    this.color = [0,0,0,1];
+
+    if (color) {
+        this.setColor(color);
+    }
+}; 
+
+
+extend(Color.prototype, {
+
+    model: null,
+    color: null,
+
+    /**
+     * @method
+     * @param {string|MetaphorJs.lib.Color|array} color {
+     *  hex code, color object or rgba array
+     * }
+     */
+    setColor: function(color) {
+        if (!color) {
+            return;
+        }
+
+        var t = typeof color;
+
+        if (t === 'string') {
+            if (color.substring(0,1) === "#") {
+                color = color.substring(1);
+            }
+            color = color.toLowerCase();
+            if (color.length === 3) {
+                this.setHEX(hex2full(color));
+            }
+            else if (color.length === 6) {
+                this.setHEX(color);
+            }
+            else if (color.indexOf("rgba") !== -1) {
+                this.setRGBA(parseString(color));
+            }
+            else if (color.indexOf("hsl") !== -1) {
+                this.setHSLA(parseString(color));
+            }
+            else if (color.indexOf("hsv") !== -1) {
+                this.setHSVA(parseString(color));
+            }
+        }
+        else if (color instanceof MetaphorJs.lib.Color) {
+            if (this.model === "rgba") {
+                this.setRGBA(color.getRGBA());
+            }
+            else if (this.model === "hsva") {
+                this.setHSVA(color.getHSVA());
+            }
+        }
+        else if (isArray(color)) {
+            if (this.model === "rgba") {
+                this.setRGBA(color);
+            }
+            else if (this.model === "hsva") {
+                this.setHSVA(color);
+            }
+        }
+    },
+
+    /**
+     * @method
+     * @param {string} hex 
+     */
+    setHEX: function(hex) {
+        var a = this.color[3];
+        this.color = convert("hex", this.model, hex);
+        this.color[3] = a;
+    },
+    
     /**
      * Set hsla
      * @method setHSLA
@@ -37262,9 +37616,7 @@ extend(MetaphorJs.lib.Color.prototype, {
      * @param {array} hsla 
      */
     setHSLA: function() {
-        this._rgba = this._hsla2rgba(
-            this._processSet(arguments, this.getHSLA())
-        );
+        this.color = set("hsla", this.model, arguments, this.getHSLA());
     },
 
 
@@ -37282,9 +37634,7 @@ extend(MetaphorJs.lib.Color.prototype, {
      * @param {array} hsva 
      */
     setHSVA: function() {
-        this._rgba = this._hsva2rgba(
-            this._processSet(arguments, this.getHSVA())
-        );
+        this.color = set("hsva", this.model, arguments, this.getHSVA());
     },
 
     /**
@@ -37301,9 +37651,25 @@ extend(MetaphorJs.lib.Color.prototype, {
      * @param {array} rgba 
      */
     setRGBA: function() {
-        this._rgba = this._processSet(arguments, this._rgba);
+        this.color = set("rgba", this.model, arguments, this.getRGBA());
     },
 
+    /**
+     * Set alpha channel
+     * @param {float} a 
+     */
+    setAlpha: function(a) {
+        a = parseFloat(a);
+        a < 0 && (a = 0);
+        a > 1 && (a = 1);
+        this.color[3] = a;
+    },
+
+    /**
+     * Get color in given format
+     * @param {string} format hex|rgba|hsla|hsva|rgbastr|hslastr|hsvastr
+     * @param {boolean} floats 
+     */
     getAs: function(format, floats) {
         switch (format) {
             case "hex":
@@ -37325,261 +37691,137 @@ extend(MetaphorJs.lib.Color.prototype, {
         }
     },
 
-    getHEX: function() {
-        return this._rgba2hex(this._round(this.getRGBA()));
+
+    /**
+     * @method
+     * @returns {float}
+     */
+    getAlpha: function() {
+        return this.color[3];
     },
+
+    /**
+     * @method
+     * @param {boolean} floats true to not round values to ints
+     * @returns {int}
+     */
+    getR: function(floats) {
+        return this.getRGBA(floats)[0];
+    },
+
+    /**
+     * @method
+     * @param {boolean} floats true to not round values to ints
+     * @returns {int}
+     */
+    getG: function(floats) {
+        return this.getRGBA(floats)[1];
+    },
+
+    /**
+     * @method
+     * @param {boolean} floats true to not round values to ints
+     * @returns {int}
+     */
+    getB: function(floats) {
+        return this.getRGBA(floats)[2];
+    },
+
+    /**
+     * @method
+     * @param {boolean} floats true to not round values to ints
+     * @returns {int}
+     */
+    getH: function(floats) {
+        return this.getHSVA(floats)[0];
+    },
+
+    /**
+     * @method
+     * @param {boolean} floats true to not round values to ints
+     * @returns {int}
+     */
+    getS: function(floats) {
+        return this.getHSVA(floats)[1];
+    },
+
+    /**
+     * @method
+     * @param {boolean} floats true to not round values to ints
+     * @returns {int}
+     */
+    getV: function(floats) {
+        return this.getHSVA(floats)[2];
+    },
+
+    /**
+     * @method
+     * @param {boolean} floats true to not round values to ints
+     * @returns {array}
+     */
     getHSLA: function(floats) {
-        var val = this._rgba2hsla(this.getRGBA());
-        return floats === true ? val : this._round(val);
+        return convert(this.model, "hsla", this.color, !floats);
     },
-    getHSLAString: function() {
-        return this._hsla2str(this._round(this.getHSLA()));
-    },
+
+    /**
+     * @method
+     * @param {boolean} floats true to not round values to ints
+     * @returns {array}
+     */
     getRGBA: function(floats) {
-        return floats === true ? this._rgba.slice() : this._round(this._rgba);
+        return convert(this.model, "rgba", this.color, !floats);
     },
-    getRGBAString: function() {
-        return this._rgba2str(this._round(this.getRGBA()));
-    },
+
+    /**
+     * @method
+     * @param {boolean} floats true to not round values to ints
+     * @returns {array}
+     */
     getHSVA: function(floats) {
-        var val = this._rgba2hsva(this.getRGBA());
-        return floats === true ? val : this._round(val);
+        return convert(this.model, "hsva", this.color, !floats);
     },
+
+    /**
+     * @method
+     * @returns {string}
+     */
+    getHEX: function() {
+        return convert(this.model, "hex", round(this.color));
+    },
+
+    /**
+     * @method
+     * @returns {string}
+     */
+    getRGBAString: function() {
+        return convert("rgba", "str", convert(this.model, "rgba", this.color));
+    },
+
+    /**
+     * @method
+     * @returns {string}
+     */
+    getHSLAString: function() {
+        return convert("hsla", "str", convert(this.model, "hsla", this.color));
+    },
+
+    /**
+     * @method
+     * @returns {string}
+     */
     getHSVAString: function() {
-        return this._hsva2str(this._round(this.getHSVA()));
-    },
-
-
-    _hex2full: function(short) {
-        var r = short.substring(0,1).toLowerCase(),
-            g = short.substring(1,2).toLowerCase(),
-            b = short.substring(2,3).toLowerCase();
-        return r+r+g+g+b+b;
-    },
-
-    _rgba2str: function(rgba) {
-        return "rgba(" + rgba.join(',') + ")";
-    },
-
-    _rgba2hex: function(rgba) {
-        var r = Math.round(rgba[0]).toString(16),
-            g = Math.round(rgba[1]).toString(16),
-            b = Math.round(rgba[2]).toString(16);
-
-        r.length === 1 && (r = "0"+r);
-        g.length === 1 && (g = "0"+g);
-        b.length === 1 && (b = "0"+b);
-        
-        return r + g + b;
-    },
-    _hex2rgba: function(hex) {
-        return [
-            parseInt(hex.substring(0,2), 16),
-            parseInt(hex.substring(2,4), 16),
-            parseInt(hex.substring(4,6), 16),
-            1
-        ];
-    },
-
-    _rgba2hsla: function(rgba) {
-        var r = rgba[0] / 255;
-        var g = rgba[1] / 255;
-        var b = rgba[2] / 255;
-        var min = Math.min(r, g, b);
-        var max = Math.max(r, g, b);
-        var delta = max - min;
-        var h;
-        var s;
-
-        if (max === min) {
-            h = 0;
-        } else if (r === max) {
-            h = (g - b) / delta;
-        } else if (g === max) {
-            h = 2 + (b - r) / delta;
-        } else if (b === max) {
-            h = 4 + (r - g) / delta;
-        }
-
-        h = Math.min(h * 60, 360);
-
-        if (h < 0) {
-            h += 360;
-        }
-
-        var l = (min + max) / 2;
-
-        if (max === min) {
-            s = 0;
-        } else if (l <= 0.5) {
-            s = delta / (max + min);
-        } else {
-            s = delta / (2 - max - min);
-        }
-
-        return [
-            h, 
-            s * 100, 
-            l * 100, 
-            rgba[3] || 1
-        ];
-    },
-    _hsla2rgba: function(hsla) {
-        var h = hsla[0] / 360;
-        var s = (hsla[1]||100) / 100;
-        var l = (hsla[2]||100) / 100;
-        var a = hsla[3] || 1;
-        var t2;
-        var t3;
-        var val;
-    
-        if (s === 0) {
-            val = l * 255;
-            return [val, val, val, a];
-        }
-    
-        if (l < 0.5) {
-            t2 = l * (1 + s);
-        } else {
-            t2 = l + s - l * s;
-        }
-    
-        var t1 = 2 * l - t2;
-        var rgba = [0, 0, 0, a];
-
-        for (var i = 0; i < 3; i++) {
-            t3 = h + 1 / 3 * -(i - 1);
-            if (t3 < 0) {
-                t3++;
-            }
-    
-            if (t3 > 1) {
-                t3--;
-            }
-    
-            if (6 * t3 < 1) {
-                val = t1 + (t2 - t1) * 6 * t3;
-            } else if (2 * t3 < 1) {
-                val = t2;
-            } else if (3 * t3 < 2) {
-                val = t1 + (t2 - t1) * (2 / 3 - t3) * 6;
-            } else {
-                val = t1;
-            }
-    
-            rgba[i] = val * 255;
-        }
-    
-        return rgba;
-
-    },
-    _hsla2str: function(hsla) {
-        return "hsla(" + hsla.join(',') + ")";
-    },
-
-
-    _hsva2rgba: function(hsva) {
-        var h = hsva[0] / 60,
-            s = hsva[1] / 100,
-            v = hsva[2] / 100,
-            a = hsva[3] || 1,
-            hi = Math.floor(h) % 6,
-            
-            f = h - Math.floor(h),
-            p = 255 * v * (1 - s),
-            q = 255 * v * (1 - (s * f)),
-            t = 255 * v * (1 - (s * (1 - f)));
-            
-        v *= 255;
-    
-        switch (hi) {
-            case 0:
-                return [v, t, p, a];
-            case 1:
-                return [q, v, p, a];
-            case 2:
-                return [p, v, t, a];
-            case 3:
-                return [p, q, v, a];
-            case 4:
-                return [t, p, v, a];
-            case 5:
-                return [v, p, q, a];
-        }
-    },
-
-    _rgba2hsva: function(rgba) {
-        var rdif,
-            gdif,
-            bdif,
-            h,
-            s,
-
-            r = rgba[0] / 255,
-            g = rgba[1] / 255,
-            b = rgba[2] / 255,
-            a = rgba[3] || 1,
-            v = Math.max(r, g, b),
-            diff = v - Math.min(r, g, b);
-
-        var diffc = function (c) {
-            return (v - c) / 6 / diff + 1 / 2;
-        };
-    
-        if (diff === 0) {
-            h = 0;
-            s = 0;
-        } else {
-            s = diff / v;
-            rdif = diffc(r);
-            gdif = diffc(g);
-            bdif = diffc(b);
-    
-            if (r === v) {
-                h = bdif - gdif;
-            } else if (g === v) {
-                h = (1 / 3) + rdif - bdif;
-            } else if (b === v) {
-                h = (2 / 3) + gdif - rdif;
-            }
-    
-            if (h < 0) {
-                h += 1;
-            } else if (h > 1) {
-                h -= 1;
-            }
-        }
-    
-        return [
-            h * 360,
-            s * 100,
-            v * 100,
-            a
-        ];
-    },
-
-    _hsva2str: function(hsva) {
-        return "hsva(" + hsva.join(',') + ")";
-    },
-
-
-    _parseString: function(str) {
-        var match = str.match(/[\d, ]+/);
-        if (match) {
-            var parts = match[0].split(",");
-            parts[0] && (parts[0] = parseInt(parts[0]));
-            parts[1] && (parts[1] = parseInt(parts[1]));
-            parts[2] && (parts[2] = parseInt(parts[2]));
-            parts[3] && (parts[3] = parseFloat(parts[3]));
-            return parts;
-        }
-        return [0,0,0,1];
+        return convert("hsva", "str", convert(this.model, "hsva", this.color));
     },
 
     toString: function(format) {
         return format ? this.getAs(format) : this.getHEX();
     }
 });
+
+return Color;
+
+}());
+
 
 
 
@@ -37628,8 +37870,7 @@ var ui_util_Canvas = MetaphorJs.ui.util.Canvas = app_Component.$extend({
             mst = lib_Config.MODE_STATIC;
 
         config.setType("width", "int", mst);
-        config.setType("height", "int", mst);
-        
+        config.setType("height", "int", mst);  
     },
 
     initComponent: function() {
@@ -37658,7 +37899,7 @@ var ui_util_Canvas = MetaphorJs.ui.util.Canvas = app_Component.$extend({
         if (!this.config.has("width") || 
             !this.config.has("height")) {
             this._renderQueue.add(this.getSize);
-            async(this.renderCanvas, this, [], 50);    
+            async(this.renderCanvas, this, [], 100);    
         }
         else this._renderQueue.add(this.renderCanvas);
         
@@ -37724,19 +37965,16 @@ var ui_util_Canvas = MetaphorJs.ui.util.Canvas = app_Component.$extend({
     },
 
     getCanvasHeight: function() {
-        return this.getSize().width;
+        return this.getSize().height;
     },
 
 
     /**Rendering */
 
-    renderCanvas: function() {
-        
-    },
+    renderCanvas: function() {},
 
 
     onDestroy: function() {
-
         this._renderQueue.$destroy();
         this.$super();
     }
@@ -37770,30 +38008,14 @@ var ui_util_Color = MetaphorJs.ui.util.Color = ui_util_Canvas.$extend({
     template: "ui/util/color.html",
 
     _apis: ["dom", "input"],
-    _color: null,
-    _colorHex: null,
     _lastX: 0,
     _lastY: 0,
-
-    initConfig: function() {
-
-        this.$super();
-        var config = this.config,
-            mst = lib_Config.MODE_STATIC;
-
-        config.setType("format", "string", mst, "hex");
-        config.setType("color", null, null, "rgba(255,0,0,1)");
-        config.on("color", this._onCfgColorChange, this);
-    },
 
     initComponent: function() {
         var self = this;
         self.$super();
         self.scope.pointerLeft = null;
         self.scope.pointerTop = null;
-        self._color = new lib_Color(this.config.get("color"));
-        self._colorHex = self._color.getHEX();
-
         self._mouseUpDelegate = bind(self.onMouseUp, self);
         self._mouseMoveDelegate = bind(self.onMouseMove, self);
     },
@@ -37807,8 +38029,6 @@ var ui_util_Color = MetaphorJs.ui.util.Color = ui_util_Canvas.$extend({
         this._renderQueue.add(this.updatePointer);
     },
 
-    _onCfgColorChange: function() {},
-
 
     renderCanvas: function(){},
     updateColor: function(){},
@@ -37817,7 +38037,7 @@ var ui_util_Color = MetaphorJs.ui.util.Color = ui_util_Canvas.$extend({
 
     /**Mouse handling */
 
-    _updateCoords: function(e) {
+    updateCoords: function(e) {
         var size = this.getSize();
         var ofs = dom_getOffset(this.getRefEl("main"));
         var x = e.clientX - ofs.left;
@@ -37838,13 +38058,13 @@ var ui_util_Color = MetaphorJs.ui.util.Color = ui_util_Canvas.$extend({
         dom_addListener(b, "mousemove", this._mouseMoveDelegate);
         this._drag = true;
         
-        this._updateCoords(e);
+        this.updateCoords(e);
         this.updateColor(); 
         this.updatePointer();
     },
     onMouseMove: function(e) {
         if (this._drag) {
-            this._updateCoords(e);
+            this.updateCoords(e);
             this.updateColor();        
             this.updatePointer();
             this.scope.$check();
@@ -37860,12 +38080,8 @@ var ui_util_Color = MetaphorJs.ui.util.Color = ui_util_Canvas.$extend({
 
 
     /* Input API */
-    setValue: function(color) {
-        
-    },
-    getValue: function() {
-        return this._color.getAs(this.config.get("format"));
-    },
+    setValue: emptyFn,
+    getValue: emptyFn,
     onKey: emptyFn,
     unKey: emptyFn,
     onChange: function(fn, ctx, opt) {
@@ -37874,7 +38090,6 @@ var ui_util_Color = MetaphorJs.ui.util.Color = ui_util_Canvas.$extend({
     unChange: function(fn, ctx) {
         return this.un("change", fn, ctx);
     },
-
     getInputApi: function() {
         return this;
     }
@@ -37888,6 +38103,175 @@ var ui_util_Color = MetaphorJs.ui.util.Color = ui_util_Canvas.$extend({
 
         bind: true,
         model: true,
+        input: true,
+
+        click: true, 
+        dblclick: true, 
+        mousedown: true, 
+        mouseup: true,
+        mousemove: true,
+        mouseover: true,
+        mouseout: true
+    }
+});
+
+
+
+
+
+
+
+
+MetaphorJs.ui.util.ColorAlpha = ui_util_Color.$extend({
+    $class: "MetaphorJs.ui.util.ColorAlpha",
+    $alias: "MetaphorJs.directive.component.ui-color-alpha",
+
+    _apis: ["dom", "input"],
+    _color: null,
+    _alpha: null,
+    _lastX: 0,
+    _lastY: 0,
+
+    initConfig: function() {
+        this.$super();
+
+        var self = this,
+            config = self.config,
+            mst = lib_Config.MODE_STATIC;
+
+        config.setType("position", "string", mst, "v");
+        config.setType("cursor", "string", mst);
+        config.setType("alpha", "float", null, 1);
+        config.setDefaultValue("color", "hsva(0,100,100,1)")
+        config.on("alpha", self.setValue, self);
+        config.on("color", self.setColor, self);
+        config.on("hue", self.setHue, self);
+    },
+
+    initComponent: function() {
+        this.$super();
+        this._color = new lib_Color(null, "hsva");
+        this._color.setColor(this.config.get("color"));
+        if (this.config.has("alpha")) {
+            this._alpha = this.config.get("alpha");
+            this._color.setAlpha(this._alpha);
+        }
+        else this._alpha = this._color.getAlpha();
+    },
+
+    setColor: function(color) {
+        this._color.setColor(color);
+        if (this._attached) {
+            this._renderQueue.add(this.renderCanvas);
+        }
+    },
+
+    setHue: function(hue) {
+        this._color.setHSVA(hue);
+        if (this._attached) {
+            this._renderQueue.add(this.renderCanvas);
+        }
+    },
+
+    setValue: function(alpha) {
+        alpha = parseFloat(alpha);
+        alpha < 0 && (alpha = 0);
+        alpha > 1 && (alpha = 1);
+        var prev = this._alpha;
+        this._alpha = alpha;
+    
+        if (alpha != prev) {
+            if (this._attached) {
+                this._renderQueue.add(this.updatePointer);
+            }
+            this.trigger("change", alpha, prev);
+        }
+    },
+
+
+    /**Rendering */
+
+    renderCanvas: function() {
+
+        var self = this,
+            ctx = self.getCtx(),
+            size = self.getSize(),
+            pos = self.config.get("position"),
+            c = new lib_Color(this._color),
+            grd;
+
+        c.setAlpha(1);
+        ctx.clearRect(0, 0, size.width, size.height);
+        ctx.rect(0, 0, size.width, size.height);
+
+        if (pos === "v") {
+            grd = ctx.createLinearGradient(0, 0, 0, size.height);
+        }
+        else {
+            grd = ctx.createLinearGradient(0, 0, size.width, 0);
+        }
+
+        grd.addColorStop(0, c.getRGBAString());
+        c.setAlpha(0);
+        grd.addColorStop(1, c.getRGBAString());
+        ctx.fillStyle = grd;
+        ctx.fill();
+    },
+
+
+    /** Color */
+
+    _getIntValue: function() {
+        var pos = this.config.get("position"),
+            size = this.getSize()[pos === "v" ? "height" : "width"],
+            mouse = this[pos === "v" ? "_lastY" : "_lastX"];
+        return 1 - (mouse / size);
+    },
+
+    updateColor: function() {
+        this.setValue(this._getIntValue());
+    },
+
+    updatePointer: function() {
+        var mouse,
+            pos = this.config.get("position"),
+            size = this.getSize(),
+            skey = pos === 'v' ? 'height' : 'width',
+            pkeyPrim = pos === 'v' ? 'pointerTop' : 'pointerLeft',
+            pkeySec = pos === 'v' ? 'pointerLeft' : 'pointerTop',
+            ckey = pos === 'v' ? '_lastY' : '_lastX';
+
+        // follow mouse
+        if (this._drag) {
+            mouse = this[ckey];
+        }   
+        // reflect current value
+        else {
+            mouse = (1 - this._alpha) * size[skey];
+        }
+
+        mouse < 0 && (mouse = 0);
+        mouse > size[skey] && (mouse = size[skey]);
+
+        this.scope[pkeySec] = "50%";
+        this.scope[pkeyPrim] = parseInt(mouse) + "px";
+
+        // if pointer is updated via renderQueue
+        if (!this._drag) {
+            this.scope.$check();
+        }
+    }
+}, {
+    supportsDirectives: {
+        show: true,
+        hide: true,
+
+        class: true,
+        style: true,
+
+        bind: true,
+        model: true,
+        input: true,
 
         click: true, 
         dblclick: true, 
@@ -37911,8 +38295,7 @@ MetaphorJs.ui.util.ColorHue = ui_util_Color.$extend({
     $alias: "MetaphorJs.directive.component.ui-color-hue",
 
     _apis: ["dom", "input"],
-    _color: null,
-    _colorHex: null,
+    _hue: 0,
     _lastX: 0,
     _lastY: 0,
 
@@ -37924,50 +38307,32 @@ MetaphorJs.ui.util.ColorHue = ui_util_Color.$extend({
 
         config.setType("position", "string", mst, "v");
         config.setType("cursor", "string", mst);
+        config.setType("hue", "float", null, 0);
+        config.on("hue", this.setValue, this);
     },
 
     initComponent: function() {
         this.$super();
-        this._color.setHSVA(null, 100, 100, 1);
-        this._colorHex = this._color.getHEX();
+
+        if (this.config.has("hue")) {
+            this._hue = this.config.get("hue");
+        }
     },
 
-    _setValue: function(color) {
-        var c = new lib_Color(color),
-            prev = this._color.getHEX(),
-            hex;
-        this._color.setHSVA(c.getHSVA(/**floats: */ true)[0]);
-        hex = this._color.getHEX();
+    setValue: function(hue) {
+        hue = parseFloat(hue);
+        hue < 0 && (hue = 0);
+        hue > 360 && (hue = 360);
+        var prev = this._hue;
+        this._hue = hue;
         if (this._attached) {
             this._renderQueue.add(this.updatePointer);
         }
-        if (hex !== prev) {
-            this._colorHex = hex;
-            this.trigger("change", hex, prev);
+        if (hue !== prev) {
+            this.trigger("change", hue, prev);
         }
     },
 
-    setColor: function(color) {
-        this._setValue(color);
-    },
-
-    setValue: function(color) {
-        this.config.disableProperty("color");
-        this._setValue(color);
-    },
-
-    _onCfgColorChange: function() {
-        this._setValue(this.config.get("color"));
-    },
-
-    _onCfgColorChange: function() {
-        var c = new lib_Color(this.config.get("color")),
-            hsva = c.getHSVA();
-        this._color.setHSVA(hsva[0]);
-        if (this._attached) {
-            this._renderQueue.add(this.updatePointer);
-        }
-    },
 
     /**Rendering */
 
@@ -37978,6 +38343,7 @@ MetaphorJs.ui.util.ColorHue = ui_util_Color.$extend({
             pos = self.config.get("position"),
             grd;
         
+        ctx.clearRect(0, 0, size.width, size.height);
         ctx.rect(0, 0, size.width, size.height);
 
         if (pos === "v") {
@@ -38004,22 +38370,11 @@ MetaphorJs.ui.util.ColorHue = ui_util_Color.$extend({
         var pos = this.config.get("position"),
             size = this.getSize()[pos === "v" ? "height" : "width"],
             mouse = this[pos === "v" ? "_lastY" : "_lastX"];
-        return mouse / size;
+        return (mouse / size) * 360;
     },
 
     updateColor: function() {
-        var pos = this._getIntValue();
-        var h = pos * 360;
-
-        this._color.setHSVA(h);
-        var hex = this._color.getHEX(),
-            prev;
-
-        if (this._colorHex !== hex) {
-            prev = this._colorHex;
-            this._colorHex = hex;
-            this.trigger("change", hex, prev);
-        }
+        this.setValue(this._getIntValue());
     },
 
     updatePointer: function() {
@@ -38037,9 +38392,7 @@ MetaphorJs.ui.util.ColorHue = ui_util_Color.$extend({
         }   
         // reflect current value
         else {
-            var hsva = this._color.getHSVA(),
-                h = hsva[0] / 360,
-                mouse = h * size[skey];
+            mouse = (this._hue / 360) * size[skey];
         }
 
         mouse < 0 && (mouse = 0);
@@ -38063,6 +38416,7 @@ MetaphorJs.ui.util.ColorHue = ui_util_Color.$extend({
 
         bind: true,
         model: true,
+        input: true,
 
         click: true, 
         dblclick: true, 
@@ -38101,10 +38455,10 @@ MetaphorJs.ui.util.ColorSV = ui_util_Color.$extend({
     $alias: "MetaphorJs.directive.component.ui-color-sv",
 
     _color: null,
-    _colorHex: null,
     _lastX: 0,
     _lastY: 0,
-    _hue: 0,
+    _sv: null,
+    _hue: null,
 
     initConfig: function() {
         this.$super();
@@ -38112,48 +38466,56 @@ MetaphorJs.ui.util.ColorSV = ui_util_Color.$extend({
             mst = lib_Config.MODE_STATIC;
 
         config.setType("cursor", "string", mst);
+        config.setType("color", null, null, "hsva(0,100,100,1)");
+        config.on("color", this.setColor, this);
+        config.on("hue", this.setHue, this);
     },
 
     initComponent: function() {
         this.$super();
-        this._hue = this._color.getHSVA(/**floats: */true)[0];
+        this._color = new lib_Color(null, "hsva");
+        this._color.setColor(this.config.get("color"));
+        this._color.setAlpha(1);
+
+        if (this.config.has("hue")) {
+            this._color.setHSVA(this.config.get("hue"));
+        }
+
+        this._sv = [this._color.getS(), this._color.getV()];
+        this._hue = this._color.getH();
     },
 
-    setColor: function(color) {
-        var prev = this._color.getHEX(),
-            hex;
-        this._hue = color.getHSVA(/**floats: */true)[0];
-        this._color.setColor(color);
-        this._colorHex = hex = this._color.getHEX();
-        if (this._attached) {
-            this._renderQueue.add(this.renderCanvas);
-            this._renderQueue.add(this.updatePointer);
-        }
-        if (hex !== prev) {
-            this.trigger("change", hex, prev);
-        }
+    setColor: function() {
+        var c = new lib_Color(this.config.get("color"), "hsva");
+        this.setHue(c.getH());
+        this.setValue([c.getS(), c.getV()]);
     },
 
-    setValue: function(color) {
-        var c = new lib_Color(color),
-            prev = this._color.getHEX(),
-            hex;
-        this._hue = c.getHSVA(/**floats: */true)[0];
-        this._color.setHSVA(this._hue);
-        this.config.disableProperty("color");
-        hex = this._color.getHEX();
-        if (this._attached) {
-            this._renderQueue.add(this.renderCanvas);
-            this._renderQueue.add(this.updatePointer);
-        }
-        if (hex !== prev) {
-            this._colorHex = hex;
-            this.trigger("change", hex, prev);
+    setHue: function(hue) {
+        if (this._color.getH() !== hue) {
+            this._color.setHSVA(hue);
+            this._hue = this._color.getH();
+            if (this._attached) {
+                this._renderQueue.add(this.renderCanvas);
+            }
         }
     },
 
-    _onCfgColorChange: function() {
-        this.setColor(this.config.get("color"));
+    setValue: function(sv) {
+
+        var prev = this._sv,
+            c = this._color;
+
+        c.setHSVA(this._hue, sv[0], sv[1]);
+
+        if (prev[0] !== c.getS() || prev[1] !== c.getV()) {
+            if (this._attached) {
+                this._renderQueue.add(this.updatePointer);
+            }
+
+            this._sv = sv;
+            this.trigger("change", sv, prev);
+        }
     },
 
     /**Rendering */
@@ -38162,9 +38524,9 @@ MetaphorJs.ui.util.ColorSV = ui_util_Color.$extend({
         var self = this,
             ctx = self.getCtx(),
             size = self.getSize(),
-            c = new lib_Color(this._color);
+            c = new lib_Color(null, "hsva");
 
-        c.setHSVA(this._hue, 100, 100);
+        c.setHSVA(this._color.getH(), 100, 100);
 
         ctx.clearRect(0, 0, size.width, size.height);
         ctx.rect(0, 0, size.width, size.height);
@@ -38200,18 +38562,7 @@ MetaphorJs.ui.util.ColorSV = ui_util_Color.$extend({
     },
 
     updateColor: function() {
-        var s = this._getS(),
-            v = this._getV();
-
-        this._color.setHSVA(this._hue, s, v);
-        var hex = this._color.getHEX(),
-            prev;
-
-        if (this._colorHex !== hex) {
-            prev = this._colorHex;
-            this._colorHex = hex;
-            this.trigger("change", hex, prev);
-        }
+        this.setValue([this._getS(), this._getV()]);
     },
 
     updatePointer: function() {
@@ -38234,7 +38585,7 @@ MetaphorJs.ui.util.ColorSV = ui_util_Color.$extend({
 
             x = x / size.width;
             y = y / size.height;
-            
+
             pleft = parseInt(x * 100) + "%";
             ptop = parseInt(y * 100) + "%";
         }   
@@ -38263,6 +38614,7 @@ MetaphorJs.ui.util.ColorSV = ui_util_Color.$extend({
 
         bind: true,
         model: true,
+        input: true,
 
         click: true, 
         dblclick: true, 
@@ -38284,6 +38636,7 @@ MetaphorJs.ui.util.ColorSV = ui_util_Color.$extend({
 
 
 
+
 MetaphorJs.ui.util.ColorPicker = app_Container.$extend({
     $class: "MetaphorJs.ui.util.ColorPicker",
     $alias: "MetaphorJs.directive.component.ui-color-picker",
@@ -38292,47 +38645,27 @@ MetaphorJs.ui.util.ColorPicker = app_Container.$extend({
 
     _apis: ["node", "input"],
     _updating: false,
+    _color: null,
     _prev: null,
 
     initComponent: function() {
-        var scope = this.scope,
-            initialColor = "ff0000";
-        
-        scope.input = {
-            hex: null,
-            r: null,
-            g: null,
-            b: null,
-            h: null,
-            s: null,
-            v: null
-        };
-
-        scope.hue = initialColor;
-        scope.sv = initialColor;
-        scope.color = new lib_Color(initialColor);
-        this._prev = initialColor;
-
-        scope.$watch("this.input.hex", this._onInputHex, this);
-
-        scope.$watch("this.input.r", this._onInputR, this);
-        scope.$watch("this.input.g", this._onInputG, this);
-        scope.$watch("this.input.b", this._onInputB, this);
-
-        scope.$watch("this.input.h", this._onInputH, this);
-        scope.$watch("this.input.s", this._onInputS, this);
-        scope.$watch("this.input.v", this._onInputV, this);
-
-        scope.$watch("this.sv", this._onSVChange, this);
+        this.$super();
+        this._color = this.scope.color = new lib_Color(null, "hsva");
+        this._color.setColor(this.config.get("color"));
+        this._prev = this._color.getHSVAString();
     },
 
     initConfig: function() {
         this.$super();
-        this.config.setType("format", "string", lib_Config.MODE_STATIC);
+        this.config.setType("color", null, null, "hsva(0,100,100,1)")
+    },
+
+    afterRender: function(){
+        this._updateCanvas();
     },
 
     _frame: function(val, min, max) {
-        val = parseInt(val);
+        val = parseFloat(val);
         val < min && (val = min);
         val > max && (val = max);
         return val;
@@ -38340,92 +38673,112 @@ MetaphorJs.ui.util.ColorPicker = app_Container.$extend({
 
     _updateCanvas: function() {
         this._updating = true;
-        var scope = this.scope;
-        this.getRefCmp("sv").setColor(scope.color);
-        this.getRefCmp("hue").setColor(scope.color);
-        scope.$check();
+
+        var sv = this.getRefCmp("sv"),
+            hue = this.getRefCmp("hue"),
+            alpha = this.getRefCmp("alpha"),
+            c = this._color;
+
+        sv && sv.setValue(c);
+        hue && hue.setValue(c.getH());
+        alpha && alpha.setValue(c.getAlpha());
+
+        this.scope.$check();
         this._updating = false;
     },
 
 
-    _onInputHex: function(hex) {
+    onInputHex: function(hex) {
         hex = (""+hex).toLowerCase().trim();
         if (hex.substring(0,1) === "#") {
             hex = hex.substring(1);
         }
-        if (hex === this.scope.color.getHEX()) {
+        if (hex === this._color.getHEX()) {
             return;
         }
         var c = new lib_Color(hex);
         if (c.getHEX() === hex) {
-            this.scope.color.setColor(hex);
+            this._color.setColor(hex);
             this._updateCanvas();
             this._onChange();
         }
     },
 
-    _onInputRGB: function(r,g,b) {
-        this.scope.color.setRGBA(r,g,b,1);
+    _onInputRGBA: function(r,g,b,a) {
+        this._color.setRGBA(r,g,b,a);
         this._updateCanvas();
         this._onChange();
     },
 
-    _onInputR: function(r) {
-        this._onInputRGB(this._frame(r, 0, 255));
+    onInputR: function(r) {
+        this._onInputRGBA(this._frame(r, 0, 255));
     },
-    _onInputG: function(g) {
-        this._onInputRGB(null, this._frame(g, 0, 255));
+    onInputG: function(g) {
+        this._onInputRGBA(null, this._frame(g, 0, 255));
     },
-    _onInputB: function(b) {
-        this._onInputRGB(null, null, this._frame(b, 0, 255));
+    onInputB: function(b) {
+        this._onInputRGBA(null, null, this._frame(b, 0, 255));
+    },
+    onInputA: function(a) {
+        this._onInputRGBA(null, null, null, this._frame(a, 0, 1));
     },
 
 
     _onInputHSV: function(h,s,v) {
-        this.scope.color.setHSVA(h,s,v,1);
+        this._color.setHSVA(h,s,v);
         this._updateCanvas();
         this._onChange();
     },
 
-    _onInputH: function(h) {
+    onInputH: function(h) {
         this._onInputHSV(this._frame(h, 0, 360));
     },
-    _onInputS: function(s) {
+    onInputS: function(s) {
         this._onInputHSV(null, this._frame(s, 0, 100));
     },
-    _onInputV: function(v) {
+    onInputV: function(v) {
         this._onInputHSV(null, null, this._frame(v, 0, 100));
     },
+    
 
 
-    _onSVChange: function(hex) {
-        if (this.getRefCmp("sv").isDragging() ||
-            this.getRefCmp("hue").isDragging()) {
-            this.scope.color.setColor(hex);
+    onInputSV: function(sv) {
+        if (this.getRefCmp("sv").isDragging()) {
+            this._color.setHSVA(null, sv[0], sv[1]);
+            this._onChange();
+        }
+    },
+    onInputHue: function(hue) {
+        if (this.getRefCmp("hue").isDragging()) {
+            this._color.setHSVA(hue);
+            this._onChange();
+        }
+    },
+    onInputAlpha: function(a) {
+        if (this.getRefCmp("alpha").isDragging()) {
+            this._color.setAlpha(a);
             this._onChange();
         }
     },
 
 
     _onChange: function() {
-        var hex = this.scope.color.getHEX(),
+        var val = this._color.getRGBAString(),
             prev = this._prev;
-
-        this._prev = hex;
-        if (prev !== hex) {
-            this.trigger("change", hex, prev);
+        if (prev !== val) {
+            this._prev = val;
+            this.trigger("change", val, prev);
         }
     },
 
 
     /* Input API */
     setValue: function(color) {
-        this.scope.color.setColor(color);
-        this._updateCanvas();
+        this._color.setColor(color);
         this._onChange();
     },
     getValue: function() {
-        return this.scope.color.getAs(this.config.get("format"));
+        return this._color;
     },
     onKey: emptyFn,
     unKey: emptyFn,
@@ -38641,7 +38994,7 @@ Directive.registerAttribute("dropdown", 1100,
                     hide: {
                         animate: animate,
                         events: {
-                            body: "click"
+                            _html: "click"
                         }
                     },
                     show: {
@@ -38769,7 +39122,7 @@ cls({
 
         var parent1 = new app_Container({
             id: "parent1",
-            _defaultAddTo: "body",
+            defaultAddTo: "body",
             renderTo: document.getElementById("container-app"),
             template: 'container1.html',
             items: [
