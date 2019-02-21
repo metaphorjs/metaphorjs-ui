@@ -1,7 +1,7 @@
 /* BUNDLE START 004 */
 "use strict";
 
-var MetaphorJsPrebuilt = {"templates":{"ui/button/button-container.html":"<div ##main><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##after--></div>","ui/button/button-plain.html":"<a ##main><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##after--></a>","ui/button/button.html":"<!--<main ##button\n    ##body\n    class=\"ui button\" \n    {class.active}=\"this.$cfg.active\"\n    {class.loading}=\"this.$cfg.loading\"\n    {class.disabled}=\"this.$cfg.disabled\"\n    {class.dropdown}=\"this.button.hasDropdown()\"\n    (click)=\"this.button.onClick(this.$event)\"\n    (click.$if)=\"!this.$cfg.disabled && !this.$cfg.loading\">--><mjs-include $name*=\"this.button.hasDropdown() ? \n                    'ui/button/button-container.html' : \n                    'ui/button/button-plain.html'\"></mjs-include>","ui/button/group.html":"<div class=\"ui buttons\" ##body></div>","ui/dialog/color-picker.html":"<div class=\"section\"></div>","ui/field/checkbox.html":"<div ##main class=\"ui checkbox\" {class.active}=\"this.$cfg.active\"><input type=\"checkbox\" [name]=\"this.$cfg.name\" {model}=\"this.checked\"><label {bind}=\"this.$cfg.label\"></label></div>","ui/field/input.html":"<div class=\"ui input\" ##main ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div ##main class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.active}=\"this.opened\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$save-state}=\"this.emptyShown\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$save-state}=\"this.selectedShown\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","ui/menu/container.html":"<div ##main class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\"><!--##before--><!--##body--><!--##after--></div>","ui/menu/divider.html":"<div class=\"divider\" ##main></div>","ui/menu/item-with-sub.html":"<div ##main class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></div>","ui/menu/item.html":"<a ##main class=\"item\" {class.active}=\"this.$cfg.active\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></a>","ui/menu/menu.html":"<div ##main class=\"ui menu\"><!--##before--><!--##body--><!--##after--></div>","ui/panel/panel.html":"<div class=\"ui segment\"><!--##tbar--><!--##bbar--></div>","ui/toolbar/container.html":"<!--{includes: true}--><!-- include ui/menu/container.html -->","ui/toolbar/divider.html":"<!--{includes: true}--><!-- include ui/menu/divider.html -->","ui/toolbar/item-with-sub.html":"<!--{includes: true}--><!-- include ui/menu/item-with-sub.html -->","ui/toolbar/item.html":"<!--{includes: true}--><!-- include ui/menu/item.html -->","ui/toolbar/toolbar.html":"<!--{includes: true}--><!-- include ui/menu/menu.html -->","ui/util/canvas.html":"<canvas ##main ##canvas [width]=\"this.$cfg.width\" [height]=\"this.$cfg.height\" {style.width}=\"this.$cfg.width + 'px'\" {style.height}=\"this.$cfg.height + 'px'\"></canvas>","ui/util/color-picker.html":"<div ##main><div style=\"width:50px; height: 30px;\" {style.background-color}=\"'#'+this.sv\"></div><ui-color-sv $ref=\"sv\" $width=\"150\" $height=\"150\" $cursor=\"crosshair\" $color!=\"this.color\" {model}=\"this.sv\" {model.$binding}=\"input\" {bind}=\"this.hue\"></ui-color-sv><ui-color-hue $ref=\"hue\" $width=\"30\" $height=\"150\" $cursor=\"crosshair\" $color!=\"this.color\" {model}=\"this.hue\" {model.$binding}=\"input\"></ui-color-hue><div style=\"clear:both\">HEX: <input type=\"text\" {bind}=\"this.color.getHEX()\" {bind.$preserve-input} {model}=\"this.input.hex\" {model.$binding}=\"input\" {model.$focus-only}><br>R: <input type=\"number\" {model}=\"this.input.r\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getRGBA()[0]\" {bind.$preserve-input} min=\"0\" max=\"255\"> G: <input type=\"number\" {model}=\"this.input.g\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getRGBA()[1]\" {bind.$preserve-input} min=\"0\" max=\"255\"> B: <input type=\"number\" {model}=\"this.input.b\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getRGBA()[2]\" {bind.$preserve-input} min=\"0\" max=\"255\"><br>H: <input type=\"number\" {model}=\"this.input.h\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getHSVA()[0]\" {bind.$preserve-input} min=\"0\" max=\"360\"> S: <input type=\"number\" {model}=\"this.input.s\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getHSVA()[1]\" {bind.$preserve-input} min=\"0\" max=\"100\"> V: <input type=\"number\" {model}=\"this.input.v\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getHSVA()[2]\" {bind.$preserve-input} min=\"0\" max=\"100\"><br></div></div>","ui/util/color.html":"<div ##main style=\"position:relative\" {style.width}=\"this.$cfg.width + 'px'\" {style.height}=\"this.$cfg.height + 'px'\"><i ##pointer {style.left}=\"this.pointerLeft\" {style.top}=\"this.pointerTop\"></i><canvas ##canvas [width]=\"this.$cfg.width\" [height]=\"this.$cfg.height\" {style.width}=\"this.$cfg.width + 'px'\" {style.height}=\"this.$cfg.height + 'px'\" {style.cursor}=\"this.$cfg.cursor\" (mousedown)=\"this.cnv.onMouseDown(this.$event)\"></canvas></div>","ui/window/window.html":"<div class=\"ui modal\" ##body></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div ##main>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true},"ui/toolbar/container.html":{"includes":true},"ui/toolbar/divider.html":{"includes":true},"ui/toolbar/item-with-sub.html":{"includes":true},"ui/toolbar/item.html":{"includes":true},"ui/toolbar/toolbar.html":{"includes":true}},"expressionOpts":{}}
+var MetaphorJsPrebuilt = {"templates":{"ui/button/button-container.html":"<div ##main><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##after--></div>","ui/button/button-plain.html":"<a ##main><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##after--></a>","ui/button/button.html":"<!--<main ##button\n    ##body\n    class=\"ui button\" \n    {class.active}=\"this.$cfg.active\"\n    {class.loading}=\"this.$cfg.loading\"\n    {class.disabled}=\"this.$cfg.disabled\"\n    {class.dropdown}=\"this.button.hasDropdown()\"\n    (click)=\"this.button.onClick(this.$event)\"\n    (click.$if)=\"!this.$cfg.disabled && !this.$cfg.loading\">--><mjs-include $name*=\"this.button.hasDropdown() ? \n                    'ui/button/button-container.html' : \n                    'ui/button/button-plain.html'\"></mjs-include>","ui/button/group.html":"<div class=\"ui buttons\" ##body></div>","ui/dialog/color-picker.html":"<div class=\"section\"></div>","ui/field/checkbox.html":"<div ##main class=\"ui checkbox\" {class.active}=\"this.$cfg.active\"><input type=\"checkbox\" [name]=\"this.$cfg.name\" {model}=\"this.checked\"><label {bind}=\"this.$cfg.label\"></label></div>","ui/field/input.html":"<div class=\"ui input\" ##main ##body><!--##before--> <input ##input [type]=\"this.$cfg.type\" [placeholder]=\"this.$cfg.placeholder\"><!--##after--></div>","ui/field/select.html":"<!--{includes: true}--><div ##main class=\"ui dropdown selection\" (click)=\"this.$view.onSelfClick(this.$event)\" {init}=\"this.emptyShown = false; this.selectedShown = false;\" {class.loading}=\"this.loading\" {class.active}=\"this.opened\" {class.disabled}=\"this.$cfg.disabled\" {class.search}=\"this.$cfg.searchable\" {class.multiple}=\"this.field.isMultiSelection()\"><!--##before--> <input type=\"hidden\" ##hidden_field [name]=\"this.$cfg.name\" [value]=\"this.field.$$selection | join:','\"><i ##icon_down class=\"dropdown icon\" (click)=\"this.$view.onDropdownIconClick(this.$event)\"></i><a class=\"ui label transition\" {each}=\"item in this.field.getMultiSelection()\">{{ this.$parent.field.getItemName(this.item) }}<i class=\"delete icon\" (click)=\"this.$parent.$view.onItemDeleteClick(this.item, this.$event)\"></i></a><input type=\"text\" ##search class=\"search\" {readonly}=\"this.$cfg.readonly\" {disabled}=\"this.$cfg.disabled\" {show}=\"this.$cfg.searchable\" {show.$display}=\"inline-block\" (focus)=\"this.$view.onSearchFocus(this.$event)\" (blur)=\"this.$view.onSearchBlur(this.$event)\" (key.backspace)=\"this.$view.onSearchBackspace(this.$event)\" {model}=\"this.searchQuery\"><span class=\"sizer\" ##sizer {if}=\"this.field.isMultiSelection() && this.$cfg.searchable\" {bind}=\"this.searchQuery\"></span><div class=\"default text\" ##default_text (click)=\"this.$view.onValueTextClick(this.$event)\" {show}=\"!this.searchQuery && !this.field.hasSelection() &&\n                    !!this.$cfg.emptyText\" {show.$display}=\"inline-block\" {show.$on--change}=\"this.emptyShown = this.$1\" {bind}=\"this.$cfg.emptyText\"></div><div class=\"text\" ##text (click)=\"this.$view.onValueTextClick(this.$event)\" {class.default}=\"this.focused && this.searchQuery == ''\" {show}=\"!this.searchQuery && !this.field.isMultiSelection() && \n                    this.field.hasSelection()\" {show.$on--change}=\"this.selectedShown = this.$1\" {show.$display}=\"inline-block\" {bind-html}=\"this.field.getSelectedName() || '&nbsp;'\"></div><!-- replaces two previous text blocks with invisible placeholder --><div style=\"display: none\" class=\"default text\" {show}=\"!this.emptyShown && !this.selectedShown && !this.$cfg.searchable\" {show.$display}=\"inline-block\">&nbsp;</div><select ##hidden_select (click)=\"this.$view.onHiddenSelectClick(this.$event)\" (change)=\"this.$view.onHiddenSelectChange(this.$event)\" {if}=\"this.$cfg.useHiddenSelect\" {options}=\"this.field._getSelectOptions()\"></select><div class=\"menu transition\" ##menu_items><div class=\"disabled item\" ##menu_disabled {if}=\"this.$cfg.showNotFound && this.field.store.isEmpty()\" (click.$stop-propagation) {bind-html}=\"this.$cfg.notFoundText\"></div><a class=\"empty item\" href=\"#\" ##menu_empty {if}=\"this.$cfg.showEmptyItem && !this.field.store.isEmpty()\" (click)=\"this.$view.onItemClick(null, this.$event)\" {bind-html}=\"this.$cfg.emptyItemText\"></a><a class=\"item\" href=\"#\" {each}=\"item in this.field.store\" (click)=\"this.$parent.$view.onItemClick(this.item, this.$event)\" {bind}=\"this.$parent.field.getItemName(this.item)\"></a></div><!--##after--></div>","ui/menu/container.html":"<div ##main class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\"><!--##before--><!--##body--><!--##after--></div>","ui/menu/divider.html":"<div class=\"divider\" ##main></div>","ui/menu/item-with-sub.html":"<div ##main class=\"ui item\" {class.active}=\"this.$cfg.active\" {class.dropdown}=\"this.item.hasDropdown()\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></div>","ui/menu/item.html":"<a ##main class=\"item\" {class.active}=\"this.$cfg.active\" (click)=\"this.item.onClick(this.$event)\"><!--##before--><span {bind}=\"this.$cfg.text\"></span><!--##body--><!--##after--></a>","ui/menu/menu.html":"<div ##main class=\"ui menu\"><!--##before--><!--##body--><!--##after--></div>","ui/panel/panel.html":"<div class=\"ui segment\"><!--##tbar--><!--##bbar--></div>","ui/toolbar/container.html":"<!--{includes: true}--><!-- include ui/menu/container.html -->","ui/toolbar/divider.html":"<!--{includes: true}--><!-- include ui/menu/divider.html -->","ui/toolbar/item-with-sub.html":"<!--{includes: true}--><!-- include ui/menu/item-with-sub.html -->","ui/toolbar/item.html":"<!--{includes: true}--><!-- include ui/menu/item.html -->","ui/toolbar/toolbar.html":"<!--{includes: true}--><!-- include ui/menu/menu.html -->","ui/util/canvas.html":"<canvas ##main ##canvas {style.width}=\"this.$cfg.width + 'px'\" {style.height}=\"this.$cfg.height + 'px'\"></canvas>","ui/util/color-picker.html":"<div ##main><div style=\"width:50px; height: 30px;\" {style.background-color}=\"'#'+this.sv\"></div><ui-color-sv $ref=\"sv\" $width=\"150\" $height=\"150\" $cursor=\"crosshair\" $color!=\"this.color\" {model}=\"this.sv\" {model.$binding}=\"input\" {bind}=\"this.hue\"></ui-color-sv><ui-color-hue $ref=\"hue\" $width=\"30\" $height=\"150\" $cursor=\"crosshair\" $color!=\"this.color\" {model}=\"this.hue\" {model.$binding}=\"input\"></ui-color-hue><div style=\"clear:both\">HEX: <input type=\"text\" {bind}=\"this.color.getHEX()\" {bind.$preserve-input} {model}=\"this.input.hex\" {model.$binding}=\"input\" {model.$focus-only}><br>R: <input type=\"number\" {model}=\"this.input.r\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getRGBA()[0]\" {bind.$preserve-input} min=\"0\" max=\"255\"> G: <input type=\"number\" {model}=\"this.input.g\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getRGBA()[1]\" {bind.$preserve-input} min=\"0\" max=\"255\"> B: <input type=\"number\" {model}=\"this.input.b\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getRGBA()[2]\" {bind.$preserve-input} min=\"0\" max=\"255\"><br>H: <input type=\"number\" {model}=\"this.input.h\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getHSVA()[0]\" {bind.$preserve-input} min=\"0\" max=\"360\"> S: <input type=\"number\" {model}=\"this.input.s\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getHSVA()[1]\" {bind.$preserve-input} min=\"0\" max=\"100\"> V: <input type=\"number\" {model}=\"this.input.v\" {model.$binding}=\"input\" {model.$focus-only} {bind}=\"this.color.getHSVA()[2]\" {bind.$preserve-input} min=\"0\" max=\"100\"><br></div></div>","ui/util/color.html":"<div ##main style=\"position:relative\" {style.width}=\"this.$cfg.width + 'px'\" {style.height}=\"this.$cfg.height + 'px'\"><i ##pointer {style.left}=\"this.pointerLeft\" {style.top}=\"this.pointerTop\"></i><canvas ##canvas {style.width}=\"this.$cfg.width + 'px'\" {style.height}=\"this.$cfg.height + 'px'\" {style.cursor}=\"this.$cfg.cursor\" (mousedown)=\"this.cnv.onMouseDown(this.$event)\"></canvas></div>","ui/window/window.html":"<div class=\"ui modal\" ##body></div>","container1.html":"<div class=\"toolbar\" ##toolbar>Toolbar here</div><div class=\"body\">This is a body wrapper<div class=\"items\" ##body>This is the body</div></div><div class=\"fbar\" ##footer>Footer here</div>","container2.html":"<div ##main>This is parent 3 (container2.html)<div ##body></div></div>"},"templateOptions":{"ui/field/select.html":{"includes":true},"ui/toolbar/container.html":{"includes":true},"ui/toolbar/divider.html":{"includes":true},"ui/toolbar/item-with-sub.html":{"includes":true},"ui/toolbar/item.html":{"includes":true},"ui/toolbar/toolbar.html":{"includes":true}},"expressionOpts":{}}
 MetaphorJsPrebuilt['funcs'] = {
 
 };
@@ -1320,6 +1320,27 @@ Observable.$initHost = function(host, hostCfg, observable)  {
             host.$$callbackContext = context;
         }
     }
+};
+
+Observable.$initHostConfig = function(host, config, scope, node) {
+    var msl = MetaphorJs.lib.Config.MODE_LISTENER,
+        ctx;
+    config.setDefaultMode("callbackContext", MetaphorJs.lib.Config.MODE_SINGLE);
+    config.eachProperty(function(name) {
+        if (name.substring(0,4) === 'on--') {
+            config.setMode(name, msl);
+            if (!ctx) {
+                if (scope.$app)
+                    ctx = config.get("callbackContext") ||
+                            (node ? scope.$app.getParentCmp(node) : null) ||
+                            scope.$app ||
+                            scope;
+                else 
+                    ctx = config.get("callbackContext") || scope;
+            }
+            host.on(name.substring(4), config.get(name), ctx);
+        }
+    });
 };
 
 
@@ -4904,12 +4925,12 @@ var lib_Config = MetaphorJs.lib.Config = (function(){
             return function() {
                 var args = toArray(arguments),
                     i, l;
-                for (i = 1, l = args.length; i <= l; i++) {
-                    scope["$" + i] = args[i];
+                for (i = 0, l = args.length; i < l; i++) {
+                    scope["$" + (i+1)] = args[i];
                 }
                 ls(scope);
-                for (i = 1, l = args.length; i <= l; i++) {
-                    delete scope["$" + i];
+                for (i = 0, l = args.length; i < l; i++) {
+                    delete scope["$" + (i+1)];
                 }
             };
         },
@@ -7037,6 +7058,130 @@ return Input;
 
 
 
+/**
+ * @mixin MetaphorJs.mixin.Observable
+ * @description Mixin adds observable features to the host object.
+ *              It adds 'callback' option to the host config. See $beforeInit.
+ *              Mixin is designed for MetaphorJs class system.
+ * @code src-docs/examples/mixin.js
+ */
+var mixin_Observable = MetaphorJs.mixin.Observable = {
+
+    /**
+     * @private
+     * @type {Observable}
+     * @description You can use this instance in your $init function
+     */
+    $$observable: null,
+
+    /**
+     * @private
+     * @type {object}
+     */
+    $$callbackContext: null,
+
+    /**
+     * @protected
+     * @type {object} {
+     *      Override this to define event properties. 
+     *      Object's key is event name, value - either returnResult or 
+     *      options object. See {@link class:lib_Observable.createEvent}
+     * }
+     */
+    $$events: null,
+
+    /**
+     * @method
+     * @private
+     * @param {object} cfg {
+     *      This is a config that was passed to the host object's constructor.
+     *      It is being passed to mixin's $beforeInit automatically.
+     *      @type {object} callback {
+     *          Here, except for 'context', '$context' and 'scope', 
+     *          keys are event names and values are listeners. 
+     *          @type {object} context All given listeners context
+     *          @type {object} scope The same
+     *      }
+     * }
+     */
+    $beforeInit: function(cfg) {
+        var self = this;
+        self.$$observable = new MetaphorJs.lib.Observable;
+        self.$initObservable(cfg);
+    },
+
+    /**
+     * @method
+     * @private
+     * @ignore
+     * @param {object} cfg
+     */
+    $initObservable: function(cfg) {
+        lib_Observable.$initHost(this, cfg, this.$$observable);
+    },
+
+    /**
+     * @method
+     * @see {@link class:Observable.on}
+     */
+    on: function() {
+        var o = this.$$observable;
+        return o ? o.on.apply(o, arguments) : null;
+    },
+
+    /**
+     * @method
+     * @see {@link class:Observable.un}
+     */
+    un: function() {
+        var o = this.$$observable;
+        return o ? o.un.apply(o, arguments) : null;
+    },
+
+    /**
+     * @method
+     * @see {@link class:Observable.once}
+     */
+    once: function() {
+        var o = this.$$observable;
+        return o ? o.once.apply(o, arguments) : null;
+    },
+
+    /**
+     * @method
+     * @see {@link class:Observable.trigger}
+     */
+    trigger: function() {
+        var o = this.$$observable;
+        return o ? o.trigger.apply(o, arguments) : null;
+    },
+
+    /**
+     * @method
+     * @private
+     * @ignore
+     */
+    $beforeDestroy: function() {
+        this.$$observable.trigger("before-destroy", this);
+    },
+
+    /**
+     * @method
+     * @private
+     * @ignore
+     */
+    $afterDestroy: function() {
+        var self = this;
+        self.$$observable.trigger("destroy", self);
+        self.$$observable.$destroy();
+        self.$$observable = null;
+    }
+};
+
+
+
+
+
 var lib_Cache = MetaphorJs.lib.Cache = (function(){
 
     var globalCache;
@@ -8294,6 +8439,8 @@ var cls = classManagerFactory(ns);
 
 
 
+
+
 var Directive = MetaphorJs.app.Directive = (function() {
 
     var attr = {},
@@ -8313,6 +8460,8 @@ var Directive = MetaphorJs.app.Directive = (function() {
 
     return cls({
 
+        $mixins: [MetaphorJs.mixin.Observable],
+
         scope: null,
         node: null,
         component: null,
@@ -8323,7 +8472,6 @@ var Directive = MetaphorJs.app.Directive = (function() {
 
         _apis: ["node"],
         _autoOnChange: true,
-        _stateFn: null,
         _initPromise: null,
         _nodeAttr: null,
         _initial: true,
@@ -8385,10 +8533,7 @@ var Directive = MetaphorJs.app.Directive = (function() {
 
         initConfig: function() {
             var config = this.config;
-            config.setDefaultMode("saveState", lib_Config.MODE_SETTER);
-            if (config.has("saveState")) {
-                self._stateFn = config.get("saveSate");
-            }
+            lib_Observable.$initHostConfig(this, config, this.scope);
         },
 
         initScope: function() {
@@ -8464,9 +8609,10 @@ var Directive = MetaphorJs.app.Directive = (function() {
         },
 
         saveStateOnChange: function(val) {
-            if (this._stateFn) {
-                this._stateFn(this.scope, val);
+            if (this._prevState !== undf) {
+                this.trigger("change", val, this._prevState);
             }
+            this._prevState = val;
         },
 
         onDestroy: function() {
@@ -10141,130 +10287,6 @@ var mixin_Provider = MetaphorJs.mixin.Provider = {
 
     }
 };
-
-
-
-
-/**
- * @mixin MetaphorJs.mixin.Observable
- * @description Mixin adds observable features to the host object.
- *              It adds 'callback' option to the host config. See $beforeInit.
- *              Mixin is designed for MetaphorJs class system.
- * @code src-docs/examples/mixin.js
- */
-var mixin_Observable = MetaphorJs.mixin.Observable = {
-
-    /**
-     * @private
-     * @type {Observable}
-     * @description You can use this instance in your $init function
-     */
-    $$observable: null,
-
-    /**
-     * @private
-     * @type {object}
-     */
-    $$callbackContext: null,
-
-    /**
-     * @protected
-     * @type {object} {
-     *      Override this to define event properties. 
-     *      Object's key is event name, value - either returnResult or 
-     *      options object. See {@link class:lib_Observable.createEvent}
-     * }
-     */
-    $$events: null,
-
-    /**
-     * @method
-     * @private
-     * @param {object} cfg {
-     *      This is a config that was passed to the host object's constructor.
-     *      It is being passed to mixin's $beforeInit automatically.
-     *      @type {object} callback {
-     *          Here, except for 'context', '$context' and 'scope', 
-     *          keys are event names and values are listeners. 
-     *          @type {object} context All given listeners context
-     *          @type {object} scope The same
-     *      }
-     * }
-     */
-    $beforeInit: function(cfg) {
-        var self = this;
-        self.$$observable = new MetaphorJs.lib.Observable;
-        self.$initObservable(cfg);
-    },
-
-    /**
-     * @method
-     * @private
-     * @ignore
-     * @param {object} cfg
-     */
-    $initObservable: function(cfg) {
-        lib_Observable.$initHost(this, cfg, this.$$observable);
-    },
-
-    /**
-     * @method
-     * @see {@link class:Observable.on}
-     */
-    on: function() {
-        var o = this.$$observable;
-        return o ? o.on.apply(o, arguments) : null;
-    },
-
-    /**
-     * @method
-     * @see {@link class:Observable.un}
-     */
-    un: function() {
-        var o = this.$$observable;
-        return o ? o.un.apply(o, arguments) : null;
-    },
-
-    /**
-     * @method
-     * @see {@link class:Observable.once}
-     */
-    once: function() {
-        var o = this.$$observable;
-        return o ? o.once.apply(o, arguments) : null;
-    },
-
-    /**
-     * @method
-     * @see {@link class:Observable.trigger}
-     */
-    trigger: function() {
-        var o = this.$$observable;
-        return o ? o.trigger.apply(o, arguments) : null;
-    },
-
-    /**
-     * @method
-     * @private
-     * @ignore
-     */
-    $beforeDestroy: function() {
-        this.$$observable.trigger("before-destroy", this);
-    },
-
-    /**
-     * @method
-     * @private
-     * @ignore
-     */
-    $afterDestroy: function() {
-        var self = this;
-        self.$$observable.trigger("destroy", self);
-        self.$$observable.$destroy();
-        self.$$observable = null;
-    }
-};
-
 
 
 
@@ -13268,6 +13290,10 @@ var app_Template = MetaphorJs.app.Template = function() {
             else if (self._nextEl || self._attachTo || self._shadowRoot) {
                 self._doAttach();
             }
+            else if (self._nodes && self._nodes.length && 
+                    isAttached(self._nodes[0])) {
+                self._setAttached();
+            }
         },
 
         isAttached: function() {
@@ -13998,22 +14024,7 @@ var app_Controller = MetaphorJs.app.Controller = cls({
             config.setDefaultValue("as", self.as);
         }
 
-        config.setDefaultMode("callbackContext", lib_Config.MODE_SINGLE);
-        config.eachProperty(function(name) {
-            if (name.substring(0,4) === 'on--') {
-                config.setMode(name, msl);
-                if (!ctx) {
-                    if (scope.$app)
-                        ctx = config.get("callbackContext") ||
-                                scope.$app.getParentCmp(self.node) ||
-                                scope.$app ||
-                                scope;
-                    else 
-                        ctx = config.get("callbackContext") || scope;
-                }
-                self.on(name.substring(4), config.get(name), ctx);
-            }
-        });
+        MetaphorJs.lib.Observable.$initHostConfig(self, config, scope, self.node);
     },
 
     _claimNode: function() {
@@ -15449,7 +15460,8 @@ var app_Container = MetaphorJs.app.Container = app_Component.$extend({
 
             self._initChildEvents("on", cmp);
 
-            if (self._attached) {
+            if (self._rendered) {
+                item.component.render();
                 self._putItemInPlace(item);
             }
         }
@@ -16081,6 +16093,7 @@ var app_ListRenderer = MetaphorJs.app.ListRenderer = cls({
     _attachQueue: null,
     _mo: null,
     _trackByFn: null,
+    _filterFn: null,
     _localTrack: false,
     _griDelegate: null,
 
@@ -16119,6 +16132,13 @@ var app_ListRenderer = MetaphorJs.app.ListRenderer = cls({
 
         if (config.has('plugin')) {
             self.$plugins.push(config.get("plugin"));
+        }
+
+        if (config.has("filter")) {
+            self._filterFn = config.get("filter");
+            if (typeof self._filterFn !== "function") {
+                throw new Error("{each.$filter} must be a function");
+            }
         }
 
         self._trackBy = config.get("trackBy");
@@ -16161,7 +16181,23 @@ var app_ListRenderer = MetaphorJs.app.ListRenderer = cls({
         self.initDataSource();
         self.scope.$app.registerCmp(self, "id");
 
-        self._renderQueue.add(self.render, self, [toArray(self._mo.getValue())]);
+        self._renderQueue.add(self.render, self, [self.getList()]);
+    },
+
+    getList: function() {
+        var list = toArray(this._mo.getValue()),
+            i, l, filter = this._filterFn;
+
+        if (filter) {
+            var all = list;
+            list = [];
+            for (i = 0, l = all.length; i < l; i++) {
+                if (filter(all[i])) {
+                    list.push(all[i]);
+                }
+            }
+        }
+        return list;
     },
 
     initConfig: function() {
@@ -16272,7 +16308,7 @@ var app_ListRenderer = MetaphorJs.app.ListRenderer = cls({
             index       = start || 0,
             cnt         = items.length,
             x           = end || cnt - 1,
-            list        = self._mo.getValue(),
+            list        = self.getList(),
             trackByFn   = self.getTrackByFunction();
 
         if (x > cnt - 1) {
@@ -16293,7 +16329,7 @@ var app_ListRenderer = MetaphorJs.app.ListRenderer = cls({
 
         var self = this;
 
-        list = list || self._mo.getValue();
+        list = list || self.getList();
         items = items || self._items;
         trackByFn = trackByFn || self.getTrackByFunction();
 
@@ -16350,7 +16386,7 @@ var app_ListRenderer = MetaphorJs.app.ListRenderer = cls({
             items       = self._items,
             tpl         = self._template,
             index       = 0,
-            list        = toArray(self._mo.getValue()),
+            list        = self.getList(),
             updateStart = null,
             animateMove = self._animateMove,
             newItems    = [],
@@ -16620,7 +16656,7 @@ var app_ListRenderer = MetaphorJs.app.ListRenderer = cls({
         }
 
         var self        = this,
-            list        = self._mo.getValue(),
+            list        = self.getList(),
             trackByFn   = self.getTrackByFunction(),
             i, l;
 
@@ -18408,7 +18444,7 @@ Directive.registerAttribute("bind", 1000,
             }
 
             if (self.input) {
-                self.inputApi.unChange(self.onInputChange, self);
+                self.input.unChange(self.onInputChange, self);
                 self.input.$destroy();
                 self.input = null;
             }
@@ -19877,6 +19913,7 @@ Directive.registerAttribute("show", 500, Directive.$extend({
 
         var self    = this,
             style   = self.node.style,
+            initial = this._initial,
             done    = function() {
                 if (!show) {
                     style.display = "none";
@@ -19884,21 +19921,27 @@ Directive.registerAttribute("show", 500, Directive.$extend({
                 else {
                     style.display = self.config.get("display");
                 }
+                if (!initial) {
+                    self.trigger(show?"show" : "hide", self.node);
+                }
             };
 
-        self._initial || !self.config.get("animate") ? done() : animate_animate(
-            self.node,
-            show ? "show" : "hide",
-            function() {
-                if (show) {
-                    return new lib_Promise(function(resolve){
-                        raf(function(){
-                            style.display = self.config.get("display");
-                            resolve();
+        initial || !self.config.get("animate") ? 
+            (initial ? done() : raf(done)) : 
+            animate_animate(
+                self.node,
+                show ? "show" : "hide",
+                function() {
+                    if (show) {
+                        return new lib_Promise(function(resolve){
+                            raf(function(){
+                                style.display = self.config.get("display");
+                                resolve();
+                            });
                         });
-                    });
+                    }
                 }
-            })
+            )
             .done(done);
     },
 
@@ -19947,6 +19990,8 @@ Directive.registerAttribute("if", 500, Directive.$extend({
         config.setType("animate", "bool", lib_Config.MODE_STATIC)
         config.setType("value", "bool");
         config.setType("once", "bool", lib_Config.MODE_STATIC);
+        config.setType("onShow", null, lib_Config.MODE_FUNC);
+        config.setType("onHide", null, lib_Config.MODE_FUNC);
         this.$super();
     },
     
@@ -19958,26 +20003,36 @@ Directive.registerAttribute("if", 500, Directive.$extend({
 
     onScopeChange: function() {
         var self    = this,
-            val     = self.config.get("value"),
+            config  = self.config,
+            val     = config.get("value"),
             parent  = self.wrapperOpen.parentNode,
-            node    = self.node;
+            node    = self.node,
+            initial = self._initial,
 
-        var show    = function(){
-            parent.insertBefore(node, self.wrapperClose);
-        };
+            show    = function(){
+                parent.insertBefore(node, self.wrapperClose);
+                if (!initial) {
+                    raf(self.trigger, self, ["show", node]);
+                }
+            },
 
-        var hide    = function() {
-            parent.removeChild(node);
-        };
+            hide    = function() {
+                parent.removeChild(node);
+                if (!initial) {
+                    raf(self.trigger, self, ["hide", node]);
+                }
+            };
 
         if (val) {
-            self._initial || !self.config.get("animate") ?
-                show() : animate_animate(node, "enter", show);
+            initial || !self.config.get("animate") ?
+                (initial ? show() : raf(show)) : 
+                animate_animate(node, "enter", show);
         }
         else {
             if (node.parentNode) {
-                self._initial || !self.config.get("animate") ?
-                    hide() : animate_animate(node, "leave").done(hide);
+                initial || !self.config.get("animate") ?
+                    (initial ? hide() : raf(hide)) : 
+                    animate_animate(node, "leave").done(hide);
             }
         }
 
@@ -31270,6 +31325,81 @@ var dom_isVisible = MetaphorJs.dom.isVisible = function dom_isVisible(el) {
 
 
 
+
+var dom_whenAttached = MetaphorJs.dom.whenAttached = (function(){
+
+    var nodes = [],
+        promises = [],
+        observer,
+        html;
+
+    var check = function() {
+        var i, l, inx, sub = 0, remove = [];
+        for (i = 0, l = nodes.length; i < l; i++) {
+            if (html.contains(nodes[i])) {
+                promises[i].resolve();
+                remove.push(i);   
+            }
+        }
+
+        for (i = 0, l = remove.length; i < l; i++) {
+            inx = remove[i] - sub++;
+            nodes.splice(inx, 1);
+            promises.splice(inx, 1);
+        }
+
+        if (nodes.length === 0) {
+            if (window.MutationObserver) {
+                observer.disconnect();
+                observer = null;
+            }
+            else {
+                window.clearInterval(observer);
+                observer = null;
+            }
+        }
+    };
+
+    var initObserver = window.MutationObserver ? 
+        function() {
+            html = window.document.documentElement;
+            observer = new window.MutationObserver(check);
+            observer.observe(html, {childList: true, subtree: true});
+        } :
+        function() {
+            html = window.document.documentElement;
+            observer = window.setInterval(check, 1000);
+        };
+    
+
+    return function when_attached(node) {
+
+        if (isAttached(node)) {
+            return lib_Promise.resolve();
+        }
+
+        !observer && initObserver();
+
+        var inx;
+
+        if ((inx = nodes.indexOf(node)) === -1) {
+            nodes.push(node);
+            promises.push(new MetaphorJs.lib.Promise);
+            inx = nodes.length - 1;
+        };
+
+        if (promises[inx].isCancelled()){
+            promises[inx] = new MetaphorJs.lib.Promise;
+        }
+
+        return promises[inx];
+    };
+
+}());
+
+
+
+
 /**
  * Get element outer width
  * @function MetaphorJs.dom.getOuterWidth
@@ -31354,6 +31484,7 @@ function undelegate(el, selector, event, fn) {
         }
     }
 };
+
 
 
 
@@ -31599,6 +31730,11 @@ var dialog_position_Abstract = MetaphorJs.dialog.position.Abstract = cls({
 
         var self    = this,
             coords;
+
+        // cannot calculate and apply position
+        if (!dlg.node || !isAttached(dlg.node)) {
+            return;
+        }
 
         if (self.screenX !== false || self.screenY !== false) {
             coords  = self.correctPosition(e);
@@ -32899,6 +33035,8 @@ var dialog_Manager = MetaphorJs.dialog.Manager = cls({
     }
 
 });
+
+
 
 
 
@@ -34628,7 +34766,6 @@ var dialog_Dialog = MetaphorJs.dialog.Dialog = (function(){
 
             self.reposition(e);
 
-
             if (cfg.show.preventScroll) {
                 var ps = cfg.show.preventScroll,
                     i, l;
@@ -35110,6 +35247,13 @@ var dialog_Dialog = MetaphorJs.dialog.Dialog = (function(){
             var self = this;
 
             if (self.repositioning) {
+                return;
+            }
+
+            if (self.node && !isAttached(self.node)) {
+                dom_whenAttached(self.node).done(function(){
+                    self.reposition(e);
+                });
                 return;
             }
 
@@ -35616,6 +35760,10 @@ var dialog_Dialog = MetaphorJs.dialog.Dialog = (function(){
 
             if (self.node && cfg.render.appendTo !== false) {
                 to.appendChild(self.node);
+                self.trigger("attached", self, to);
+            }
+            else if (self.node && isAttached(self.node)) {
+                self.trigger("attached", self, self.node.parentNode);
             }
         },
 
@@ -35708,7 +35856,9 @@ MetaphorJs.dialog.Container = app_Container.$extend({
             preset: self.dialogPreset,
             render: {
                 el: self.getRefEl("main"),
-                keepInDOM: true
+                keepInDOM: true,
+                appendTo: false,
+                lazy: false
             }
         }, true, true);
     },
@@ -35725,7 +35875,6 @@ MetaphorJs.dialog.Container = app_Container.$extend({
         this._createDialog();  
     },
 
-
     _createDialog: function() {
 
         var self    = this;
@@ -35735,6 +35884,7 @@ MetaphorJs.dialog.Container = app_Container.$extend({
         self.dialog.on("before-show", self.onBeforeDialogShow, self);
         self.dialog.on("before-hide", self.onBeforeDialogHide, self);
         self.dialog.on("destroy", self.onDialogDestroy, self);
+        self.dialog.on("attached", self.onDialogAttached, self);
 
         if (!self._hidden) {
             self.show();
@@ -35768,11 +35918,19 @@ MetaphorJs.dialog.Container = app_Container.$extend({
         else this._hidden = true;
     },
 
-    onBeforeDialogShow: function() {
+    onDialogAttached: function() {
+        if (!this._attached) {
+            this.render(this.node.parentNode);
+        }
+    },
 
+    onBeforeDialogShow: function() {
         var self = this;
         if (!self._rendered) {
             self.render();
+        }
+        else if (!self._attached && self.renderTo) {
+            self.attach(self.renderTo, self.renderBefore);
         }
 
         self._hidden = false;
@@ -37541,6 +37699,14 @@ extend(Color.prototype, {
     color: null,
 
     /**
+     * Create object copy
+     * @returns {MetaphorJs.lib.Color}
+     */
+    copy: function() {
+        return new Color(this);
+    },
+
+    /**
      * @method
      * @param {string|MetaphorJs.lib.Color|array} color {
      *  hex code, color object or rgba array
@@ -37855,6 +38021,7 @@ var dom_getInnerHeight = MetaphorJs.dom.getInnerHeight = _dom_getDimensions("inn
 
 
 
+
 var ui_util_Canvas = MetaphorJs.ui.util.Canvas = app_Component.$extend({
     $class: "MetaphorJs.ui.util.Canvas",
     $alias: "MetaphorJs.directive.component.ui-canvas",
@@ -37863,6 +38030,8 @@ var ui_util_Canvas = MetaphorJs.ui.util.Canvas = app_Component.$extend({
 
     _renderQueue: null,
     _currentSize: null,
+    _sizePromise: null,
+    _sizeInterval: null,
 
     initConfig: function() {
         this.$super();
@@ -37877,6 +38046,8 @@ var ui_util_Canvas = MetaphorJs.ui.util.Canvas = app_Component.$extend({
 
         var self = this;
 
+        self._sizeDelegate = bind(self.getSize, self);
+        self._sizePromise = new MetaphorJs.lib.Promise;
         self._renderQueue = new lib_Queue({
             async: "raf",
             auto: true,
@@ -37885,24 +38056,32 @@ var ui_util_Canvas = MetaphorJs.ui.util.Canvas = app_Component.$extend({
         });
     },
 
+    queueAction: function(fn) {
+        var self = this;
+        self.getSizePromise().done(function(){
+            self._renderQueue.add(fn);
+        });
+    },
+
     _onCfgWidthChange: function() {
         this._currentSize = null;
-        this._renderQueue.add(this.renderCanvas);
+        this.queueAction(this.renderCanvas);
     },
 
     _onCfgHeightChange: function() {
         this._currentSize = null;
-        this._renderQueue.add(this.renderCanvas);
+        this.queueAction(this.renderCanvas);
     },
 
     afterAttached: function() {
-        if (!this.config.has("width") || 
-            !this.config.has("height")) {
-            this._renderQueue.add(this.getSize);
-            async(this.renderCanvas, this, [], 100);    
-        }
-        else this._renderQueue.add(this.renderCanvas);
-        
+        var self = this,
+            canvas = this.getRefEl("canvas");
+
+        dom_whenAttached(canvas)
+            .done(function() {
+                self.queueAction(self.renderCanvas);
+            });
+
         this.config.on("width", this._onCfgWidthChange, this);
         this.config.on("height", this._onCfgHeightChange, this);
     },
@@ -37921,6 +38100,8 @@ var ui_util_Canvas = MetaphorJs.ui.util.Canvas = app_Component.$extend({
 
     getSize: function() {
 
+        var canvas = this.getRefEl("canvas");
+
         if (!this._currentSize) {
             var config = this.config;
 
@@ -37930,34 +38111,64 @@ var ui_util_Canvas = MetaphorJs.ui.util.Canvas = app_Component.$extend({
 
             if (!w) {
                 if (main) {
-                    if (main.style.width) {
-                        config.setDefaultValue("width", parseInt(main.style.width));
-                    }
-                    else {
-                        config.setDefaultValue("width", 
-                            parseInt(dom_getInnerWidth(main)));
-                    }
+                    w = main.style.width ? 
+                            parseInt(main.style.width) :
+                            parseInt(dom_getInnerWidth(main));
+                    w && config.setDefaultValue("width", w);
                 }
             }
             if (!h) {
                 if (main) {
-                    if (main.style.height) {
-                        config.setDefaultValue("height", parseInt(main.style.height));
-                    }
-                    else {
-                        config.setDefaultValue("height", 
-                            parseInt(dom_getInnerHeight(main)));
-                    }
+                    h = main.style.height ?
+                            parseInt(main.style.height) :
+                            parseInt(dom_getInnerHeight(main));
+                    h && config.setDefaultValue("height", h);
                 }
             }
 
-            this._currentSize = {
-                width: config.get("width"),
-                height: config.get("height")
-            };
+            w = config.get("width");
+            h = config.get("height");
+
+            if (w > 0 && h > 0) { 
+                this._currentSize = {width: w, height: h};
+                if (this._sizeInterval) {
+                    window.clearInterval(this._sizeInterval);
+                    this._sizeInterval = null;
+                }
+            }
+            else {
+                if (!this._sizeInterval) {
+                    this._sizeInterval = window.setInterval(this._sizeDelegate, 50);
+                }
+            }
+        }
+
+        if (canvas && this._currentSize) {
+            if (canvas.width != this._currentSize.width || 
+                canvas.height != this._currentSize.height) {
+                canvas.width = this._currentSize.width;
+                canvas.height = this._currentSize.height;
+                canvas.setAttribute("width", this._currentSize.width);
+                canvas.setAttribute("height", this._currentSize.height);
+            }
+            if (this._sizePromise && this._sizePromise.isPending()) {
+                // delay rendering
+                this._sizePromise.after(new MetaphorJs.lib.Promise(function(resolve){
+                    window.setTimeout(resolve, 100);
+                }));
+            }
+        }
+
+        if (this._currentSize && this._sizePromise.isPending()) {
+            this._sizePromise.resolve(this._currentSize);
         }
 
         return this._currentSize;
+    },
+    
+    getSizePromise: function() {
+        this.getSize();
+        return this._sizePromise;
     },
 
     getCanvasWidth: function() {
@@ -37976,6 +38187,7 @@ var ui_util_Canvas = MetaphorJs.ui.util.Canvas = app_Component.$extend({
 
     onDestroy: function() {
         this._renderQueue.$destroy();
+        this._sizePromise.$destroy();
         this.$super();
     }
 }, {
@@ -37991,6 +38203,8 @@ var ui_util_Canvas = MetaphorJs.ui.util.Canvas = app_Component.$extend({
         mousemove: true
     }
 });
+
+
 
 
 
@@ -38025,8 +38239,9 @@ var ui_util_Color = MetaphorJs.ui.util.Color = ui_util_Canvas.$extend({
     },
 
     afterAttached: function() {
-        this.$super();
-        this._renderQueue.add(this.updatePointer);
+        var self = this;
+        self.$super();
+        self.queueAction(self.updatePointer);
     },
 
 
@@ -38040,9 +38255,11 @@ var ui_util_Color = MetaphorJs.ui.util.Color = ui_util_Canvas.$extend({
     updateCoords: function(e) {
         var size = this.getSize();
         var ofs = dom_getOffset(this.getRefEl("main"));
-        var x = e.clientX - ofs.left;
-        var y = e.clientY - ofs.top;
-
+        var st = dom_getScrollTop();
+        var sl = dom_getScrollLeft();
+        var x = e.clientX + sl - ofs.left;
+        var y = e.clientY + st - ofs.top;
+        
         x < 0 && (x = 0);
         y < 0 && (y = 0);
         x > size.width && (x = size.width);
@@ -38162,14 +38379,14 @@ MetaphorJs.ui.util.ColorAlpha = ui_util_Color.$extend({
     setColor: function(color) {
         this._color.setColor(color);
         if (this._attached) {
-            this._renderQueue.add(this.renderCanvas);
+            this.queueAction(this.renderCanvas);
         }
     },
 
     setHue: function(hue) {
         this._color.setHSVA(hue);
         if (this._attached) {
-            this._renderQueue.add(this.renderCanvas);
+            this.queueAction(this.renderCanvas);
         }
     },
 
@@ -38182,7 +38399,7 @@ MetaphorJs.ui.util.ColorAlpha = ui_util_Color.$extend({
     
         if (alpha != prev) {
             if (this._attached) {
-                this._renderQueue.add(this.updatePointer);
+                this.queueAction(this.updatePointer);
             }
             this.trigger("change", alpha, prev);
         }
@@ -38326,7 +38543,7 @@ MetaphorJs.ui.util.ColorHue = ui_util_Color.$extend({
         var prev = this._hue;
         this._hue = hue;
         if (this._attached) {
-            this._renderQueue.add(this.updatePointer);
+            this.queueAction(this.updatePointer);
         }
         if (hue !== prev) {
             this.trigger("change", hue, prev);
@@ -38496,7 +38713,7 @@ MetaphorJs.ui.util.ColorSV = ui_util_Color.$extend({
             this._color.setHSVA(hue);
             this._hue = this._color.getH();
             if (this._attached) {
-                this._renderQueue.add(this.renderCanvas);
+                this.queueAction(this.renderCanvas);
             }
         }
     },
@@ -38510,7 +38727,7 @@ MetaphorJs.ui.util.ColorSV = ui_util_Color.$extend({
 
         if (prev[0] !== c.getS() || prev[1] !== c.getV()) {
             if (this._attached) {
-                this._renderQueue.add(this.updatePointer);
+                this.queueAction(this.updatePointer);
             }
 
             this._sv = sv;
@@ -38571,6 +38788,10 @@ MetaphorJs.ui.util.ColorSV = ui_util_Color.$extend({
             ptop,
             x, y,
             hsva;
+
+        if (!size || !size.width) {
+            return;
+        }
 
         // follow mouse
         if (this._drag) {

@@ -46,14 +46,14 @@ module.exports = MetaphorJs.ui.util.ColorAlpha = MetaphorJs.ui.util.Color.$exten
     setColor: function(color) {
         this._color.setColor(color);
         if (this._attached) {
-            this._renderQueue.add(this.renderCanvas);
+            this.queueAction(this.renderCanvas);
         }
     },
 
     setHue: function(hue) {
         this._color.setHSVA(hue);
         if (this._attached) {
-            this._renderQueue.add(this.renderCanvas);
+            this.queueAction(this.renderCanvas);
         }
     },
 
@@ -66,7 +66,7 @@ module.exports = MetaphorJs.ui.util.ColorAlpha = MetaphorJs.ui.util.Color.$exten
     
         if (alpha != prev) {
             if (this._attached) {
-                this._renderQueue.add(this.updatePointer);
+                this.queueAction(this.updatePointer);
             }
             this.trigger("change", alpha, prev);
         }

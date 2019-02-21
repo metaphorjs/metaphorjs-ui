@@ -42,7 +42,7 @@ module.exports = MetaphorJs.ui.util.ColorHue = MetaphorJs.ui.util.Color.$extend(
         var prev = this._hue;
         this._hue = hue;
         if (this._attached) {
-            this._renderQueue.add(this.updatePointer);
+            this.queueAction(this.updatePointer);
         }
         if (hue !== prev) {
             this.trigger("change", hue, prev);

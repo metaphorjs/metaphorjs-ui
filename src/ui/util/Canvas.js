@@ -6,9 +6,11 @@ require("metaphorjs-shared/src/lib/Queue.js");
 require("metaphorjs-shared/src/lib/Color.js");
 require("metaphorjs/src/func/dom/getInnerWidth.js");
 require("metaphorjs/src/func/dom/getInnerHeight.js");
+require("metaphorjs/src/func/dom/whenAttached.js");
 
 var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
-    async = require("metaphorjs-shared/src/func/async.js");
+    async = require("metaphorjs-shared/src/func/async.js"),
+    bind = require("metaphorjs-shared/src/func/bind.js");
 
 module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
     $class: "MetaphorJs.ui.util.Canvas",
@@ -18,6 +20,8 @@ module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
 
     _renderQueue: null,
     _currentSize: null,
+    _sizePromise: null,
+    _sizeInterval: null,
 
     initConfig: function() {
         this.$super();
@@ -32,6 +36,8 @@ module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
 
         var self = this;
 
+        self._sizeDelegate = bind(self.getSize, self);
+        self._sizePromise = new MetaphorJs.lib.Promise;
         self._renderQueue = new MetaphorJs.lib.Queue({
             async: "raf",
             auto: true,
@@ -40,24 +46,32 @@ module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
         });
     },
 
+    queueAction: function(fn) {
+        var self = this;
+        self.getSizePromise().done(function(){
+            self._renderQueue.add(fn);
+        });
+    },
+
     _onCfgWidthChange: function() {
         this._currentSize = null;
-        this._renderQueue.add(this.renderCanvas);
+        this.queueAction(this.renderCanvas);
     },
 
     _onCfgHeightChange: function() {
         this._currentSize = null;
-        this._renderQueue.add(this.renderCanvas);
+        this.queueAction(this.renderCanvas);
     },
 
     afterAttached: function() {
-        if (!this.config.has("width") || 
-            !this.config.has("height")) {
-            this._renderQueue.add(this.getSize);
-            async(this.renderCanvas, this, [], 100);    
-        }
-        else this._renderQueue.add(this.renderCanvas);
-        
+        var self = this,
+            canvas = this.getRefEl("canvas");
+
+        MetaphorJs.dom.whenAttached(canvas)
+            .done(function() {
+                self.queueAction(self.renderCanvas);
+            });
+
         this.config.on("width", this._onCfgWidthChange, this);
         this.config.on("height", this._onCfgHeightChange, this);
     },
@@ -76,6 +90,8 @@ module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
 
     getSize: function() {
 
+        var canvas = this.getRefEl("canvas");
+
         if (!this._currentSize) {
             var config = this.config;
 
@@ -85,34 +101,64 @@ module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
 
             if (!w) {
                 if (main) {
-                    if (main.style.width) {
-                        config.setDefaultValue("width", parseInt(main.style.width));
-                    }
-                    else {
-                        config.setDefaultValue("width", 
-                            parseInt(MetaphorJs.dom.getInnerWidth(main)));
-                    }
+                    w = main.style.width ? 
+                            parseInt(main.style.width) :
+                            parseInt(MetaphorJs.dom.getInnerWidth(main));
+                    w && config.setDefaultValue("width", w);
                 }
             }
             if (!h) {
                 if (main) {
-                    if (main.style.height) {
-                        config.setDefaultValue("height", parseInt(main.style.height));
-                    }
-                    else {
-                        config.setDefaultValue("height", 
-                            parseInt(MetaphorJs.dom.getInnerHeight(main)));
-                    }
+                    h = main.style.height ?
+                            parseInt(main.style.height) :
+                            parseInt(MetaphorJs.dom.getInnerHeight(main));
+                    h && config.setDefaultValue("height", h);
                 }
             }
 
-            this._currentSize = {
-                width: config.get("width"),
-                height: config.get("height")
-            };
+            w = config.get("width");
+            h = config.get("height");
+
+            if (w > 0 && h > 0) { 
+                this._currentSize = {width: w, height: h};
+                if (this._sizeInterval) {
+                    window.clearInterval(this._sizeInterval);
+                    this._sizeInterval = null;
+                }
+            }
+            else {
+                if (!this._sizeInterval) {
+                    this._sizeInterval = window.setInterval(this._sizeDelegate, 50);
+                }
+            }
+        }
+
+        if (canvas && this._currentSize) {
+            if (canvas.width != this._currentSize.width || 
+                canvas.height != this._currentSize.height) {
+                canvas.width = this._currentSize.width;
+                canvas.height = this._currentSize.height;
+                canvas.setAttribute("width", this._currentSize.width);
+                canvas.setAttribute("height", this._currentSize.height);
+            }
+            if (this._sizePromise && this._sizePromise.isPending()) {
+                // delay rendering
+                this._sizePromise.after(new MetaphorJs.lib.Promise(function(resolve){
+                    window.setTimeout(resolve, 100);
+                }));
+            }
+        }
+
+        if (this._currentSize && this._sizePromise.isPending()) {
+            this._sizePromise.resolve(this._currentSize);
         }
 
         return this._currentSize;
+    },
+    
+    getSizePromise: function() {
+        this.getSize();
+        return this._sizePromise;
     },
 
     getCanvasWidth: function() {
@@ -131,6 +177,7 @@ module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({
 
     onDestroy: function() {
         this._renderQueue.$destroy();
+        this._sizePromise.$destroy();
         this.$super();
     }
 }, {

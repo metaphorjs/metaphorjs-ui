@@ -7,6 +7,8 @@ require("metaphorjs-shared/src/lib/Color.js");
 require("metaphorjs/src/func/dom/addListener.js");
 require("metaphorjs/src/func/dom/removeListener.js");
 require("metaphorjs/src/func/dom/getOffset.js");
+require("metaphorjs/src/func/dom/getScrollTop.js");
+require("metaphorjs/src/func/dom/getScrollLeft.js");
 
 var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
     emptyFn = require("metaphorjs-shared/src/func/emptyFn.js"),
@@ -34,8 +36,9 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
     },
 
     afterAttached: function() {
-        this.$super();
-        this._renderQueue.add(this.updatePointer);
+        var self = this;
+        self.$super();
+        self.queueAction(self.updatePointer);
     },
 
 
@@ -49,9 +52,11 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
     updateCoords: function(e) {
         var size = this.getSize();
         var ofs = MetaphorJs.dom.getOffset(this.getRefEl("main"));
-        var x = e.clientX - ofs.left;
-        var y = e.clientY - ofs.top;
-
+        var st = MetaphorJs.dom.getScrollTop();
+        var sl = MetaphorJs.dom.getScrollLeft();
+        var x = e.clientX + sl - ofs.left;
+        var y = e.clientY + st - ofs.top;
+        
         x < 0 && (x = 0);
         y < 0 && (y = 0);
         x > size.width && (x = size.width);

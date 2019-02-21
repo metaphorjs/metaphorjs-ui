@@ -52,7 +52,7 @@ module.exports = MetaphorJs.ui.util.ColorSV = MetaphorJs.ui.util.Color.$extend({
             this._color.setHSVA(hue);
             this._hue = this._color.getH();
             if (this._attached) {
-                this._renderQueue.add(this.renderCanvas);
+                this.queueAction(this.renderCanvas);
             }
         }
     },
@@ -66,7 +66,7 @@ module.exports = MetaphorJs.ui.util.ColorSV = MetaphorJs.ui.util.Color.$extend({
 
         if (prev[0] !== c.getS() || prev[1] !== c.getV()) {
             if (this._attached) {
-                this._renderQueue.add(this.updatePointer);
+                this.queueAction(this.updatePointer);
             }
 
             this._sv = sv;
@@ -127,6 +127,10 @@ module.exports = MetaphorJs.ui.util.ColorSV = MetaphorJs.ui.util.Color.$extend({
             ptop,
             x, y,
             hsva;
+
+        if (!size || !size.width) {
+            return;
+        }
 
         // follow mouse
         if (this._drag) {
