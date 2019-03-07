@@ -149,6 +149,8 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
     setValue: function(color) {
         this._color.setColor(color);
         this._onChange();
+        this.scope.$check();
+        this._updateCanvas();
     },
     getValue: function() {
         return this._color;
