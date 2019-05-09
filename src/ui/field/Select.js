@@ -47,7 +47,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
         config.setType("searchable", "bool", null, false);
         config.setType("storeAutoLoad", "bool", null, true);
         config.setType("storePageSize", "int", null, 20);
-        config.setType("storeFilter", null, MetaphorJs.lib.Config.MODE_FUNC);
+        config.setType("storeFilter", null, MetaphorJs.lib.Config.MODE_LISTENER);
         config.setType("valueField", null, null, "id");
         config.setType("displayField", null, null, "name");
 
@@ -259,7 +259,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
 
         self._prevQuery = prev;
 
-        if (!self.store.local) {
+        if (!self.store.local && self.config.get("queryMode") !== "local") {
             if (query.length >= self.queryMinLength) {
                 self.searchQueue.append(
                     self.search,
@@ -287,7 +287,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
             self.store.update();
         }
 
-        
+        self.trigger("query-change", self, query, prev);
     },
 
     onSelectionChange: function() {
@@ -328,14 +328,16 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
     },
 
     storeFilter: function(item) {
-        var self = this;
+        var self = this,
+            config = self.config;
 
-        if (self.isSelected(item) && !self.config.get("keepSelectedOptions")) {
+        if (self.isSelected(item) && !config.get("keepSelectedOptions")) {
             return false;
         }
 
-        if (self.store.local && self.scope.searchQuery) {
-            var text = item[self.config.get("displayField")];
+        if ((config.get("queryMode") === "local" || self.store.local) && 
+            self.scope.searchQuery) {
+            var text = item[config.get("displayField")];
             if (text) {
                 if (self.storeFilterFn) {
                     return self.storeFilterFn(item, text, self.scope.searchQuery);
