@@ -102,7 +102,10 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
 
         self.store.on("loading-start", self.onStoreStartLoading, self);
         self.store.on("load", self.onStoreLoad, self);
-        self.store.filter(bind(self.storeFilter, self));
+
+        if (config.get("queryMode") !== "none") {
+            self.store.filter(bind(self.storeFilter, self));
+        }
 
         if (config.get("searchable")) {
             self.scope.$watch(
@@ -349,6 +352,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
                 }
             }
         }
+
         return true;
     },
 

@@ -26,7 +26,7 @@ module.exports = MetaphorJs.ui.mixin.Selectable = {
         return item.id;
     },
 
-    getSelection: function() {
+    getSelection: function(index) {
         var self = this,
             store = self.store,
             sels = self.$$selection,
@@ -38,7 +38,7 @@ module.exports = MetaphorJs.ui.mixin.Selectable = {
             items.push(store.getById(id) || self.$$_selectable_itemCache[id]);
         }
         
-        return items;
+        return index !== undefined ? items[index] : items;
     },
 
     toggleItemSelected: function(item) {
