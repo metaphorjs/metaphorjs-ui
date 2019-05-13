@@ -29,6 +29,7 @@
     <input type="text"
            ##search
            class="search"
+           [placeholder]="this.$cfg.placeholder"
            {readonly}="this.$cfg.readonly"
            {disabled}="this.$cfg.disabled"
            {show}="this.$cfg.searchable"
@@ -63,7 +64,7 @@
          {bind-html}="this.field.getSelectedName() || '&nbsp;'"></div>
 
      <i class="delete icon" ##icon_delete
-         {if}="!this.field.isMultiSelection() && this.field.hasSelection()"
+         {if}="this.$cfg.showSingleClear && !this.field.isMultiSelection() && this.field.hasSelection()"
          (click)="this.$view.onItemDeleteClick(this.field.getSelection(0), this.$event)"></i>
 
     <!-- replaces two previous text blocks with invisible placeholder -->

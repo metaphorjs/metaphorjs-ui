@@ -53,6 +53,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
 
         config.setType("showEmptyItem", "bool", null, true);
         config.setType("showNotFound", "bool", null, true);
+        config.setType("showSingleClear", "bool", null, false);
         config.setType("keepSelectedOptions", "bool", null, true);
         config.setType("cssDialog", "bool", null, false);
 
@@ -60,6 +61,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
         config.setType("emptyText", "string", null, "");
         config.setType("emptyItemText", "string", null, "&nbsp;");
         config.setType("notFoundText", "string", null, "Nothing found");
+        config.setType("placeholder", "string", null, "");
 
         config.setType("queryParam", "string", null, "q");
         config.setType("queryMinLength", "int", null, 3);
