@@ -1,0 +1,27 @@
+<div class="pagination" ##main>
+    <!--##before-->
+    <div class="item" {if}="!this.$cfg.simple">
+        {{ this.page }} of {{ this.pages }}
+    </div>
+    <div class="item" {if}="!!this.$cfg.simple">
+        {{ this.start + 1 }} &nbsp;&mdash;&nbsp;{{ this.end }}
+    </div>
+    <a href="#" class="arrow item"
+       ##arrow_left
+       {class.disabled}="!this.hasPrev || this.loading"
+       [disabled]="!this.hasPrev || this.loading"
+       (click)="this.pgn.onPrevClick()"></a>
+    <div class="item" 
+         {if}="!this.$cfg.simple">Page&nbsp;
+        <input type="text"
+                ##input
+                {model}="this.changePage"
+                (key.enter)="this.pgn.onPageKeyDown()">
+    </div>
+    <a href="#" class="arrow item"
+       ##arrow_right
+       {class.disabled}="!this.hasNext || this.loading"
+       [disabled]="!this.hasNext || this.loading"
+       (click)="this.pgn.onNextClick()"></a>
+    <!--##after-->
+</div>
