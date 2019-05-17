@@ -31,6 +31,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
     dialog: null,
 
     currentValue: null,
+    prevValue: null,
     currentName: null,
     resizeBuffer: null,
     _firstLoadSet: false,
@@ -41,7 +42,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
 
         var config = this.config;
 
-        config.setDefaultMode("options", MetaphorJs.lib.Config.MODE_SINGLE);
+        config.setDefaultMode("options", MetaphorJs.lib.Config.MODE_DYNAMIC);
         config.setDefaultMode("store", MetaphorJs.lib.Config.MODE_SINGLE);
 
         config.setType("searchable", "bool", null, false);
@@ -66,6 +67,8 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
         config.setType("queryParam", "string", null, "q");
         config.setType("queryMinLength", "int", null, 3);
         config.setType("queryMode", "string", null, "local");
+
+        config.on("options", this.setOptions, this);
     },
 
     initComponent: function() {
@@ -186,6 +189,8 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
             return;
         }
 
+        self.prevValue = self.currentValue;
+
         if (self.hasSelection() && 
             !self.isMultiSelection()) {
             self.$$observable.suspendEvent("change");
@@ -194,6 +199,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
         }
 
         if (!val) {
+            self.currentValue = null;
             return;
         }
 
@@ -297,8 +303,9 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
 
     onSelectionChange: function() {
         this.store.update();
+        self.prevValue = self.currentValue;
         this.currentValue = this.getValue();
-        this.trigger("change", this.currentValue, this);
+        this.trigger("change", this.currentValue, this, this.prevValue);
     },
 
     getItemValue: function(item) {
