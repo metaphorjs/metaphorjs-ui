@@ -140,7 +140,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
     onDestroy: function() {
         var self = this;
 
-        if (self.config.get("searchable")) {
+        if (!self.config.$isDestroyed() && self.config.get("searchable")) {
             self.scope.$unwatch(
                 "this.searchQuery",
                 self.onSearchQueryChange,
