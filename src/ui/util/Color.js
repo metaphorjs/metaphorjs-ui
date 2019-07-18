@@ -27,8 +27,12 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
         self.$super();
         self.scope.pointerLeft = null;
         self.scope.pointerTop = null;
+        self._mouseDownDelegate = bind(self.onMouseDown, self);
         self._mouseUpDelegate = bind(self.onMouseUp, self);
         self._mouseMoveDelegate = bind(self.onMouseMove, self);
+        self._touchDownDelegate = bind(self.onTouchDown, self);
+        self._touchUpDelegate = bind(self.onTouchUp, self);
+        self._touchMoveDelegate = bind(self.onTouchMove, self);
     },
 
     isDragging: function() {
@@ -39,6 +43,12 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
         var self = this;
         self.$super();
         self.queueAction(self.updatePointer);
+
+        var el = self.getRefEl("main");
+        MetaphorJs.dom.addListener(el, "mousedown", self._mouseDownDelegate);
+        MetaphorJs.dom.addListener(el, "touchstart", self._touchDownDelegate, {
+            passive: false
+        });
     },
 
 
@@ -50,13 +60,17 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
     /**Mouse handling */
 
     updateCoords: function(e) {
-        var size = this.getSize();
-        var ofs = MetaphorJs.dom.getOffset(this.getRefEl("main"));
-        var st = MetaphorJs.dom.getScrollTop();
-        var sl = MetaphorJs.dom.getScrollLeft();
-        var x = e.clientX + sl - ofs.left;
-        var y = e.clientY + st - ofs.top;
         
+        var size = this.getSize(),
+            evt = e.type.indexOf("touch") !== -1 ? e.changedTouches[0] : e,
+            clientX = evt.clientX,
+            clientY = evt.clientY,
+            ofs = MetaphorJs.dom.getOffset(this.getRefEl("main")),
+            st = MetaphorJs.dom.getScrollTop(),
+            sl = MetaphorJs.dom.getScrollLeft(),
+            x = clientX + sl - ofs.left,
+            y = clientY + st - ofs.top;
+
         x < 0 && (x = 0);
         y < 0 && (y = 0);
         x > size.width && (x = size.width);
@@ -66,16 +80,49 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
         this._lastY = y;
     },
 
-    onMouseDown: function(e) {
+    onTouchDown: function(e) {
+        e.preventDefault();
         var b = window.document.body;
-        MetaphorJs.dom.addListener(b, "mouseup", this._mouseUpDelegate);
-        MetaphorJs.dom.addListener(b, "mousemove", this._mouseMoveDelegate);
+
+        MetaphorJs.dom.addListener(b, "touchend", this._touchUpDelegate, {
+            passive: false
+        });
+        MetaphorJs.dom.addListener(b, "touchmove", this._touchMoveDelegate, {
+            passive: false
+        });
+
         this._drag = true;
-        
         this.updateCoords(e);
         this.updateColor(); 
         this.updatePointer();
     },
+
+    onTouchMove: function(e) {
+        e.preventDefault();
+        this.onMouseMove(e);
+    },
+
+    onTouchUp: function(e) {
+        e.preventDefault();
+        var b = window.document.body;
+        MetaphorJs.dom.removeListener(b, "touchend", this._touchUpDelegate);
+        MetaphorJs.dom.removeListener(b, "touchmove", this._touchMoveDelegate);
+        this.scope.$check();
+        this._drag = false;
+    },
+
+    onMouseDown: function(e) {
+        var b = window.document.body;
+
+        MetaphorJs.dom.addListener(b, "mouseup", this._mouseUpDelegate);
+        MetaphorJs.dom.addListener(b, "mousemove", this._mouseMoveDelegate);
+
+        this._drag = true;
+        this.updateCoords(e);
+        this.updateColor(); 
+        this.updatePointer();
+    },
+
     onMouseMove: function(e) {
         if (this._drag) {
             this.updateCoords(e);
@@ -84,6 +131,7 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
             this.scope.$check();
         }
     },
+
     onMouseUp: function(e) {
         var b = window.document.body;
         MetaphorJs.dom.removeListener(b, "mouseup", this._mouseUpDelegate);
