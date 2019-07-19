@@ -140,7 +140,7 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
             prev = this._prev;
         if (prev !== val) {
             this._prev = val;
-            this.trigger("change", val, prev);
+            this.trigger("change", val, prev, this._color, this);
         }
     },
 
