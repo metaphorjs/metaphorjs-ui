@@ -77,6 +77,14 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
         }
     },
 
+    onInputRgba: function(rgbaStr) {
+        rgbaStr = (""+rgbaStr).toLowerCase().trim();
+        rgbaStr = rgbaStr.replace(/\s+/g, '');
+        this._color.setColor(rgbaStr);
+        this._updateCanvas();
+        this._onChange();
+    },
+
     _onInputRGBA: function(r,g,b,a) {
         this._color.setRGBA(r,g,b,a);
         this._updateCanvas();
