@@ -469,6 +469,8 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
         self.dialog.on("show", self.onDialogShow, self);
         self.dialog.on("hide", self.onDialogHide, self);
         self.dialog.on("before-show", self.onBeforeDialogShow, self);
+
+        self.$$observable.relayEvent(self.dialog, "*", null, "menu-");
     }
 }, {
 
