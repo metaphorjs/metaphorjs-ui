@@ -15,7 +15,7 @@ require("metaphorjs/src/func/dom/getStyle.js");
 
 require("./view/Select.js");
 
-var async = require("metaphorjs-shared/src/func/async.js"),
+const async = require("metaphorjs-shared/src/func/async.js"),
     bind = require("metaphorjs-shared/src/func/bind.js"),
     isArray = require("metaphorjs-shared/src/func/isArray.js"),
     MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");

@@ -5,7 +5,7 @@ require("metaphorjs/src/lib/Config.js");
 require("../menu/Menu.js");
 require("./Item.js");
 
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
+const MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 
 module.exports = MetaphorJs.ui.menu.Toolbar = MetaphorJs.ui.menu.Menu.$extend({
     $class: "MetaphorJs.ui.menu.Toolbar",

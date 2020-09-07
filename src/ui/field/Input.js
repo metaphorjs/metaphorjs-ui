@@ -4,7 +4,7 @@ require("./Field.js");
 require("metaphorjs/src/lib/Input.js");
 require("metaphorjs/src/lib/Config.js");
 
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
+const MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
     bind = require("metaphorjs-shared/src/func/bind.js");
 
 

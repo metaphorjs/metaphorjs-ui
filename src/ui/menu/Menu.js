@@ -4,7 +4,7 @@ require("metaphorjs/src/app/Container.js");
 require("metaphorjs/src/lib/Config.js");
 require("./Item.js");
 
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
+const MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
     ns = require("metaphorjs-namespace/src/var/ns.js");
 
 module.exports = MetaphorJs.ui.menu.Menu = MetaphorJs.app.Container.$extend({

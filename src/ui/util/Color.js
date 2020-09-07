@@ -10,7 +10,7 @@ require("metaphorjs/src/func/dom/getOffset.js");
 require("metaphorjs/src/func/dom/getScrollTop.js");
 require("metaphorjs/src/func/dom/getScrollLeft.js");
 
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
+const MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
     emptyFn = require("metaphorjs-shared/src/func/emptyFn.js"),
     bind = require("metaphorjs-shared/src/func/bind.js");
 

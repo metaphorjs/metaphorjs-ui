@@ -4,7 +4,7 @@ require("metaphorjs/src/lib/Config.js");
 require("./Color.js");
 require("metaphorjs-shared/src/lib/Color.js");
 
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
+const MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 
 module.exports = MetaphorJs.ui.util.ColorAlpha = MetaphorJs.ui.util.Color.$extend({
     $class: "MetaphorJs.ui.util.ColorAlpha",

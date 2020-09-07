@@ -4,7 +4,7 @@ require("metaphorjs/src/lib/Config.js");
 require("metaphorjs/src/directive/attr/bind.js");
 require("metaphorjs/src/directive/attr/model.js");
 
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),    
+const MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),    
     emptyFn = require("metaphorjs-shared/src/func/emptyFn.js");
 
 module.exports = MetaphorJs.ui.field.Field = MetaphorJs.app.Container.$extend({

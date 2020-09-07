@@ -1,7 +1,7 @@
 
 require("metaphorjs/src/lib/Config.js");
 
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
+const MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 
 module.exports = MetaphorJs.ui.mixin.Selectable = {
 

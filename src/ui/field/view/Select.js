@@ -2,7 +2,7 @@
 require("../../../__init.js");
 require("metaphorjs/src/app/component/View.js");
 require("metaphorjs/src/lib/EventBuffer.js");
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
+const MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 
 module.exports = MetaphorJs.ui.field.view.Select = MetaphorJs.app.component.View.$extend({
 

@@ -8,7 +8,7 @@ require("metaphorjs/src/func/dom/getInnerWidth.js");
 require("metaphorjs/src/func/dom/getInnerHeight.js");
 require("metaphorjs/src/func/dom/whenAttached.js");
 
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
+const MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
     bind = require("metaphorjs-shared/src/func/bind.js");
 
 module.exports = MetaphorJs.ui.util.Canvas = MetaphorJs.app.Component.$extend({

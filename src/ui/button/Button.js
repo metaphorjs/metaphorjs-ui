@@ -6,7 +6,7 @@ require("../mixin/WithActiveState.js");
 require("../mixin/WithText.js");
 require("../mixin/WithDropdown.js");
 
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
+const MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 
 module.exports = MetaphorJs.ui.button.Button = MetaphorJs.app.Container.$extend({
     $mixins: [MetaphorJs.ui.mixin.WithActiveState, 

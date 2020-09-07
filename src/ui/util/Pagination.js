@@ -2,7 +2,7 @@ require("metaphorjs/src/lib/Config.js");
 require("metaphorjs/src/app/Container.js");
 require("metaphorjs/src/func/dom/getOffset.js");
 require("metaphorjs/src/func/dom/getScrollParent.js");
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
+const MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
 
 
 module.exports = MetaphorJs.ui.util.Pagination = MetaphorJs.app.Container.$extend({
