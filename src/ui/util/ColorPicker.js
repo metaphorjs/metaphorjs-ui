@@ -8,7 +8,8 @@ require("./ColorSV.js");
 require("./ColorHue.js");
 require("./ColorAlpha.js");
 
-var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
+var MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js"),
+    emptyFn = require("metaphorjs-shared/src/func/emptyFn.js");
 
 module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$extend({
     $class: "MetaphorJs.ui.util.ColorPicker",
