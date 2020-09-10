@@ -74,7 +74,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
     initComponent: function() {
 
         var self = this,
-            scope = self.scope,
+            state = self.state,
             config = self.config;
 
         self._prevQuery = "";
@@ -84,10 +84,10 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
             mode: MetaphorJs.lib.Queue.REPLACE
         });
 
-        scope.loading = false;
-        scope.opened = false;
-        scope.searchQuery = "";
-        scope.focused = false;
+        state.loading = false;
+        state.opened = false;
+        state.searchQuery = "";
+        state.focused = false;
 
         if (config.hasExpression("store")) {
             self.store = config.get("store");
@@ -113,7 +113,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
         }
 
         if (config.get("searchable")) {
-            self.scope.$watch(
+            self.state.$watch(
                 "this.searchQuery",
                 self.onSearchQueryChange,
                 self
@@ -141,7 +141,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
         var self = this;
 
         if (!self.config.$isDestroyed() && self.config.get("searchable")) {
-            self.scope.$unwatch(
+            self.state.$unwatch(
                 "this.searchQuery",
                 self.onSearchQueryChange,
                 self
@@ -218,8 +218,8 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
             self.currentName = name;
             self.selectItemById(val);
         }
-        if (!self.scope.$$checking) {
-            self.scope.$check();
+        if (!self.state.$$checking) {
+            self.state.$check();
         }
     },
 
@@ -317,7 +317,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
     },
 
     onStoreStartLoading: function() {
-        this.scope.$set('loading', true);
+        this.state.$set('loading', true);
     },
 
     onStoreLoad: function() {
@@ -336,7 +336,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
                 self.$$observable.resumeEvent("selection-change");
             }
         }
-        self.scope.$set('loading', false);
+        self.state.$set('loading', false);
     },
 
     storeFilter: function(item) {
@@ -348,15 +348,15 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
         }
 
         if ((config.get("queryMode") === "local" || self.store.local) && 
-            self.scope.searchQuery) {
+            self.state.searchQuery) {
             var text = item[config.get("displayField")];
             if (text) {
                 if (self.storeFilterFn) {
-                    return self.storeFilterFn(item, text, self.scope.searchQuery);
+                    return self.storeFilterFn(item, text, self.state.searchQuery);
                 }
                 else {
                     return (""+text).toLowerCase().indexOf(
-                        self.scope.searchQuery.toLowerCase()
+                        self.state.searchQuery.toLowerCase()
                     ) !== -1;
                 }
             }
@@ -409,11 +409,11 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
     },
 
     onDialogShow: function() {
-        this.scope.$set('opened', true);
+        this.state.$set('opened', true);
     },
 
     onDialogHide: function() {
-        this.scope.$set('opened', false);
+        this.state.$set('opened', false);
         MetaphorJs.dom.removeClass(this.node, "active");
     },
 

@@ -137,12 +137,12 @@ module.exports = MetaphorJs.ui.util.ColorAlpha = MetaphorJs.ui.util.Color.$exten
         mouse < 0 && (mouse = 0);
         mouse > size[skey] && (mouse = size[skey]);
 
-        this.scope[pkeySec] = "50%";
-        this.scope[pkeyPrim] = parseInt(mouse) + "px";
+        this.state[pkeySec] = "50%";
+        this.state[pkeyPrim] = parseInt(mouse) + "px";
 
         // if pointer is updated via renderQueue
         if (!this._drag) {
-            this.scope.$check();
+            this.state.$check();
         }
     }
 }, {

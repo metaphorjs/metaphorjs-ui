@@ -14,18 +14,18 @@ module.exports = MetaphorJs.ui.util.Pagination = MetaphorJs.app.Container.$exten
 
     initComponent: function() {
 
-        var scope = this.scope;
+        var state = this.state;
 
-        scope.start = 0;
-        scope.limit = 0;
-        scope.total = 0;
-        scope.pages = 0;
-        scope.page = 0;
-        scope.hasPrev = 0;
-        scope.hasNext = 0;
-        scope.loading = false;
-        scope.changePage = 0;
-        scope.hidden = true;
+        state.start = 0;
+        state.limit = 0;
+        state.total = 0;
+        state.pages = 0;
+        state.page = 0;
+        state.hasPrev = 0;
+        state.hasNext = 0;
+        state.loading = false;
+        state.changePage = 0;
+        state.hidden = true;
 
         var store = this.config.get("store") || (
                         this.parentCmp ? this.parentCmp.store : null
@@ -64,7 +64,7 @@ module.exports = MetaphorJs.ui.util.Pagination = MetaphorJs.app.Container.$exten
     },
 
     onStoreStartLoading: function() {
-        this.scope.$set({
+        this.state.$set({
             loading: true
         });
     },
@@ -93,7 +93,7 @@ module.exports = MetaphorJs.ui.util.Pagination = MetaphorJs.app.Container.$exten
             pages = Math.ceil(total / pageSize);
             page = Math.floor(start / pageSize) + 1;
 
-            this.scope.$set({
+            this.state.$set({
                 start: start,
                 end: Math.min(start + pageSize, total),
                 limit: pageSize,
@@ -110,7 +110,7 @@ module.exports = MetaphorJs.ui.util.Pagination = MetaphorJs.app.Container.$exten
         else {
             count = store.getLength();
 
-            this.scope.$set({
+            this.state.$set({
                 loading: false,
                 start: start,
                 end: start + count,
@@ -134,27 +134,27 @@ module.exports = MetaphorJs.ui.util.Pagination = MetaphorJs.app.Container.$exten
 
     hasPages: function() {
         return !this.config.get("simple") ?
-            this.scope.pages > 1 :
+            this.state.pages > 1 :
             true;
     },
 
     onPageKeyDown: function() {
 
-        var page = this.scope.changePage;
+        var page = this.state.changePage;
         if (isNaN(page)) {
             page = 1;
         }
         if (page < 1) {
             page = 1;
         }
-        if (page > this.scope.pages) {
-            page = this.scope.pages;
+        if (page > this.state.pages) {
+            page = this.state.pages;
         }
-        this.scope.$set({
+        this.state.$set({
             page: page
         });
 
-        this.store.loadPage((this.scope.page - 1) * this.scope.limit);
+        this.store.loadPage((this.state.page - 1) * this.state.limit);
         this.scrollToParent();
     },
 

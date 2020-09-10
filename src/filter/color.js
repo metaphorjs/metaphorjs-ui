@@ -9,7 +9,7 @@ const MetaphorJs = require("metaphorjs-shared/src/MetaphorJs.js");
  * @param {string} format
  * @returns {*}
  */
-MetaphorJs.filter.color = function(val, scope, prop) {
+MetaphorJs.filter.color = function(val, state, prop) {
     var c = new MetaphorJs.lib.Color(val);
     return c.getAs(prop);
 }

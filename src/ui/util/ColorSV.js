@@ -156,12 +156,12 @@ module.exports = MetaphorJs.ui.util.ColorSV = MetaphorJs.ui.util.Color.$extend({
             ptop = (100-hsva[2]) + "%";
         }
 
-        this.scope.pointerLeft = pleft;
-        this.scope.pointerTop = ptop;
+        this.state.pointerLeft = pleft;
+        this.state.pointerTop = ptop;
 
         // if pointer is updated via renderQueue
         if (!this._drag) {
-            this.scope.$check();
+            this.state.$check();
         }
     }
 }, {

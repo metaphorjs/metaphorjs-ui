@@ -25,8 +25,8 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
     initComponent: function() {
         var self = this;
         self.$super();
-        self.scope.pointerLeft = null;
-        self.scope.pointerTop = null;
+        self.state.pointerLeft = null;
+        self.state.pointerTop = null;
         self._mouseDownDelegate = bind(self.onMouseDown, self);
         self._mouseUpDelegate = bind(self.onMouseUp, self);
         self._mouseMoveDelegate = bind(self.onMouseMove, self);
@@ -107,7 +107,7 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
         var b = window.document.body;
         MetaphorJs.dom.removeListener(b, "touchend", this._touchUpDelegate);
         MetaphorJs.dom.removeListener(b, "touchmove", this._touchMoveDelegate);
-        this.scope.$check();
+        this.state.$check();
         this._drag = false;
     },
 
@@ -128,7 +128,7 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
             this.updateCoords(e);
             this.updateColor();        
             this.updatePointer();
-            this.scope.$check();
+            this.state.$check();
         }
     },
 
@@ -136,7 +136,7 @@ module.exports = MetaphorJs.ui.util.Color = MetaphorJs.ui.util.Canvas.$extend({
         var b = window.document.body;
         MetaphorJs.dom.removeListener(b, "mouseup", this._mouseUpDelegate);
         MetaphorJs.dom.removeListener(b, "mousemove", this._mouseMoveDelegate);
-        this.scope.$check();
+        this.state.$check();
         this._drag = false;
     },
 

@@ -16,7 +16,7 @@ module.exports = MetaphorJs.ui.menu.Menu = MetaphorJs.app.Container.$extend({
         if (def.__containerItemDef) {
             return def;
         }
-        !def.scope && (def.scope = this.scope.$new());
+        !def.state && (def.state = this.state.$new());
         var itemCls = this.$self.classes.item;
         typeof itemCls === "string" && (itemCls = ns.get(itemCls));
         return itemCls.createFromPlainObject(def);

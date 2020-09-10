@@ -66,7 +66,7 @@ module.exports = MetaphorJs.ui.field.view.Select = MetaphorJs.app.component.View
             MetaphorJs.dom.getWidth(window) < 
                 cmp.config.get("hiddenSelectBreakpoint")
         );
-        cmp.scope.$check();
+        cmp.state.$check();
     },
 
     initSizer: function() {
@@ -98,13 +98,13 @@ module.exports = MetaphorJs.ui.field.view.Select = MetaphorJs.app.component.View
             return;
         }
 
-        if (cmp.scope.focused &&
+        if (cmp.state.focused &&
             cmp.dialog.isVisible()) {
             e.stopPropagation();
             return;
         }
 
-        if (cmp.config.get("searchable") && !cmp.scope.focused) {
+        if (cmp.config.get("searchable") && !cmp.state.focused) {
             async(self.setSearchFocus, self);
             e.stopPropagation();
         }
@@ -149,7 +149,7 @@ module.exports = MetaphorJs.ui.field.view.Select = MetaphorJs.app.component.View
 
         e.stopPropagation();
 
-        cmp.scope.$set("searchQuery", "");
+        cmp.state.$set("searchQuery", "");
 
         if (!cmp.isMultiSelection()) {
             cmp.dialog.hide();
@@ -186,7 +186,7 @@ module.exports = MetaphorJs.ui.field.view.Select = MetaphorJs.app.component.View
 
     onSearchFocus: function(e) {
         var cmp = this.component;
-        cmp.scope.$set("focused", true);
+        cmp.state.$set("focused", true);
         if (!cmp.dialog.isVisible()) {
             cmp.dialog.show();
             e.stopPropagation();
@@ -195,7 +195,7 @@ module.exports = MetaphorJs.ui.field.view.Select = MetaphorJs.app.component.View
 
     onSearchBlur: function(e) {
         var cmp = this.component;
-        cmp.scope.$set("focused", false);
+        cmp.state.$set("focused", false);
         if (!cmp.dialog.isVisible()) {
             cmp.dialog.show();
             e.stopPropagation();
@@ -204,7 +204,7 @@ module.exports = MetaphorJs.ui.field.view.Select = MetaphorJs.app.component.View
 
     onSearchBackspace: function() {
         var cmp = this.component;
-        if (!cmp.scope.searchQuery) {
+        if (!cmp.state.searchQuery) {
             if (!cmp._prevQuery) {
                 if (cmp.hasSelection()) {
                     cmp.unselectItemById(

@@ -24,7 +24,7 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
 
     initComponent: function() {
         this.$super();
-        this._color = this.scope.color = new MetaphorJs.lib.Color(null, "hsva");
+        this._color = this.state.color = new MetaphorJs.lib.Color(null, "hsva");
         this._color.setColor(this.config.get("color"));
         this._prev = this._color.getHSVAString();
     },
@@ -57,7 +57,7 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
         hue && hue.setValue(c.getH());
         alpha && alpha.setValue(c.getAlpha());
 
-        this.scope.$check();
+        this.state.$check();
         this._updating = false;
     },
 
@@ -158,7 +158,7 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
     setValue: function(color) {
         this._color.setColor(color);
         this._onChange();
-        this.scope.$check();
+        this.state.$check();
         this._updateCanvas();
     },
     getValue: function() {

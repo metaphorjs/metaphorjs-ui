@@ -22,7 +22,7 @@ module.exports = MetaphorJs.ui.menu.Item = MetaphorJs.app.Container.$extend({
     },
 
     initComponent: function() {
-        this.scope.tpl = this.$self.templates.item;
+        this.state.tpl = this.$self.templates.item;
         this.$super.apply(this, arguments);
     },
 
@@ -30,14 +30,14 @@ module.exports = MetaphorJs.ui.menu.Item = MetaphorJs.app.Container.$extend({
         var self = this;
         
         if (item.type === "component") {
-            self.scope.tpl = self.$self.templates.container;
+            self.state.tpl = self.$self.templates.container;
         }
 
         self.$super();
     },
 
     _onDropdownCreated: function(component) {
-        this.scope.tpl = this.$self.templates.submenu;
+        this.state.tpl = this.$self.templates.submenu;
     },
 
     onClick: function(ev) {
