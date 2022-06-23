@@ -76,12 +76,12 @@ cls({
     $class: "Test.ContainerApp",
     $extends: "MetaphorJs.app.App",
 
-    initApp: function(node, scope) {
+    initApp: function(node, state) {
 
         window.mainApp = this;
 
-        scope.bindText = "AAA";
-        scope.$makePublicDefault();
+        state.bindText = "AAA";
+        state.$makePublicDefault();
 
         var div = document.createElement("div");
         div.innerHTML = 'Dynamicly created node';
@@ -101,7 +101,7 @@ cls({
                 new Test.container.Cmp3({
                     id: "child3",
                     directives: {
-                        scope: scope,
+                        state: state,
                         "bind-html": {
                             value: {
                                 expression: "this.bindText"
@@ -134,7 +134,7 @@ cls({
     $class: "Test.UIApp",
     $extends: "MetaphorJs.app.App",
 
-    initApp: function(node, scope) {
+    initApp: function(node, state) {
 
         window.mainApp = this;
         window.cls = cls;
