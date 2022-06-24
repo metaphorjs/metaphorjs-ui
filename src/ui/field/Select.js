@@ -40,7 +40,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
 
         this.$super();
 
-        var config = this.config;
+        const config = this.config;
 
         config.setDefaultMode("options", MetaphorJs.lib.Config.MODE_DYNAMIC);
         config.setDefaultMode("store", MetaphorJs.lib.Config.MODE_SINGLE);
@@ -56,7 +56,6 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
         config.setType("showNotFound", "bool", null, true);
         config.setType("showSingleClear", "bool", null, false);
         config.setType("keepSelectedOptions", "bool", null, true);
-        config.setType("cssDialog", "bool", null, false);
 
         config.setType("hiddenInputName", "string", null, "");
         config.setType("emptyText", "string", null, "");
@@ -73,7 +72,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
 
     initComponent: function() {
 
-        var self = this,
+        const self = this,
             state = self.state,
             config = self.config;
 
@@ -125,7 +124,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
         }
         else self.storeFilterFn = null;
 
-        if (config.hasExpression("options")) {
+        if (config.has("options")) {
             self.setOptions(config.get("options"));
         }
 
@@ -419,12 +418,13 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
 
     initDialog: function() {
 
-        var self = this,
-            cssD = self.config.get("cssDialog"),
-            render,
+        const self = this;
+        const customCmp = self.getRefCmp("menu");
+        const customEl = self.getRefEl("menu") || (customCmp && customCmp.getRefEl("main"));
+        let render,
             position;
 
-        if (cssD) {
+        if (!customEl) {
             position = false;
             render = {
                 el: self.getRefEl("menu_items"),
@@ -438,7 +438,7 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
                 offsetY: 1
             };
             render = {
-                el: self.getRefEl("menu"),
+                el: customEl,
                 zIndex: 100,
                 appendTo: document.body,
                 style: {

@@ -160,7 +160,16 @@ cls({
                 '|',
                 {
                     text: "Test"
-                }
+                },
+                new MetaphorJs.ui.field.Select({
+                    config: {
+                        fluid: true,
+                        showEmptyItem: false,
+                        options: [
+                            { id: 1, name: "A" }
+                        ]
+                    }
+                })
             ]
         });
     },

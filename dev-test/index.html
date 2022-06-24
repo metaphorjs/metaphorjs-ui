@@ -75,6 +75,7 @@
                                 {bind}="this.$root.sval"></div>
                     </ui-menu-item>
                     <ui-input {class}:="transparent" 
+                                {model}="this.$root.sval"
                                 $placeholder:="Input field"
                                 $type="number"></ui-input>
                     <ui-select 
@@ -83,11 +84,45 @@
                         $keep-selected-options:="false"
                         $empty-item-text:="Nope"
                         $searchable
-                        $css-dialog
+                        $fluid
                         {model}="this.$root.sval"
                         $selection-mode="single">
+                        <ui-menu 
+                            $ref="menu"
+                            {style.margin-top}="0"
+                            (click.$stop-propagation)
+                            {class.transition}
+                            {class.ui}>
+                            <ui-input 
+                                (click.$stop-propagation)
+                                {class.transparent}
+                                {class.fluid}
+                                {model}="this.$root.sval"
+                                $placeholder:="Input field"
+                                $type="number"></ui-input>
+                        </ui-menu>
+                    </ui-select>
+                    <ui-select 
+                        $empty-text:="Nothing selected" 
+                        $options*="this.$root.options"
+                        $keep-selected-options:="false"
+                        $empty-item-text:="Nope"
+                        $searchable
+                        $fluid
+                        {model}="this.$root.sval"
+                        $selection-mode="single">
+                        <div class="menu transition" #menu>
+                            <a   class="item"
+                                 href="#"
+                                 {each}="item in this.field.store"
+                                 (click)="this.$parent.$view.onItemClick(this.item, this.$event)"
+                                 {bind}="this.$parent.field.getItemName(this.item)"></a>
+                       </div>
                     </ui-select>
                 </ui-menu>
+            </div>
+
+            <div class="double case">
                 <p>Menu code</p>
                 <!--##dynamic-menu-->
             </div>
@@ -104,7 +139,9 @@
                                 {bind}="this.$root.sval"></div>
                     </ui-toolbar-item>
                     <ui-menu {class.right} {class.ui}="false">
-                        <ui-input {class}:="transparent" 
+                        <ui-input 
+                            {class}:="transparent" 
+                            {model}="this.$root.sval"
                             $placeholder:="Input field"
                             $type="number"></ui-input>
                     </ui-menu>
