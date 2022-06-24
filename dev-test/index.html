@@ -7,25 +7,14 @@
     </head>
     <body>
         <div class="cases" mjs-app="Test.UIApp">
-            <div class="case double" 
-                {init}="
-                    this.sval = 2;
-                    this.options = [
-                        {id: 1, name: 'AAA'},
-                        {id: 2, name: 'BBB'},
-                        {id: 3, name: 'CCC'}
-                    ]
-                ">
+            <div class="case double">
                 <p>Inputs</p>
-                
-                
                 <ui-select 
                     $empty-text:="Nothing selected" 
                     $options*="this.options"
                     $keep-selected-options:="false"
                     $empty-item-text:="Nope"
                     $searchable
-                    $css-dialog
                     {model}="this.sval"
                     $selection-mode="single">
                     <i class="tags icon" @before></i>
@@ -111,12 +100,14 @@
                         $fluid
                         {model}="this.$root.sval"
                         $selection-mode="single">
-                        <div class="menu transition" #menu>
+                        <div ##menu 
+                            class="ui menu transition"
+                            {style.margin-top}="0">
                             <a   class="item"
                                  href="#"
                                  {each}="item in this.field.store"
                                  (click)="this.$parent.$view.onItemClick(this.item, this.$event)"
-                                 {bind}="this.$parent.field.getItemName(this.item)"></a>
+                                 {bind}="'Sub ' + this.$parent.field.getItemName(this.item)"></a>
                        </div>
                     </ui-select>
                 </ui-menu>

@@ -139,6 +139,15 @@ cls({
         window.mainApp = this;
         window.cls = cls;
 
+        this.state.$set({
+            sval: 2,
+            options: [
+                {id: 1, name: 'AAA'},
+                {id: 2, name: 'BBB'},
+                {id: 3, name: 'CCC'}
+            ]
+        })
+
         this.menu1 = new MetaphorJs.ui.menu.Menu({
             directives:{
                 "class": "vertical"
