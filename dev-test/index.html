@@ -129,7 +129,9 @@
                                 {show}="!!this.$root.sval"
                                 {bind}="this.$root.sval"></div>
                     </ui-toolbar-item>
-                    <ui-menu {class.right} {class.ui}="false">
+                    <ui-menu 
+                        {class.right} 
+                        {class.ui}="false">
                         <ui-input 
                             {class}:="transparent" 
                             {model}="this.$root.sval"
@@ -140,7 +142,38 @@
             </div>
 
             <div class="double case">
-                <ui-checkbox></ui-checkbox>
+                <ui-checkbox
+                    $label="Checkbox 1"
+                    {class}:="slider"
+                    {model}="this.$root.check"></ui-checkbox>
+                <br/>
+                <ui-checkbox
+                    $label="Checkbox 2 (with {show})"
+                    {show}="this.$root.check"
+                    $on--change="console.log(this.$1)"></ui-checkbox>
+                <br/>
+                <ui-checkbox
+                    $label="Checkbox 3 (with {if})"
+                    {if}="this.$root.check"
+                    {bind}="this.$root.check"></ui-checkbox>
+                <br/>
+                <ui-radio
+                    $name="radio"
+                    $input-value:="1"
+                    $label="Radio 1"
+                    {model}="this.$root.sval"></ui-radio>
+                <br/>
+                <ui-radio
+                    $name="radio"
+                    $input-value:="2"
+                    $label="Radio 2"
+                    {model}="this.$root.sval"></ui-radio>
+                <br/>
+                <ui-radio
+                    $name="radio"
+                    $input-value:="3"
+                    $label="Radio 3"
+                    {model}="this.$root.sval"></ui-radio>
             </div>
         </div>
     </body>

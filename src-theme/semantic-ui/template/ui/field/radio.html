@@ -1,15 +1,16 @@
-<div ##main class="ui checkbox" 
+<div ##main class="ui radio checkbox" 
     {class.active}="this.$cfg.active"
     {class.checked}="this.checked"
     {class.disabled}="this.$cfg.disabled">
-    <input type="checkbox" 
+    <input type="radio" 
             ##input
             [disabled]="this.$cfg.disabled"
-            [id]="'checkbox_' + this.$cfg.id"
-            [name]="this.$cfg.name" 
+            [id]="'radio_' + this.$cfg.id"
+            [name]="this.$cfg.name"
+            [value]="this.$cfg.inputValue" 
             {model}="this.checked">
     <label 
         ##label
-        [for]="'checkbox_' + this.$cfg.id"
+        [for]="'radio_' + this.$cfg.id"
         {bind}="this.$cfg.label"></label>
 </div>

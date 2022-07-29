@@ -487,6 +487,6 @@ module.exports = MetaphorJs.ui.field.Select = MetaphorJs.ui.field.Field.$extend(
         mousedown: true, 
         mouseup: true,
         mousemove: true,
-        field: true
+        validate: true
     }
 });

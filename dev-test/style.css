@@ -223,3 +223,9 @@ label.case-label {
 .dialog a {
     color: #fff;
 }
+
+
+.ui.checkbox label {
+    user-select: none;
+    cursor: pointer;
+}

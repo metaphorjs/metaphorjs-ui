@@ -141,6 +141,8 @@ cls({
 
         this.state.$set({
             sval: 2,
+            rval: "1",
+            check: false,
             options: [
                 {id: 1, name: 'AAA'},
                 {id: 2, name: 'BBB'},

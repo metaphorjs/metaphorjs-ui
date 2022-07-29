@@ -47,7 +47,7 @@ module.exports = {
     plugins: [
         new WatchExternalFilesPlugin({
             files: [
-                './src/templates/**/*.html'
+                './src-theme/templates/**/*.html'
             ]
         }),
         builder.getTemplateWatcher()

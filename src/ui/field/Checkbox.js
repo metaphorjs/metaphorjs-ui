@@ -14,8 +14,8 @@ module.exports = MetaphorJs.ui.field.Checkbox = MetaphorJs.ui.field.Field.$exten
     template: "ui/field/checkbox.html",
 
     afterRender: function() {
-        var self = this,
-            input;
+        const self = this;
+        let input;
 
         if (self.$refs.node.input) {
             self.input = input = MetaphorJs.lib.Input.get(self.$refs.node.input);
@@ -33,6 +33,7 @@ module.exports = MetaphorJs.ui.field.Checkbox = MetaphorJs.ui.field.Field.$exten
     supportsDirectives: {
         bind: "input",
         model: "input",
+        if: true,
         show: true,
         hide: true,
         class: true,
@@ -43,6 +44,6 @@ module.exports = MetaphorJs.ui.field.Checkbox = MetaphorJs.ui.field.Field.$exten
         mousedown: true, 
         mouseup: true,
         mousemove: true,
-        field: true
+        validate: true
     }
 });

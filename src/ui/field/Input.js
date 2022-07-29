@@ -40,6 +40,7 @@ module.exports = MetaphorJs.ui.field.Input = MetaphorJs.ui.field.Field.$extend({
     supportsDirectives: {
         bind: "input",
         model: "input",
+        if: true,
         show: true,
         hide: true,
         class: true,
