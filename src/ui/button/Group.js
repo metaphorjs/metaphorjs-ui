@@ -12,6 +12,7 @@ module.exports = MetaphorJs.ui.button.Group = MetaphorJs.app.Container.$extend({
     allowUnwrapped: ["MetaphorJs.ui.button.Button"],
     wrapper: "MetaphorJs.ui.button.Button",
     supportsDirectives: {
+        if: true,
         show: true,
         hide: true,
         class: true,

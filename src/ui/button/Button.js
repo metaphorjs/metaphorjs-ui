@@ -27,6 +27,7 @@ module.exports = MetaphorJs.ui.button.Button = MetaphorJs.app.Container.$extend(
     },
 
     supportsDirectives: {
+        if: true,
         show: true,
         hide: true,
         class: true,
