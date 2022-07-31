@@ -27,6 +27,8 @@ module.exports = MetaphorJs.ui.util.ColorPicker = MetaphorJs.app.Container.$exte
         this._color = this.state.color = new MetaphorJs.lib.Color(null, "hsva");
         this._color.setColor(this.config.get("color"));
         this._prev = this._color.getHSVAString();
+
+        console.log(this.state)
     },
 
     initConfig: function() {
